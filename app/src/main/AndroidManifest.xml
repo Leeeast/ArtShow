@@ -18,7 +18,6 @@
         </activity>
         <activity
             android:name=".base.BaseActivity"
-            android:label="@string/title_activity_base"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

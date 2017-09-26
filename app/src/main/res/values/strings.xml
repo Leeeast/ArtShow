@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">演圈</string>
 
+    <string name="main_tab_show_circle">演圈</string>
+    <string name="main_tab_discover">发现</string>
+    <string name="main_tab_collaborate">合作</string>
+    <string name="main_tab_me">我</string>
 
 </resources>

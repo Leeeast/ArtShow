@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.art.huakai.artshow.activity.MainActivity">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/fly_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0" />
 
-</android.support.constraint.ConstraintLayout>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/main_bottom_bg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdobtn_show_circle"
+            style="@style/main_tab"
+            android:checked="true"
+            android:drawableTop="@drawable/main_tab_circle_selector"
+            android:text="@string/main_tab_show_circle" />
+
+        <RadioButton
+            android:id="@+id/rdobtn_discover"
+            style="@style/main_tab"
+            android:drawableTop="@drawable/main_tab_discover_selector"
+            android:text="@string/main_tab_discover" />
+
+        <RadioButton
+            android:id="@+id/rdobtn_collaborate"
+            style="@style/main_tab"
+            android:drawableTop="@drawable/main_tab_collaborate_selector"
+            android:text="@string/main_tab_collaborate" />
+
+        <RadioButton
+            android:id="@+id/rdobtn_me"
+            style="@style/main_tab"
+            android:drawableTop="@drawable/main_tab_mine_selector"
+            android:text="@string/main_tab_me" />
+    </RadioGroup>
+
+</LinearLayout>
