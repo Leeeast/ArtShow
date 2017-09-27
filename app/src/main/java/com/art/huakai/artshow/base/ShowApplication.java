@@ -3,6 +3,7 @@ package com.art.huakai.artshow.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.art.huakai.artshow.utils.FrescoHelper;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -33,6 +34,6 @@ public class ShowApplication extends Application {
         //初始化初始化SharePreferences
         SharePreUtil.getInstance().initSharePre();
         //初始化Fresco
-        Fresco.initialize(getApplicationContext());
+        FrescoHelper.init(this);
     }
 }
