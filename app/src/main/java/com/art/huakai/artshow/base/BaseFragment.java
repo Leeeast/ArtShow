@@ -37,11 +37,13 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 获取数据 实例化Fragment需要传传参数，放在Bundle中，使用Bundle时候，需要做为空校验
+     * step_1
      */
     public abstract void initData(@Nullable Bundle bundle);
 
     /**
      * 设置跟布局
+     * step_2
      *
      * @return
      */
@@ -49,11 +51,13 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 初始化UI
+     * step_3
      */
     public abstract void initView();
 
     /**
      * 填充数据
+     * step_4
      */
     public abstract void setView();
 }

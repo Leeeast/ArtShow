@@ -12,7 +12,8 @@ import com.art.huakai.artshow.base.BaseFragment;
  * Created by lidongliang on 2017/9/27.
  */
 public class MeFragment extends BaseFragment {
-
+    //Frament添加TAG
+    public static final String TAG_FRAGMENT = MeFragment.class.getSimpleName();
     public MeFragment() {
         // Required empty public constructor
     }

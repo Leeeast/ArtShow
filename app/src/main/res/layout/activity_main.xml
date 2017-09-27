@@ -12,6 +12,7 @@
         android:layout_weight="1.0" />
 
     <RadioGroup
+        android:id="@+id/rdogp_main_tab"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@color/main_bottom_bg"

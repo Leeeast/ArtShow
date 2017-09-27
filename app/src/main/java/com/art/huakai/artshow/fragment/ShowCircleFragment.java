@@ -11,6 +11,8 @@ import com.art.huakai.artshow.base.BaseFragment;
  * Created by lidongliang on 2017/9/27.
  */
 public class ShowCircleFragment extends BaseFragment {
+    //Frament添加TAG
+    public static final String TAG_FRAGMENT = ShowCircleFragment.class.getSimpleName();
 
     public ShowCircleFragment() {
         // Required empty public constructor
