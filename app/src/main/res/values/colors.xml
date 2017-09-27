@@ -103,4 +103,5 @@
     <color name="transparent">#00000000</color>
 
 
+    <color name="colorSeekBarDefault">#c3c3c3</color>
 </resources>
