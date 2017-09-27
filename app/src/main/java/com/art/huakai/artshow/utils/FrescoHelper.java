@@ -30,6 +30,4 @@ public class FrescoHelper {
         Fresco.getImagePipeline().resume();
     }
 
-
-
 }
