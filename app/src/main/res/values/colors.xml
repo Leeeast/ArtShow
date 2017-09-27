@@ -99,5 +99,7 @@
     <color name="red95">#953a35</color>
     <color name="red85">#851715</color>
 
+    <color name="transparent">#00000000</color>
+
 
 </resources>
