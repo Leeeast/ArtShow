@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.constant.Constants;
 import com.art.huakai.artshow.fragment.CollaborateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
@@ -24,6 +26,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected FragmentTransaction ft;
     private String[] fragmentTags = new String[]{ShowCircleFragment.TAG_FRAGMENT,
             DiscoverFragment.TAG_FRAGMENT, CollaborateFragment.TAG_FRAGMENT, MeFragment.TAG_FRAGMENT};
+    //再次点击退出使用
+    private long touchTime = 0;
 
     @Override
     public void immerseStatusBar() {
@@ -123,6 +127,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     ft.hide(otherFragment);
                 }
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - touchTime) > Constants.EXIT_APP_TIME_OFFSET) {
+            //让Toast的显示时间和等待时间相同
+            Toast.makeText(this, getString(R.string.exit_app_tips), Toast.LENGTH_SHORT).show();
+            touchTime = currentTime;
+        } else {
+            this.finish();
         }
     }
 }

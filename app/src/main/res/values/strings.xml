@@ -6,4 +6,6 @@
     <string name="main_tab_collaborate">合作</string>
     <string name="main_tab_me">我</string>
 
+    <string name="exit_app_tips">再按一次退出</string>
+
 </resources>
