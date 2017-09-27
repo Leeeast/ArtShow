@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
-import com.art.huakai.artshow.constant.Constants;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.fragment.CollaborateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
@@ -133,7 +133,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
-        if ((currentTime - touchTime) > Constants.EXIT_APP_TIME_OFFSET) {
+        if ((currentTime - touchTime) > Constant.EXIT_APP_TIME_OFFSET) {
             //让Toast的显示时间和等待时间相同
             Toast.makeText(this, getString(R.string.exit_app_tips), Toast.LENGTH_SHORT).show();
             touchTime = currentTime;
