@@ -26,7 +26,6 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
     }
 
     @Override

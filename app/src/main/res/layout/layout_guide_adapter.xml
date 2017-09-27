@@ -3,8 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <ImageView
-        android:id="@+id/iv"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
@@ -23,6 +23,7 @@
         android:paddingTop="8dp"
         android:text="@string/btn_start"
         android:textColor="@color/whiteff"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

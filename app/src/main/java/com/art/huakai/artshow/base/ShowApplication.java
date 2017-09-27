@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.art.huakai.artshow.utils.SharePreUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * Created by lidongliang on 2017/9/27.
@@ -31,5 +32,7 @@ public class ShowApplication extends Application {
     private void init() {
         //初始化初始化SharePreferences
         SharePreUtil.getInstance().initSharePre();
+        //初始化Fresco
+        Fresco.initialize(getApplicationContext());
     }
 }

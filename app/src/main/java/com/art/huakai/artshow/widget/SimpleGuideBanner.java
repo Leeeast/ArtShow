@@ -1,13 +1,14 @@
 package com.art.huakai.artshow.widget;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.utils.ViewFindUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.flyco.banner.widget.Banner.BaseIndicatorBanner;
 
 public class SimpleGuideBanner extends BaseIndicatorBanner<Integer, SimpleGuideBanner> {
@@ -27,13 +28,16 @@ public class SimpleGuideBanner extends BaseIndicatorBanner<Integer, SimpleGuideB
     @Override
     public View onCreateItemView(int position) {
         View inflate = View.inflate(mContext, R.layout.layout_guide_adapter, null);
-        ImageView iv = ViewFindUtil.find(inflate, R.id.iv);
+        SimpleDraweeView sdv = ViewFindUtil.find(inflate, R.id.sdv);
         TextView tv_jump = ViewFindUtil.find(inflate, R.id.tv_jump);
 
         final Integer resId = mDatas.get(position);
         tv_jump.setVisibility(position == mDatas.size() - 1 ? VISIBLE : GONE);
-        //ImageLoader.loadImage(mContext, iv, resId);
-        iv.setBackground(getResources().getDrawable(resId));
+        //sdv.setBackground(getResources().getDrawable(resId));
+
+        Uri uri2 = Uri.parse("res://com.art.huakai.artshow/" + resId);
+        sdv.setImageURI(uri2);
+
         tv_jump.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
