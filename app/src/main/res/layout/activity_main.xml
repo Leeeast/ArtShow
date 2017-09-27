@@ -39,7 +39,7 @@
         <RadioButton
             android:id="@+id/rdobtn_me"
             style="@style/main_tab"
-            android:drawableTop="@drawable/main_tab_mine_selector"
+            android:drawableTop="@drawable/main_tab_me_selector"
             android:text="@string/main_tab_me" />
     </RadioGroup>
 
