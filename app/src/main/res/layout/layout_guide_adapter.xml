@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_jump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/btn_login_selected"
+        android:paddingBottom="8dp"
+        android:paddingLeft="38dp"
+        android:paddingRight="38dp"
+        android:paddingTop="8dp"
+        android:text="@string/btn_start"
+        android:textColor="@color/whiteff"
+        android:textSize="15sp" />
+
+</RelativeLayout>
