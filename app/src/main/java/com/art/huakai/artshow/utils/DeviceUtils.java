@@ -133,7 +133,6 @@ public class DeviceUtils {
 
     public static boolean checkIsInApplication(Context context) {
         if (context == null) {
-            LogUtils.loge(TAG, "checkIsInApplication error context null");
             return false;
         }
         String runPackageName = getRunningPkgName(context);
