@@ -14,7 +14,7 @@
     <RadioGroup
         android:id="@+id/rdogp_main_tab"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/main_tab_bottom"
         android:background="@color/main_bottom_bg"
         android:orientation="horizontal">
 

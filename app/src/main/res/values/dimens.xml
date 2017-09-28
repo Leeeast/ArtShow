@@ -1,10 +1,11 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="main_tab_bottom">55dp</dimen>
-    <dimen name="main_tab_padding_top">5dp</dimen>
-    <dimen name="main_tab_text_size">12sp</dimen>
+    <dimen name="main_tab_bottom">52.8dp</dimen>
+    <dimen name="main_tab_padding_top">@dimen/DIMEN_5PX</dimen>
 
+
+    <dimen name="main_tab_text_size">10sp</dimen>
 
 
 </resources>
