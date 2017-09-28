@@ -35,8 +35,8 @@ public class SimpleGuideBanner extends BaseIndicatorBanner<Integer, SimpleGuideB
         tv_jump.setVisibility(position == mDatas.size() - 1 ? VISIBLE : GONE);
         //sdv.setBackground(getResources().getDrawable(resId));
 
-        Uri uri2 = Uri.parse("res://com.art.huakai.artshow/" + resId);
-        sdv.setImageURI(uri2);
+        Uri uri = Uri.parse("res://com.art.huakai.artshow/" + resId);
+        sdv.setImageURI(uri);
 
         tv_jump.setOnClickListener(new View.OnClickListener() {
             @Override
