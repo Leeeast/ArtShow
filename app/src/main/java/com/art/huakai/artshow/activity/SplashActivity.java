@@ -9,24 +9,13 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.utils.SharePreUtil;
 
+import java.lang.ref.WeakReference;
+
 public class SplashActivity extends BaseActivity {
-    private final int CODE_JUMP_GUIDE = 10;
-    private final int CODE_JUMP_MAIN = 11;
+    private static final int CODE_JUMP_GUIDE = 10;
+    private static final int CODE_JUMP_MAIN = 11;
     private boolean mFirstEnterApp;
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case CODE_JUMP_GUIDE:
-                    jumpGuide();
-                    break;
-                case CODE_JUMP_MAIN:
-                    jumpMain();
-                    break;
-            }
-        }
-    };
+    private JumpHandler mJumpHandler;
 
     @Override
     public void immerseStatusBar() {
@@ -41,6 +30,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void initData() {
         mFirstEnterApp = SharePreUtil.getInstance().isFirstEnterApp();
+        mJumpHandler = new JumpHandler(this);
     }
 
     @Override
@@ -51,26 +41,51 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void setView() {
         if (mFirstEnterApp) {
-            mHandler.sendEmptyMessageDelayed(CODE_JUMP_GUIDE, Constant.SPLASH_TIME_OFFSET);
+            mJumpHandler.sendEmptyMessageDelayed(CODE_JUMP_GUIDE, Constant.SPLASH_TIME_OFFSET);
             SharePreUtil.getInstance().setIsFirstEnterApp(false);
         } else {
-            mHandler.sendEmptyMessageDelayed(CODE_JUMP_MAIN, Constant.SPLASH_TIME_OFFSET);
+            mJumpHandler.sendEmptyMessageDelayed(CODE_JUMP_MAIN, Constant.SPLASH_TIME_OFFSET);
         }
     }
 
-    /**
-     * 跳转至MainActivity
-     */
-    private void jumpMain() {
-        startActivity(new Intent(this, MainActivity.class));
-        this.finish();
-    }
+    private static class JumpHandler extends Handler {
+        private final WeakReference<SplashActivity> mActivity;
 
-    /**
-     * 跳转至引导页
-     */
-    private void jumpGuide() {
-        startActivity(new Intent(this, GuideActivity.class));
-        this.finish();
+        public JumpHandler(SplashActivity activity) {
+            mActivity = new WeakReference<SplashActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case CODE_JUMP_GUIDE:
+                    jumpGuide();
+                    break;
+                case CODE_JUMP_MAIN:
+                    jumpMain();
+                    break;
+            }
+        }
+
+        /**
+         * 跳转至MainActivity
+         */
+        private void jumpMain() {
+            if (mActivity.get() != null) {
+                mActivity.get().startActivity(new Intent(mActivity.get(), MainActivity.class));
+                mActivity.get().finish();
+            }
+        }
+
+        /**
+         * 跳转至引导页
+         */
+        private void jumpGuide() {
+            if (mActivity.get() != null) {
+                mActivity.get().startActivity(new Intent(mActivity.get(), GuideActivity.class));
+                mActivity.get().finish();
+            }
+        }
     }
 }
