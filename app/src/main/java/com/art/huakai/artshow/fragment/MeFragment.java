@@ -30,7 +30,7 @@ public class MeFragment extends BaseFragment {
 
     @Override
     public int getLayoutID() {
-        return R.layout.fragment_collaborate;
+        return R.layout.fragment_me;
     }
 
     @Override
