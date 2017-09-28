@@ -2,7 +2,10 @@ package com.art.huakai.artshow.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -14,6 +17,8 @@ import com.art.huakai.artshow.base.BaseFragment;
 public class MeFragment extends BaseFragment {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = MeFragment.class.getSimpleName();
+    private SwipeRefreshLayout mRefreshLayout;
+
     public MeFragment() {
         // Required empty public constructor
     }
@@ -34,12 +39,28 @@ public class MeFragment extends BaseFragment {
     }
 
     @Override
-    public void initView() {
-
+    public void initView(View rootView) {
+        mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     @Override
     public void setView() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -3,6 +3,7 @@ package com.art.huakai.artshow.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -35,7 +36,7 @@ public class DiscoverFragment extends BaseFragment {
     }
 
     @Override
-    public void initView() {
+    public void initView(View rootView) {
 
     }
 

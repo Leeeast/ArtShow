@@ -31,7 +31,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
+        initView(view);
         setView();
     }
 
@@ -53,7 +53,7 @@ public abstract class BaseFragment extends Fragment {
      * 初始化UI
      * step_3
      */
-    public abstract void initView();
+    public abstract void initView(View rootView);
 
     /**
      * 填充数据
