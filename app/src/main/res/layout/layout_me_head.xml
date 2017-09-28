@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blackb8">
+
+    <ImageView
+        android:id="@+id/iv_setting"
+        android:layout_width="@dimen/DIMEN_26PX"
+        android:layout_height="@dimen/DIMEN_26PX"
+        android:layout_marginLeft="@dimen/DIMEN_15PX"
+        android:layout_marginTop="@dimen/DIMEN_10PX"
+        android:background="@mipmap/icon_settings" />
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/DIMEN_96PX"
+        android:layout_height="@dimen/DIMEN_96PX"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/DIMEN_33PX"
+        android:src="@mipmap/icon_accout" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:text="孟京辉工作室"
+        android:textColor="@color/black00"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/DIMEN_24PX"
+        android:layout_marginTop="@dimen/DIMEN_4PX"
+        android:text="出品方"
+        android:textColor="@color/me_account_type"
+        android:textSize="15sp" />
+
+</RelativeLayout>

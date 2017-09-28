@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black333">#333333</color>
+    <color name="black00">#ff000000</color>
     <color name="black1f">#1f1f1f</color>
     <color name="black3f">#3f3d40</color>
     <color name="black3e">#3e3d42</color>
@@ -81,7 +82,7 @@
     <color name="main_page_txt_yellow">#f7d540</color>
     <color name="deal_tab_yellow">#f8cd1d</color>
     <color name="item_yellow_txt">#f7d540</color>
-    <color name="main_bottom_bg">#ffdddddd</color>
+    <color name="main_bottom_bg">#ffd8d8d8</color>
     <color name="main_bottom_font_s">#f9ce1d</color>
     <color name="spinner_bg">#3f3d40</color>
     <color name="bg_tap">#e0ba1b</color>
@@ -104,4 +105,8 @@
     <color name="main_tab_text_p">#ffe93c2c</color>
 
     <color name="colorSeekBarDefault">#c3c3c3</color>
+
+    <color name="fab_bgtint">#ffE02422</color>
+    <color name="fab_bgtint_p">#ff00ff00</color>
+    <color name="me_account_type">#ff75888c</color>
 </resources>
