@@ -1,7 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="main_tab_bottom">52.8dp</dimen>
+    <dimen name="main_tab_bottom">50dp</dimen>
     <dimen name="main_tab_padding_top">@dimen/DIMEN_5PX</dimen>
 
 
