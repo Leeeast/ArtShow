@@ -109,4 +109,9 @@
     <color name="fab_bgtint">#ffE02422</color>
     <color name="fab_bgtint_p">#ff00ff00</color>
     <color name="me_account_type">#ff75888c</color>
+    <!--login&register-->
+    <color name="login_weixin_bg">#ff51C332</color>
+    <color name="login_btn_bg">#ffe93c2c</color>
+    <color name="login_line">#ffeeeae5</color>
+    <color name="login_btn">#ff5a4b41</color>
 </resources>

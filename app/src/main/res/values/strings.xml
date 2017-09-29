@@ -9,4 +9,13 @@
     <string name="exit_app_tips">再按一次退出</string>
     <string name="btn_start">立即体验</string>
 
+    <!--登录注册-->
+    <string name="login_app_introduce">中国最大的演出资料信息\n共享平台</string>
+    <string name="login_weixin">微&#160;&#160;信&#160;&#160;登&#160;&#160;录</string>
+    <string name="app_register">注&#160;&#160;册</string>
+    <string name="app_login">登&#160;&#160;录</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -11,8 +11,6 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:selectableItemBackground">@null</item>
-        <item name="android:selectableItemBackgroundBorderless">@null</item>
     </style>
     <!-- style name以及它所继承的系统Theme主题 -->
     <style name="Theme.Launcher" parent="AppTheme.NoActionBar">
