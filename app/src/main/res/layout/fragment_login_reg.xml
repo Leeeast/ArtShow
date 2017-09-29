@@ -1,98 +1,106 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteff">
+    android:background="@color/whiteff"
+    android:scrollbars="none">
 
-    <FrameLayout
-        android:id="@+id/fly_close_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/DIMEN_10PX">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteff">
+
+        <FrameLayout
+            android:id="@+id/fly_close_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_10PX">
+
+            <ImageView
+                android:layout_width="@dimen/DIMEN_17PX"
+                android:layout_height="@dimen/DIMEN_17PX"
+                android:layout_margin="@dimen/DIMEN_15PX"
+                android:background="@mipmap/icon_close" />
+        </FrameLayout>
 
         <ImageView
-            android:layout_width="@dimen/DIMEN_17PX"
-            android:layout_height="@dimen/DIMEN_17PX"
-            android:layout_margin="@dimen/DIMEN_15PX"
-            android:background="@mipmap/icon_close" />
-    </FrameLayout>
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/DIMEN_132PX"
+            android:layout_height="@dimen/DIMEN_132PX"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/DIMEN_58PX"
+            android:background="@mipmap/app_logo" />
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="@dimen/DIMEN_132PX"
-        android:layout_height="@dimen/DIMEN_132PX"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/DIMEN_58PX"
-        android:background="@mipmap/app_logo" />
+        <TextView
+            android:id="@+id/tv_introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:gravity="center"
+            android:letterSpacing="0.14"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/login_app_introduce"
+            android:textColor="@color/blackdd"
+            android:textScaleX="1.1"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_introduce"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/DIMEN_10PX"
-        android:gravity="center"
-        android:letterSpacing="0.14"
-        android:lineSpacingExtra="6sp"
-        android:text="@string/login_app_introduce"
-        android:textColor="@color/blackdd"
-        android:textScaleX="1.1"
-        android:textSize="18sp" />
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_below="@id/tv_introduce"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_105PX"
+            android:background="@drawable/border_bg_gray"
+            android:gravity="center"
+            android:text="@string/app_login"
+            android:textColor="@color/login_btn"
+            android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/btn_login_wechat"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_40PX"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/DIMEN_80PX"
-        android:layout_marginLeft="@dimen/DIMEN_30PX"
-        android:layout_marginRight="@dimen/DIMEN_30PX"
-        android:background="@drawable/shape_bg_green"
-        android:letterSpacing="0.3"
-        android:lineSpacingExtra="5sp"
-        android:text="@string/login_weixin"
-        android:textColor="@color/whiteff"
-        android:textSize="15sp" />
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_below="@id/btn_login"
+            android:layout_marginBottom="@dimen/DIMEN_25PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_25PX"
+            android:background="@color/login_line" />
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_40PX"
-        android:layout_above="@id/btn_login_wechat"
-        android:layout_marginBottom="@dimen/DIMEN_10PX"
-        android:layout_marginLeft="@dimen/DIMEN_30PX"
-        android:layout_marginRight="@dimen/DIMEN_30PX"
-        android:background="@drawable/shape_bg_red"
-        android:letterSpacing="0.3"
-        android:lineSpacingExtra="5sp"
-        android:text="@string/app_register"
-        android:textColor="@color/whiteff"
-        android:textSize="15sp" />
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_below="@id/view_line"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:background="@drawable/shape_bg_red"
+            android:gravity="center"
+            android:letterSpacing="0.3"
+            android:lineSpacingExtra="5sp"
+            android:text="@string/app_register"
+            android:textColor="@color/whiteff"
+            android:textSize="15sp" />
 
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_above="@id/btn_register"
-        android:layout_marginBottom="@dimen/DIMEN_25PX"
-        android:layout_marginLeft="@dimen/DIMEN_30PX"
-        android:layout_marginRight="@dimen/DIMEN_30PX"
-        android:background="@color/login_line" />
+        <Button
+            android:id="@+id/btn_login_wechat"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_below="@id/btn_register"
+            android:layout_marginBottom="@dimen/DIMEN_10PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:background="@drawable/shape_bg_green"
+            android:gravity="center"
+            android:letterSpacing="0.3"
+            android:lineSpacingExtra="5sp"
+            android:text="@string/login_weixin"
+            android:textColor="@color/whiteff"
+            android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_40PX"
-        android:layout_above="@id/view_line"
-        android:layout_marginBottom="@dimen/DIMEN_25PX"
-        android:layout_marginLeft="@dimen/DIMEN_30PX"
-        android:layout_marginRight="@dimen/DIMEN_30PX"
-        android:background="@drawable/border_bg_gray"
-        android:letterSpacing="0.3"
-        android:lineSpacingExtra="5sp"
-        android:text="@string/app_login"
-        android:textColor="@color/login_btn"
-        android:textSize="15sp" />
-
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

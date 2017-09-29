@@ -103,6 +103,7 @@
 
     <color name="transparent">#00000000</color>
     <color name="main_tab_text_p">#ffe93c2c</color>
+    <color name="app_common_red">#ffe93c2c</color>
 
     <color name="colorSeekBarDefault">#c3c3c3</color>
 
@@ -114,4 +115,6 @@
     <color name="login_btn_bg">#ffe93c2c</color>
     <color name="login_line">#ffeeeae5</color>
     <color name="login_btn">#ff5a4b41</color>
+    <color name="login_light">#ffaaa6a2</color>
+    <color name="register_new">#ff4990e2</color>
 </resources>

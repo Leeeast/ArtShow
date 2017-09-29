@@ -1,30 +1,31 @@
 package com.art.huakai.artshow.fragment;
 
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.eventbus.LoginEvent;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
- * 登录主页Fragment
+ * 登录Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class LoginRegFragment extends BaseFragment implements View.OnClickListener {
+public class LoginFragment extends BaseFragment implements View.OnClickListener {
 
-    public LoginRegFragment() {
+    public LoginFragment() {
+        // Required empty public constructor
     }
 
-    public static LoginRegFragment newInstance() {
-        LoginRegFragment loginRegFragment = new LoginRegFragment();
-        return loginRegFragment;
+
+    public static LoginFragment newInstance() {
+        LoginFragment fragment = new LoginFragment();
+        return fragment;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class LoginRegFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public int getLayoutID() {
-        return R.layout.fragment_login_reg;
+        return R.layout.fragment_login;
     }
 
     @Override
@@ -51,10 +52,7 @@ public class LoginRegFragment extends BaseFragment implements View.OnClickListen
         btnLoginWechat.setCompoundDrawables(drawableLeft, null, null, null);
 
 
-        rootView.findViewById(R.id.fly_close_login).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_login).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_register).setOnClickListener(this);
-        btnLoginWechat.setOnClickListener(this);
+        rootView.findViewById(R.id.lly_back).setOnClickListener(this);
     }
 
     @Override
@@ -65,18 +63,9 @@ public class LoginRegFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fly_close_login:
+            case R.id.lly_back:
                 getActivity().onBackPressed();
-                break;
-            case R.id.btn_login:
-                //发送登录事件到LoginActivity中,去替换fragment
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_LOGIN));
-                break;
-            case R.id.btn_register:
-                break;
-            case R.id.btn_login_wechat:
                 break;
         }
     }
-
 }

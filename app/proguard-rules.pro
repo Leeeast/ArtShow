@@ -4,7 +4,7 @@
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
-# For more details, see
+# For more details, pwd_see_p
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
@@ -23,3 +23,17 @@
 # If you keep the line number tab_discover_n, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+
+#--------EventBus start----------
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+#--------EventBus end----------

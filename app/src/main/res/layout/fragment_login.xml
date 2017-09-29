@@ -1,0 +1,189 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteff"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_common_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:text="@string/app_login_bold"
+            android:textColor="@color/login_btn"
+            android:textSize="34sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX">
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:letterSpacing="0.17"
+                android:lineSpacingExtra="5sp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/login_light"
+                android:textSize="15sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_5PX">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pwd_account"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/app_login_bold"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:letterSpacing="0.17"
+                    android:lineSpacingExtra="5sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHint="@color/login_light"
+                    android:textSize="15sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/chk_pwd_see"
+                android:layout_width="@dimen/DIMEN_17PX"
+                android:layout_height="@dimen/DIMEN_11PX"
+                android:layout_gravity="right|center"
+                android:layout_margin="@dimen/DIMEN_10PX"
+                android:background="@drawable/pwd_see_selector"
+                android:button="@null"
+                android:checked="false" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX">
+
+            <CheckBox
+                android:id="@+id/chk_pwd_record"
+                android:layout_width="@dimen/DIMEN_18PX"
+                android:layout_height="@dimen/DIMEN_18PX"
+                android:layout_centerVertical="true"
+                android:background="@drawable/pwd_record_selector"
+                android:button="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/DIMEN_10PX"
+                android:layout_toRightOf="@id/chk_pwd_record"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/pwd_record"
+                android:textColor="@color/login_light"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/DIMEN_10PX"
+                android:layout_marginTop="@dimen/DIMEN_20PX"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/pwd_forget"
+                android:textColor="@color/app_common_red"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_40PX"
+            android:background="@drawable/shape_bg_red"
+            android:gravity="center"
+            android:letterSpacing="0.3"
+            android:lineSpacingExtra="5sp"
+            android:text="@string/app_login"
+            android:textColor="@color/whiteff"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_30PX"
+            android:background="@color/login_line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/DIMEN_15PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:text="@string/app_login_other"
+            android:textColor="@color/login_light"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_login_wechat"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:background="@drawable/shape_bg_green"
+            android:gravity="center"
+            android:letterSpacing="0.3"
+            android:lineSpacingExtra="5sp"
+            android:text="@string/login_weixin"
+            android:textColor="@color/whiteff"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/tv_regiser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/DIMEN_20PX"
+            android:layout_marginTop="@dimen/DIMEN_100PX"
+            android:text="@string/app_register_new"
+            android:textColor="@color/register_new"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+</ScrollView>
