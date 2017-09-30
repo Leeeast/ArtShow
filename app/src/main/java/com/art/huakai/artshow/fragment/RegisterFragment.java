@@ -54,6 +54,8 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
 
 
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_register).setOnClickListener(this);
+
         tvProtocol.setOnClickListener(this);
     }
 
@@ -69,6 +71,10 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 getActivity().onBackPressed();
                 break;
             case R.id.tv_protocol:
+                break;
+            case R.id.btn_register:
+                //应该注册成功后，走接下来的完善信息流程
+
                 break;
         }
     }

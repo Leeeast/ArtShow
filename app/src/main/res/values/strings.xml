@@ -29,7 +29,17 @@
     <string name="register_protocol_tip">点击注册将默认你同意&#160;&#160;隐私保密条款.</string>
     <string name="pwd_retrieve">找回密码</string>
     <string name="pwd_retrieve_finish">完成</string>
+    <string name="account_type">账号类型</string>
+    <string name="account_type_select_tip">确定账号类型后，将不能更改</string>
+    <string name="account_type_publisher">出品方</string>
+    <string name="account_type_publisher_des">我是戏剧出品方，可能是传媒公司、工作室、个人出品方，我拥有成型并且公演过的戏剧</string>
+    <string name="account_type_theatre">剧场</string>
+    <string name="account_type_theatre_des">我是剧场负责人，我拥有符合经营条件的剧场资源</string>
+    <string name="account_type_personal">个人</string>
+    <string name="account_type_personal_des">我是戏剧从业者，可能是演员、导演、编剧、舞台技术人员</string>
+    <string name="perfect_info_next_step">下&#160;一&#160;步</string>
 
+    
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

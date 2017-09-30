@@ -9,17 +9,16 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 
 /**
- * 找回密码Fragment
+ * 账户类型选择Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class RetrievePwdFragment extends BaseFragment {
-
-
-    public RetrievePwdFragment() {
+public class AccountTypeSelectFragment extends BaseFragment {
+    public AccountTypeSelectFragment() {
+        // Required empty public constructor
     }
 
-    public static RetrievePwdFragment newInstance() {
-        RetrievePwdFragment fragment = new RetrievePwdFragment();
+    public static AccountTypeSelectFragment newInstance(String param1, String param2) {
+        AccountTypeSelectFragment fragment = new AccountTypeSelectFragment();
         return fragment;
     }
 
@@ -30,7 +29,7 @@ public class RetrievePwdFragment extends BaseFragment {
 
     @Override
     public int getLayoutID() {
-        return R.layout.fragment_retrieve_pwd;
+        return R.layout.fragment_account_type_select;
     }
 
     @Override

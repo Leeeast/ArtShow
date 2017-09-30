@@ -117,4 +117,9 @@
     <color name="login_btn">#ff5a4b41</color>
     <color name="login_light">#ffaaa6a2</color>
     <color name="register_new">#ff4990e2</color>
+    <color name="account_type_name">#ff24253d</color>
+    <color name="account_type_des">#8024253d</color>
+    <color name="account_type_fill">#fff5f6fa</color>
+    <color name="account_type_border">#ffdddddd</color>
+
 </resources>
