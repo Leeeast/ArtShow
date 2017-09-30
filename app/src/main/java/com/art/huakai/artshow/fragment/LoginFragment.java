@@ -3,8 +3,14 @@ package com.art.huakai.artshow.fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -16,7 +22,8 @@ import org.greenrobot.eventbus.EventBus;
  * 登录Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class LoginFragment extends BaseFragment implements View.OnClickListener {
+public class LoginFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    private EditText edtPassword, edtPhone;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -52,8 +59,18 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         btnLoginWechat.setCompoundDrawables(drawableLeft, null, null, null);
 
 
+        edtPhone = (EditText) rootView.findViewById(R.id.edt_phone);
+        edtPassword = (EditText) rootView.findViewById(R.id.edt_password);
+
+
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
         rootView.findViewById(R.id.tv_regiser).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_login).setOnClickListener(this);
+        rootView.findViewById(R.id.tv_forget_pwd).setOnClickListener(this);
+
+        //记录密码监听
+        ((CheckBox) rootView.findViewById(R.id.chk_pwd_record)).setOnCheckedChangeListener(this);
+        ((CheckBox) rootView.findViewById(R.id.chk_pwd_see)).setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -69,6 +86,32 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.tv_regiser:
                 EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER));
+                break;
+            case R.id.btn_login:
+                Toast.makeText(getContext(), "登录", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_forget_pwd:
+                //忘记密码
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_FORGET_PWD));
+                break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.chk_pwd_record:
+                //TODO 是否记录密码逻辑
+
+                break;
+            case R.id.chk_pwd_see:
+                if (isChecked) {
+                    edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                //光标定位到最后
+                edtPassword.setSelection(edtPassword.length());
                 break;
         }
     }

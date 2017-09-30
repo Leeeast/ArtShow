@@ -8,6 +8,7 @@ import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.LoginFragment;
 import com.art.huakai.artshow.fragment.LoginRegFragment;
 import com.art.huakai.artshow.fragment.RegisterFragment;
+import com.art.huakai.artshow.fragment.RetrievePwdFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,6 +63,10 @@ public class LoginActivity extends BaseActivity {
             case LoginEvent.CODE_ACTION_REGISTER:
                 RegisterFragment registerFragment = RegisterFragment.newInstance();
                 initFragmentAddback(registerFragment);
+                break;
+            case LoginEvent.CODE_ACTION_FORGET_PWD:
+                RetrievePwdFragment retrievePwdFragment = RetrievePwdFragment.newInstance();
+                initFragmentAddback(retrievePwdFragment);
                 break;
         }
     }
