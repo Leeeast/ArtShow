@@ -18,7 +18,7 @@
         android:layout_height="@dimen/DIMEN_96PX"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/DIMEN_33PX"
-        android:src="@mipmap/icon_accout" />
+        android:src="@mipmap/avatar_default" />
 
     <TextView
         android:id="@+id/tv_name"
