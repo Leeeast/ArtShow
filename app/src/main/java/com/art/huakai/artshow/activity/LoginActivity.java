@@ -7,6 +7,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.LoginFragment;
 import com.art.huakai.artshow.fragment.LoginRegFragment;
+import com.art.huakai.artshow.fragment.RegisterFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,9 +60,14 @@ public class LoginActivity extends BaseActivity {
                 initFragmentAddback(loginFragment);
                 break;
             case LoginEvent.CODE_ACTION_REGISTER:
-
+                RegisterFragment registerFragment = RegisterFragment.newInstance();
+                initFragmentAddback(registerFragment);
                 break;
         }
+    }
+
+    public void initFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, fragment).commit();
     }
 
     //添加一个fragment到返回栈中

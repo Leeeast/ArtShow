@@ -17,4 +17,14 @@
         <item name="android:taskToBackEnterAnimation">@null</item>
         <item name="android:taskToBackExitAnimation">@anim/fade_out</item>
     </style>
+
+    <style name="protocol_style_gray">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/login_light</item>
+    </style>
+
+    <style name="protocol_style_blue">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/register_new</item>
+    </style>
 </resources>

@@ -3,14 +3,14 @@ package com.art.huakai.artshow.fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.eventbus.LoginEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 登录Fragment
@@ -53,6 +53,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
 
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
+        rootView.findViewById(R.id.tv_regiser).setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +66,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.lly_back:
                 getActivity().onBackPressed();
+                break;
+            case R.id.tv_regiser:
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER));
                 break;
         }
     }

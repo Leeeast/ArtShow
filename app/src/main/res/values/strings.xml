@@ -22,6 +22,11 @@
     <string name="pwd_forget">忘记密码？</string>
     <string name="app_login_other">其他登录方式</string>
     <string name="app_register_new">注册新账户&#160;&#62;</string>
+    <string name="app_verify_code">验证码</string>
+    <string name="send_verify_code">发送验证码</string>
+    <string name="pwd_affirm">确认密码</string>
+    <string name="app_register_title">注册</string>
+    <string name="register_protocol_tip">点击注册将默认你同意&#160;&#160;隐私保密条款.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

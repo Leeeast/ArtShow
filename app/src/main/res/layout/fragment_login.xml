@@ -10,7 +10,7 @@
         android:background="@color/whiteff"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_common_title" />
+        <include layout="@layout/layout_title_common" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,6 +37,7 @@
                 android:letterSpacing="0.17"
                 android:lineSpacingExtra="5sp"
                 android:maxLines="1"
+                android:paddingBottom="@dimen/DIMEN_15PX"
                 android:singleLine="true"
                 android:textColorHint="@color/login_light"
                 android:textSize="15sp" />
@@ -66,6 +67,7 @@
                     android:letterSpacing="0.17"
                     android:lineSpacingExtra="5sp"
                     android:maxLines="1"
+                    android:paddingBottom="@dimen/DIMEN_15PX"
                     android:singleLine="true"
                     android:textColorHint="@color/login_light"
                     android:textSize="15sp" />

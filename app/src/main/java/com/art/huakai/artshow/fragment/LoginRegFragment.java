@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -73,8 +74,11 @@ public class LoginRegFragment extends BaseFragment implements View.OnClickListen
                 EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_LOGIN));
                 break;
             case R.id.btn_register:
+                //发送注册事件到LoginActivity中,去替换fragment
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER));
                 break;
             case R.id.btn_login_wechat:
+                Toast.makeText(getContext(), "微信登录", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
