@@ -45,7 +45,7 @@ public abstract class BaseFragment extends Fragment {
      * 设置跟布局
      * step_2
      *
-     * @return
+     * @return 资源布局ID
      */
     public abstract int getLayoutID();
 

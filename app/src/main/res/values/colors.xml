@@ -121,5 +121,11 @@
     <color name="account_type_des">#8024253d</color>
     <color name="account_type_fill">#fff5f6fa</color>
     <color name="account_type_border">#ffdddddd</color>
+    <!--dialog中设置 -->
+    <color name="black_overlay">#66000000</color>
+    <color name="white_bg_border">#ff979797</color>
+    <color name="text_cancel">#ff007aff</color>
+    <color name="text_true">#ffe93c2c</color>
+
 
 </resources>

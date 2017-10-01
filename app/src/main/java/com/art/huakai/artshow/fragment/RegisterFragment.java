@@ -6,11 +6,15 @@ import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.eventbus.LoginEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 注册新账户Fragment
@@ -74,7 +78,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.btn_register:
                 //应该注册成功后，走接下来的完善信息流程
-
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
                 break;
         }
     }

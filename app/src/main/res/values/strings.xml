@@ -39,7 +39,10 @@
     <string name="account_type_personal_des">我是戏剧从业者，可能是演员、导演、编剧、舞台技术人员</string>
     <string name="perfect_info_next_step">下&#160;一&#160;步</string>
 
-    
+    <string name="cancel">取消</string>
+    <string name="true_choose">确认选择</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btn_sure_choose"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_50PX"
+        android:layout_marginLeft="@dimen/DIMEN_15PX"
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:background="@drawable/shape_bg_white"
+        android:text="@string/true_choose"
+        android:textColor="@color/text_true"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_50PX"
+        android:layout_below="@id/btn_sure_choose"
+        android:layout_margin="@dimen/DIMEN_15PX"
+        android:background="@drawable/shape_bg_white"
+        android:text="@string/cancel"
+        android:textColor="@color/text_cancel"
+        android:textSize="20sp" />
+</RelativeLayout>

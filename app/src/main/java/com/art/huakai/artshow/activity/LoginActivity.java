@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
 import com.art.huakai.artshow.fragment.LoginFragment;
 import com.art.huakai.artshow.fragment.LoginRegFragment;
 import com.art.huakai.artshow.fragment.RegisterFragment;
@@ -52,7 +53,7 @@ public class LoginActivity extends BaseActivity {
      * @param enterEvent
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventTalk(LoginEvent enterEvent) {
+    public void onEventLogin(LoginEvent enterEvent) {
         if (enterEvent == null)
             return;
         switch (enterEvent.getActionCode()) {
@@ -67,6 +68,10 @@ public class LoginActivity extends BaseActivity {
             case LoginEvent.CODE_ACTION_FORGET_PWD:
                 RetrievePwdFragment retrievePwdFragment = RetrievePwdFragment.newInstance();
                 initFragmentAddback(retrievePwdFragment);
+                break;
+            case LoginEvent.CODE_ACTION_REGISTER_SUC:
+                AccountTypeSelectFragment accTypeSelFragment = AccountTypeSelectFragment.newInstance();
+                initFragment(accTypeSelFragment);
                 break;
         }
     }
