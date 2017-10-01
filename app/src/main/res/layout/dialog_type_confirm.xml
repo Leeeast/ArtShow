@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/btn_sure_choose"
+        android:id="@+id/btn_ture_choose"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_50PX"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -19,7 +19,7 @@
         android:id="@+id/btn_cancle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_50PX"
-        android:layout_below="@id/btn_sure_choose"
+        android:layout_below="@id/btn_ture_choose"
         android:layout_margin="@dimen/DIMEN_15PX"
         android:background="@drawable/shape_bg_white"
         android:text="@string/cancel"
