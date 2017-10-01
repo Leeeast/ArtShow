@@ -1,0 +1,99 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_title_common" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:text="@string/perfect_account_info"
+            android:textColor="@color/login_btn"
+            android:textSize="34sp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_avatar"
+            android:layout_width="@dimen/DIMEN_95PX"
+            android:layout_height="@dimen/DIMEN_95PX"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/DIMEN_28PX"
+            android:background="@mipmap/avatar_default"
+            android:scaleType="fitXY"
+            fresco:actualImageScaleType="centerInside"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderWidth="1dp" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:gravity="center_horizontal"
+            android:text="孟京辉工作室"
+            android:textColor="@color/black00"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_account_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/DIMEN_4PX"
+            android:gravity="center_horizontal"
+            android:text="出品方"
+            android:textColor="@color/me_account_type"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_marginBottom="@dimen/DIMEN_20PX"
+            android:layout_marginLeft="@dimen/DIMEN_28PX"
+            android:layout_marginRight="@dimen/DIMEN_28PX"
+            android:layout_marginTop="@dimen/DIMEN_28PX"
+            android:background="@color/login_line" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_data"
+            android:layout_width="@dimen/DIMEN_86PX"
+            android:layout_height="@dimen/DIMEN_86PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:background="@mipmap/upload_data" />
+
+        <TextView
+            android:id="@+id/tv_data_upload_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_43PX"
+            android:text="@string/data_commit_des"
+            android:textColor="@color/login_light"
+            android:textSize="15sp" />
+
+
+        <Button
+            android:id="@+id/btn_commit_data"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_marginBottom="@dimen/DIMEN_10PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:background="@drawable/shape_bg_red"
+            android:gravity="center"
+            android:text="@string/data_commit"
+            android:textColor="@color/whiteff"
+            android:textSize="15sp" />
+    </LinearLayout>
+</ScrollView>

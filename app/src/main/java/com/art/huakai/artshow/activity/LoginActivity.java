@@ -6,9 +6,13 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
+import com.art.huakai.artshow.fragment.DataUploadFragment;
+import com.art.huakai.artshow.fragment.DataUploadSusFragment;
 import com.art.huakai.artshow.fragment.LoginFragment;
 import com.art.huakai.artshow.fragment.LoginRegFragment;
+import com.art.huakai.artshow.fragment.PerfectInfoFragment;
 import com.art.huakai.artshow.fragment.RegisterFragment;
+import com.art.huakai.artshow.fragment.RegisterSusFragment;
 import com.art.huakai.artshow.fragment.RetrievePwdFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
@@ -72,6 +76,22 @@ public class LoginActivity extends BaseActivity {
             case LoginEvent.CODE_ACTION_REGISTER_SUC:
                 AccountTypeSelectFragment accTypeSelFragment = AccountTypeSelectFragment.newInstance();
                 initFragment(accTypeSelFragment);
+                break;
+            case LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM:
+                PerfectInfoFragment perfectInfoFragment = PerfectInfoFragment.newInstance();
+                initFragment(perfectInfoFragment);
+                break;
+            case LoginEvent.CODE_ACTION_PERFECT_INFO_SUC:
+                RegisterSusFragment registerSusFragment = RegisterSusFragment.newInstance();
+                initFragment(registerSusFragment);
+                break;
+            case LoginEvent.CODE_ACTION_REGISTER_FINISH:
+                DataUploadFragment dataUploadFragment = DataUploadFragment.newInstance();
+                initFragment(dataUploadFragment);
+                break;
+            case LoginEvent.CODE_ACTION_DATA_UPLOAD_SUC:
+                DataUploadSusFragment dataUploadSusFragment = DataUploadSusFragment.newInstance();
+                initFragment(dataUploadSusFragment);
                 break;
         }
     }

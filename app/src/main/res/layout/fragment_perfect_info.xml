@@ -1,0 +1,84 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_title_common" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:text="@string/perfect_account_info"
+            android:textColor="@color/login_btn"
+            android:textSize="34sp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_avatar"
+            android:layout_width="@dimen/DIMEN_114PX"
+            android:layout_height="@dimen/DIMEN_114PX"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/DIMEN_28PX"
+            android:background="@mipmap/upload_avatar"
+            android:scaleType="fitXY"
+            fresco:actualImageScaleType="centerInside"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderWidth="1dp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX">
+
+            <EditText
+                android:id="@+id/edt_publisher_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/perfect_publisher_name"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:letterSpacing="0.17"
+                android:lineSpacingExtra="5sp"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/DIMEN_15PX"
+                android:singleLine="true"
+                android:textColorHint="@color/login_light"
+                android:textSize="15sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:text="@string/perfect_publisher_name_des"
+            android:textColor="@color/login_light"
+            android:textSize="15sp" />
+
+
+        <Button
+            android:id="@+id/btn_next_step"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_marginBottom="@dimen/DIMEN_10PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_43PX"
+            android:background="@drawable/shape_bg_red"
+            android:gravity="center"
+            android:text="@string/perfect_info_next_step"
+            android:textColor="@color/whiteff"
+            android:textSize="15sp" />
+    </LinearLayout>
+</ScrollView>

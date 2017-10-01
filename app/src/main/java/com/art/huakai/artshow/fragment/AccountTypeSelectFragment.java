@@ -10,6 +10,9 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.dialog.TypeConfirmDialog;
+import com.art.huakai.artshow.eventbus.LoginEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 账户类型选择Fragment
@@ -58,13 +61,12 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                         @Override
                         public void onChoose(DialogFragment dialogFragment) {
                             dialogFragment.dismiss();
-                            Toast.makeText(AccountTypeSelectFragment.this.getContext(), "onChoose", Toast.LENGTH_SHORT).show();
+                            EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
                         }
 
                         @Override
                         public void onCancel(DialogFragment dialogFragment) {
                             dialogFragment.dismiss();
-                            Toast.makeText(AccountTypeSelectFragment.this.getContext(), "onCancel", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

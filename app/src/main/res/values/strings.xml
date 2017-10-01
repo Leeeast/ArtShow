@@ -37,7 +37,17 @@
     <string name="account_type_theatre_des">我是剧场负责人，我拥有符合经营条件的剧场资源</string>
     <string name="account_type_personal">个人</string>
     <string name="account_type_personal_des">我是戏剧从业者，可能是演员、导演、编剧、舞台技术人员</string>
-    <string name="perfect_info_next_step">下&#160;一&#160;步</string>
+    <string name="perfect_info_next_step">下一步</string>
+    <string name="perfect_account_info">帐号信息</string>
+    <string name="perfect_publisher_name">出品方名称</string>
+    <string name="perfect_publisher_name_des">如果您是组织或团队，请填写组织名称，\n如果您是个人出品方，请填写真实姓名</string>
+    <string name="data_upload">上传资料</string>
+    <string name="data_commit">提交资料</string>
+    <string name="data_commit_des">%1$s是一个真实的互联网平台，我们要对您的账号进行一些资料的审核.</string>
+    <string name="data_commit_success">资料递交成功</string>
+    <string name="data_commit_success_des">审核周期为2个工作日，请耐心等待。如果通过，我们将以短信方式通知到您。审核通过后，您发布的所有剧场信息、作品信息、个人信息资料才会所有人看到</string>
+    <string name="return_main">查看首页</string>
+    <string name="register_success">注册成功</string>
 
     <string name="cancel">取消</string>
     <string name="true_choose">确认选择</string>

@@ -1,0 +1,65 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_title_common" />
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/DIMEN_132PX"
+            android:layout_height="@dimen/DIMEN_132PX"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/DIMEN_53PX"
+            android:background="@mipmap/app_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_18PX"
+            android:text="@string/register_success"
+            android:textColor="@color/login_light"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_return_main"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_43PX"
+            android:background="@drawable/border_bg_gray"
+            android:gravity="center"
+            android:text="@string/return_main"
+            android:textColor="@color/login_btn"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_margin="@dimen/DIMEN_30PX"
+            android:background="@color/login_line" />
+
+        <Button
+            android:id="@+id/btn_commit_data"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_marginBottom="@dimen/DIMEN_10PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:background="@drawable/shape_bg_red"
+            android:gravity="center"
+            android:text="@string/data_upload"
+            android:textColor="@color/whiteff"
+            android:textSize="15sp" />
+    </LinearLayout>
+</ScrollView>

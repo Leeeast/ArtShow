@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 /**
  * Created by lidongliang on 2017/10/1.
