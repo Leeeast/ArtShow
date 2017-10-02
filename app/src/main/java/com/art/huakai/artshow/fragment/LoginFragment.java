@@ -57,7 +57,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                         + getResources().getDimensionPixelSize(R.dimen.DIMEN_20PX),
                 getResources().getDimensionPixelSize(R.dimen.DIMEN_20PX));
         btnLoginWechat.setCompoundDrawables(drawableLeft, null, null, null);
-
+        btnLoginWechat.setOnClickListener(this);
 
         edtPhone = (EditText) rootView.findViewById(R.id.edt_phone);
         edtPassword = (EditText) rootView.findViewById(R.id.edt_password);
@@ -93,6 +93,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             case R.id.tv_forget_pwd:
                 //忘记密码
                 EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_FORGET_PWD));
+                break;
+            case R.id.btn_login_wechat:
+                //微信登录
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_BIND_PHONE));
                 break;
         }
     }

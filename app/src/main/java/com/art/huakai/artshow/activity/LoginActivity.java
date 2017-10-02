@@ -6,6 +6,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
+import com.art.huakai.artshow.fragment.BindPhoneFragment;
 import com.art.huakai.artshow.fragment.DataUploadFragment;
 import com.art.huakai.artshow.fragment.DataUploadSusFragment;
 import com.art.huakai.artshow.fragment.LoginFragment;
@@ -14,6 +15,7 @@ import com.art.huakai.artshow.fragment.PerfectInfoFragment;
 import com.art.huakai.artshow.fragment.RegisterFragment;
 import com.art.huakai.artshow.fragment.RegisterSusFragment;
 import com.art.huakai.artshow.fragment.RetrievePwdFragment;
+import com.art.huakai.artshow.fragment.SetPwdFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -92,6 +94,14 @@ public class LoginActivity extends BaseActivity {
             case LoginEvent.CODE_ACTION_DATA_UPLOAD_SUC:
                 DataUploadSusFragment dataUploadSusFragment = DataUploadSusFragment.newInstance();
                 initFragment(dataUploadSusFragment);
+                break;
+            case LoginEvent.CODE_ACTION_BIND_PHONE:
+                BindPhoneFragment bindPhoneFragment = BindPhoneFragment.newInstance();
+                initFragmentAddback(bindPhoneFragment);
+                break;
+            case LoginEvent.CODE_ACTION_WECHAT_SET_PWD:
+                SetPwdFragment setPwdFragment = SetPwdFragment.newInstance();
+                initFragmentAddback(setPwdFragment);
                 break;
         }
     }

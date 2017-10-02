@@ -196,6 +196,7 @@
 
         <Button
             android:id="@+id/btn_next_step"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_40PX"
             android:layout_marginBottom="@dimen/DIMEN_10PX"
@@ -207,7 +208,5 @@
             android:text="@string/perfect_info_next_step"
             android:textColor="@color/whiteff"
             android:textSize="15sp" />
-
-
     </LinearLayout>
 </ScrollView>

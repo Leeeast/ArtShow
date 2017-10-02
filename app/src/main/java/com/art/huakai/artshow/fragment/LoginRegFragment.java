@@ -78,7 +78,8 @@ public class LoginRegFragment extends BaseFragment implements View.OnClickListen
                 EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER));
                 break;
             case R.id.btn_login_wechat:
-                Toast.makeText(getContext(), "微信登录", Toast.LENGTH_SHORT).show();
+                //微信登录
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_BIND_PHONE));
                 break;
         }
     }

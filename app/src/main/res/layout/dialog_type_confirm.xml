@@ -5,6 +5,7 @@
 
     <Button
         android:id="@+id/btn_ture_choose"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_50PX"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -17,6 +18,7 @@
 
     <Button
         android:id="@+id/btn_cancle"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_50PX"
         android:layout_below="@id/btn_ture_choose"

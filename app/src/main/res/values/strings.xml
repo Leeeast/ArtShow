@@ -51,7 +51,9 @@
 
     <string name="cancel">取消</string>
     <string name="true_choose">确认选择</string>
-
+    <string name="login_weixin_title">微信登录</string>
+    <string name="login_set_pwd">设置密码</string>
+    <string name="login_set_pwd_tip">*请设置一个不少于8位的密码</string>
 
 
     <string name="loading">加载中</string>

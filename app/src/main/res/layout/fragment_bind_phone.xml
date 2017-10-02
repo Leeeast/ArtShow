@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_5PX"
-            android:text="@string/pwd_retrieve"
+            android:text="@string/login_weixin_title"
             android:textColor="@color/login_btn"
             android:textSize="34sp" />
 
@@ -96,67 +96,18 @@
             </FrameLayout>
         </FrameLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_5PX">
-
-            <EditText
-                android:id="@+id/edt_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/pwd_account"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:letterSpacing="0.17"
-                android:maxLines="1"
-                android:paddingBottom="@dimen/DIMEN_15PX"
-                android:singleLine="true"
-                android:textColorHint="@color/login_light"
-                android:textSize="15sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_5PX">
-
-            <EditText
-                android:id="@+id/edt_pwd_affirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/pwd_affirm"
-                android:imeActionId="@+id/register"
-                android:imeActionLabel="@string/app_register_title"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:letterSpacing="0.17"
-                android:maxLines="1"
-                android:paddingBottom="@dimen/DIMEN_15PX"
-                android:singleLine="true"
-                android:textColorHint="@color/login_light"
-                android:textSize="15sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
         <Button
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_next_step"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_marginBottom="@dimen/DIMEN_15PX"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_45PX"
             android:background="@drawable/shape_bg_red"
             android:gravity="center"
-            android:letterSpacing="0.3"
-            android:lineSpacingExtra="5sp"
-            android:text="@string/pwd_retrieve_finish"
+            android:text="@string/perfect_info_next_step"
             android:textColor="@color/whiteff"
             android:textSize="15sp" />
     </LinearLayout>

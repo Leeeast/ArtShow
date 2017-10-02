@@ -130,6 +130,7 @@
 
         <Button
             android:id="@+id/btn_login"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_40PX"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
@@ -163,6 +164,7 @@
 
         <Button
             android:id="@+id/btn_login_wechat"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_40PX"
             android:layout_alignParentBottom="true"
