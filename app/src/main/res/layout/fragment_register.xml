@@ -72,7 +72,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/DIMEN_92PX"
                 android:layout_height="match_parent"
                 android:layout_gravity="right">
 
