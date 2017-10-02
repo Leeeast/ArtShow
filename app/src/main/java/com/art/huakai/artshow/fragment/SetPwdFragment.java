@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.WebActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 
 /**
@@ -69,7 +71,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_protocol:
-                Toast.makeText(getContext(), "协议", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), WebActivity.class));
                 break;
         }
     }

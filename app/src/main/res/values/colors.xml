@@ -104,7 +104,8 @@
     <color name="transparent">#00000000</color>
     <color name="main_tab_text_p">#ffe93c2c</color>
     <color name="app_common_red">#ffe93c2c</color>
-
+    <color name="app_title">#ff5a4b41</color>
+    <color name="app_subtitle">#ff4990e2</color>
     <color name="colorSeekBarDefault">#c3c3c3</color>
 
     <color name="fab_bgtint">#ffE02422</color>

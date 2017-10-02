@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.WebActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 
@@ -75,6 +77,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 getActivity().onBackPressed();
                 break;
             case R.id.tv_protocol:
+                startActivity(new Intent(getContext(), WebActivity.class));
                 break;
             case R.id.btn_register:
                 //应该注册成功后，走接下来的完善信息流程
