@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_whole"
+        android:layout_width="@dimen/DIMEN_230PX"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="南山戏剧节节目招聘"
+            android:textColor="#ff555555"
+            android:textSize="@dimen/DIMEN_17PX" />
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="演出作品要求时长在60分钟以上，作品
+内容必须高大上，人数在5到10人之间"
+            android:textColor="#ff555555"
+            android:textSize="@dimen/DIMEN_13PX" />
+
+        <TextView
+            android:id="@+id/tv_update_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_9PX"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="截止时间：2017年9月3日"
+            android:textColor="#ff999999"
+            android:textSize="@dimen/DIMEN_13PX" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/DIMEN_28PX"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/DIMEN_9PX"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ff4990e2"
+            android:textSize="@dimen/DIMEN_13PX"
+            android:text="报名中"
+            />
+
+        <View
+
+            android:layout_width="@dimen/DIMEN_10PX"
+            android:layout_height="@dimen/DIMEN_18PX"
+            android:background="#fe8b00"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

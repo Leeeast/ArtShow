@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal">
+
+        <com.art.huakai.artshow.widget.ChinaShowImageView
+            android:id="@+id/sdv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/DIMEN_76PX"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImageScaleType="fitXY"
+            android:clickable="false"
+            android:layout_weight="1"
+            />
+
+        <View
+            android:layout_width="@dimen/DIMEN_10PX"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DIMEN_2PX"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="2017青戏节最全排期"
+                android:textColor="#ff555555"
+                android:textSize="@dimen/DIMEN_14PX" />
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginTop="@dimen/DIMEN_4PX"
+                android:text="快来支持你想看的作品"
+                android:textColor="#ff555555"
+                android:textSize="@dimen/DIMEN_14PX" />
+
+            <TextView
+                android:id="@+id/tv_update_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DIMEN_16PX"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="刚刚"
+                android:textColor="#ff999999"
+                android:textSize="@dimen/DIMEN_13PX" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

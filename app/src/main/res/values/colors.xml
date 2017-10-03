@@ -128,5 +128,5 @@
     <color name="text_cancel">#ff007aff</color>
     <color name="text_true">#ffe93c2c</color>
 
-
+    <color name="white">#ffffffff</color>
 </resources>

@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Fragment基类，定义了一些基础的方法，注意方法顺序
  * Created by lidongliang on 2017/9/27.
  */
 public abstract class BaseFragment extends Fragment {
     protected final String TAG = this.getClass().getSimpleName();
-
+    protected Unbinder mUnBinder;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         return inflater.inflate(getLayoutID(), container, false);
     }
 
@@ -33,6 +37,7 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        mUnBinder = ButterKnife.bind(this,view);
         setView();
     }
 
@@ -65,4 +70,10 @@ public abstract class BaseFragment extends Fragment {
      * step_4
      */
     public abstract void setView();
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mUnBinder != null) mUnBinder.unbind();
+    }
 }
