@@ -23,7 +23,7 @@
             android:id="@+id/pb_web_loading"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
-            android:layout_height="3dip"
+            android:layout_height="@dimen/DIMEN_2PX"
             android:indeterminateOnly="false"
             android:max="100"
             android:progressDrawable="@drawable/progress_bar_states" />

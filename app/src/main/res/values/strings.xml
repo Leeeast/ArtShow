@@ -24,6 +24,8 @@
     <string name="app_register_new">注册新账户&#160;&#62;</string>
     <string name="app_verify_code">验证码</string>
     <string name="send_verify_code">发送验证码</string>
+    <string name="resend_verify_code">重新发送</string>
+    <string name="resend_verify_number">重新发送(%1$d)</string>
     <string name="pwd_affirm">确认密码</string>
     <string name="app_register_title">注册</string>
     <string name="register_protocol_tip">点击注册将默认你同意&#160;&#160;隐私保密条款.</string>
@@ -54,8 +56,27 @@
     <string name="login_weixin_title">微信登录</string>
     <string name="login_set_pwd">设置密码</string>
     <string name="login_set_pwd_tip">*请设置一个不少于8位的密码</string>
-    <string name="please_input_correct_phone">请输入正确的手机号</string>
+    <string name="please_input_correct_phone">手机格式错误，请确认</string>
 
+    <string name="tip_input_phone">请输入手机号码</string>
+    <string name="tip_input_verify_code">请输入验证码</string>
+    <string name="tip_input_pwd">请输入密码</string>
+    <string name="tip_input_entrue_pwd">请输入确认密码</string>
+    <string name="tip_input_dif_psw">两次输入密码不相同，请确认</string>
+    <string name="tip_input_length">密码不少于8位字符哦</string>
+
+    <string name="response_code_200">success</string>
+    <string name="response_code_4000">参数签名错误</string>
+    <string name="response_code_4001">令牌过期或无效</string>
+    <string name="response_code_4002">系统内部错误</string>
+    <string name="response_code_4003">请求参数错误</string>
+    <string name="response_code_4004">验证码错误</string>
+    <string name="response_code_4005">账号被限制使用</string>
+    <string name="response_code_4006">账号或密码错误</string>
+    <string name="response_code_4007">手机号已存在</string>
+    <string name="response_code_4008">操作频繁，稍候再试</string>
+    <string name="response_code_4009">文件类型错误</string>
+    <string name="response_code_other">未知错误</string>
 
     <string name="loading">加载中</string>
     <string name="loading_done">加载完成</string>

@@ -32,12 +32,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
                 android:imeOptions="actionNext"
+                android:maxLength="11"
                 android:inputType="phone"
-                android:letterSpacing="0.17"
-                android:lineSpacingExtra="5sp"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/DIMEN_15PX"
-                android:singleLine="true"
                 android:textColorHint="@color/login_light"
                 android:textSize="15sp" />
 
@@ -61,11 +59,9 @@
                     android:hint="@string/app_verify_code"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
-                    android:letterSpacing="0.17"
-                    android:lineSpacingExtra="5sp"
+                    android:maxLength="6"
                     android:maxLines="1"
                     android:paddingBottom="@dimen/DIMEN_15PX"
-                    android:singleLine="true"
                     android:textColorHint="@color/login_light"
                     android:textSize="15sp" />
 

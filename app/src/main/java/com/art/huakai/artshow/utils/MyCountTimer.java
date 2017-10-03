@@ -1,14 +1,16 @@
 package com.art.huakai.artshow.utils;
 
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.base.ShowApplication;
 
 
 public class MyCountTimer extends CountDownTimer {
     public static final int TIME_COUNT = 60000;//时间防止从59s开始显示（以倒计时60s为例子）
-    private TextView btn;
+    private TextView tvVerify;
     private int endStrRid;
     private int normalColor, timingColor;//未计时的文字颜色，计时期间的文字颜色
 
@@ -22,7 +24,7 @@ public class MyCountTimer extends CountDownTimer {
      */
     public MyCountTimer(long millisInFuture, long countDownInterval, TextView btn, int endStrRid) {
         super(millisInFuture, countDownInterval);
-        this.btn = btn;
+        this.tvVerify = btn;
         this.endStrRid = endStrRid;
     }
 
@@ -32,21 +34,23 @@ public class MyCountTimer extends CountDownTimer {
      */
     public MyCountTimer(TextView btn, int endStrRid) {
         super(TIME_COUNT, 1000);
-        this.btn = btn;
+        this.tvVerify = btn;
         this.endStrRid = endStrRid;
     }
 
     public MyCountTimer(TextView btn) {
         super(TIME_COUNT, 1000);
-        this.btn = btn;
-        this.endStrRid = R.string.send_verify_code;
+        this.tvVerify = btn;
+        this.endStrRid = R.string.resend_verify_code;
+//        this.normalColor = Color.argb(255, 73, 144, 226);
+//        this.timingColor = Color.argb(255, 170, 166, 162);
     }
 
     public MyCountTimer(TextView btn, boolean isTishi) {
         super(TIME_COUNT, 1000);
-        this.btn = btn;
+        this.tvVerify = btn;
         if (isTishi) {
-            this.endStrRid = R.string.send_verify_code;
+            this.endStrRid = R.string.resend_verify_code;
         }
     }
 
@@ -67,20 +71,17 @@ public class MyCountTimer extends CountDownTimer {
     // 计时完毕时触发
     @Override
     public void onFinish() {
-        if (normalColor > 0) {
-            btn.setTextColor(normalColor);
-        }
-        btn.setText(endStrRid);
-        btn.setEnabled(true);
+        tvVerify.setTextColor(normalColor);
+        tvVerify.setText(endStrRid);
+        tvVerify.setEnabled(true);
     }
 
     // 计时过程显示
     @Override
     public void onTick(long millisUntilFinished) {
-        if (timingColor > 0) {
-            btn.setTextColor(timingColor);
-        }
-        btn.setEnabled(false);
-        btn.setText(millisUntilFinished / 1000 + "s");
+        tvVerify.setTextColor(timingColor);
+        tvVerify.setEnabled(false);
+        String format = String.format(ShowApplication.getAppContext().getString(R.string.resend_verify_number), millisUntilFinished / 1000);
+        tvVerify.setText(format);
     }
 }

@@ -13,10 +13,11 @@ public class Constant {
     private static boolean isTestEnv = true;
     private static final String TEST_BASE_URL = "http://139.224.47.213:8080/showonline_api";
     private static final String PRODUCE_BASE_URL = "";
-    private static final String BASE_URL = isTestEnv ? TEST_BASE_URL : PRODUCE_BASE_URL;
+    public static final String BASE_URL = isTestEnv ? TEST_BASE_URL : PRODUCE_BASE_URL;
 
-    //获取验证码借口
-    public static final String URL_GET_VERIFY_CODE = BASE_URL + "/verify/code?receiver=%s&method=sms";
-
+    //获取验证码接口
+    public static final String URL_GET_VERIFY_CODE = BASE_URL + "/verify/code";
+    //用户注册接口
+    public static final String URL_USER_REGISTER = BASE_URL + "/user/register";
 
 }

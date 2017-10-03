@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.View;
@@ -20,14 +21,23 @@ import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
+import com.art.huakai.artshow.okhttp.callback.Callback;
 import com.art.huakai.artshow.okhttp.callback.StringCallback;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MyCountTimer;
 import com.art.huakai.artshow.utils.PhoneUtils;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 注册新账户Fragment
@@ -37,6 +47,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
 
     private EditText edtPhone, edtVerifyCode, edtPassword, edtPwdAffirm;
     private TextView tvSendVerify;
+    private Gson mGson;
 
     public RegisterFragment() {
     }
@@ -48,7 +59,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        mGson = new Gson();
     }
 
     @Override
@@ -105,9 +116,66 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.btn_register:
                 //应该注册成功后，走接下来的完善信息流程
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
+                //EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
+                doRegister();
                 break;
         }
+    }
+
+    /**
+     * 注册
+     */
+    private void doRegister() {
+        String phoneNum = edtPhone.getText().toString();
+        String verifyCode = edtVerifyCode.getText().toString();
+        String pwd = edtPassword.getText().toString();
+        String pwdAffirm = edtPwdAffirm.getText().toString();
+        if (TextUtils.isEmpty(phoneNum)) {
+            showToast(getString(R.string.tip_input_phone));
+            return;
+        }
+        if (!PhoneUtils.isMobileNumber(phoneNum)) {
+            showToast(getString(R.string.please_input_correct_phone));
+            return;
+        }
+        if (TextUtils.isEmpty(verifyCode)) {
+            showToast(getString(R.string.tip_input_verify_code));
+            return;
+        }
+        if (TextUtils.isEmpty(pwd)) {
+            showToast(getString(R.string.tip_input_pwd));
+            return;
+        }
+        if (TextUtils.isEmpty(pwdAffirm)) {
+            showToast(getString(R.string.tip_input_entrue_pwd));
+            return;
+        }
+        if (!pwd.equals(pwdAffirm)) {
+            showToast(getString(R.string.tip_input_dif_psw));
+            return;
+        }
+        if (pwd.length() < 8) {
+            showToast(getString(R.string.tip_input_length));
+            return;
+        }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("mobile", phoneNum);
+        params.put("password", pwd);
+        params.put("verifyCode", verifyCode);
+        RequestUtil.request(true, Constant.URL_USER_REGISTER, params, 10, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    //mGson.fromJson(obj,)
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+            }
+        });
     }
 
     /**
@@ -115,30 +183,35 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
      */
     public void requestVerifyCode() {
         String phoneNum = edtPhone.getText().toString();
+        if (TextUtils.isEmpty(phoneNum)) {
+            showToast(getString(R.string.tip_input_phone));
+            return;
+        }
         if (!PhoneUtils.isMobileNumber(phoneNum)) {
-            Toast.makeText(getContext(), getString(R.string.please_input_correct_phone), Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.please_input_correct_phone));
             return;
         } else {
-            final MyCountTimer timeCount = new MyCountTimer(tvSendVerify, 0xfff30008, 0xff969696);// 传入了文字颜色值
+            final MyCountTimer timeCount = new MyCountTimer(tvSendVerify,
+                    getResources().getColor(R.color.register_new),
+                    getResources().getColor(R.color.login_light));// 传入了文字颜色值
             timeCount.start();
-            String url = String.format(Constant.URL_GET_VERIFY_CODE, phoneNum);
-            OkHttpUtils
-                    .get()
-                    .url(url)
-                    .id(100)
-                    .build()
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onError(Call call, Exception e, int id) {
-                            LogUtil.e(TAG, e.getMessage() + "-" + id);
-                        }
+            HashMap<String, String> params = new HashMap<>();
+            params.put("receiver", phoneNum);
+            params.put("method", "sms");
+            RequestUtil.request(false, Constant.URL_GET_VERIFY_CODE, params, 11, new RequestUtil.RequestListener() {
+                @Override
+                public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                    LogUtil.i(TAG, obj);
+                    if (isSuccess) {
 
-                        @Override
-                        public void onResponse(String response, int id) {
-                            LogUtil.i(TAG, response + ":id = " + id);
-                        }
-                    });
+                    }
+                }
+
+                @Override
+                public void onFailed(Call call, Exception e, int id) {
+                    LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+                }
+            });
         }
-        //et_yanzheng.requestFocus();
     }
 }

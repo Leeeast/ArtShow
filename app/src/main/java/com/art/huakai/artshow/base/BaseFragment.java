@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 /**
  * Fragment基类，定义了一些基础的方法，注意方法顺序
@@ -33,6 +34,10 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         setView();
+    }
+
+    public void showToast(String toastStr) {
+        Toast.makeText(getContext(), toastStr, Toast.LENGTH_SHORT).show();
     }
 
     /**
