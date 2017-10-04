@@ -4,7 +4,10 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
@@ -31,7 +34,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void immerseStatusBar() {
-        ImmerseStatusBar.setImmerseStatusBar(this, R.color.redd3);
+        ImmerseStatusBar.myStatusBar(this);
+        ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
     }
 
     @Override
@@ -47,6 +51,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void initView() {
         ((RadioGroup) findViewById(R.id.rdogp_main_tab)).setOnCheckedChangeListener(this);
+        LinearLayout lLyMainRoot = (LinearLayout) findViewById(R.id.lly_main_root);
     }
 
     @Override

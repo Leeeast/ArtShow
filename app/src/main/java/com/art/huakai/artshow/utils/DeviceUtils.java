@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Properties;
 
@@ -140,8 +141,7 @@ public class DeviceUtils {
     }
 
 
-
-    public static int getScreenHeight(Context context){
+    public static int getScreenHeight(Context context) {
 
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -150,7 +150,7 @@ public class DeviceUtils {
 
     }
 
-    public static int getScreenWeight(Context context){
+    public static int getScreenWeight(Context context) {
 
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -176,6 +176,39 @@ public class DeviceUtils {
         return (int) (pxValue / scale + 0.5f);
     }
 
+    /**
+     * 状态栏的高度
+     *
+     * @param @param  context
+     * @param @return
+     * @return int
+     * @throws
+     * @Title: getStatusBarHeight
+     * @Description: TODO
+     */
+    public static int getStatusBarHeight(Context context) {
+        // Rect rect= new Rect();
+        //
+        // Window window= ((Activity) context).getWindow();
+        // window.getDecorView().getWindowVisibleDisplayFrame(rect);
+        // System.out.println(rect.top);
+        // return rect.top;
+
+        Class<?> c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0, sbar = 0;
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            sbar = context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return sbar;
+    }
 
 
 }

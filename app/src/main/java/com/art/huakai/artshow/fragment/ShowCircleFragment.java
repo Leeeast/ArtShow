@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,6 +21,8 @@ import com.art.huakai.artshow.adapter.ProfessionalPersonAdapter;
 import com.art.huakai.artshow.adapter.RecommendTheaterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
+import com.art.huakai.artshow.utils.DeviceUtils;
+import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
@@ -129,7 +133,6 @@ public class ShowCircleFragment extends BaseFragment {
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
     }
 
     @Override
@@ -139,11 +142,15 @@ public class ShowCircleFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
-
+        //处理状态栏遮挡问题
+        LinearLayout llyContent = (LinearLayout) rootView.findViewById(R.id.lly_content);
+        int statusBarHeight = DeviceUtils.getStatusBarHeight(getContext());
+        llyContent.setPadding(0, statusBarHeight, 0, 0);
     }
 
     @Override
     public void setView() {
+
         initData();
     }
 

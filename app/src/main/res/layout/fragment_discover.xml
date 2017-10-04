@@ -1,12 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lly_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.art.huakai.artshow.fragment.DiscoverFragment">
+    android:background="@color/whiteff"
+    android:orientation="vertical">
 
-    <TextView
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl_dis_tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/main_tab_discover" />
+        android:layout_height="@dimen/DIMEN_47PX"
+        android:background="@color/whiteff"
+        tl:tl_indicator_color="#000000"
+        tl:tl_indicator_corner_radius="2.5dp"
+        tl:tl_indicator_height="5dp"
+        tl:tl_indicator_width="5dp"
+        tl:tl_tab_space_equal="true"
+        tl:tl_textSelectColor="@color/dis_tab_text_s"
+        tl:tl_textUnselectColor="@color/dis_tab_text_n"
+        tl:tl_textsize="16sp" />
 
-</FrameLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:background="@color/dis_viewpager_bg" />
+
+</LinearLayout>

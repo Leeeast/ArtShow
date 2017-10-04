@@ -17,4 +17,10 @@
         <item>100</item>
     </string-array>
 
+    <string-array name="discover_tab">
+        <item>找剧场</item>
+        <item>找作品</item>
+        <item>找人才</item>
+    </string-array>
+
 </resources>

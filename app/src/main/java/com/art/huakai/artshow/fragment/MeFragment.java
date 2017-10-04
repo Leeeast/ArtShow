@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.utils.DeviceUtils;
 
 /**
  * 我Fragment
@@ -40,7 +41,10 @@ public class MeFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
+        int statusBarHeight = DeviceUtils.getStatusBarHeight(getContext());
         mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
+        mRefreshLayout.setPadding(0, statusBarHeight, 0, 0);
+
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

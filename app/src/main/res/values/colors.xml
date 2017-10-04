@@ -24,6 +24,7 @@
     <color name="blackf7">#f7f4e7</color>
     <color name="whitef7">#f7f7f7</color>
     <color name="whiteff">#ffffffff</color>
+    <color name="whiteb8">#b8ffffff</color>
     <color name="blackbe">#bebebe</color>
     <color name="blackba">#bababa</color>
     <color name="blackb9">#b9b9b9</color>
@@ -129,4 +130,7 @@
     <color name="text_true">#ffe93c2c</color>
 
     <color name="white">#ffffffff</color>
+    <color name="dis_viewpager_bg">#fff5fafc</color>
+    <color name="dis_tab_text_s">#ff1a1a1c</color>
+    <color name="dis_tab_text_n">#9e5e6066</color>
 </resources>
