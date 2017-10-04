@@ -130,9 +130,6 @@ public class ShowCircleFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
 
-       initData() ;
-
-
     }
 
     @Override
@@ -147,7 +144,7 @@ public class ShowCircleFragment extends BaseFragment {
 
     @Override
     public void setView() {
-
+        initData();
     }
 
     private void initData() {

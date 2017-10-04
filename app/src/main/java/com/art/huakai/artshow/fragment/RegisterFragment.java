@@ -19,11 +19,14 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WebActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.okhttp.callback.Callback;
 import com.art.huakai.artshow.okhttp.callback.StringCallback;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.MyCountTimer;
 import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -116,7 +119,6 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.btn_register:
                 //应该注册成功后，走接下来的完善信息流程
-                //EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
                 doRegister();
                 break;
         }
@@ -126,10 +128,10 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
      * 注册
      */
     private void doRegister() {
-        String phoneNum = edtPhone.getText().toString();
-        String verifyCode = edtVerifyCode.getText().toString();
-        String pwd = edtPassword.getText().toString();
-        String pwdAffirm = edtPwdAffirm.getText().toString();
+        String phoneNum = edtPhone.getText().toString().trim();
+        String verifyCode = edtVerifyCode.getText().toString().trim();
+        String pwd = edtPassword.getText().toString().trim();
+        String pwdAffirm = edtPwdAffirm.getText().toString().trim();
         if (TextUtils.isEmpty(phoneNum)) {
             showToast(getString(R.string.tip_input_phone));
             return;
@@ -158,6 +160,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             showToast(getString(R.string.tip_input_length));
             return;
         }
+        pwd = MD5.getMD5(pwd.getBytes());
         HashMap<String, String> params = new HashMap<>();
         params.put("mobile", phoneNum);
         params.put("password", pwd);
@@ -167,7 +170,25 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
                 if (isSuccess) {
-                    //mGson.fromJson(obj,)
+                    try {
+                        UserInfo userInfo = mGson.fromJson(obj, UserInfo.class);
+                        LocalUserInfo localUserInfo = LocalUserInfo.instance();
+                        localUserInfo.setExpire(userInfo.expire);
+                        localUserInfo.setAccessToken(userInfo.accessToken);
+                        localUserInfo.setId(userInfo.user.id);
+                        localUserInfo.setName(userInfo.user.name);
+                        localUserInfo.setMobile(userInfo.user.mobile);
+                        localUserInfo.setEmail(userInfo.user.email);
+                        localUserInfo.setWechatOpenid(userInfo.user.wechatOpenid);
+                        localUserInfo.setDp(userInfo.user.dp);
+                        localUserInfo.setPassword(userInfo.user.password);
+                        localUserInfo.setUserType(userInfo.user.userType);
+                        localUserInfo.setStatus(userInfo.user.status);
+                        localUserInfo.setCreateTime(userInfo.user.createTime);
+                        EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

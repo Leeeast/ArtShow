@@ -19,5 +19,8 @@ public class Constant {
     public static final String URL_GET_VERIFY_CODE = BASE_URL + "/verify/code";
     //用户注册接口
     public static final String URL_USER_REGISTER = BASE_URL + "/user/register";
-
+    //绑定账户类型
+    public static final String URL_BIND_TYPE = BASE_URL + "/user/bindUserType";
+    //修改密码
+    public static final String URL_EDIT_PWD = BASE_URL + "/user/editPassword";
 }

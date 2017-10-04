@@ -30,6 +30,7 @@
             android:textSize="15sp" />
 
         <LinearLayout
+            android:id="@+id/lly_publisher"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_72PX"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
@@ -86,6 +87,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lly_theatre"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_72PX"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
@@ -140,6 +142,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lly_personal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_72PX"
             android:layout_marginLeft="@dimen/DIMEN_30PX"

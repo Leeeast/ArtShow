@@ -100,7 +100,8 @@ public class LoginActivity extends BaseActivity {
                 initFragmentAddback(bindPhoneFragment);
                 break;
             case LoginEvent.CODE_ACTION_WECHAT_SET_PWD:
-                SetPwdFragment setPwdFragment = SetPwdFragment.newInstance();
+                SetPwdFragment setPwdFragment =
+                        SetPwdFragment.newInstance(enterEvent.getPhone(), enterEvent.getVerifyCode());
                 initFragmentAddback(setPwdFragment);
                 break;
         }

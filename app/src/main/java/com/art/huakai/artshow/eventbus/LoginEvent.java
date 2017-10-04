@@ -26,7 +26,24 @@ public class LoginEvent {
         this.actionCode = code;
     }
 
+    public LoginEvent(int code, String phone, String verifyCode) {
+        this.actionCode = code;
+        this.phone = phone;
+        this.verifyCode = verifyCode;
+    }
+
     public int getActionCode() {
         return actionCode;
+    }
+
+    private String phone;
+    private String verifyCode;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
     }
 }
