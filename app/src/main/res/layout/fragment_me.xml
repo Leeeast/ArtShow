@@ -4,6 +4,7 @@
     android:id="@+id/refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whiteff"
     android:fitsSystemWindows="false">
 
     <android.support.design.widget.CoordinatorLayout
@@ -15,6 +16,7 @@
             android:id="@+id/app_barlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/blackb8"
             android:fitsSystemWindows="false">
 
             <android.support.design.widget.CollapsingToolbarLayout

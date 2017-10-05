@@ -1,12 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.art.huakai.artshow.fragment.DiscoverFragment">
+    android:background="@color/whiteff">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/rly_coll_head"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/main_tab_collaborate" />
+        android:layout_height="@dimen/DIMEN_153PX"
+        android:background="@mipmap/home_page_topbackground">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_coll_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_25PX"
+            android:layout_marginTop="@dimen/DIMEN_36PX"
+            android:text="@string/coll_title"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="@dimen/DIMEN_312PX"
+            android:layout_height="@dimen/DIMEN_48PX"
+            android:layout_below="@id/tv_coll_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/DIMEN_20PX"
+            android:background="@drawable/shape_bg_white_radius_1"
+            android:drawablePadding="@dimen/DIMEN_25PX"
+            android:gravity="center_vertical"
+            android:hint="@string/coll_search"
+            android:letterSpacing="0.02"
+            android:textColorHint="@color/coll_search_hint"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyvleview_coll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rly_coll_head" />
+
+</RelativeLayout>

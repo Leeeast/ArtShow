@@ -1,9 +1,11 @@
 package com.art.huakai.artshow.fragment;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.EditText;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -15,6 +17,7 @@ import com.art.huakai.artshow.base.BaseFragment;
 public class CollaborateFragment extends BaseFragment {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = CollaborateFragment.class.getSimpleName();
+    private EditText edtSearch;
 
     public CollaborateFragment() {
         // Required empty public constructor
@@ -37,6 +40,15 @@ public class CollaborateFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
+        Drawable drawableLeft = getResources().getDrawable(R.mipmap.chinashow_search);
+        drawableLeft.setBounds(
+                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX),
+                0,
+                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX)
+                        + getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX),
+                getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX));
+        edtSearch = (EditText) rootView.findViewById(R.id.edt_search);
+        edtSearch.setCompoundDrawables(drawableLeft, null, null, null);
 
     }
 

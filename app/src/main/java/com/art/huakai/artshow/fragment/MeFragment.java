@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -43,7 +44,8 @@ public class MeFragment extends BaseFragment {
     public void initView(View rootView) {
         int statusBarHeight = DeviceUtils.getStatusBarHeight(getContext());
         mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
-        mRefreshLayout.setPadding(0, statusBarHeight, 0, 0);
+        RelativeLayout rLyHead = (RelativeLayout) rootView.findViewById(R.id.rly_head);
+        rLyHead.setPadding(0, statusBarHeight, 0, 0);
 
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
