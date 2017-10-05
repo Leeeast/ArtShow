@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:clickable="false"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/app_login"
+        android:textColor="@color/whiteff"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/iv_loading"
+        android:layout_width="@dimen/DIMEN_20PX"
+        android:layout_height="@dimen/DIMEN_20PX"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:background="@mipmap/loading_white"
+        android:clickable="false"
+        android:visibility="invisible" />
+
+</FrameLayout>

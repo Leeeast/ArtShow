@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.widget.LoadingButton;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,6 +25,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class LoginFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private EditText edtPassword, edtPhone;
+    private LoadingButton mLoadingButton;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -62,10 +64,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         edtPhone = (EditText) rootView.findViewById(R.id.edt_phone);
         edtPassword = (EditText) rootView.findViewById(R.id.edt_password);
 
-
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
         rootView.findViewById(R.id.tv_regiser).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_login).setOnClickListener(this);
+        mLoadingButton = (LoadingButton) rootView.findViewById(R.id.lbtn_login);
+        mLoadingButton.setOnClickListener(this);
+        //rootView.findViewById(R.id.lbtn_login).setOnClickListener(this);
         rootView.findViewById(R.id.tv_forget_pwd).setOnClickListener(this);
 
         //记录密码监听
@@ -87,7 +90,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             case R.id.tv_regiser:
                 EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER));
                 break;
-            case R.id.btn_login:
+            case R.id.lbtn_login:
+                mLoadingButton.startLoading();
                 Toast.makeText(getContext(), "登录", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_forget_pwd:

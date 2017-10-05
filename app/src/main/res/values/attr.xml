@@ -111,5 +111,13 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="LoadingButton">
+        <attr name="loading_text" format="reference|string" />
+        <attr name="loading_textSize" format="dimension" />
+        <attr name="loading_textColor" format="reference|color" />
+        <attr name="loading_drawableRight" format="reference" />
+        <attr name="loading_drawablePadding" format="dimension" />
+    </declare-styleable>
+
 
 </resources>

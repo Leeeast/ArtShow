@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lbtn="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteff"
@@ -128,21 +129,19 @@
                 android:textSize="15sp" />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_login"
-            style="?android:attr/borderlessButtonStyle"
+        <com.art.huakai.artshow.widget.LoadingButton
+            android:id="@+id/lbtn_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_40PX"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_40PX"
             android:background="@drawable/shape_bg_red"
-            android:gravity="center"
-            android:letterSpacing="0.3"
-            android:lineSpacingExtra="5sp"
-            android:text="@string/app_login"
-            android:textColor="@color/whiteff"
-            android:textSize="15sp" />
+            lbtn:loading_drawablePadding="@dimen/DIMEN_15PX"
+            lbtn:loading_drawableRight="@mipmap/loading_white"
+            lbtn:loading_text="@string/app_login"
+            lbtn:loading_textColor="@color/whiteff"
+            lbtn:loading_textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
