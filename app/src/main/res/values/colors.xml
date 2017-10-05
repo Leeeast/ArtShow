@@ -6,6 +6,7 @@
 
     <color name="black333">#333333</color>
     <color name="black00">#ff000000</color>
+    <color name="black33">#33000000</color>
     <color name="black1f">#1f1f1f</color>
     <color name="black3f">#3f3d40</color>
     <color name="black3e">#3e3d42</color>
@@ -136,4 +137,6 @@
     <!--合作相关-->
     <color name="coll_search_hint">#ffc0c6d1</color>
     <color name="coll_search_text">#ffcfc6d1</color>
+    <color name="coll_item_bg">#fff5f9fb</color>
+    <color name="coll_item_title">#ff555555</color>
 </resources>

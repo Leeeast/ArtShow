@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/rly_coll_head"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_153PX"
+        android:layout_height="@dimen/collaborate_head"
         android:background="@mipmap/home_page_topbackground">
 
         <TextView
