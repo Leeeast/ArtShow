@@ -46,11 +46,8 @@
                 android:hint="@string/perfect_publisher_name"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
-                android:letterSpacing="0.17"
-                android:lineSpacingExtra="5sp"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/DIMEN_15PX"
-                android:singleLine="true"
                 android:textColorHint="@color/login_light"
                 android:textSize="15sp" />
 

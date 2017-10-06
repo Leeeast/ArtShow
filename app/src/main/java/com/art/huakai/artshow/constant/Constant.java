@@ -23,4 +23,6 @@ public class Constant {
     public static final String URL_BIND_TYPE = BASE_URL + "/user/bindUserType";
     //修改密码
     public static final String URL_EDIT_PWD = BASE_URL + "/user/editPassword";
+    //登录
+    public static final String URL_USER_LOGIN = BASE_URL + "/user/login";
 }

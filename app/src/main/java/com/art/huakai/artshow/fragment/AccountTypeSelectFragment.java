@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TypeConfirmDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
@@ -41,6 +42,7 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
             USER_TYPE_THEATRE = 1,
             USER_TYPE_PUBLISHER = 2,
             USER_TYPE_NONE = -1;
+    private ShowProgressDialog showProgressDialog;
 
     public AccountTypeSelectFragment() {
         // Required empty public constructor
@@ -55,6 +57,7 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
     public void initData(@Nullable Bundle bundle) {
         localUserInfo = LocalUserInfo.instance();
         localUserInfo.setUserType(USER_TYPE_PUBLISHER);
+        showProgressDialog = new ShowProgressDialog(getContext());
     }
 
     @Override
@@ -171,10 +174,14 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "parmas:" + params);
+        showProgressDialog.show();
         RequestUtil.request(true, Constant.URL_BIND_TYPE, params, 12, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
                 if (isSuccess) {
                     EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
                 }
@@ -183,6 +190,9 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
             }
         });
     }

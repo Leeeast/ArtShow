@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -19,6 +19,8 @@ import org.greenrobot.eventbus.EventBus;
  * Created by lidongliang on 2017/9/27.
  */
 public class LoginRegFragment extends BaseFragment implements View.OnClickListener {
+
+    private ShowProgressDialog liveProgressDialog;
 
     public LoginRegFragment() {
     }
@@ -30,7 +32,7 @@ public class LoginRegFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        liveProgressDialog = new ShowProgressDialog(getContext());
     }
 
     @Override

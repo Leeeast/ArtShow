@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MyCountTimer;
@@ -33,6 +34,7 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
 
     private EditText edtPhone, edtVerifyCode;
     private TextView tvSendVerify;
+    private ShowProgressDialog showProgressDialog;
 
     public RetrievePwdFragment() {
     }
@@ -44,7 +46,7 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        showProgressDialog = new ShowProgressDialog(getContext());
     }
 
     @Override
@@ -116,10 +118,14 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
             HashMap<String, String> params = new HashMap<>();
             params.put("receiver", phoneNum);
             params.put("method", "sms");
+            showProgressDialog.show();
             RequestUtil.request(false, Constant.URL_GET_VERIFY_CODE, params, 11, new RequestUtil.RequestListener() {
                 @Override
                 public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                     LogUtil.i(TAG, obj);
+                    if (showProgressDialog.isShowing()) {
+                        showProgressDialog.dismiss();
+                    }
                     if (isSuccess) {
 
                     }
@@ -128,6 +134,9 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
                 @Override
                 public void onFailed(Call call, Exception e, int id) {
                     LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+                    if (showProgressDialog.isShowing()) {
+                        showProgressDialog.dismiss();
+                    }
                 }
             });
         }

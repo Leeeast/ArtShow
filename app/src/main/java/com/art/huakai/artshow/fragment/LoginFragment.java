@@ -3,6 +3,7 @@ package com.art.huakai.artshow.fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -14,10 +15,21 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.MD5;
+import com.art.huakai.artshow.utils.PhoneUtils;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.widget.LoadingButton;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+import okhttp3.Call;
 
 /**
  * 登录Fragment
@@ -91,8 +103,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER));
                 break;
             case R.id.lbtn_login:
-                mLoadingButton.startLoading();
-                Toast.makeText(getContext(), "登录", Toast.LENGTH_SHORT).show();
+                doLogin();
                 break;
             case R.id.tv_forget_pwd:
                 //忘记密码
@@ -122,5 +133,49 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 edtPassword.setSelection(edtPassword.length());
                 break;
         }
+    }
+
+    public void doLogin() {
+        String phoneNum = edtPhone.getText().toString().trim();
+        String pwd = edtPassword.getText().toString().trim();
+        if (TextUtils.isEmpty(phoneNum)) {
+            showToast(getString(R.string.tip_input_phone));
+            return;
+        }
+        if (!PhoneUtils.isMobileNumber(phoneNum)) {
+            showToast(getString(R.string.please_input_correct_phone));
+            return;
+        }
+        if (TextUtils.isEmpty(pwd)) {
+            showToast(getString(R.string.tip_input_pwd));
+            return;
+        }
+        if (pwd.length() < 8) {
+            showToast(getString(R.string.tip_input_length));
+            return;
+        }
+        pwd = MD5.getMD5(pwd.getBytes());
+        Map<String, String> params = new TreeMap<>();
+        params.put("mobile", phoneNum);
+        params.put("password", pwd);
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        mLoadingButton.startLoading();
+        RequestUtil.request(true, Constant.URL_USER_LOGIN, params, 14, new RequestUtil.RequestListener() {
+
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                mLoadingButton.stopLoading();
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                mLoadingButton.stopLoading();
+            }
+        });
+
+
     }
 }

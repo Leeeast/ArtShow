@@ -19,6 +19,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WebActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
@@ -51,6 +52,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     private EditText edtPhone, edtVerifyCode, edtPassword, edtPwdAffirm;
     private TextView tvSendVerify;
     private Gson mGson;
+    private ShowProgressDialog showProgressDialog;
 
     public RegisterFragment() {
     }
@@ -63,6 +65,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void initData(@Nullable Bundle bundle) {
         mGson = new Gson();
+        showProgressDialog = new ShowProgressDialog(getContext());
     }
 
     @Override
@@ -165,10 +168,14 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         params.put("mobile", phoneNum);
         params.put("password", pwd);
         params.put("verifyCode", verifyCode);
+        showProgressDialog.show();
         RequestUtil.request(true, Constant.URL_USER_REGISTER, params, 10, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
                 if (isSuccess) {
                     try {
                         UserInfo userInfo = mGson.fromJson(obj, UserInfo.class);
@@ -195,6 +202,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
             }
         });
     }
@@ -203,7 +213,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
      * 获取验证码
      */
     public void requestVerifyCode() {
-        String phoneNum = edtPhone.getText().toString();
+        String phoneNum = edtPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phoneNum)) {
             showToast(getString(R.string.tip_input_phone));
             return;
@@ -219,10 +229,14 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             HashMap<String, String> params = new HashMap<>();
             params.put("receiver", phoneNum);
             params.put("method", "sms");
+            showProgressDialog.show();
             RequestUtil.request(false, Constant.URL_GET_VERIFY_CODE, params, 11, new RequestUtil.RequestListener() {
                 @Override
                 public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                     LogUtil.i(TAG, obj);
+                    if (showProgressDialog.isShowing()) {
+                        showProgressDialog.dismiss();
+                    }
                     if (isSuccess) {
 
                     }
@@ -231,6 +245,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 @Override
                 public void onFailed(Call call, Exception e, int id) {
                     LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+                    if (showProgressDialog.isShowing()) {
+                        showProgressDialog.dismiss();
+                    }
                 }
             });
         }

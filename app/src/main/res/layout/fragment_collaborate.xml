@@ -30,7 +30,6 @@
             android:drawablePadding="@dimen/DIMEN_25PX"
             android:gravity="center_vertical"
             android:hint="@string/coll_search"
-            android:letterSpacing="0.02"
             android:textColorHint="@color/coll_search_hint"
             android:textSize="14sp" />
     </RelativeLayout>
