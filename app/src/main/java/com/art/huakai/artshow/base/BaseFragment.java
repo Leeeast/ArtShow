@@ -19,6 +19,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
     protected final String TAG = this.getClass().getSimpleName();
     protected Unbinder mUnBinder;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        mUnBinder = ButterKnife.bind(this,view);
+        mUnBinder = ButterKnife.bind(this, view);
         setView();
     }
 
@@ -75,5 +76,13 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (mUnBinder != null) mUnBinder.unbind();
+    }
+
+    /**
+     * 获取自定义TAG
+     * @return
+     */
+    public String getTAG() {
+        return TAG;
     }
 }

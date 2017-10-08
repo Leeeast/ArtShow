@@ -1,9 +1,11 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
 import com.art.huakai.artshow.fragment.BindPhoneFragment;
@@ -104,16 +106,23 @@ public class LoginActivity extends BaseActivity {
                         SetPwdFragment.newInstance(enterEvent.getPhone(), enterEvent.getVerifyCode());
                 initFragmentAddback(setPwdFragment);
                 break;
+            case LoginEvent.CODE_ACTION_SET_PWD:
+                popBackStack();
+                break;
         }
     }
 
-    public void initFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, fragment).commit();
+    public void initFragment(BaseFragment baseFragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, baseFragment, baseFragment.getTAG()).commit();
     }
 
     //添加一个fragment到返回栈中
-    public void initFragmentAddback(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, fragment).addToBackStack(null).commit();
+    public void initFragmentAddback(BaseFragment baseFragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, baseFragment, baseFragment.getTAG()).addToBackStack(baseFragment.getTAG()).commit();
+    }
+
+    public void popBackStack() {
+        getSupportFragmentManager().popBackStack("LoginFragment", 0);
     }
 
     @Override

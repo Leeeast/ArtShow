@@ -15,6 +15,7 @@ public class LoginEvent {
     public static final int CODE_ACTION_DATA_UPLOAD_SUC = 7;
     public static final int CODE_ACTION_BIND_PHONE = 8;
     public static final int CODE_ACTION_WECHAT_SET_PWD = 9;
+    public static final int CODE_ACTION_SET_PWD = 10;
 
     /**
      * 0-登录，1-注册，2-忘记密码,3-注册成功,4-账户类型选择成功,5-账户信息提交完成,6-注册完成,7-资料提交完成

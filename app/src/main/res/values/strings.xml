@@ -66,6 +66,7 @@
     <string name="tip_input_dif_psw">两次输入密码不相同，请确认</string>
     <string name="tip_input_length">密码不少于8位字符哦</string>
     <string name="tip_user_type_select">请选择账户类型</string>
+    <string name="tip_set_pwd_success">密码修改成功</string>
 
     <string name="response_code_200">success</string>
     <string name="response_code_4000">参数签名错误</string>
