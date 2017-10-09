@@ -11,6 +11,7 @@ import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WebActivity;
@@ -25,6 +26,9 @@ import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.MyCountTimer;
 import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
+import com.art.huakai.artshow.widget.SmartToast;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -105,7 +109,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 getActivity().onBackPressed();
                 break;
             case R.id.tv_send_verify:
-                requestVerifyCode();
+                verifyMobile();
                 break;
             case R.id.tv_protocol:
                 startActivity(new Intent(getContext(), WebActivity.class));
@@ -114,6 +118,49 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 //应该注册成功后，走接下来的完善信息流程
                 doRegister();
                 break;
+        }
+    }
+
+    /**
+     * 手机号是否占用
+     */
+    private void verifyMobile() {
+        String phoneNum = edtPhone.getText().toString();
+        if (TextUtils.isEmpty(phoneNum)) {
+            showToast(getString(R.string.tip_input_phone));
+            return;
+        }
+        if (!PhoneUtils.isMobileNumber(phoneNum)) {
+            showToast(getString(R.string.please_input_correct_phone));
+            return;
+        } else {
+            final MyCountTimer timeCount = new MyCountTimer(tvSendVerify,
+                    getResources().getColor(R.color.register_new),
+                    getResources().getColor(R.color.login_light));// 传入了文字颜色值
+            timeCount.start();
+            HashMap<String, String> params = new HashMap<>();
+            params.put("mobile", phoneNum);
+            String sign = SignUtil.getSign(params);
+            params.put("sign", sign);
+            LogUtil.i(TAG, "params = " + params);
+            RequestUtil.request(true, Constant.URL_USER_VERIFYMOBILE, params, 10, new RequestUtil.RequestListener() {
+                @Override
+                public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                    timeCount.onFinish();
+                    LogUtil.i(TAG, obj);
+                    if (isSuccess) {
+                        SmartToast.makeToast(getContext(), null, null, Toast.LENGTH_SHORT).show();
+                    } else {
+                        requestVerifyCode();
+                    }
+                }
+
+                @Override
+                public void onFailed(Call call, Exception e, int id) {
+                    LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+                    timeCount.onFinish();
+                }
+            });
         }
     }
 
@@ -186,6 +233,8 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
                 }
             }
 
@@ -219,25 +268,22 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             HashMap<String, String> params = new HashMap<>();
             params.put("receiver", phoneNum);
             params.put("method", "sms");
-            showProgressDialog.show();
             RequestUtil.request(false, Constant.URL_GET_VERIFY_CODE, params, 11, new RequestUtil.RequestListener() {
                 @Override
                 public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                     LogUtil.i(TAG, obj);
-                    if (showProgressDialog.isShowing()) {
-                        showProgressDialog.dismiss();
-                    }
                     if (isSuccess) {
 
+                    } else {
+                        timeCount.onFinish();
+                        ResponseCodeCheck.showErrorMsg(code);
                     }
                 }
 
                 @Override
                 public void onFailed(Call call, Exception e, int id) {
                     LogUtil.e(TAG, e.getMessage() + "-id = " + id);
-                    if (showProgressDialog.isShowing()) {
-                        showProgressDialog.dismiss();
-                    }
+                    timeCount.onFinish();
                 }
             });
         }

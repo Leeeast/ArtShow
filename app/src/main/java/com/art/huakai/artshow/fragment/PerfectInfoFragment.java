@@ -17,6 +17,7 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -148,6 +149,8 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                         e.printStackTrace();
                         showToast(getString(R.string.tip_data_parsing_failure));
                     }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
                 }
             }
 

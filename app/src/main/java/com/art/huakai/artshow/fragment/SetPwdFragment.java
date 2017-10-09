@@ -22,6 +22,7 @@ import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -157,7 +158,9 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
                 if (isSuccess) {
                     showToast(getString(R.string.tip_set_pwd_success));
                     LocalUserInfo.getInstance().setMobile(mPhoneNum);
-                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS));
+                    //EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS));
+                }else {
+                    ResponseCodeCheck.showErrorMsg(code);
                 }
             }
 

@@ -4,7 +4,6 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.ShowApplication;
-import com.art.huakai.artshow.constant.Constant;
 
 /**
  * Created by lidongliang on 2017/10/3.
@@ -25,44 +24,70 @@ public class ResponseCodeCheck {
     public static final int CODE_4008 = 4008;//操作频繁，稍候再试
     public static final int CODE_4009 = 4009;//文件类型错误
 
+    /**
+     * 检测状态码
+     *
+     * @param code
+     * @return
+     */
     public static boolean checkResponseCode(int code) {
         switch (code) {
             case CODE_200:
-                //showToast(ShowApplication.getAppContext().getString(R.string.response_code_200));
                 return true;
             case CODE_4000:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4000));
-                return false;
             case CODE_4001:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4001));
-                return false;
             case CODE_4002:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4002));
-                return false;
             case CODE_4003:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4003));
-                return false;
             case CODE_4004:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4004));
-                return false;
             case CODE_4005:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4005));
-                return false;
             case CODE_4006:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4006));
-                return false;
             case CODE_4007:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4007));
-                return false;
             case CODE_4008:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4008));
-                return false;
             case CODE_4009:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4009));
                 return false;
             default:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_other));
                 return false;
+        }
+    }
+
+    public static void showErrorMsg(int code) {
+        switch (code) {
+            case CODE_200:
+                //showToast(ShowApplication.getAppContext().getString(R.string.response_code_200));
+                break;
+            case CODE_4000:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4000));
+                break;
+            case CODE_4001:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4001));
+                break;
+            case CODE_4002:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4002));
+                break;
+            case CODE_4003:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4003));
+                break;
+            case CODE_4004:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4004));
+                break;
+            case CODE_4005:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4005));
+                break;
+            case CODE_4006:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4006));
+                break;
+            case CODE_4007:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4007));
+                break;
+            case CODE_4008:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4008));
+                break;
+            case CODE_4009:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4009));
+                break;
+            default:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_other));
+                break;
         }
     }
 

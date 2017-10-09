@@ -31,4 +31,6 @@ public class Constant {
     public static final String URL_USER_LOGIN = BASE_URL + "/user/login";
     //修改个人信息
     public static final String URL_USER_EDITINFO = BASE_URL + "/user/editInfo";
+    //手机号是否占用
+    public static final String URL_USER_VERIFYMOBILE = BASE_URL + "/user/verifyMobile";
 }

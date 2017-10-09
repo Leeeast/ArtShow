@@ -71,6 +71,7 @@ public class MyCountTimer extends CountDownTimer {
     // 计时完毕时触发
     @Override
     public void onFinish() {
+        cancel();
         tvVerify.setTextColor(normalColor);
         tvVerify.setText(endStrRid);
         tvVerify.setEnabled(true);

@@ -21,6 +21,7 @@ import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.widget.LoadingButton;
@@ -155,6 +156,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             showToast(getString(R.string.tip_input_length));
             return;
         }
+        LocalUserInfo.getInstance().setMobile(phoneNum);
         pwd = MD5.getMD5(pwd.getBytes());
         Map<String, String> params = new TreeMap<>();
         params.put("mobile", phoneNum);
@@ -168,6 +170,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
                 mLoadingButton.stopLoading();
+                if (isSuccess) {
+
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
             }
 
             @Override
