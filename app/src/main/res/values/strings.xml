@@ -7,6 +7,7 @@
     <string name="main_tab_me">我</string>
 
     <string name="exit_app_tips">再按一次退出</string>
+    <string name="exit_perfect_tips">请完善个人信息</string>
     <string name="btn_start">立即体验</string>
     <string name="common_back">返回</string>
 
@@ -41,8 +42,11 @@
     <string name="account_type_personal_des">我是戏剧从业者，可能是演员、导演、编剧、舞台技术人员</string>
     <string name="perfect_info_next_step">下一步</string>
     <string name="perfect_account_info">帐号信息</string>
-    <string name="perfect_publisher_name">出品方名称</string>
-    <string name="perfect_publisher_name_des">如果您是组织或团队，请填写组织名称，\n如果您是个人出品方，请填写真实姓名</string>
+    <string name="perfect_name_publisher">出品方名称</string>
+    <string name="perfect_name_personal">姓名</string>
+    <string name="perfect_name_theatre">剧场名称</string>
+    <string name="perfect_des_publisher">如果您是组织或团队，请填写组织名称，\n如果您是个人出品方，请填写真实姓名</string>
+    <string name="perfect_des_other">如果您是组织或团队，请填写组织名称</string>
     <string name="data_upload">上传资料</string>
     <string name="data_commit">提交资料</string>
     <string name="data_commit_des">%1$s是一个真实的互联网平台，我们要对您的账号进行一些资料的审核.</string>
@@ -67,6 +71,9 @@
     <string name="tip_input_length">密码不少于8位字符哦</string>
     <string name="tip_user_type_select">请选择账户类型</string>
     <string name="tip_set_pwd_success">密码修改成功</string>
+    <string name="tip_set_avatar">请设置用户头像</string>
+    <string name="tip_set_name">请填写姓名</string>
+    <string name="tip_data_parsing_failure">数据解析失败</string>
 
     <string name="response_code_200">success</string>
     <string name="response_code_4000">参数签名错误</string>

@@ -16,11 +16,11 @@ import com.art.huakai.artshow.dialog.TypeConfirmDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
-import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -34,8 +34,9 @@ import okhttp3.Call;
 public class AccountTypeSelectFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private TypeConfirmDialog mTypeConfirmDialog;
-    private LocalUserInfo localUserInfo;
     private CheckBox chkTypePublisher, chkTypeTheatre, chkTypePersonal;
+    private int mUserType;
+    private LocalUserInfo localUserInfo;
 
     private final int
             USER_TYPE_PERSONAL = 3,
@@ -55,9 +56,9 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-        localUserInfo = LocalUserInfo.instance();
-        localUserInfo.setUserType(USER_TYPE_PUBLISHER);
+        mUserType = USER_TYPE_PUBLISHER;
         showProgressDialog = new ShowProgressDialog(getContext());
+        localUserInfo = LocalUserInfo.getInstance();
     }
 
     @Override
@@ -75,6 +76,7 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
         rootView.findViewById(R.id.lly_publisher).setOnClickListener(this);
         rootView.findViewById(R.id.lly_theatre).setOnClickListener(this);
         rootView.findViewById(R.id.lly_personal).setOnClickListener(this);
+        rootView.findViewById(R.id.lly_back).setOnClickListener(this);
 
 
         chkTypePublisher.setOnCheckedChangeListener(this);
@@ -90,8 +92,11 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.lly_back:
+                getActivity().onBackPressed();
+                break;
             case R.id.btn_next_step:
-                if (localUserInfo.getUserType() == -1) {
+                if (mUserType == -1) {
                     showToast(getString(R.string.tip_user_type_select));
                     return;
                 }
@@ -131,10 +136,10 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                 if (isChecked) {
                     chkTypeTheatre.setChecked(false);
                     chkTypePersonal.setChecked(false);
-                    localUserInfo.setUserType(USER_TYPE_PUBLISHER);
+                    mUserType = USER_TYPE_PUBLISHER;
                 } else {
-                    if (localUserInfo.getUserType() == USER_TYPE_PUBLISHER) {
-                        localUserInfo.setUserType(USER_TYPE_NONE);
+                    if (mUserType == USER_TYPE_PUBLISHER) {
+                        mUserType = USER_TYPE_NONE;
                     }
                 }
                 break;
@@ -142,10 +147,10 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                 if (isChecked) {
                     chkTypePersonal.setChecked(false);
                     chkTypePublisher.setChecked(false);
-                    localUserInfo.setUserType(USER_TYPE_THEATRE);
+                    mUserType = USER_TYPE_THEATRE;
                 } else {
-                    if (localUserInfo.getUserType() == USER_TYPE_THEATRE) {
-                        localUserInfo.setUserType(USER_TYPE_NONE);
+                    if (mUserType == USER_TYPE_THEATRE) {
+                        mUserType = USER_TYPE_NONE;
                     }
                 }
                 break;
@@ -153,10 +158,10 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                 if (isChecked) {
                     chkTypeTheatre.setChecked(false);
                     chkTypePublisher.setChecked(false);
-                    localUserInfo.setUserType(USER_TYPE_PERSONAL);
+                    mUserType = USER_TYPE_PERSONAL;
                 } else {
-                    if (localUserInfo.getUserType() == USER_TYPE_PERSONAL) {
-                        localUserInfo.setUserType(USER_TYPE_NONE);
+                    if (mUserType == USER_TYPE_PERSONAL) {
+                        mUserType = USER_TYPE_NONE;
                     }
                 }
                 break;
@@ -170,10 +175,10 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
         Map<String, String> params = new TreeMap<>();
         params.put("userId", localUserInfo.getId());
         params.put("accessToken", localUserInfo.getAccessToken());
-        params.put("userType", String.valueOf(localUserInfo.getUserType()));
+        params.put("userType", String.valueOf(mUserType));
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        LogUtil.i(TAG, "parmas:" + params);
+        LogUtil.i(TAG, "parmas = " + params);
         showProgressDialog.show();
         RequestUtil.request(true, Constant.URL_BIND_TYPE, params, 12, new RequestUtil.RequestListener() {
             @Override
@@ -183,7 +188,17 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                     showProgressDialog.dismiss();
                 }
                 if (isSuccess) {
-                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
+                    try {
+                        JSONObject jsonObject = new JSONObject(obj);
+                        int userType = jsonObject.getInt("userType");
+                        int status = jsonObject.getInt("status");
+                        localUserInfo.setUserType(userType);
+                        localUserInfo.setStatus(status);
+                        EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showToast(getString(R.string.tip_data_parsing_failure));
+                    }
                 }
             }
 

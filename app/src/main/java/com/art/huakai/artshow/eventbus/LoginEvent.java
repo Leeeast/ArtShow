@@ -5,21 +5,32 @@ package com.art.huakai.artshow.eventbus;
  */
 
 public class LoginEvent {
+    //0-登录
     public static final int CODE_ACTION_LOGIN = 0;
+    //1-注册
     public static final int CODE_ACTION_REGISTER = 1;
+    //2-忘记密码
     public static final int CODE_ACTION_FORGET_PWD = 2;
+    //3-注册成功
     public static final int CODE_ACTION_REGISTER_SUC = 3;
+    //4-账户类型选择成功
     public static final int CODE_ACTION_ACCOUNT_TYPE_AFFIRM = 4;
+    //5-账户信息提交完成
     public static final int CODE_ACTION_PERFECT_INFO_SUC = 5;
+    //6-注册完成
     public static final int CODE_ACTION_REGISTER_FINISH = 6;
+    //7-资料提交完成
     public static final int CODE_ACTION_DATA_UPLOAD_SUC = 7;
+    //8-绑定手机号
     public static final int CODE_ACTION_BIND_PHONE = 8;
+    //9-微信登录设置密码
     public static final int CODE_ACTION_WECHAT_SET_PWD = 9;
-    public static final int CODE_ACTION_SET_PWD = 10;
-
+    //10-重置密码成功
+    public static final int CODE_ACTION_RESET_PWD_SUCCESS = 10;
+    
     /**
      * 0-登录，1-注册，2-忘记密码,3-注册成功,4-账户类型选择成功,5-账户信息提交完成,6-注册完成,7-资料提交完成
-     * 8-绑定手机号,9-微信登录设置密码
+     * 8-绑定手机号,9-微信登录设置密码,10-重置密码成功
      */
     private int actionCode;
 

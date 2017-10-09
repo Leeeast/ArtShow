@@ -33,6 +33,7 @@
             fresco:roundingBorderWidth="1dp" />
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tily_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
@@ -40,12 +41,10 @@
             android:layout_marginTop="@dimen/DIMEN_10PX">
 
             <EditText
-                android:id="@+id/edt_publisher_name"
+                android:id="@+id/edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/perfect_publisher_name"
                 android:imeOptions="actionNext"
-                android:inputType="phone"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/DIMEN_15PX"
                 android:textColorHint="@color/login_light"
@@ -54,12 +53,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <TextView
+            android:id="@+id/tv_perfect_des"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:text="@string/perfect_publisher_name_des"
+            android:text="@string/perfect_des_publisher"
             android:textColor="@color/login_light"
             android:textSize="15sp" />
 

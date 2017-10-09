@@ -21,7 +21,9 @@ public class SharePreUtil {
     private final String ART_SHOW_SP = "ART_SHOW_SP";
 
     private final String IS_FIRST_ENTER_APP = "IS_FIRST_ENTER_APP";
-
+    //---userinfo start------------
+    private final String USER_KEEP_PWD = "USER_KEEP_PWD";
+    //---userinfo ecd------------
 
     public synchronized static SharePreUtil getInstance() {
         if (mSharePreUtil == null) {
@@ -57,5 +59,25 @@ public class SharePreUtil {
      */
     public boolean isFirstEnterApp() {
         return mSp.getBoolean(IS_FIRST_ENTER_APP, true);
+    }
+
+    /**
+     * 设置是否保存密码
+     *
+     * @param isKeepPwd
+     */
+    public void setKeepPwd(boolean isKeepPwd) {
+        Editor edit = mSp.edit();
+        edit.putBoolean(USER_KEEP_PWD, isKeepPwd);
+        edit.commit();
+    }
+
+    /**
+     * 是否记住密码
+     *
+     * @return
+     */
+    public boolean isKeepPwd() {
+        return mSp.getBoolean(USER_KEEP_PWD, true);
     }
 }

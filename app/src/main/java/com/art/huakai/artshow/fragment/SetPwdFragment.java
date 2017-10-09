@@ -11,7 +11,6 @@ import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WebActivity;
@@ -20,7 +19,6 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
-import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -158,8 +156,8 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
                 }
                 if (isSuccess) {
                     showToast(getString(R.string.tip_set_pwd_success));
-                    LocalUserInfo.instance().setMobile(mPhoneNum);
-                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_SET_PWD));
+                    LocalUserInfo.getInstance().setMobile(mPhoneNum);
+                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS));
                 }
             }
 
@@ -169,7 +167,6 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
                 if (showProgressDialog.isShowing()) {
                     showProgressDialog.dismiss();
                 }
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_SET_PWD));
             }
         });
 

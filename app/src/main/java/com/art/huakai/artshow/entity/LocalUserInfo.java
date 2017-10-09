@@ -11,7 +11,7 @@ public class LocalUserInfo {
 
     private static LocalUserInfo mLocalUserInfo;
 
-    public synchronized static LocalUserInfo instance() {
+    public synchronized static LocalUserInfo getInstance() {
         if (mLocalUserInfo == null) {
             mLocalUserInfo = new LocalUserInfo();
         }
@@ -29,8 +29,20 @@ public class LocalUserInfo {
     private String password;
     //注册类型；3：个人账户，1：剧场用户，2：出品方用户
     private int userType;
+    //0 默认，注册成功未选择账户类型 ，1 已经选择账户类型，未填写个人资料，2 资料完善，未认证，3，已认证
     private int status;
     private long createTime;
+
+    //是否记录密码
+    private boolean isKeepPwd;
+
+    public boolean isKeepPwd() {
+        return isKeepPwd;
+    }
+
+    public void setKeepPwd(boolean keepPwd) {
+        isKeepPwd = keepPwd;
+    }
 
     public int getExpire() {
         return expire;

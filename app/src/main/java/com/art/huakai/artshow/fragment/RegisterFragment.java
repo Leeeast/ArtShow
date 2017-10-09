@@ -3,17 +3,14 @@ package com.art.huakai.artshow.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WebActivity;
@@ -23,25 +20,18 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
-import com.art.huakai.artshow.okhttp.OkHttpUtils;
-import com.art.huakai.artshow.okhttp.callback.Callback;
-import com.art.huakai.artshow.okhttp.callback.StringCallback;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.MyCountTimer;
 import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
-import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
 import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * 注册新账户Fragment
@@ -179,7 +169,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 if (isSuccess) {
                     try {
                         UserInfo userInfo = mGson.fromJson(obj, UserInfo.class);
-                        LocalUserInfo localUserInfo = LocalUserInfo.instance();
+                        LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
                         localUserInfo.setExpire(userInfo.expire);
                         localUserInfo.setAccessToken(userInfo.accessToken);
                         localUserInfo.setId(userInfo.user.id);

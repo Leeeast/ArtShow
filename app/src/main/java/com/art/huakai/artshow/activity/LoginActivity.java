@@ -1,11 +1,11 @@
 package com.art.huakai.artshow.activity;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
 import com.art.huakai.artshow.fragment.BindPhoneFragment;
@@ -24,9 +24,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static com.art.huakai.artshow.eventbus.LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM;
+
 public class LoginActivity extends BaseActivity {
 
-    private LoginRegFragment mLoginRegFragment;
+    //再次点击退出使用
+    private long touchTime = 0;
+    private int mCodeAction;
 
     @Override
     public void immerseStatusBar() {
@@ -41,8 +45,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initData() {
         EventBus.getDefault().register(this);
-        mLoginRegFragment = LoginRegFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, mLoginRegFragment).commit();
+        LoginRegFragment mLoginRegFragment = LoginRegFragment.newInstance();
+        initFragment(mLoginRegFragment);
     }
 
     @Override
@@ -64,6 +68,7 @@ public class LoginActivity extends BaseActivity {
     public void onEventLogin(LoginEvent enterEvent) {
         if (enterEvent == null)
             return;
+        mCodeAction = enterEvent.getActionCode();
         switch (enterEvent.getActionCode()) {
             case LoginEvent.CODE_ACTION_LOGIN:
                 LoginFragment loginFragment = LoginFragment.newInstance();
@@ -81,7 +86,7 @@ public class LoginActivity extends BaseActivity {
                 AccountTypeSelectFragment accTypeSelFragment = AccountTypeSelectFragment.newInstance();
                 initFragment(accTypeSelFragment);
                 break;
-            case LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM:
+            case CODE_ACTION_ACCOUNT_TYPE_AFFIRM:
                 PerfectInfoFragment perfectInfoFragment = PerfectInfoFragment.newInstance();
                 initFragment(perfectInfoFragment);
                 break;
@@ -106,7 +111,7 @@ public class LoginActivity extends BaseActivity {
                         SetPwdFragment.newInstance(enterEvent.getPhone(), enterEvent.getVerifyCode());
                 initFragmentAddback(setPwdFragment);
                 break;
-            case LoginEvent.CODE_ACTION_SET_PWD:
+            case LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS:
                 popBackStack();
                 break;
         }
@@ -122,12 +127,30 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void popBackStack() {
-        getSupportFragmentManager().popBackStack("LoginFragment", 0);
+        getSupportFragmentManager().popBackStackImmediate("LoginFragment", 0);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mCodeAction == LoginEvent.CODE_ACTION_REGISTER_SUC ||
+                mCodeAction == LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM) {
+            long currentTime = System.currentTimeMillis();
+            if ((currentTime - touchTime) > Constant.EXIT_APP_TIME_OFFSET) {
+                //让Toast的显示时间和等待时间相同
+                Toast.makeText(this, getString(R.string.exit_perfect_tips), Toast.LENGTH_SHORT).show();
+                touchTime = currentTime;
+            } else {
+                //TODO 退出APP
+                this.finish();
+            }
+        } else {
+            super.onBackPressed();
+        }
     }
 }
