@@ -17,18 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blackb8"
-            android:fitsSystemWindows="false">
+            android:fitsSystemWindows="false"
+            android:orientation="vertical">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="false"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:fitsSystemWindows="false">
 
                 <include layout="@layout/layout_me_head" />
-
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
@@ -42,7 +40,6 @@
             app:backgroundTint="@color/fab_bgtint"
             app:layout_anchor="@id/app_barlayout"
             app:layout_anchorGravity="bottom|end"
-            app:rippleColor="@color/fab_bgtint_p"
             app:srcCompat="@drawable/icon_fab_src" />
 
 

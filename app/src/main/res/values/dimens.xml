@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="main_tab_bottom">50dp</dimen>
@@ -8,5 +8,6 @@
 
     <dimen name="main_tab_text_size">10sp</dimen>
 
+    <dimen name="design_fab_size_normal" tools:ignore="PrivateResource">@dimen/DIMEN_50PX</dimen>
 
 </resources>

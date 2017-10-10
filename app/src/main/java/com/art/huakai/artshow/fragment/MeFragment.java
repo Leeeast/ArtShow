@@ -4,6 +4,9 @@ package com.art.huakai.artshow.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -46,7 +49,28 @@ public class MeFragment extends BaseFragment {
         mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
         RelativeLayout rLyHead = (RelativeLayout) rootView.findViewById(R.id.rly_head);
         rLyHead.setPadding(0, statusBarHeight, 0, 0);
-
+        AppBarLayout appBarLayout = (AppBarLayout) rootView.findViewById(R.id.app_barlayout);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset >= 0) {
+                    mRefreshLayout.setEnabled(true);
+                } else {
+                    mRefreshLayout.setEnabled(false);
+                }
+            }
+        });
+        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.toolbar_layout);
+        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) toolbarLayout.getLayoutParams();
+        if (false) {
+            //设置不滑动
+            layoutParams.setScrollFlags(0);
+        } else {
+            //设置滑动
+            layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL |
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
+        }
+        toolbarLayout.setLayoutParams(layoutParams);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -55,7 +79,7 @@ public class MeFragment extends BaseFragment {
                     public void run() {
                         mRefreshLayout.setRefreshing(false);
                     }
-                }, 2000);
+                }, 500);
             }
         });
     }
