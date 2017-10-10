@@ -1,10 +1,112 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="找人才" />
+        android:layout_height="@dimen/DIMEN_47PX"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/DIMEN_14PX"
+            android:textColor="#ff5a4b41"
+            android:text="价格"
+            android:layout_marginTop="@dimen/DIMEN_14PX"
+            />
+
+        <ImageView
+            android:id="@+id/iv_choose_price"
+            android:src="@mipmap/arrow_down_icon"
+            android:layout_width="@dimen/DIMEN_14PX"
+            android:layout_height="@dimen/DIMEN_14PX"
+            android:layout_marginLeft="@dimen/DIMEN_1PX"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/DIMEN_14PX"
+            android:textColor="#ff5a4b41"
+            android:text="演出人数"
+            android:layout_marginTop="@dimen/DIMEN_14PX"
+            android:layout_marginLeft= "@dimen/DIMEN_28PX"
+            />
+
+        <ImageView
+            android:id="@+id/iv_choose_number"
+            android:src="@mipmap/arrow_down_icon"
+            android:layout_width="@dimen/DIMEN_14PX"
+            android:layout_height="@dimen/DIMEN_14PX"
+            android:layout_marginLeft="@dimen/DIMEN_1PX"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_real_choose"
+            android:src="@mipmap/filter_icon"
+            android:layout_width="@dimen/DIMEN_18PX"
+            android:layout_height="@dimen/DIMEN_18PX"
+            android:layout_marginTop="@dimen/DIMEN_17PX"
+            android:layout_marginLeft= "@dimen/DIMEN_100PX"
+            android:clickable="true"
+            android:focusable="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/DIMEN_14PX"
+            android:textColor="#ff5a4b41"
+            android:text="筛选"
+            android:layout_marginTop="@dimen/DIMEN_16PX"
+            android:layout_marginLeft="@dimen/DIMEN_1PX"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+    <com.art.huakai.artshow.widget.SmartRecyclerview
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+    </com.art.huakai.artshow.widget.SmartRecyclerview>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

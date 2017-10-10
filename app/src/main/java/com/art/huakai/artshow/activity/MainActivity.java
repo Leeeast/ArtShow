@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
         ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
-    }
+}
 
     @Override
     public int getLayoutID() {

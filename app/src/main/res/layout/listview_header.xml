@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="bottom">
+    android:gravity="bottom"
+    android:background="#ff666666"
+    >
 
     <RelativeLayout
         android:id="@+id/listview_header_content"
@@ -15,14 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@mipmap/ic_pulltorefresh_arrow"
+            android:src="@mipmap/pull_refresh_icon"
             />
 
         <ImageView
             android:id="@+id/iv_progress"
             android:layout_width="25dip"
             android:layout_height="25dip"
-            android:src="@mipmap/ic_loading_rotate"
+            android:src="@mipmap/pull_refresh_loading_icon"
             android:layout_centerInParent="true"
             android:visibility="invisible" />
     </RelativeLayout>
