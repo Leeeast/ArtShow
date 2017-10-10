@@ -27,7 +27,7 @@ public class LoginEvent {
     public static final int CODE_ACTION_WECHAT_SET_PWD = 9;
     //10-重置密码成功
     public static final int CODE_ACTION_RESET_PWD_SUCCESS = 10;
-    
+
     /**
      * 0-登录，1-注册，2-忘记密码,3-注册成功,4-账户类型选择成功,5-账户信息提交完成,6-注册完成,7-资料提交完成
      * 8-绑定手机号,9-微信登录设置密码,10-重置密码成功
@@ -38,10 +38,11 @@ public class LoginEvent {
         this.actionCode = code;
     }
 
-    public LoginEvent(int code, String phone, String verifyCode) {
+    public LoginEvent(int code, String phone, String verifyCode, boolean isResetPwd) {
         this.actionCode = code;
         this.phone = phone;
         this.verifyCode = verifyCode;
+        this.isResetPwd = isResetPwd;
     }
 
     public int getActionCode() {
@@ -50,6 +51,11 @@ public class LoginEvent {
 
     private String phone;
     private String verifyCode;
+    private boolean isResetPwd;
+
+    public boolean isResetPwd() {
+        return isResetPwd;
+    }
 
     public String getPhone() {
         return phone;

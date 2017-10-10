@@ -31,6 +31,8 @@
     <string name="app_register_title">注册</string>
     <string name="register_protocol_tip">点击注册将默认你同意&#160;&#160;隐私保密条款.</string>
     <string name="pwd_retrieve">找回密码</string>
+    <string name="pwd_reset">重置密码</string>
+    <string name="pwd_reset_affirm">确认重置密码</string>
     <string name="pwd_retrieve_finish">完成</string>
     <string name="account_type">账号类型</string>
     <string name="account_type_select_tip">确定账号类型后，将不能更改</string>

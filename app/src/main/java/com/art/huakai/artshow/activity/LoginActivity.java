@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity {
                 initFragmentAddback(registerFragment);
                 break;
             case LoginEvent.CODE_ACTION_FORGET_PWD:
-                RetrievePwdFragment retrievePwdFragment = RetrievePwdFragment.newInstance();
+                RetrievePwdFragment retrievePwdFragment = RetrievePwdFragment.newInstance(enterEvent.getActionCode());
                 initFragmentAddback(retrievePwdFragment);
                 break;
             case LoginEvent.CODE_ACTION_REGISTER_SUC:
@@ -108,7 +108,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case LoginEvent.CODE_ACTION_WECHAT_SET_PWD:
                 SetPwdFragment setPwdFragment =
-                        SetPwdFragment.newInstance(enterEvent.getPhone(), enterEvent.getVerifyCode());
+                        SetPwdFragment.newInstance(enterEvent.getPhone(), enterEvent.getVerifyCode(),enterEvent.isResetPwd());
                 initFragmentAddback(setPwdFragment);
                 break;
             case LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS:

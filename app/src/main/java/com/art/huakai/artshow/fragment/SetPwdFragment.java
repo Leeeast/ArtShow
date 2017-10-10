@@ -9,6 +9,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,21 +40,27 @@ import okhttp3.Call;
 public class SetPwdFragment extends BaseFragment implements View.OnClickListener {
     private static final String PARAMS_PHONE = "PARAMS_PHONE";
     private static final String PARAMS_VERIFY_CODE = "PARAMS_VERIFY_CODE";
+    private static final String PARAMS_IS_RESET_PWD = "PARAMS_IS_RESET_PWD";
     private String mPhoneNum;
     private String mVerifyCode;
     private EditText edtPassword, edtPwdAffirm;
     private ShowProgressDialog showProgressDialog;
+    private TextView tvSetPwdTitle;
+    private boolean mIsResetPwd;
+    private Button btnRegister;
+    private TextView mTvProtocol;
 
     public SetPwdFragment() {
         // Required empty public constructor
     }
 
 
-    public static SetPwdFragment newInstance(String phoneNo, String verifyCode) {
+    public static SetPwdFragment newInstance(String phoneNo, String verifyCode, boolean isResetPwd) {
         SetPwdFragment fragment = new SetPwdFragment();
         Bundle args = new Bundle();
         args.putString(PARAMS_PHONE, phoneNo);
         args.putString(PARAMS_VERIFY_CODE, verifyCode);
+        args.putBoolean(PARAMS_IS_RESET_PWD, isResetPwd);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,6 +71,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
         if (bundle != null) {
             mPhoneNum = bundle.getString(PARAMS_PHONE);
             mVerifyCode = bundle.getString(PARAMS_VERIFY_CODE);
+            mIsResetPwd = bundle.getBoolean(PARAMS_IS_RESET_PWD, true);
         }
         showProgressDialog = new ShowProgressDialog(getContext());
     }
@@ -75,7 +83,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void initView(View rootView) {
-        TextView tvProtocol = (TextView) rootView.findViewById(R.id.tv_protocol);
+        mTvProtocol = (TextView) rootView.findViewById(R.id.tv_protocol);
         SpannableString spannableString = new SpannableString(getString(R.string.register_protocol_tip));
         spannableString.setSpan(
                 new TextAppearanceSpan(getContext(), R.style.protocol_style_gray),
@@ -87,19 +95,31 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
                 spannableString.length() - 7,
                 spannableString.length() - 1,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvProtocol.setText(spannableString);
+        mTvProtocol.setText(spannableString);
 
         edtPassword = (EditText) rootView.findViewById(R.id.edt_password);
         edtPwdAffirm = (EditText) rootView.findViewById(R.id.edt_pwd_affirm);
+        tvSetPwdTitle = (TextView) rootView.findViewById(R.id.tv_set_pwd_title);
+        btnRegister = (Button) rootView.findViewById(R.id.btn_register);
 
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_register).setOnClickListener(this);
-        tvProtocol.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
+        mTvProtocol.setOnClickListener(this);
     }
 
     @Override
     public void setView() {
-
+        if (mIsResetPwd) {
+            tvSetPwdTitle.setText(R.string.pwd_reset);
+            btnRegister.setText(R.string.pwd_reset_affirm);
+            mTvProtocol.setVisibility(View.INVISIBLE);
+            mTvProtocol.setEnabled(false);
+        } else {
+            tvSetPwdTitle.setText(R.string.login_set_pwd);
+            btnRegister.setText(R.string.app_register);
+            mTvProtocol.setVisibility(View.VISIBLE);
+            mTvProtocol.setEnabled(true);
+        }
     }
 
     @Override
@@ -159,7 +179,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
                     showToast(getString(R.string.tip_set_pwd_success));
                     LocalUserInfo.getInstance().setMobile(mPhoneNum);
                     //EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS));
-                }else {
+                } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
             }

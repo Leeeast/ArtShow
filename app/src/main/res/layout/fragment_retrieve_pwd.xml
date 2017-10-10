@@ -11,6 +11,7 @@
         <include layout="@layout/layout_title_common" />
 
         <TextView
+            android:id="@+id/tv_retrieve_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/DIMEN_30PX"

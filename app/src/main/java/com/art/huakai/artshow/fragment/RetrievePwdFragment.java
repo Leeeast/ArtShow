@@ -35,22 +35,32 @@ import okhttp3.Call;
  */
 public class RetrievePwdFragment extends BaseFragment implements View.OnClickListener {
 
-
+    private static final String ACTION_CODE = "ACTION_CODE";
+    private int mActionCode;
     private EditText edtPhone, edtVerifyCode;
     private TextView tvSendVerify;
     private ShowProgressDialog showProgressDialog;
+    private TextView tvRetrieveTitle;
+    private boolean mIsResetPwd = true;
 
     public RetrievePwdFragment() {
     }
 
-    public static RetrievePwdFragment newInstance() {
+    public static RetrievePwdFragment newInstance(int actionCode) {
         RetrievePwdFragment fragment = new RetrievePwdFragment();
+        Bundle arguments = new Bundle();
+        arguments.putInt(ACTION_CODE, actionCode);
+        fragment.setArguments(arguments);
         return fragment;
     }
 
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
+        if (bundle != null) {
+            mActionCode = bundle.getInt(ACTION_CODE, LoginEvent.CODE_ACTION_FORGET_PWD);
+        }
+        mIsResetPwd = mActionCode == LoginEvent.CODE_ACTION_FORGET_PWD;
     }
 
     @Override
@@ -63,8 +73,11 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
         edtPhone = (EditText) rootView.findViewById(R.id.edt_phone);
         edtVerifyCode = (EditText) rootView.findViewById(R.id.edt_verify_code);
         tvSendVerify = (TextView) rootView.findViewById(R.id.tv_send_verify);
+        tvRetrieveTitle = (TextView) rootView.findViewById(R.id.tv_retrieve_title);
+
 
         rootView.findViewById(R.id.btn_affirm).setOnClickListener(this);
+        rootView.findViewById(R.id.lly_back).setOnClickListener(this);
         tvSendVerify.setOnClickListener(this);
     }
 
@@ -72,6 +85,11 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
     public void setView() {
         if (TextUtils.isEmpty(LocalUserInfo.getInstance().getMobile())) {
             edtPhone.setText(LocalUserInfo.getInstance().getMobile());
+        }
+        if (mIsResetPwd) {//找回密码
+            tvRetrieveTitle.setText(R.string.pwd_retrieve);
+        } else {//微信登录设置密码
+            tvRetrieveTitle.setText(R.string.login_set_pwd);
         }
     }
 
@@ -99,7 +117,7 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
                     showToast(getString(R.string.tip_input_verify_code));
                     return;
                 }
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_WECHAT_SET_PWD, phoneNum, verifyCode));
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_WECHAT_SET_PWD, phoneNum, verifyCode,mIsResetPwd));
                 break;
         }
     }
