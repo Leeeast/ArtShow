@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -22,6 +21,10 @@ import com.art.huakai.artshow.utils.DeviceUtils;
 public class MeFragment extends BaseFragment {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = MeFragment.class.getSimpleName();
+    public final int CODE_STATUS_UNLOGIN = 0;
+    public final int CODE_STATUS_PERSONAL = 3;
+    public final int CODE_STATUS_PUBLISHER = 2;
+    public final int CODE_STATUS_THEATRE = 1;
     private SwipeRefreshLayout mRefreshLayout;
 
     public MeFragment() {
@@ -84,13 +87,33 @@ public class MeFragment extends BaseFragment {
         });
     }
 
-    @Override
-    public void setView() {
-
+    /**
+     * 显示Fragment
+     *
+     * @param baseFragment
+     */
+    private void showFragment(BaseFragment baseFragment) {
+        getChildFragmentManager().beginTransaction().replace(R.id.fly_content, baseFragment, baseFragment.getTAG()).commit();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void setView() {
+        switchFragment(0);
+    }
+
+    public void switchFragment(int type) {
+        BaseFragment baseFragment = null;
+        switch (type) {
+            case CODE_STATUS_UNLOGIN:
+                baseFragment = MeUnloginFragment.newInstance();
+                break;
+            case CODE_STATUS_THEATRE:
+                break;
+            case CODE_STATUS_PUBLISHER:
+                break;
+            case CODE_STATUS_PERSONAL:
+                break;
+        }
+        showFragment(baseFragment);
     }
 }

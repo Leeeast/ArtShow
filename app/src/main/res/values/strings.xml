@@ -104,6 +104,11 @@
     <string name="coll_item_des">快来报名参加吧！</string>
     <string name="coll_item_status">报名中</string>
 
+    <!--我的页面相关-->
+    <string name="me_unlogin_des">推荐作品</string>
+    <string name="me_unlogin">登录/注册</string>
+    <string name="me_unlogin_sub">登录后可享受更多</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

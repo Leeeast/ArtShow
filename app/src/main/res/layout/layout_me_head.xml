@@ -30,7 +30,7 @@
         android:layout_below="@id/iv_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:text="孟京辉工作室"
+        android:text="@string/me_unlogin"
         android:textColor="@color/black00"
         android:textSize="25sp" />
 
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/DIMEN_24PX"
         android:layout_marginTop="@dimen/DIMEN_4PX"
-        android:text="出品方"
+        android:text="@string/me_unlogin_sub"
         android:textColor="@color/me_account_type"
         android:textSize="15sp" />
 
