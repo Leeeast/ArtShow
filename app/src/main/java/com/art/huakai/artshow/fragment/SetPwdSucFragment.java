@@ -86,13 +86,13 @@ public class SetPwdSucFragment extends BaseFragment implements View.OnClickListe
      * 直接去登录
      */
     private void doLogin() {
-        if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPwd) || PhoneUtils.isMobileNumber(mPhone)) {
+        if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPwd) || !PhoneUtils.isMobileNumber(mPhone)) {
             showToast(getString(R.string.tip_data_parsing_exception));
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("", mPhone);
-        params.put("", mPwd);
+        params.put("mobile", mPhone);
+        params.put("password", mPwd);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);

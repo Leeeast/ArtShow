@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivity {
                 initFragmentAddback(setPwdFragment);
                 break;
             case LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS:
-                SetPwdSucFragment setPwdSucFragment = SetPwdSucFragment.newInstance(enterEvent.getPassword(),enterEvent.getPassword());
+                SetPwdSucFragment setPwdSucFragment = SetPwdSucFragment.newInstance(enterEvent.getPhone(), enterEvent.getPassword());
                 initFragmentAddback(setPwdSucFragment);
                 break;
         }
