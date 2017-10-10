@@ -40,6 +40,9 @@ import okhttp3.Call;
 public class LoginFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private EditText edtPassword, edtPhone;
     private LoadingButton mLoadingButton;
+    private CheckBox chkPwdRecord;
+    private String mUserMobile;
+    private String mUserPwd;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -53,7 +56,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        mUserMobile = SharePreUtil.getInstance().getUserMobile();
+        mUserPwd = SharePreUtil.getInstance().getUserPwd();
     }
 
     @Override
@@ -86,13 +90,20 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         rootView.findViewById(R.id.tv_forget_pwd).setOnClickListener(this);
 
         //记录密码监听
-        ((CheckBox) rootView.findViewById(R.id.chk_pwd_record)).setOnCheckedChangeListener(this);
+        chkPwdRecord = (CheckBox) rootView.findViewById(R.id.chk_pwd_record);
+
+        chkPwdRecord.setOnCheckedChangeListener(this);
         ((CheckBox) rootView.findViewById(R.id.chk_pwd_see)).setOnCheckedChangeListener(this);
     }
 
     @Override
     public void setView() {
-
+        if (!TextUtils.isEmpty(mUserMobile)) {
+            edtPhone.setText(mUserMobile);
+        }
+        if (!TextUtils.isEmpty(mUserPwd)) {
+            edtPassword.setText(mUserPwd);
+        }
     }
 
     @Override
@@ -121,10 +132,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-            case R.id.chk_pwd_record:
-                SharePreUtil.getInstance().setKeepPwd(isChecked);
-                LocalUserInfo.getInstance().setKeepPwd(isChecked);
-                break;
             case R.id.chk_pwd_see:
                 if (isChecked) {
                     edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -141,7 +148,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      * 登录
      */
     public void doLogin() {
-        String phoneNum = edtPhone.getText().toString().trim();
+        final String phoneNum = edtPhone.getText().toString().trim();
         String pwd = edtPassword.getText().toString().trim();
         if (TextUtils.isEmpty(phoneNum)) {
             showToast(getString(R.string.tip_input_phone));
@@ -174,7 +181,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 LogUtil.i(TAG, obj);
                 mLoadingButton.stopLoading();
                 if (isSuccess) {
-
+                    //记录帐号密码
+                    if (chkPwdRecord.isChecked()) {
+                        SharePreUtil.getInstance().setUserMobile(phoneNum);
+                        SharePreUtil.getInstance().setUserPwd(edtPassword.getText().toString());
+                    }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
