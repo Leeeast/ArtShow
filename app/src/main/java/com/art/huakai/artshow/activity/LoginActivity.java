@@ -15,9 +15,10 @@ import com.art.huakai.artshow.fragment.LoginFragment;
 import com.art.huakai.artshow.fragment.LoginRegFragment;
 import com.art.huakai.artshow.fragment.PerfectInfoFragment;
 import com.art.huakai.artshow.fragment.RegisterFragment;
-import com.art.huakai.artshow.fragment.RegisterSusFragment;
+import com.art.huakai.artshow.fragment.RegisterSucFragment;
 import com.art.huakai.artshow.fragment.RetrievePwdFragment;
 import com.art.huakai.artshow.fragment.SetPwdFragment;
+import com.art.huakai.artshow.fragment.SetPwdSucFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -91,8 +92,8 @@ public class LoginActivity extends BaseActivity {
                 initFragment(perfectInfoFragment);
                 break;
             case LoginEvent.CODE_ACTION_PERFECT_INFO_SUC:
-                RegisterSusFragment registerSusFragment = RegisterSusFragment.newInstance();
-                initFragment(registerSusFragment);
+                RegisterSucFragment registerSucFragment = RegisterSucFragment.newInstance();
+                initFragment(registerSucFragment);
                 break;
             case LoginEvent.CODE_ACTION_REGISTER_FINISH:
                 DataUploadFragment dataUploadFragment = DataUploadFragment.newInstance();
@@ -108,11 +109,12 @@ public class LoginActivity extends BaseActivity {
                 break;
             case LoginEvent.CODE_ACTION_WECHAT_SET_PWD:
                 SetPwdFragment setPwdFragment =
-                        SetPwdFragment.newInstance(enterEvent.getPhone(), enterEvent.getVerifyCode(),enterEvent.isResetPwd());
+                        SetPwdFragment.newInstance(enterEvent.getPhone(), enterEvent.getVerifyCode(), enterEvent.isResetPwd());
                 initFragmentAddback(setPwdFragment);
                 break;
             case LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS:
-                popBackStack();
+                SetPwdSucFragment setPwdSucFragment = SetPwdSucFragment.newInstance(enterEvent.getPassword(),enterEvent.getPassword());
+                initFragmentAddback(setPwdSucFragment);
                 break;
         }
     }

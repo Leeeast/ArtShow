@@ -45,12 +45,20 @@ public class LoginEvent {
         this.isResetPwd = isResetPwd;
     }
 
+    public LoginEvent(int code, String phone, String pwd) {
+        this.actionCode = code;
+        this.phone = phone;
+        this.password = pwd;
+    }
+
     public int getActionCode() {
         return actionCode;
     }
 
     private String phone;
     private String verifyCode;
+
+    private String password;
     private boolean isResetPwd;
 
     public boolean isResetPwd() {
@@ -63,5 +71,9 @@ public class LoginEvent {
 
     public String getVerifyCode() {
         return verifyCode;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

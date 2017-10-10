@@ -159,11 +159,11 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
             showToast(getString(R.string.tip_input_length));
             return;
         }
-        pwd = MD5.getMD5(pwd.getBytes());
+        final String MD5Pwd = MD5.getMD5(pwd.getBytes());
         Map<String, String> params = new TreeMap<>();
         params.put("mobile", mPhoneNum);
         params.put("verifyCode", mVerifyCode);
-        params.put("password", pwd);
+        params.put("password", MD5Pwd);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "parmas:" + params);
@@ -178,7 +178,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
                 if (isSuccess) {
                     showToast(getString(R.string.tip_set_pwd_success));
                     LocalUserInfo.getInstance().setMobile(mPhoneNum);
-                    //EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS));
+                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS, mPhoneNum, MD5Pwd));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

@@ -137,6 +137,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         }
     }
 
+    /**
+     * 登录
+     */
     public void doLogin() {
         String phoneNum = edtPhone.getText().toString().trim();
         String pwd = edtPassword.getText().toString().trim();

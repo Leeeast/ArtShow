@@ -16,16 +16,16 @@ import org.greenrobot.eventbus.EventBus;
  * 账户类型选择Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class RegisterSusFragment extends BaseFragment implements View.OnClickListener {
+public class RegisterSucFragment extends BaseFragment implements View.OnClickListener {
 
     private TypeConfirmDialog mTypeConfirmDialog;
 
-    public RegisterSusFragment() {
+    public RegisterSucFragment() {
         // Required empty public constructor
     }
 
-    public static RegisterSusFragment newInstance() {
-        RegisterSusFragment fragment = new RegisterSusFragment();
+    public static RegisterSucFragment newInstance() {
+        RegisterSucFragment fragment = new RegisterSucFragment();
         return fragment;
     }
 

@@ -17,6 +17,7 @@
     <string name="app_register">注&#160;&#160;册</string>
     <string name="app_login">登&#160;&#160;录</string>
     <string name="app_login_bold">登录</string>
+    <string name="app_login_direct">直接登录</string>
     <string name="phone_number">手机号</string>
     <string name="pwd_account">密码</string>
     <string name="pwd_record">记住密码</string>
@@ -33,6 +34,8 @@
     <string name="pwd_retrieve">找回密码</string>
     <string name="pwd_reset">重置密码</string>
     <string name="pwd_reset_affirm">确认重置密码</string>
+    <string name="pwd_reset_suc">成功重置密码</string>
+    <string name="pwd_reset_suc_tip">已成功重置密码！快去登录吧</string>
     <string name="pwd_retrieve_finish">完成</string>
     <string name="account_type">账号类型</string>
     <string name="account_type_select_tip">确定账号类型后，将不能更改</string>
@@ -77,6 +80,8 @@
     <string name="tip_set_name">请填写姓名</string>
     <string name="tip_data_parsing_failure">数据解析失败</string>
     <string name="tip_mobile_unregister">未发现该号码请先注册</string>
+    <string name="tip_mobile_registered">该手机号码已经被占用</string>
+    <string name="tip_data_parsing_exception">数据异常，请返回登录</string>
 
     <string name="response_code_200">success</string>
     <string name="response_code_4000">参数签名错误</string>
