@@ -29,15 +29,15 @@ import java.util.TreeMap;
 
 import okhttp3.Call;
 
+import static com.art.huakai.artshow.entity.LocalUserInfo.USER_TYPE_PERSONAL;
+import static com.art.huakai.artshow.entity.LocalUserInfo.USER_TYPE_PUBLISHER;
+import static com.art.huakai.artshow.entity.LocalUserInfo.USER_TYPE_THEATRE;
+
 /**
  * 账户类型选择Fragment
  * Created by lidongliang on 2017/9/27.
  */
 public class PerfectInfoFragment extends BaseFragment implements View.OnClickListener {
-    private final int
-            USER_TYPE_PERSONAL = 3,
-            USER_TYPE_THEATRE = 1,
-            USER_TYPE_PUBLISHER = 2;
     private LocalUserInfo localUserInfo;
     private EditText edtName;
     private TextView tvPerfectDes;
@@ -80,15 +80,15 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void setView() {
         switch (localUserInfo.getUserType()) {
-            case USER_TYPE_PERSONAL:
+            case LocalUserInfo.USER_TYPE_PERSONAL:
                 tilyName.setHint(getString(R.string.perfect_name_personal));
                 tvPerfectDes.setText(R.string.perfect_des_other);
                 break;
-            case USER_TYPE_THEATRE:
+            case LocalUserInfo.USER_TYPE_THEATRE:
                 tilyName.setHint(getString(R.string.perfect_name_theatre));
                 tvPerfectDes.setText(R.string.perfect_des_other);
                 break;
-            case USER_TYPE_PUBLISHER:
+            case LocalUserInfo.USER_TYPE_PUBLISHER:
                 tilyName.setHint(getString(R.string.perfect_name_publisher));
                 tvPerfectDes.setText(R.string.perfect_des_publisher);
                 break;

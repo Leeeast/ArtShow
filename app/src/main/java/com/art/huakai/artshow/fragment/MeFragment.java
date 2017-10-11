@@ -18,6 +18,8 @@ import com.art.huakai.artshow.activity.LoginActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.utils.DeviceUtils;
+import com.art.huakai.artshow.utils.LoginUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * 我Fragment
@@ -31,7 +33,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public final int CODE_STATUS_PUBLISHER = 2;
     public final int CODE_STATUS_THEATRE = 1;
     private SwipeRefreshLayout mRefreshLayout;
-    private TextView tvNmae;
+    private TextView tvNmae, tvType;
+    private SimpleDraweeView sdvAvatar;
 
     public MeFragment() {
         // Required empty public constructor
@@ -92,6 +95,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             }
         });
 
+        sdvAvatar = (SimpleDraweeView) rootView.findViewById(R.id.sdv_avatar);
+        tvType = (TextView) rootView.findViewById(R.id.tv_type);
         tvNmae = (TextView) rootView.findViewById(R.id.tv_name);
         tvNmae.setOnClickListener(this);
     }
@@ -108,6 +113,25 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void setView() {
         switchFragment(0);
+        try {
+            if (LoginUtil.checkUserLogin(getContext(), false)) {
+                tvNmae.setText(LocalUserInfo.getInstance().getName());
+                sdvAvatar.setImageURI(LocalUserInfo.getInstance().getDp());
+                switch (LocalUserInfo.getInstance().getUserType()) {
+                    case LocalUserInfo.USER_TYPE_PERSONAL:
+                        tvType.setText(getString(R.string.account_type_personal));
+                        break;
+                    case LocalUserInfo.USER_TYPE_PUBLISHER:
+                        tvType.setText(getString(R.string.account_type_publisher));
+                        break;
+                    case LocalUserInfo.USER_TYPE_THEATRE:
+                        tvType.setText(getString(R.string.account_type_theatre));
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void switchFragment(int type) {
@@ -136,5 +160,19 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+//        if (!hidden) {
+//            //没有隐藏的时候
+//        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setView();
     }
 }
