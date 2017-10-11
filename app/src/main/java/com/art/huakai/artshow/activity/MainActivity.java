@@ -51,7 +51,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void initView() {
         ((RadioGroup) findViewById(R.id.rdogp_main_tab)).setOnCheckedChangeListener(this);
-        LinearLayout lLyMainRoot = (LinearLayout) findViewById(R.id.lly_main_root);
     }
 
     @Override
