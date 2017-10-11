@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rly_root_theatre"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/DIMEN_163PX"
+    android:layout_marginBottom="@dimen/DIMEN_15PX"
+    android:layout_marginLeft="@dimen/DIMEN_15PX"
+    android:layout_marginRight="@dimen/DIMEN_15PX"
+    android:background="@drawable/shape_theatre_item"
+    android:orientation="vertical">
+
+    <com.art.huakai.artshow.widget.ChinaShowImageView
+        android:id="@+id/sdv_theatre"
+        android:layout_width="@dimen/DIMEN_130PX"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="false"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="false"
+        fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/sdv_theatre"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/DIMEN_16PX">
+
+        <TextView
+            android:id="@+id/tv_theatre_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="天桥剧场"
+            android:textColor="@color/theatre_title"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/me_theatre_send_status"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_theatre_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:text="已发布"
+                android:textColor="@color/theatre_send_suc"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/me_theatre_seat_count"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_seat_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_19PX"
+                android:text="100"
+                android:textColor="@color/theatre_title"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/me_theatre_position"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_theatre_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_35PX"
+                android:text="北京  西城区"
+                android:textColor="@color/theatre_title"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_marginRight="@dimen/DIMEN_32PX"
+            android:layout_marginTop="@dimen/DIMEN_6PX"
+            android:background="@color/line_theatre" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_6PX"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_theatre_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/me_theatre_price"
+                android:textColor="@color/theatre_title"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_5PX"
+                android:text="@string/me_theatre_unit"
+                android:textColor="@color/theatre_content"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

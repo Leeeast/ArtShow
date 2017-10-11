@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.CollAdapter;
+import com.art.huakai.artshow.adapter.CooperateAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -19,18 +19,18 @@ import java.util.ArrayList;
  * 合作Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class CollaborateFragment extends BaseFragment {
+public class CooperateFragment extends BaseFragment {
     //Frament添加TAG
-    public static final String TAG_FRAGMENT = CollaborateFragment.class.getSimpleName();
+    public static final String TAG_FRAGMENT = CooperateFragment.class.getSimpleName();
     private EditText edtSearch;
     private RecyclerView recyclerView;
 
-    public CollaborateFragment() {
+    public CooperateFragment() {
         // Required empty public constructor
     }
 
-    public static CollaborateFragment newInstance() {
-        CollaborateFragment fragment = new CollaborateFragment();
+    public static CooperateFragment newInstance() {
+        CooperateFragment fragment = new CooperateFragment();
         return fragment;
     }
 
@@ -41,7 +41,7 @@ public class CollaborateFragment extends BaseFragment {
 
     @Override
     public int getLayoutID() {
-        return R.layout.fragment_collaborate;
+        return R.layout.fragment_cooperate;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CollaborateFragment extends BaseFragment {
         for (int i = 0; i < 10; i++) {
             collList.add("item ：" + i);
         }
-        CollAdapter collAdapter = new CollAdapter(collList);
+        CooperateAdapter collAdapter = new CooperateAdapter(collList);
         recyclerView.setAdapter(collAdapter);
     }
 }

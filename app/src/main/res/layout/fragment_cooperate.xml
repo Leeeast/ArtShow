@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/DIMEN_25PX"
             android:layout_marginTop="@dimen/DIMEN_36PX"
-            android:text="@string/coll_title"
+            android:text="@string/cooperate_title"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -29,8 +29,8 @@
             android:background="@drawable/shape_bg_white_radius_1"
             android:drawablePadding="@dimen/DIMEN_25PX"
             android:gravity="center_vertical"
-            android:hint="@string/coll_search"
-            android:textColorHint="@color/coll_search_hint"
+            android:hint="@string/cooperate_search"
+            android:textColorHint="@color/cooperate_search_hint"
             android:textSize="14sp" />
     </RelativeLayout>
 

@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.holder.CollDesHolder;
-import com.art.huakai.artshow.adapter.holder.CollHolder;
+import com.art.huakai.artshow.adapter.holder.CooperateDesHolder;
+import com.art.huakai.artshow.adapter.holder.CooperateHolder;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
@@ -17,13 +17,13 @@ import java.util.List;
  * Created by lidongliang on 2017/10/5.
  */
 
-public class CollAdapter extends RecyclerView.Adapter {
+public class CooperateAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_TEXT_DES = 11;
     public static final int TYPE_NORMAL = 12;
     private List<String> mlist;
 
-    public CollAdapter(List<String> list) {
+    public CooperateAdapter(List<String> list) {
         this.mlist = list;
     }
 
@@ -40,11 +40,11 @@ public class CollAdapter extends RecyclerView.Adapter {
             view.setLayoutParams(layoutParams);
             return new EmptyHolder(view);
         } else if (TYPE_TEXT_DES == viewType) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coll_des, parent, false);
-            return new CollDesHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cooperate_des, parent, false);
+            return new CooperateDesHolder(view);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coll_normal, parent, false);
-            return new CollHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cooperate_normal, parent, false);
+            return new CooperateHolder(view);
         }
     }
 
@@ -55,10 +55,10 @@ public class CollAdapter extends RecyclerView.Adapter {
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_TEXT_DES:
-                CollDesHolder collDesHolder = (CollDesHolder) holder;
+                CooperateDesHolder collDesHolder = (CooperateDesHolder) holder;
                 break;
             case TYPE_NORMAL:
-                CollHolder collHolder = (CollHolder) holder;
+                CooperateHolder collHolder = (CooperateHolder) holder;
                 break;
         }
     }

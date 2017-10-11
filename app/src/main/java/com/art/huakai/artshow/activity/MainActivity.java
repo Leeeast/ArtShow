@@ -12,7 +12,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.fragment.CollaborateFragment;
+import com.art.huakai.artshow.fragment.CooperateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
 import com.art.huakai.artshow.fragment.ShowCircleFragment;
@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected FragmentManager fragmentManager;
     protected FragmentTransaction ft;
     private String[] fragmentTags = new String[]{ShowCircleFragment.TAG_FRAGMENT,
-            DiscoverFragment.TAG_FRAGMENT, CollaborateFragment.TAG_FRAGMENT, MeFragment.TAG_FRAGMENT};
+            DiscoverFragment.TAG_FRAGMENT, CooperateFragment.TAG_FRAGMENT, MeFragment.TAG_FRAGMENT};
     //再次点击退出使用
     private long touchTime = 0;
 
@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 showFragment(DiscoverFragment.TAG_FRAGMENT);
                 break;
             case R.id.rdobtn_collaborate:
-                showFragment(CollaborateFragment.TAG_FRAGMENT);
+                showFragment(CooperateFragment.TAG_FRAGMENT);
                 break;
             case R.id.rdobtn_me:
                 showFragment(MeFragment.TAG_FRAGMENT);
@@ -120,8 +120,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             fragment = ShowCircleFragment.newInstance();
         } else if (tag.equals(DiscoverFragment.TAG_FRAGMENT)) {
             fragment = DiscoverFragment.newInstance();
-        } else if (tag.equals(CollaborateFragment.TAG_FRAGMENT)) {
-            fragment = CollaborateFragment.newInstance();
+        } else if (tag.equals(CooperateFragment.TAG_FRAGMENT)) {
+            fragment = CooperateFragment.newInstance();
         } else if (tag.equals(MeFragment.TAG_FRAGMENT)) {
             fragment = MeFragment.newInstance();
         }

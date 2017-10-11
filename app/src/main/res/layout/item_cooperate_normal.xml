@@ -6,7 +6,7 @@
     android:layout_marginLeft="@dimen/DIMEN_15PX"
     android:layout_marginRight="@dimen/DIMEN_15PX"
     android:layout_marginTop="@dimen/DIMEN_10PX"
-    android:background="@drawable/shape_coll_item"
+    android:background="@drawable/shape_cooperate_item"
     android:orientation="vertical"
     android:paddingBottom="@dimen/DIMEN_15PX"
     android:paddingLeft="@dimen/DIMEN_10PX"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="南山戏剧节作品招募"
-        android:textColor="@color/coll_item_title"
+        android:textColor="@color/cooperate_item_title"
         android:textSize="18sp" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_marginRight="@dimen/DIMEN_91PX"
         android:layout_marginTop="@dimen/DIMEN_6PX"
         android:text="演出作品要求时长在60分钟以上，作品内容必须高大上，人数在5到10人之间"
-        android:textColor="@color/coll_item_title"
+        android:textColor="@color/cooperate_item_title"
         android:textSize="14sp" />
 
     <TextView
@@ -57,7 +57,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/DIMEN_5PX"
             android:gravity="center_horizontal"
-            android:text="@string/coll_item_status"
+            android:text="@string/cooperate_item_status"
             android:textColor="@color/app_subtitle"
             android:textSize="14sp" />
 

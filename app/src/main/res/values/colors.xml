@@ -8,6 +8,7 @@
     <color name="black00">#ff000000</color>
     <color name="black33">#33000000</color>
     <color name="black88">#88000000</color>
+    <color name="black26">#26000000</color>
     <color name="black1f">#1f1f1f</color>
     <color name="black3f">#3f3d40</color>
     <color name="black3e">#3e3d42</color>
@@ -136,11 +137,16 @@
     <color name="dis_tab_text_s">#ff1a1a1c</color>
     <color name="dis_tab_text_n">#ff1a1a1c</color>
     <!--合作相关-->
-    <color name="coll_search_hint">#ffc0c6d1</color>
-    <color name="coll_search_text">#ffcfc6d1</color>
-    <color name="coll_item_bg">#fff5f9fb</color>
-    <color name="coll_item_title">#ff555555</color>
+    <color name="cooperate_search_hint">#ffc0c6d1</color>
+    <color name="cooperate_search_text">#ffcfc6d1</color>
+    <color name="cooperate_item_bg">#fff5f9fb</color>
+    <color name="cooperate_item_title">#ff555555</color>
     <!--我的相关-->
     <color name="me_personal_line">#fff5f3f1</color>
     <color name="me_personal_des">#ff9b9b9b</color>
+    <color name="line_theatre">#ffb3b3b3</color>
+    <color name="theatre_title">#ff1a1a1c</color>
+    <color name="theatre_content">#ff797c87</color>
+    <color name="theatre_send_suc">#ff7ed321</color>
+    <color name="theatre_send_fail">#ffe93c2c</color>
 </resources>

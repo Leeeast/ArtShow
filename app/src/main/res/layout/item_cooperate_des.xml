@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/DIMEN_22PX"
         android:layout_marginTop="@dimen/DIMEN_18PX"
-        android:text="@string/coll_item_des"
-        android:textColor="@color/coll_search_hint"
+        android:text="@string/cooperate_item_des"
+        android:textColor="@color/cooperate_search_hint"
         android:textSize="14sp" />
 </FrameLayout>

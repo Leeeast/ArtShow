@@ -9,7 +9,7 @@
             <!--android:centerColor="#bbbbbb"-->
             <!--android:endColor="#d5d5d5"-->
             <!--android:startColor="#a9a09d" />-->
-            <solid android:color="@color/black33" />
+            <solid android:color="@color/black26" />
             <corners android:radius="@dimen/DIMEN_5PX" />
         </shape>
     </item>
@@ -19,8 +19,8 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="1px"
-                android:color="@color/black33" />
-            <solid android:color="@color/coll_item_bg" />
+                android:color="@color/black26" />
+            <solid android:color="@color/whiteff" />
             <corners android:radius="@dimen/DIMEN_5PX" />
         </shape>
     </item>

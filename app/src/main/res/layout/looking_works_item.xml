@@ -7,8 +7,7 @@
     android:layout_marginBottom="@dimen/DIMEN_15PX"
     android:layout_marginLeft="@dimen/DIMEN_15PX"
     android:layout_marginRight="@dimen/DIMEN_15PX"
-    android:background="@drawable/shape_coll_item"
-    >
+    android:background="@drawable/shape_theatre_item">
 
     <LinearLayout
         android:id="@+id/ll_whole"
@@ -16,42 +15,38 @@
         android:layout_height="@dimen/DIMEN_163PX"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <com.art.huakai.artshow.widget.ChinaShowImageView
             android:id="@+id/sdv"
             android:layout_width="0dp"
-            android:layout_weight="2"
-            fresco:roundedCornerRadius="@dimen/DIMEN_5PX"
             android:layout_height="match_parent"
+            android:layout_weight="2"
             fresco:actualImageScaleType="fitXY"
             fresco:placeholderImageScaleType="fitXY"
-            fresco:roundTopLeft="true"
-            fresco:roundTopRight="false"
             fresco:roundBottomLeft="true"
             fresco:roundBottomRight="false"
-
-            />
+            fresco:roundTopLeft="true"
+            fresco:roundTopRight="false"
+            fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
 
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
-            >
+            android:layout_weight="3"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_works_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="蒙拉丽莎的眼泪"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
                 android:textColor="#ff1a1a1c"
                 android:textSize="@dimen/DIMEN_19PX" />
 
@@ -59,9 +54,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/DIMEN_18PX"
-                >
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -70,16 +65,17 @@
                     android:text="演员人数"
                     android:textColor="#ff797c87"
                     android:textSize="@dimen/DIMEN_13PX" />
+
                 <TextView
                     android:id="@+id/tv_actor_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
                     android:layout_marginLeft="@dimen/DIMEN_18PX"
+                    android:layout_marginRight="@dimen/DIMEN_30PX"
+                    android:ellipsize="end"
                     android:maxLines="1"
                     android:text="20"
                     android:textColor="#ff1a1a1c"
-                    android:layout_marginRight="@dimen/DIMEN_30PX"
                     android:textSize="@dimen/DIMEN_13PX" />
 
             </LinearLayout>
@@ -87,9 +83,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/DIMEN_5PX"
-                >
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,34 +94,34 @@
                     android:text="首演时间"
                     android:textColor="#ff797c87"
                     android:textSize="@dimen/DIMEN_13PX" />
+
                 <TextView
                     android:id="@+id/tv_show_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
                     android:layout_marginLeft="@dimen/DIMEN_18PX"
+                    android:layout_marginRight="@dimen/DIMEN_30PX"
+                    android:ellipsize="end"
                     android:maxLines="1"
                     android:text="2017.09.09"
-                    android:layout_marginRight="@dimen/DIMEN_30PX"
                     android:textColor="#ff1a1a1c"
                     android:textSize="@dimen/DIMEN_13PX" />
 
             </LinearLayout>
 
-   <View
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/DIMEN_1PX"
-       android:background="#ff1a1a1c"
-       android:layout_marginRight="@dimen/DIMEN_30PX"
-       android:layout_marginTop="@dimen/DIMEN_3PX"
-       />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_3PX"
+                android:background="@color/line_theatre" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/DIMEN_18PX"
-                >
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_works_fee"
                     android:layout_width="match_parent"
@@ -135,11 +131,12 @@
                     android:text="￥6000"
                     android:textColor="#ff1a1a1c"
                     android:textSize="@dimen/DIMEN_22PX" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
                     android:layout_marginLeft="@dimen/DIMEN_3PX"
+                    android:ellipsize="end"
                     android:maxLines="1"
                     android:text="元/场"
                     android:textColor="#ff797c87"
@@ -149,7 +146,6 @@
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
