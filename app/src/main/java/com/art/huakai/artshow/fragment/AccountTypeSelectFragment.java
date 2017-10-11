@@ -18,6 +18,7 @@ import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -195,6 +196,7 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                         int status = jsonObject.getInt("status");
                         localUserInfo.setUserType(userType);
                         localUserInfo.setStatus(status);
+                        SharePreUtil.getInstance().storeUserInfo(localUserInfo);
                         EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
                     } catch (Exception e) {
                         e.printStackTrace();

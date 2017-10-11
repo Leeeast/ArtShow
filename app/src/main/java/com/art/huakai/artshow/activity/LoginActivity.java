@@ -6,6 +6,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
 import com.art.huakai.artshow.fragment.BindPhoneFragment;
@@ -19,13 +20,12 @@ import com.art.huakai.artshow.fragment.RegisterSucFragment;
 import com.art.huakai.artshow.fragment.RetrievePwdFragment;
 import com.art.huakai.artshow.fragment.SetPwdFragment;
 import com.art.huakai.artshow.fragment.SetPwdSucFragment;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static com.art.huakai.artshow.eventbus.LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM;
 
 public class LoginActivity extends BaseActivity {
 
@@ -48,6 +48,13 @@ public class LoginActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         LoginRegFragment mLoginRegFragment = LoginRegFragment.newInstance();
         initFragment(mLoginRegFragment);
+        if (LoginUtil.checkUserLogin(this, false)) {
+            if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_DEFAULT) {
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
+            } else if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_UNFILL_DATA) {
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
+            }
+        }
     }
 
     @Override
@@ -87,7 +94,7 @@ public class LoginActivity extends BaseActivity {
                 AccountTypeSelectFragment accTypeSelFragment = AccountTypeSelectFragment.newInstance();
                 initFragment(accTypeSelFragment);
                 break;
-            case CODE_ACTION_ACCOUNT_TYPE_AFFIRM:
+            case LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM:
                 PerfectInfoFragment perfectInfoFragment = PerfectInfoFragment.newInstance();
                 initFragment(perfectInfoFragment);
                 break;

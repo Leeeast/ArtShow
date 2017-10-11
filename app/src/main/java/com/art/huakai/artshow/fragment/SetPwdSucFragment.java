@@ -10,11 +10,19 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.UserInfo;
+import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,6 +39,7 @@ public class SetPwdSucFragment extends BaseFragment implements View.OnClickListe
     private String mPhone;
     private String mPwd;
     private ShowProgressDialog showProgressDialog;
+    private Gson mGson;
 
     public SetPwdSucFragment() {
     }
@@ -51,6 +60,7 @@ public class SetPwdSucFragment extends BaseFragment implements View.OnClickListe
             mPhone = bundle.getString("PARAMS_PHONE");
             mPwd = bundle.getString("PARAMS_PWD");
         }
+        mGson = new Gson();
         showProgressDialog = new ShowProgressDialog(getContext());
     }
 
@@ -92,7 +102,8 @@ public class SetPwdSucFragment extends BaseFragment implements View.OnClickListe
         }
         Map<String, String> params = new TreeMap<>();
         params.put("mobile", mPhone);
-        params.put("password", mPwd);
+        String mMD5Pwd = MD5.getMD5(mPwd.getBytes());
+        params.put("password", mMD5Pwd);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
@@ -105,7 +116,37 @@ public class SetPwdSucFragment extends BaseFragment implements View.OnClickListe
                     showProgressDialog.dismiss();
                 }
                 if (isSuccess) {
-                    //TODO 解析数据
+                    //记录帐号密码
+                    if (SharePreUtil.getInstance().isKeepPwd()) {
+                        SharePreUtil.getInstance().setUserMobile(mPhone);
+                        SharePreUtil.getInstance().setUserPwd(mPwd);
+                    }
+                    //解析数据
+                    try {
+                        UserInfo userInfo = mGson.fromJson(obj, UserInfo.class);
+                        LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
+                        localUserInfo.setExpire(userInfo.expire);
+                        localUserInfo.setAccessToken(userInfo.accessToken);
+                        localUserInfo.setId(userInfo.user.id);
+                        localUserInfo.setName(userInfo.user.name);
+                        localUserInfo.setMobile(userInfo.user.mobile);
+                        localUserInfo.setEmail(userInfo.user.email);
+                        localUserInfo.setWechatOpenid(userInfo.user.wechatOpenid);
+                        localUserInfo.setDp(userInfo.user.dp);
+                        localUserInfo.setPassword(userInfo.user.password);
+                        localUserInfo.setUserType(userInfo.user.userType);
+                        localUserInfo.setStatus(userInfo.user.status);
+                        localUserInfo.setCreateTime(userInfo.user.createTime);
+                        SharePreUtil.getInstance().storeUserInfo(localUserInfo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_DEFAULT) {
+                        EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
+                    } else if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_UNFILL_DATA) {
+                        EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
+                    }
+                    getActivity().finish();
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

@@ -16,6 +16,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MD5;
@@ -25,6 +26,7 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.widget.LoadingButton;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,6 +45,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     private CheckBox chkPwdRecord;
     private String mUserMobile;
     private String mUserPwd;
+    private Gson mGson;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -56,6 +59,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void initData(@Nullable Bundle bundle) {
+        mGson = new Gson();
         mUserMobile = SharePreUtil.getInstance().getUserMobile();
         mUserPwd = SharePreUtil.getInstance().getUserPwd();
     }
@@ -132,6 +136,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
+            case R.id.chk_pwd_record:
+                SharePreUtil.getInstance().setIsKeepPWD(isChecked);
+                break;
             case R.id.chk_pwd_see:
                 if (isChecked) {
                     edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -175,7 +182,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         params.put("sign", sign);
         mLoadingButton.startLoading();
         RequestUtil.request(true, Constant.URL_USER_LOGIN, params, 14, new RequestUtil.RequestListener() {
-
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -185,6 +191,30 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                     if (chkPwdRecord.isChecked()) {
                         SharePreUtil.getInstance().setUserMobile(phoneNum);
                         SharePreUtil.getInstance().setUserPwd(edtPassword.getText().toString());
+                    }
+                    try {
+                        UserInfo userInfo = mGson.fromJson(obj, UserInfo.class);
+                        LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
+                        localUserInfo.setExpire(userInfo.expire);
+                        localUserInfo.setAccessToken(userInfo.accessToken);
+                        localUserInfo.setId(userInfo.user.id);
+                        localUserInfo.setName(userInfo.user.name);
+                        localUserInfo.setMobile(userInfo.user.mobile);
+                        localUserInfo.setEmail(userInfo.user.email);
+                        localUserInfo.setWechatOpenid(userInfo.user.wechatOpenid);
+                        localUserInfo.setDp(userInfo.user.dp);
+                        localUserInfo.setPassword(userInfo.user.password);
+                        localUserInfo.setUserType(userInfo.user.userType);
+                        localUserInfo.setStatus(userInfo.user.status);
+                        localUserInfo.setCreateTime(userInfo.user.createTime);
+                        SharePreUtil.getInstance().storeUserInfo(localUserInfo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_DEFAULT) {
+                        EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
+                    } else if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_UNFILL_DATA) {
+                        EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);

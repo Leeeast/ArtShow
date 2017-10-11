@@ -24,6 +24,7 @@ public class SharePreUtil {
     private final String IS_FIRST_ENTER_APP = "IS_FIRST_ENTER_APP";
     private final String USER_KEEP_MOBILE = "USER_KEEP_MOBILE";
     private final String USER_KEEP_PWD = "USER_KEEP_PWD";
+    private final String IS_KEEP_PWD = "IS_KEEP_PWD";
     //---userinfo start------------
     public final String USER_EXPIRE = "USER_EXPIRE";
     public final String USER_ACCESSTOKEN = "USER_ACCESSTOKEN";
@@ -112,6 +113,26 @@ public class SharePreUtil {
     }
 
     /**
+     * 是否记录密码
+     *
+     * @param isKeepPWD
+     */
+    public void setIsKeepPWD(boolean isKeepPWD) {
+        Editor edit = mSp.edit();
+        edit.putBoolean(IS_KEEP_PWD, isKeepPWD);
+        edit.commit();
+    }
+
+    /**
+     * 是否保存密码
+     *
+     * @return
+     */
+    public boolean isKeepPwd() {
+        return mSp.getBoolean(IS_KEEP_PWD, true);
+    }
+
+    /**
      * 保存用户信息
      *
      * @param localUserInfo
@@ -136,7 +157,7 @@ public class SharePreUtil {
     /**
      * 读取用户信息
      */
-    public void recoverUserInfo() {
+    public void initUserInfo() {
         LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
         localUserInfo.setExpire(mSp.getInt(USER_EXPIRE, 0));
         localUserInfo.setUserType(mSp.getInt(USER_USERTYPE, 0));

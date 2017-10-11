@@ -80,6 +80,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 获取自定义TAG
+     *
      * @return
      */
     public String getTAG() {

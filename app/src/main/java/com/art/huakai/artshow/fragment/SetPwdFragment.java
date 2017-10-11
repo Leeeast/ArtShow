@@ -141,7 +141,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
      * 设置密码
      */
     private void setPwd() {
-        String pwd = edtPassword.getText().toString().trim();
+        final String pwd = edtPassword.getText().toString().trim();
         String pwdAffirm = edtPwdAffirm.getText().toString().trim();
         if (TextUtils.isEmpty(pwd)) {
             showToast(getString(R.string.tip_input_pwd));
@@ -159,7 +159,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
             showToast(getString(R.string.tip_input_length));
             return;
         }
-        final String MD5Pwd = MD5.getMD5(pwd.getBytes());
+        String MD5Pwd = MD5.getMD5(pwd.getBytes());
         Map<String, String> params = new TreeMap<>();
         params.put("mobile", mPhoneNum);
         params.put("verifyCode", mVerifyCode);
@@ -178,7 +178,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
                 if (isSuccess) {
                     showToast(getString(R.string.tip_set_pwd_success));
                     LocalUserInfo.getInstance().setMobile(mPhoneNum);
-                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS, mPhoneNum, MD5Pwd));
+                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS, mPhoneNum, pwd));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

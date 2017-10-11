@@ -1,22 +1,22 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.fragment.CollaborateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
 import com.art.huakai.artshow.fragment.ShowCircleFragment;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 /**
@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
         ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
-}
+    }
 
     @Override
     public int getLayoutID() {
@@ -46,6 +46,17 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void initData() {
         fragmentManager = getSupportFragmentManager();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (LoginUtil.checkUserLogin(this, false)) {
+            if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_DEFAULT ||
+                    LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_UNFILL_DATA) {
+                startActivity(new Intent(this, LoginActivity.class));
+            }
+        }
     }
 
     @Override

@@ -1,24 +1,29 @@
 package com.art.huakai.artshow.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.LoginActivity;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 /**
  * 我Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseFragment implements View.OnClickListener {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = MeFragment.class.getSimpleName();
     public final int CODE_STATUS_UNLOGIN = 0;
@@ -26,6 +31,7 @@ public class MeFragment extends BaseFragment {
     public final int CODE_STATUS_PUBLISHER = 2;
     public final int CODE_STATUS_THEATRE = 1;
     private SwipeRefreshLayout mRefreshLayout;
+    private TextView tvNmae;
 
     public MeFragment() {
         // Required empty public constructor
@@ -85,6 +91,9 @@ public class MeFragment extends BaseFragment {
                 }, 500);
             }
         });
+
+        tvNmae = (TextView) rootView.findViewById(R.id.tv_name);
+        tvNmae.setOnClickListener(this);
     }
 
     /**
@@ -115,5 +124,17 @@ public class MeFragment extends BaseFragment {
                 break;
         }
         showFragment(baseFragment);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_name:
+                if (TextUtils.isEmpty(LocalUserInfo.getInstance().getMobile()) ||
+                        TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
+                break;
+        }
     }
 }

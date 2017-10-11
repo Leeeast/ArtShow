@@ -18,6 +18,7 @@ import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -144,6 +145,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                         localUserInfo.setDp(dp);
                         localUserInfo.setName(name);
                         localUserInfo.setStatus(status);
+                        SharePreUtil.getInstance().storeUserInfo(localUserInfo);
                         EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_PERFECT_INFO_SUC));
                     } catch (Exception e) {
                         e.printStackTrace();

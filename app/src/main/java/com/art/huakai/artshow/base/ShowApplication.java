@@ -6,12 +6,8 @@ import android.content.Context;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.utils.FrescoHelper;
 import com.art.huakai.artshow.utils.SharePreUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import okhttp3.OkHttpClient;
 
@@ -41,6 +37,8 @@ public class ShowApplication extends Application {
     private void init() {
         //初始化初始化SharePreferences
         SharePreUtil.getInstance().initSharePre();
+        //初始化用户信息
+        SharePreUtil.getInstance().initUserInfo();
         //初始化Fresco
         FrescoHelper.init(this);
 
@@ -49,7 +47,5 @@ public class ShowApplication extends Application {
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 .build();
         OkHttpUtils.initClient(okHttpClient);
-
-
     }
 }

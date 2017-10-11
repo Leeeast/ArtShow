@@ -6,6 +6,12 @@ package com.art.huakai.artshow.entity;
  */
 
 public class LocalUserInfo {
+    //0 默认，注册成功未选择账户类型 ，1 已经选择账户类型，未填写个人资料，2 资料完善，未认证，3，已认证
+    public static int USER_STATUS_DEFAULT = 0;
+    public static int USER_STATUS_UNFILL_DATA = 1;
+    public static int USER_STATUS_UNIDENTIFY = 2;
+    public static int USER_STATUS_IDENTIFY_SUC = 3;
+
     private LocalUserInfo() {
     }
 
