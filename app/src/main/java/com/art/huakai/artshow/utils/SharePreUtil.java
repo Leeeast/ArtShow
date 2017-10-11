@@ -25,7 +25,18 @@ public class SharePreUtil {
     private final String USER_KEEP_MOBILE = "USER_KEEP_MOBILE";
     private final String USER_KEEP_PWD = "USER_KEEP_PWD";
     //---userinfo start------------
-
+    public final String USER_EXPIRE = "USER_EXPIRE";
+    public final String USER_ACCESSTOKEN = "USER_ACCESSTOKEN";
+    public final String USER_ID = "USER_ID";
+    public final String USER_NAME = "USER_NAME";
+    public final String USER_MOBILE = "USER_MOBILE";
+    public final String USER_EMAIL = "USER_EMAIL";
+    public final String USER_WECHATOPENID = "USER_WECHATOPENID";
+    public final String USER_DP = "USER_DP";
+    public final String USER_PASSWORD = "USER_PASSWORD";
+    public final String USER_USERTYPE = "USER_USERTYPE";
+    public final String USER_STATUS = "USER_STATUS";
+    public final String USER_CREATETIME = "USER_CREATETIME";
     //---userinfo ecd------------
 
     public synchronized static SharePreUtil getInstance() {
@@ -100,33 +111,6 @@ public class SharePreUtil {
         return mSp.getString(USER_KEEP_PWD, "");
     }
 
-    //    private int expire;
-//    private String accessToken;
-//    private String id;
-//    private String name;
-//    private String mobile;
-//    private String email;
-//    private String wechatOpenid;
-//    private String dp;
-//    private String password;
-//    //注册类型；3：个人账户，1：剧场用户，2：出品方用户
-//    private int userType;
-//    //0 默认，注册成功未选择账户类型 ，1 已经选择账户类型，未填写个人资料，2 资料完善，未认证，3，已认证
-//    private int status;
-//    private long createTime;
-    public final String USER_EXPIRE = "USER_EXPIRE";
-    public final String USER_ACCESSTOKEN = "USER_ACCESSTOKEN";
-    public final String USER_ID = "USER_ID";
-    public final String USER_NAME = "USER_NAME";
-    public final String USER_MOBILE = "USER_MOBILE";
-    public final String USER_EMAIL = "USER_EMAIL";
-    public final String USER_WECHATOPENID = "USER_WECHATOPENID";
-    public final String USER_DP = "USER_DP";
-    public final String USER_PASSWORD = "USER_PASSWORD";
-    public final String USER_USERTYPE = "USER_USERTYPE";
-    public final String USER_STATUS = "USER_STATUS";
-    public final String USER_CREATETIME = "USER_CREATETIME";
-
     /**
      * 保存用户信息
      *
@@ -152,7 +136,7 @@ public class SharePreUtil {
     /**
      * 读取用户信息
      */
-    public LocalUserInfo getUserInfo() {
+    public void recoverUserInfo() {
         LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
         localUserInfo.setExpire(mSp.getInt(USER_EXPIRE, 0));
         localUserInfo.setUserType(mSp.getInt(USER_USERTYPE, 0));
@@ -166,7 +150,5 @@ public class SharePreUtil {
         localUserInfo.setWechatOpenid(mSp.getString(USER_WECHATOPENID, ""));
         localUserInfo.setDp(mSp.getString(USER_DP, ""));
         localUserInfo.setPassword(mSp.getString(USER_PASSWORD, ""));
-        return localUserInfo;
     }
-
 }
