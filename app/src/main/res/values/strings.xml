@@ -108,6 +108,10 @@
     <string name="me_unlogin_des">推荐作品</string>
     <string name="me_unlogin">登录/注册</string>
     <string name="me_unlogin_sub">登录后可享受更多</string>
+    <string name="me_my_resume">我的简历</string>
+    <string name="me_perfect">快来完善</string>
+    <string name="me_pro_auth">专业认证</string>
+    <string name="me_auth">立即认证</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

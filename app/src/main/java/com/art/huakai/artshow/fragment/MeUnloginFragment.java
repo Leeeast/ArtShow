@@ -53,8 +53,6 @@ public class MeUnloginFragment extends BaseFragment {
         strings.add(null);
         strings.add("");
         strings.add("");
-        strings.add("");
-        strings.add("");
         MeUnloginAdapter meUnloginAdapter = new MeUnloginAdapter(strings);
         rlvRecommend.setAdapter(meUnloginAdapter);
     }
