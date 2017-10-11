@@ -215,6 +215,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                         EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
                     } else if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_UNFILL_DATA) {
                         EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
+                    } else {
+                        getActivity().finish();
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
