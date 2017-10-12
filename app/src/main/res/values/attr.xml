@@ -119,5 +119,11 @@
         <attr name="loading_drawablePadding" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="SettingItem">
+        <attr name="item_icon" format="reference" />
+        <attr name="item_title" format="reference|string" />
+        <attr name="item_arrow" format="reference" />
+    </declare-styleable>
+
 
 </resources>

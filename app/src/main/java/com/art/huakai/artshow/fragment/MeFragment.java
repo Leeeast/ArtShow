@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.LoginActivity;
+import com.art.huakai.artshow.activity.SetActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.utils.DeviceUtils;
@@ -81,10 +82,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }, 500);
             }
         });
-
         sdvAvatar = (SimpleDraweeView) rootView.findViewById(R.id.sdv_avatar);
         tvType = (TextView) rootView.findViewById(R.id.tv_type);
         tvNmae = (TextView) rootView.findViewById(R.id.tv_name);
+        rootView.findViewById(R.id.iv_setting).setOnClickListener(this);
         tvNmae.setOnClickListener(this);
     }
 
@@ -179,6 +180,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                         TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
+                break;
+            case R.id.iv_setting:
+                startActivity(new Intent(getContext(), SetActivity.class));
                 break;
         }
     }

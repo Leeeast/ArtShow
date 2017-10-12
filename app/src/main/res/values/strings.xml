@@ -117,6 +117,14 @@
     <string name="me_theatre_position">位置</string>
     <string name="me_theatre_unit">元/天</string>
     <string name="me_theatre_price">￥&#160;%1$d</string>
+    <!--设置相关-->
+    <string name="setting_item_account">账户信息</string>
+    <string name="setting_item_bind_wx">微信绑定</string>
+    <string name="setting_item_clear_cache">清除缓存</string>
+    <string name="setting_item_about_us">关于我们</string>
+    <string name="setting_item_connect_us">联系我们</string>
+    <string name="setting_exit_login">退&#160;出&#160;登&#160;录</string>
+    <string name="setting_title">设置</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
