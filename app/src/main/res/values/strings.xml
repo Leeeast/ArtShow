@@ -125,6 +125,15 @@
     <string name="setting_item_connect_us">联系我们</string>
     <string name="setting_exit_login">退&#160;出&#160;登&#160;录</string>
     <string name="setting_title">设置</string>
+    <!--设置账户信息-->
+    <string name="set_account_info">账户信息</string>
+    <string name="set_upload_avatar">上传头像</string>
+    <string name="set_base_info">基本信息</string>
+    <string name="set_other_info">其他信息</string>
+    <string name="account_name">账户名称</string>
+    <string name="account_auth">账户认证</string>
+    <string name="account_auth_pwd">账户密码</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

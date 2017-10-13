@@ -42,7 +42,8 @@
         <activity
             android:name=".activity.WebActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SetActivity"></activity>
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.AccountInfoActivity"></activity>
     </application>
 
 </manifest>

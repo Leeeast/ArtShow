@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * 设置页面
+ * Created by lidongliang on 2017/10/13.
+ */
 public class SetActivity extends BaseActivity {
 
     @BindView(R.id.lly_back)
@@ -51,19 +56,11 @@ public class SetActivity extends BaseActivity {
     }
 
     /**
-     * 返回
-     */
-    @OnClick(R.id.lly_back)
-    public void setlLyBack() {
-        finish();
-    }
-
-    /**
      * 账户信息
      */
     @OnClick(R.id.item_account_info)
     public void jumpAccountInfo() {
-        Toast.makeText(this, "账户信息", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, AccountInfoActivity.class));
     }
 
     /**
