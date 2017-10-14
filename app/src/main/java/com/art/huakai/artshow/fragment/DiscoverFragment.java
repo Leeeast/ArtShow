@@ -68,6 +68,7 @@ public class DiscoverFragment extends BaseFragment {
     public void setView() {
         DisPagerAdapter disPagerAdapter = new DisPagerAdapter(getChildFragmentManager(), mFragments, mTabArray);
         viewPager.setAdapter(disPagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
         stlDisTab.setViewPager(viewPager);
     }
 }
