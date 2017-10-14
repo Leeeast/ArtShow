@@ -55,6 +55,10 @@
             android:name=".activity.AccountNameChangeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged" />
+        <activity
+            android:name=".activity.BindWechatActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged" />
     </application>
 
 </manifest>

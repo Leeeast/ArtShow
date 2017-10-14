@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <size
+        android:width="@dimen/DIMEN_50PX"
+        android:height="@dimen/DIMEN_30PX" />
+    <corners android:radius="@dimen/DIMEN_15PX" />
+
+
+    <!-- 变化率  定义从左到右的颜色不变 -->
+    <gradient
+        android:endColor="#888888"
+        android:startColor="#888888" />
+</shape>

@@ -74,8 +74,9 @@ public class SetActivity extends BaseActivity {
      */
     @OnClick(R.id.item_bind_wechat)
     public void jumpBindWechat() {
-        Toast.makeText(this, "微信绑定", Toast.LENGTH_SHORT).show();
+        invokActivity(this, BindWechatActivity.class, null, JumpCode.FLAG_REQ_BIND_WECHAT);
     }
+
 
     /**
      * 清除缓存

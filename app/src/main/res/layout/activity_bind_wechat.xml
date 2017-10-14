@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_title_img" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:background="@color/me_personal_line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_29PX"
+            android:background="@color/set_account_text_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/DIMEN_15PX"
+            android:text="@string/set_base_info"
+            android:textColor="@color/login_light"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:background="@color/me_personal_line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_47PX">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/DIMEN_29PX"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:background="@mipmap/icon_item_weixin" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/DIMEN_10PX"
+                android:layout_toRightOf="@id/iv_icon"
+                android:text="@string/third_wechat"
+                android:textColor="@color/login_btn"
+                android:textSize="15sp" />
+
+            <Switch
+                android:id="@+id/switch_bind_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:checked="true"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/switch_track" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_alignParentBottom="true"
+                android:background="@color/me_personal_line" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

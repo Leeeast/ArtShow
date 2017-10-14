@@ -1,7 +1,12 @@
 package com.art.huakai.artshow.activity;
 
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -23,12 +28,16 @@ import butterknife.Unbinder;
  * Created by lidongliang on 2017/10/14.
  */
 
-public class AccountInfoActivity extends BaseActivity {
+public class BindWechatActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_account_name)
-    TextView tvAccountName;
+    @BindView(R.id.iv_right_img)
+    ImageView ivRightImg;
+    @BindView(R.id.fly_right_img)
+    FrameLayout fLyRightImg;
+    @BindView(R.id.switch_bind_wechat)
+    Switch switchBingWechat;
 
     private Unbinder mUnbinder;
 
@@ -39,25 +48,25 @@ public class AccountInfoActivity extends BaseActivity {
 
     @Override
     public int getLayoutID() {
-        return R.layout.activity_account_info;
+        return R.layout.activity_bind_wechat;
     }
 
     @Override
     public void initData() {
         mUnbinder = ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText(R.string.set_account_info);
-
+        tvTitle.setText(R.string.account_bind_wachat);
+        fLyRightImg.setVisibility(View.VISIBLE);
+        ivRightImg.setImageResource(R.drawable.ic_more_horiz);
     }
 
     @Override
     public void setView() {
-
+        switchBingWechat.setOnCheckedChangeListener(this);
     }
 
     /**
@@ -69,27 +78,19 @@ public class AccountInfoActivity extends BaseActivity {
     }
 
     /**
-     * 名称
+     * title右边选项
      */
-    @OnClick(R.id.rly_name)
-    public void showName() {
-        invokActivity(this, AccountNameActivity.class, null, JumpCode.FLAG_REQ_SET_ACCOUNT_NAME);
+    @OnClick(R.id.iv_right_img)
+    public void moreSelect() {
+        Toast.makeText(this, "攻城狮正在开发中...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mUnbinder.unbind();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventLogin(NameChangeEvent nameChangeEvent) {
-        if (nameChangeEvent == null) {
-            return;
-        }
-        if (tvAccountName != null) {
-            tvAccountName.setText(nameChangeEvent.getAccountName());
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            Toast.makeText(this, "开", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "关", Toast.LENGTH_SHORT).show();
         }
     }
 }

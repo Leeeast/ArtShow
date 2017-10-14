@@ -10,7 +10,8 @@
     <string name="exit_perfect_tips">请完善个人信息</string>
     <string name="btn_start">立即体验</string>
     <string name="common_back">返回</string>
-
+    <!--三方登录、分享-->
+    <string name="third_wechat">微信</string>
     <!--登录注册-->
     <string name="login_app_introduce">中国最大的演出资料信息\n共享平台</string>
     <string name="login_weixin">微&#160;&#160;信&#160;&#160;登&#160;&#160;录</string>
@@ -136,6 +137,7 @@
     <string name="account_info">账号信息</string>
     <string name="account_name_change">修改名称</string>
     <string name="account_data_commit_check">提&#160;交&#160;去&#160;审&#160;核</string>
+    <string name="account_bind_wachat">微信绑定</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
