@@ -221,8 +221,10 @@ public class ShowCircleFragment extends BaseFragment {
         rcvFive.setLayoutManager(linearLayoutManagerFive);
         rcvFive.setAdapter(professionalPersonAdapter);
 
-        csiv.setImageURI(Uri.parse("asset:///test.png"));
+//        csiv.setImageURI(Uri.parse("asset:///test.png"));
 
+
+        csiv.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
 
 //      实现不在除此加载界面的时候显示recyclerview的第一个item
         sv.smoothScrollTo(0, 0);
