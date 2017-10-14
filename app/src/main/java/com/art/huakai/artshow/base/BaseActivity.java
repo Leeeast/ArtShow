@@ -1,10 +1,17 @@
 package com.art.huakai.artshow.base;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import com.art.huakai.artshow.activity.AccountInfoActivity;
 
 /**
  * Activity基类，定义了一些基础的方法，注意方法顺序,根据需求部分步骤可以省略
@@ -55,6 +62,24 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (mUnBinder != null) mUnBinder.unbind();
+    }
+
+    /**
+     * 跳转Activity
+     *
+     * @param context     上下文
+     * @param clazz       目标Activity
+     * @param params      Activity之间传参
+     * @param requestCode Activity跳转code
+     */
+    public void invokActivity(@NonNull Context context,
+                              @NonNull Class clazz,
+                              @Nullable Bundle params, int requestCode) {
+        Intent intent = new Intent(context, clazz);
+        if (params != null) {
+            intent.putExtras(params);
+        }
+        startActivityForResult(intent, requestCode);
     }
 }
 

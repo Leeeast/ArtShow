@@ -1,10 +1,6 @@
 package com.art.huakai.artshow.activity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
@@ -22,15 +18,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-/**
- * 账户信息
- * Created by lidongliang on 2017/10/14.
- */
-
-public class AccountInfoActivity extends BaseActivity {
+public class AccountNameActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_subtitle)
+    TextView tvSubTitle;
     @BindView(R.id.tv_account_name)
     TextView tvAccountName;
 
@@ -39,24 +32,28 @@ public class AccountInfoActivity extends BaseActivity {
     @Override
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
+
     }
 
     @Override
     public int getLayoutID() {
-        return R.layout.activity_account_info;
+        return R.layout.activity_account_name;
     }
 
     @Override
     public void initData() {
         mUnbinder = ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+
     }
 
     @Override
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText(R.string.set_account_info);
+        tvTitle.setText(R.string.account_name);
 
+        tvSubTitle.setVisibility(View.VISIBLE);
+        tvSubTitle.setText(R.string.account_name_change);
     }
 
     @Override
@@ -72,12 +69,9 @@ public class AccountInfoActivity extends BaseActivity {
         finish();
     }
 
-    /**
-     * 名称
-     */
-    @OnClick(R.id.rly_name)
-    public void showName() {
-        invokActivity(this, AccountNameActivity.class, null, JumpCode.FLAG_REQ_SET_ACCOUNT_NAME);
+    @OnClick(R.id.tv_subtitle)
+    public void changeAccountName() {
+        invokActivity(this, AccountNameChangeActivity.class, null, JumpCode.FLAG_REQ_ACCOUNT_NAME_CHANGE);
     }
 
     @Override

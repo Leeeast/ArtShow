@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.activity;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,12 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +66,7 @@ public class SetActivity extends BaseActivity {
      */
     @OnClick(R.id.item_account_info)
     public void jumpAccountInfo() {
-        startActivity(new Intent(this, AccountInfoActivity.class));
+        invokActivity(this, AccountInfoActivity.class, null, JumpCode.FLAG_REQ_ACCOUNT_INFO);
     }
 
     /**

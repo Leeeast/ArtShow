@@ -12,7 +12,9 @@ public class JumpCode {
     public static final int FLAG_RES_RETURN = 500;
 
     // 请求码,往下加1
-
+    public static final int FLAG_REQ_ACCOUNT_INFO = FLAG_REQ + 1;
+    public static final int FLAG_REQ_SET_ACCOUNT_NAME = FLAG_REQ + 2;
+    public static final int FLAG_REQ_ACCOUNT_NAME_CHANGE = FLAG_REQ + 3;
 
     // 返回码,往下加1
 

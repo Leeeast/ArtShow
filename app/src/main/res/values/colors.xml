@@ -151,4 +151,5 @@
     <color name="theatre_send_fail">#ffe93c2c</color>
     <color name="set_account_text_bg">#fffcfaf9</color>
     <color name="set_account_text">#ff919191</color>
+    <color name="account_line">#ffeeeae5</color>
 </resources>

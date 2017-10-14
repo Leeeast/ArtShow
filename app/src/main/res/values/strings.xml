@@ -130,9 +130,12 @@
     <string name="set_upload_avatar">上传头像</string>
     <string name="set_base_info">基本信息</string>
     <string name="set_other_info">其他信息</string>
-    <string name="account_name">账户名称</string>
-    <string name="account_auth">账户认证</string>
-    <string name="account_auth_pwd">账户密码</string>
+    <string name="account_name">账号名称</string>
+    <string name="account_auth">账号认证</string>
+    <string name="account_auth_pwd">账号密码</string>
+    <string name="account_info">账号信息</string>
+    <string name="account_name_change">修改名称</string>
+    <string name="account_data_commit_check">提&#160;交&#160;去&#160;审&#160;核</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

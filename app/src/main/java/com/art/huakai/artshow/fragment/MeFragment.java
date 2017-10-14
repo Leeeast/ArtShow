@@ -19,9 +19,15 @@ import com.art.huakai.artshow.activity.LoginActivity;
 import com.art.huakai.artshow.activity.SetActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 我Fragment
@@ -52,7 +58,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -191,5 +197,21 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         setView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(NameChangeEvent nameChangeEvent) {
+        if (nameChangeEvent == null) {
+            return;
+        }
+        if (tvNmae != null) {
+            tvNmae.setText(nameChangeEvent.getAccountName());
+        }
     }
 }

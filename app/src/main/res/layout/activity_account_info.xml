@@ -83,6 +83,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rly_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_47PX">
 
@@ -112,7 +113,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/DIMEN_9PX"
                 android:layout_toLeftOf="@id/iv_arrow_name"
-                android:text="浪里个浪"
+                android:text="浪里个浪工作室"
                 android:textColor="@color/set_account_text"
                 android:textSize="17sp" />
 
