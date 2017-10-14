@@ -16,6 +16,7 @@ public class JumpCode {
     public static final int FLAG_REQ_SET_ACCOUNT_NAME = FLAG_REQ + 2;
     public static final int FLAG_REQ_ACCOUNT_NAME_CHANGE = FLAG_REQ + 3;
     public static final int FLAG_REQ_BIND_WECHAT = FLAG_REQ + 4;
+    public static final int FLAG_REQ_CHANGE_PWD = FLAG_REQ + 5;
 
     // 返回码,往下加1
 

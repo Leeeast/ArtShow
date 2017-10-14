@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.dialog.TypeConfirmDialog;
 
 /**
  * 账户类型选择Fragment

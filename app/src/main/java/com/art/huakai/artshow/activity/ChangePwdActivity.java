@@ -2,6 +2,7 @@ package com.art.huakai.artshow.activity;
 
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -23,14 +24,18 @@ import butterknife.Unbinder;
  * Created by lidongliang on 2017/10/14.
  */
 
-public class AccountInfoActivity extends BaseActivity {
+public class ChangePwdActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_account_name)
-    TextView tvAccountName;
-
-    private Unbinder mUnbinder;
+    @BindView(R.id.edt_verify_code)
+    TextView edtVerifyCode;
+    @BindView(R.id.tv_send_verify)
+    TextView tvSendVerify;
+    @BindView(R.id.edt_password)
+    TextView edtPassword;
+    @BindView(R.id.edt_pwd_affirm)
+    TextView edtPwdAffirm;
 
     @Override
     public void immerseStatusBar() {
@@ -39,19 +44,17 @@ public class AccountInfoActivity extends BaseActivity {
 
     @Override
     public int getLayoutID() {
-        return R.layout.activity_account_info;
+        return R.layout.activity_change_pwd;
     }
 
     @Override
     public void initData() {
-        mUnbinder = ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText(R.string.set_account_info);
+        tvTitle.setText(R.string.account_change_pwd);
 
     }
 
@@ -69,43 +72,12 @@ public class AccountInfoActivity extends BaseActivity {
     }
 
     /**
-     * 名称
-     */
-    @OnClick(R.id.rly_name)
-    public void showName() {
-        invokActivity(this, AccountNameActivity.class, null, JumpCode.FLAG_REQ_SET_ACCOUNT_NAME);
-    }
-
-    /**
      * 帐号认证
      */
-    @OnClick(R.id.rly_account_auth)
-    public void accountAuth() {
-
-    }
-
-    /**
-     * 修改密码
-     */
-    @OnClick(R.id.rly_change_pwd)
+    @OnClick(R.id.btn_change_confirm)
     public void changePwd() {
-        invokActivity(this, ChangePwdActivity.class, null, JumpCode.FLAG_REQ_CHANGE_PWD);
+        Toast.makeText(this, "确认修改", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mUnbinder.unbind();
-        EventBus.getDefault().unregister(this);
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventLogin(NameChangeEvent nameChangeEvent) {
-        if (nameChangeEvent == null) {
-            return;
-        }
-        if (tvAccountName != null) {
-            tvAccountName.setText(nameChangeEvent.getAccountName());
-        }
-    }
 }

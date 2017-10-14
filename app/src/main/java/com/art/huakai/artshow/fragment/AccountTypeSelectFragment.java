@@ -12,7 +12,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
-import com.art.huakai.artshow.dialog.TypeConfirmDialog;
+import com.art.huakai.artshow.dialog.ConfirmDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -35,7 +35,7 @@ import okhttp3.Call;
  */
 public class AccountTypeSelectFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-    private TypeConfirmDialog mTypeConfirmDialog;
+    private ConfirmDialog mTypeConfirmDialog;
     private CheckBox chkTypePublisher, chkTypeTheatre, chkTypePersonal;
     private int mUserType;
     private LocalUserInfo localUserInfo;
@@ -103,8 +103,8 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                     return;
                 }
                 if (mTypeConfirmDialog == null) {
-                    mTypeConfirmDialog = TypeConfirmDialog.newInstence();
-                    mTypeConfirmDialog.setOnCallBack(new TypeConfirmDialog.CallBack() {
+                    mTypeConfirmDialog = ConfirmDialog.newInstence();
+                    mTypeConfirmDialog.setOnCallBack(new ConfirmDialog.CallBack() {
                         @Override
                         public void onChoose(DialogFragment dialogFragment) {
                             dialogFragment.dismiss();

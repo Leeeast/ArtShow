@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.dialog.TypeConfirmDialog;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 
 import org.greenrobot.eventbus.EventBus;

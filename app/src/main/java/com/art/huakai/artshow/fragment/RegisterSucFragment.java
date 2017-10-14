@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.dialog.TypeConfirmDialog;
+import com.art.huakai.artshow.dialog.ConfirmDialog;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class RegisterSucFragment extends BaseFragment implements View.OnClickListener {
 
-    private TypeConfirmDialog mTypeConfirmDialog;
+    private ConfirmDialog mTypeConfirmDialog;
 
     public RegisterSucFragment() {
         // Required empty public constructor

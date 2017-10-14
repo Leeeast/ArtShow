@@ -152,4 +152,5 @@
     <color name="set_account_text_bg">#fffcfaf9</color>
     <color name="set_account_text">#ff919191</color>
     <color name="account_line">#ffeeeae5</color>
+    <color name="change_pwd_line">#ffe6e9ed</color>
 </resources>

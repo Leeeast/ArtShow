@@ -151,7 +151,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                     if (isSuccess) {
                         requestVerifyCode();
                     } else {
-                        SmartToast.makeToast(getContext(), getString(R.string.tip_mobile_registered), null, Toast.LENGTH_SHORT).show();
+                        SmartToast.makeToast(getContext(),getString(R.string.tip_mobile_registered), null, Toast.LENGTH_SHORT).show();
                     }
                 }
 

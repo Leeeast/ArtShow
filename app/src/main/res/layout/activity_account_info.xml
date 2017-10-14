@@ -125,6 +125,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rly_account_auth"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_47PX">
 
@@ -153,7 +154,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/DIMEN_9PX"
                 android:layout_toLeftOf="@id/iv_auth_name"
-                android:text="已经认证"
+                android:text="@string/account_authed"
                 android:textColor="@color/set_account_text"
                 android:textSize="17sp" />
 
@@ -175,6 +176,7 @@
             android:textSize="12sp" />
 
         <RelativeLayout
+            android:id="@+id/rly_change_pwd"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_47PX">
 

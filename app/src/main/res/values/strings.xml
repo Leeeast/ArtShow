@@ -64,6 +64,7 @@
     <string name="cancel">取消</string>
     <string name="true_choose">确认选择</string>
     <string name="affirm">确认</string>
+    <string name="affirm_clear">确认清除</string>
     <string name="login_weixin_title">微信登录</string>
     <string name="login_set_pwd">设置密码</string>
     <string name="login_set_pwd_tip">*请设置一个不少于8位的密码</string>
@@ -138,6 +139,12 @@
     <string name="account_name_change">修改名称</string>
     <string name="account_data_commit_check">提&#160;交&#160;去&#160;审&#160;核</string>
     <string name="account_bind_wachat">微信绑定</string>
+    <string name="cache_clear_suc">缓存清除成功</string>
+    <string name="account_authed">已认证</string>
+    <string name="account_unauth">未认证</string>
+    <string name="account_change_pwd">修改密码</string>
+    <string name="account_change_account_pwd">修改帐号密码</string>
+    <string name="account_change_confirm">确&#160;认&#160;修&#160;改</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
