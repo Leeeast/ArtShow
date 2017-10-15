@@ -8,7 +8,6 @@
     <include layout="@layout/layout_title_common" />
 
     <ScrollView
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/whiteff">
@@ -17,6 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/whiteff"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingBottom="@dimen/DIMEN_25PX">
 
@@ -173,8 +174,120 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@+id/tv_subsidiary_organ"
+                    android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/account_auth" />
+                    android:hint="@string/user_must_fill"
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text"
+                    android:textCursorDrawable="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rly_live_city"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_live_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/user_live_city"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_live_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@+id/tv_live_city"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:hint="@string/user_must_fill"
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text"
+                    android:textCursorDrawable="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rly_stature"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_stature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/user_stature"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_stature"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@+id/tv_stature"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:hint="@string/user_must_fill"
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text"
+                    android:textCursorDrawable="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rly_weight"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/user_weight"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@+id/tv_weight"
+                    android:background="@null"
+                    android:hint="@string/user_must_fill"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text"
+                    android:textCursorDrawable="@null" />
 
                 <View
                     android:layout_width="match_parent"
@@ -189,31 +302,38 @@
                 android:background="@color/set_account_text_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/DIMEN_15PX"
-                android:text="@string/set_other_info"
+                android:text="@string/user_connect_info"
                 android:textColor="@color/login_light"
                 android:textSize="12sp" />
 
             <RelativeLayout
-                android:id="@+id/rly_photo"
+                android:id="@+id/rly_connect_method"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_48PX">
+                android:layout_height="@dimen/DIMEN_60PX">
 
                 <TextView
+                    android:id="@+id/tv_connect_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/DIMEN_15PX"
-                    android:text="@string/resume_photo"
+                    android:text="@string/user_connect_method"
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
 
-                <ImageView
-                    android:layout_width="@dimen/DIMEN_10PX"
-                    android:layout_height="@dimen/DIMEN_17PX"
+                <EditText
+                    android:id="@+id/edt_connect_method"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:background="@mipmap/arrow_right" />
+                    android:layout_toRightOf="@+id/tv_connect_method"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:hint="@string/user_must_fill"
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text"
+                    android:textCursorDrawable="@null" />
 
                 <View
                     android:layout_width="match_parent"
@@ -221,47 +341,6 @@
                     android:layout_alignParentBottom="true"
                     android:background="@color/me_personal_line" />
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rly_award_exper"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_48PX">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/DIMEN_15PX"
-                    android:text="@string/resume_award_experience"
-                    android:textColor="@color/login_btn"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/DIMEN_10PX"
-                    android:layout_height="@dimen/DIMEN_17PX"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:background="@mipmap/arrow_right" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_1PX"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/me_personal_line" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_29PX"
-                android:background="@color/set_account_text_bg"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/DIMEN_15PX"
-                android:text="@string/resume_post_tip"
-                android:textColor="@color/login_light"
-                android:textSize="12sp" />
-
-
         </LinearLayout>
 
     </ScrollView>

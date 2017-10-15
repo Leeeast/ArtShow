@@ -164,6 +164,12 @@
     <string name="user_name">姓名</string>
     <string name="user_graduate_institutions">毕业院校</string>
     <string name="user_subsidiary_organ">所属机构</string>
+    <string name="user_must_fill">必填</string>
+    <string name="user_live_city">所在城市</string>
+    <string name="user_stature">身高</string>
+    <string name="user_weight">体重</string>
+    <string name="user_connect_info">联系信息</string>
+    <string name="user_connect_method">联系方式</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
