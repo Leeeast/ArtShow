@@ -3,6 +3,7 @@
     package="com.art.huakai.artshow">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".base.ShowApplication"
@@ -69,6 +70,10 @@
             android:windowSoftInputMode="stateUnchanged" />
         <activity
             android:name=".activity.ResumeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged" />
+        <activity
+            android:name=".activity.BaseDataActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged" />
     </application>

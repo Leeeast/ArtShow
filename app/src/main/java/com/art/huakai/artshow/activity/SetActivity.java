@@ -34,8 +34,6 @@ import butterknife.Unbinder;
  */
 public class SetActivity extends BaseActivity {
 
-    @BindView(R.id.lly_back)
-    LinearLayout lLyBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private Unbinder mUnbinder;
@@ -64,6 +62,14 @@ public class SetActivity extends BaseActivity {
     public void setView() {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.setting_title);
+    }
+
+    /**
+     * 返回
+     */
+    @OnClick(R.id.lly_back)
+    public void back() {
+        finish();
     }
 
     /**

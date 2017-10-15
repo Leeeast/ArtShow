@@ -1,110 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteff">
+    android:background="@color/whiteff"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/layout_title_common" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whiteff"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:background="@color/whiteff">
 
-        <include layout="@layout/layout_title_common" />
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_alignParentBottom="true"
-            android:background="@color/me_personal_line" />
+            android:layout_height="match_parent"
+            android:background="@color/whiteff"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_14PX"
-            android:text="@string/account_name"
-            android:textColor="@color/login_btn"
-            android:textSize="21sp" />
 
-        <TextView
-            android:id="@+id/tv_account_des"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_7PX"
-            android:lineSpacingExtra="10sp"
-            android:text="@string/perfect_des_publisher"
-            android:textColor="@color/login_light"
-            android:textSize="12sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_alignParentBottom="true"
+                android:background="@color/me_personal_line" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tily_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_10PX">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_14PX"
+                android:text="@string/account_name"
+                android:textColor="@color/login_btn"
+                android:textSize="21sp" />
 
-            <EditText
-                android:id="@+id/edt_name"
+            <TextView
+                android:id="@+id/tv_account_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:maxLines="1"
-                android:paddingBottom="@dimen/DIMEN_15PX"
-                android:textColorHint="@color/login_light"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_7PX"
+                android:lineSpacingExtra="10sp"
+                android:text="@string/perfect_des_publisher"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tily_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_10PX">
+
+                <EditText
+                    android:id="@+id/edt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/DIMEN_15PX"
+                    android:textColorHint="@color/login_light"
+                    android:textSize="15sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_14PX"
+                android:text="@string/data_upload"
+                android:textColor="@color/login_btn"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_data_upload_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_8PX"
+                android:text="@string/data_commit_des"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_data"
+                android:layout_width="@dimen/DIMEN_86PX"
+                android:layout_height="@dimen/DIMEN_86PX"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_15PX"
+                android:background="@mipmap/upload_data" />
+
+            <Button
+                android:id="@+id/btn_commit_data"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_40PX"
+                android:layout_marginBottom="@dimen/DIMEN_10PX"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_43PX"
+                android:background="@drawable/shape_bg_red"
+                android:gravity="center"
+                android:text="@string/account_data_commit_check"
+                android:textColor="@color/whiteff"
                 android:textSize="15sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_14PX"
-            android:text="@string/data_upload"
-            android:textColor="@color/login_btn"
-            android:textSize="21sp" />
-
-        <TextView
-            android:id="@+id/tv_data_upload_des"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_8PX"
-            android:text="@string/data_commit_des"
-            android:textColor="@color/login_light"
-            android:textSize="12sp" />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_data"
-            android:layout_width="@dimen/DIMEN_86PX"
-            android:layout_height="@dimen/DIMEN_86PX"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_15PX"
-            android:background="@mipmap/upload_data" />
-
-        <Button
-            android:id="@+id/btn_commit_data"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_40PX"
-            android:layout_marginBottom="@dimen/DIMEN_10PX"
-            android:layout_marginLeft="@dimen/DIMEN_30PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_43PX"
-            android:background="@drawable/shape_bg_red"
-            android:gravity="center"
-            android:text="@string/account_data_commit_check"
-            android:textColor="@color/whiteff"
-            android:textSize="15sp" />
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

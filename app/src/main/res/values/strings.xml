@@ -158,6 +158,12 @@
     <string name="resume_post">发布简历</string>
     <string name="resume_post_tip">是否发布</string>
     <string name="resume_post_des">*简历发布后，所有人可见，未发布，将只有自己可见。</string>
+    <string name="user_info">个人信息</string>
+    <string name="user_birthday">出生年月</string>
+    <string name="user_ability_type">技能类型</string>
+    <string name="user_name">姓名</string>
+    <string name="user_graduate_institutions">毕业院校</string>
+    <string name="user_subsidiary_organ">所属机构</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

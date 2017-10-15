@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
-            android:lineSpacingExtra="5sp"
             android:text="@string/account_name"
             android:textColor="@color/login_btn"
             android:textSize="15sp" />
