@@ -147,7 +147,17 @@
     <string name="account_change_pwd">修改密码</string>
     <string name="account_change_account_pwd">修改帐号密码</string>
     <string name="account_change_confirm">确&#160;认&#160;修&#160;改</string>
-
+    <!--简历相关页面-->
+    <string name="resume_my">我的简历</string>
+    <string name="resume_upload_cover">上传个人封面</string>
+    <string name="resume_base_data">基本资料</string>
+    <string name="resume_self_introduction">个人介绍</string>
+    <string name="resume_self_works">个人作品</string>
+    <string name="resume_photo">相片</string>
+    <string name="resume_award_experience">获奖经历</string>
+    <string name="resume_post">发布简历</string>
+    <string name="resume_post_tip">是否发布</string>
+    <string name="resume_post_des">*简历发布后，所有人可见，未发布，将只有自己可见。</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.DataUploadActivity;
+import com.art.huakai.artshow.activity.ResumeActivity;
 import com.art.huakai.artshow.adapter.MeUnloginAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
@@ -58,7 +59,7 @@ public class MePersonalFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rly_my_resume:
-                Toast.makeText(getContext(), "我的简历", Toast.LENGTH_SHORT).show();
+                invokActivity(getContext(), ResumeActivity.class, null, JumpCode.FLAG_REQ_RESUME_MY);
                 break;
             case R.id.rly_pro_auth:
                 invokActivity(getContext(), DataUploadActivity.class, null, JumpCode.FLAG_REQ_DATA_UPLOAD);

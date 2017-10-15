@@ -7,6 +7,6 @@
     <corners android:radius="@dimen/DIMEN_15PX" />
     <!-- 变化率 -->
     <gradient
-        android:endColor="#33da33"
-        android:startColor="#33da33" />
+        android:endColor="#2eb872"
+        android:startColor="#2eb872" />
 </shape>
