@@ -1,7 +1,10 @@
 package com.art.huakai.artshow.base;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -85,5 +88,23 @@ public abstract class BaseFragment extends Fragment {
      */
     public String getTAG() {
         return TAG;
+    }
+
+    /**
+     * 跳转Activity
+     *
+     * @param context     上下文
+     * @param clazz       目标Activity
+     * @param params      Activity之间传参
+     * @param requestCode Activity跳转code
+     */
+    public void invokActivity(@NonNull Context context,
+                              @NonNull Class clazz,
+                              @Nullable Bundle params, int requestCode) {
+        Intent intent = new Intent(context, clazz);
+        if (params != null) {
+            intent.putExtras(params);
+        }
+        startActivityForResult(intent, requestCode);
     }
 }

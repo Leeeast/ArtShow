@@ -81,7 +81,7 @@ public class AccountInfoActivity extends BaseActivity {
      */
     @OnClick(R.id.rly_account_auth)
     public void accountAuth() {
-
+        invokActivity(this, DataUploadActivity.class, null, JumpCode.FLAG_REQ_DATA_UPLOAD);
     }
 
     /**

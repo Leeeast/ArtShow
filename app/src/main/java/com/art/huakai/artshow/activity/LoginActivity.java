@@ -102,14 +102,6 @@ public class LoginActivity extends BaseActivity {
                 RegisterSucFragment registerSucFragment = RegisterSucFragment.newInstance();
                 initFragment(registerSucFragment);
                 break;
-            case LoginEvent.CODE_ACTION_REGISTER_FINISH:
-                DataUploadFragment dataUploadFragment = DataUploadFragment.newInstance();
-                initFragment(dataUploadFragment);
-                break;
-            case LoginEvent.CODE_ACTION_DATA_UPLOAD_SUC:
-                DataUploadSusFragment dataUploadSusFragment = DataUploadSusFragment.newInstance();
-                initFragment(dataUploadSusFragment);
-                break;
             case LoginEvent.CODE_ACTION_BIND_PHONE:
                 BindPhoneFragment bindPhoneFragment = BindPhoneFragment.newInstance();
                 initFragmentAddback(bindPhoneFragment);
@@ -125,7 +117,7 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
-
+    //显示fragment
     public void initFragment(BaseFragment baseFragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, baseFragment, baseFragment.getTAG()).commit();
     }

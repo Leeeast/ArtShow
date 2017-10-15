@@ -1,12 +1,15 @@
 package com.art.huakai.artshow.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.DataUploadActivity;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ConfirmDialog;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 
@@ -61,8 +64,17 @@ public class RegisterSucFragment extends BaseFragment implements View.OnClickLis
                 getActivity().finish();
                 break;
             case R.id.btn_commit_data:
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_FINISH));
+                invokActivity(getContext(), DataUploadActivity.class, null, JumpCode.FLAG_REQ_DATA_UPLOAD);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == JumpCode.FLAG_RES_DATA_AUTH) {
+            getActivity().setResult(JumpCode.FLAG_RES_DATA_AUTH);
+            getActivity().finish();
         }
     }
 }

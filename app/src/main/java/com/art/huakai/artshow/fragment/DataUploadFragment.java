@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,9 +58,12 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lly_back:
+                getActivity().setResult(JumpCode.FLAG_RES_DATA_AUTH);
+                getActivity().finish();
                 break;
             case R.id.btn_commit_data:
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_DATA_UPLOAD_SUC));
+                DataUploadSusFragment dataUploadSusFragment = DataUploadSusFragment.newInstance();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, dataUploadSusFragment, dataUploadSusFragment.getTAG()).commit();
                 break;
         }
     }

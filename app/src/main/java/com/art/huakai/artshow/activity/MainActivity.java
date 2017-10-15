@@ -16,6 +16,7 @@ import com.art.huakai.artshow.fragment.CooperateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
 import com.art.huakai.artshow.fragment.ShowCircleFragment;
+import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 

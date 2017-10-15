@@ -10,8 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.DataUploadActivity;
 import com.art.huakai.artshow.adapter.MeUnloginAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.JumpCode;
 
 import java.util.ArrayList;
 
@@ -59,7 +61,7 @@ public class MePersonalFragment extends BaseFragment implements View.OnClickList
                 Toast.makeText(getContext(), "我的简历", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rly_pro_auth:
-                Toast.makeText(getContext(), "专业认证", Toast.LENGTH_SHORT).show();
+                invokActivity(getContext(), DataUploadActivity.class, null, JumpCode.FLAG_REQ_DATA_UPLOAD);
                 break;
         }
     }

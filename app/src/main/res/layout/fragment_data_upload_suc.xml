@@ -20,6 +20,7 @@
             android:background="@mipmap/app_logo" />
 
         <TextView
+            android:id="@+id/tv_data_commit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -39,12 +40,14 @@
             android:background="@color/login_line" />
 
         <TextView
+            android:id="@+id/tv_data_commit_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:lineSpacingExtra="5dp"
             android:text="@string/data_commit_success_des"
             android:textColor="@color/login_light"
             android:textSize="13sp" />

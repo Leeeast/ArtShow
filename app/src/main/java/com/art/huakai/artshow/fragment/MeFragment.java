@@ -22,6 +22,7 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.DeviceUtils;
+import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -106,7 +107,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void setView() {
-        LocalUserInfo.getInstance().setUserType(1);
+        //LocalUserInfo.getInstance().setUserType(1);
         try {
             if (LoginUtil.checkUserLogin(getContext(), false)) {
                 tvNmae.setText(LocalUserInfo.getInstance().getName());

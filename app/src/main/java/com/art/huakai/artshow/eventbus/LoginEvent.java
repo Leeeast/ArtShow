@@ -17,10 +17,6 @@ public class LoginEvent {
     public static final int CODE_ACTION_ACCOUNT_TYPE_AFFIRM = 4;
     //5-账户信息提交完成
     public static final int CODE_ACTION_PERFECT_INFO_SUC = 5;
-    //6-注册完成
-    public static final int CODE_ACTION_REGISTER_FINISH = 6;
-    //7-资料提交完成
-    public static final int CODE_ACTION_DATA_UPLOAD_SUC = 7;
     //8-绑定手机号
     public static final int CODE_ACTION_BIND_PHONE = 8;
     //9-微信登录设置密码
