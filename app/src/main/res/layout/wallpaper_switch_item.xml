@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_whole"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+    android:layout_height="@dimen/DIMEN_50PX"
+    android:clickable="true"
+    android:textColor="#ff202020"
+    android:textSize="@dimen/DIMEN_12PX"
+    android:checked="false"
+    android:gravity="center"
+    android:ellipsize="end"
+    android:background="#fffe8b00"
+    />
+
+
+</RelativeLayout>

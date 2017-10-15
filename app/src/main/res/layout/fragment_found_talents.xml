@@ -2,9 +2,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffffffff"
     >
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_1PX"
+        android:layout_marginTop="@dimen/DIMEN_5PX"
+        android:background="#fff5f3f1"
+        />
+
     <LinearLayout
+        android:id="@+id/ll_choose"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_47PX"
         android:orientation="horizontal"
@@ -12,11 +21,12 @@
         >
 
         <TextView
+            android:id="@+id/tv_whole_ranking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/DIMEN_14PX"
             android:textColor="#ff5a4b41"
-            android:text="价格"
+            android:text="综合排序"
             android:layout_marginTop="@dimen/DIMEN_14PX"
             />
 
@@ -32,11 +42,12 @@
             />
 
         <TextView
+            android:id="@+id/tv_city_choose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/DIMEN_14PX"
             android:textColor="#ff5a4b41"
-            android:text="演出人数"
+            android:text="技能排序"
             android:layout_marginTop="@dimen/DIMEN_14PX"
             android:layout_marginLeft= "@dimen/DIMEN_28PX"
             />
@@ -55,7 +66,7 @@
 
         <ImageView
             android:id="@+id/iv_real_choose"
-            android:src="@mipmap/filter_icon"
+            android:src="@mipmap/filter_default"
             android:layout_width="@dimen/DIMEN_18PX"
             android:layout_height="@dimen/DIMEN_18PX"
             android:layout_marginTop="@dimen/DIMEN_17PX"
@@ -63,7 +74,9 @@
             android:clickable="true"
             android:focusable="true"
             />
+
         <TextView
+            android:id="@+id/tv_real_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/DIMEN_14PX"

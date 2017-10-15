@@ -150,7 +150,6 @@ public class ShowCircleFragment extends BaseFragment {
 
     @Override
     public void setView() {
-
         initData();
     }
 

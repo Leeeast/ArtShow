@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff"
+    >
+
+
+<LinearLayout
+    android:id="@+id/rl_whole"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/DIMEN_14PX"
+    android:layout_marginRight="@dimen/DIMEN_14PX"
+    >
+
+    <TextView
+        android:id="@+id/tv_no_request"
+        android:layout_width="@dimen/DIMEN_200PX"
+        android:layout_height="@dimen/DIMEN_50PX"
+        android:textSize="@dimen/DIMEN_12PX"
+        android:textColor="#ff5a4b41"
+        android:text="不限"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/DIMEN_20PX"
+        android:textColor="#ff5a4b41"
+        android:text="演员"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DIMEN_10PX"
+        >
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/DIMEN_20PX"
+        android:textColor="#ff5a4b41"
+        android:text="编导"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_two"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/DIMEN_20PX"
+        android:textColor="#ff5a4b41"
+        android:text="技术"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_three"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/DIMEN_20PX"
+        android:textColor="#ff5a4b41"
+        android:text="管理"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_four"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/DIMEN_20PX"
+        android:textColor="#ff5a4b41"
+        android:text="其他"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_others"
+        android:layout_width="@dimen/DIMEN_200PX"
+        android:layout_height="@dimen/DIMEN_50PX"
+        android:textSize="@dimen/DIMEN_12PX"
+        android:textColor="#ff5a4b41"
+        android:text="不限"
+        android:layout_marginTop="@dimen/DIMEN_10PX"
+        android:clickable="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DIMEN_20PX"
+        android:layout_marginBottom="@dimen/DIMEN_10PX"
+        >
+
+        <Button
+            android:id="@+id/but_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重置"
+            />
+
+        <Button
+            android:id="@+id/but_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="完成"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+</ScrollView>
