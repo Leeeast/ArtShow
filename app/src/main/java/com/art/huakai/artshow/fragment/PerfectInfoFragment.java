@@ -4,15 +4,18 @@ package com.art.huakai.artshow.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -20,6 +23,7 @@ import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -43,6 +47,8 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     private TextView tvPerfectDes;
     private ShowProgressDialog showProgressDialog;
     private TextInputLayout tilyName;
+    private SimpleDraweeView sdvAvatar;
+    private TakePhotoDialog mTakePhotoDialog;
 
     public PerfectInfoFragment() {
         // Required empty public constructor
@@ -72,9 +78,11 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
         edtName = (EditText) rootView.findViewById(R.id.edt_name);
         tvPerfectDes = (TextView) rootView.findViewById(R.id.tv_perfect_des);
         tilyName = (TextInputLayout) rootView.findViewById(R.id.tily_name);
+        sdvAvatar = (SimpleDraweeView) rootView.findViewById(R.id.sdv_avatar);
 
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
         rootView.findViewById(R.id.btn_next_step).setOnClickListener(this);
+        sdvAvatar.setOnClickListener(this);
     }
 
     @Override
@@ -103,6 +111,23 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_next_step:
                 doPerfectInfo();
+                break;
+            case R.id.sdv_avatar:
+                if (mTakePhotoDialog == null) {
+                    mTakePhotoDialog = TakePhotoDialog.newInstence();
+                    mTakePhotoDialog.setOnCallBack(new TakePhotoDialog.CallBack() {
+                        @Override
+                        public void onTakePhoto(DialogFragment dialogFragment) {
+                            Toast.makeText(getContext(), "拍照", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onAlbuml(DialogFragment dialogFragment) {
+                            Toast.makeText(getContext(), "相册", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                mTakePhotoDialog.show(getFragmentManager(),"TAKEPHOTO.DIALOG");
                 break;
         }
     }

@@ -30,7 +30,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/DIMEN_20PX"
                 fresco:actualImageScaleType="focusCrop"
-                fresco:placeholderImage="@mipmap/upload_member_avatar"
+                fresco:placeholderImage="@mipmap/upload_avatar"
                 fresco:placeholderImageScaleType="fitCenter"
                 fresco:roundAsCircle="true" />
 

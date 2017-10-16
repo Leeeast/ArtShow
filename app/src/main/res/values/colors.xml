@@ -153,4 +153,6 @@
     <color name="set_account_text">#ff919191</color>
     <color name="account_line">#ffeeeae5</color>
     <color name="change_pwd_line">#ffe6e9ed</color>
+    <color name="check_photo_album">#ff4a4a4a</color>
+    <color name="photo_album_bg">#ffe6e6e7</color>
 </resources>
