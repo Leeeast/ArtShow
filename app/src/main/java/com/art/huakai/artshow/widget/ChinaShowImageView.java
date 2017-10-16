@@ -174,8 +174,8 @@ public class ChinaShowImageView extends SimpleDraweeView {
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                Log.e("getHeight===", "" + imageInfo.getHeight());
-                Log.e("getWidth===", "" + imageInfo.getWidth());
+                Log.e("logogetHeight===", "" + imageInfo.getHeight());
+                Log.e("logogetWidth===", "" + imageInfo.getWidth());
 
                 imgScaleResultListener.imgSize(imageInfo.getWidth(),imageInfo.getHeight());
 
