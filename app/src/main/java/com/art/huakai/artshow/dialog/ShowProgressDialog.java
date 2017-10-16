@@ -22,8 +22,6 @@ import com.art.huakai.artshow.utils.DeviceUtils;
  */
 public class ShowProgressDialog extends ProgressDialog implements DialogInterface.OnDismissListener {
     private final String TAG = ShowProgressDialog.class.getSimpleName();
-    private int width;
-    private int widthdp = 185;
     private String mLoadingText;
     private Context context;
     private ImageView round_progress;//圆环加载图
@@ -36,43 +34,13 @@ public class ShowProgressDialog extends ProgressDialog implements DialogInterfac
         }
     }
 
-    public enum ProgressType {
-        DEFAULT_ROUND(0), GIT_ANIMAL(1);
-        // 定义私有变量
-        private int typeNum;
-
-        // 构造函数，枚举类型只能为私有
-        ProgressType(int _nCode) {
-            this.typeNum = _nCode;
-        }
-
-        @Override
-        public String toString() {
-
-            return String.valueOf(this.typeNum);
-
-        }
-    }
-
-    public ProgressType getmProgressType() {
-        return mProgressType;
-    }
-
-    public void setmProgressType(ProgressType mProgressType) {
-        this.mProgressType = mProgressType;
-    }
-
-    private ProgressType mProgressType = ProgressType.DEFAULT_ROUND;
-
     public ShowProgressDialog(Context context, int theme) {
         super(context, theme);
-        width = DeviceUtils.dip2px(context, widthdp);
     }
 
     public ShowProgressDialog(Context context) {
         super(context, R.style.TransDialog);
         this.context = context;
-        width = DeviceUtils.dip2px(context, widthdp);
     }
 
     public ShowProgressDialog(Context context, String strText) {
@@ -84,11 +52,6 @@ public class ShowProgressDialog extends ProgressDialog implements DialogInterfac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.width = width;
-        getWindow().setAttributes(params);
-        params.alpha = 1.0f;
         setContentView(R.layout.dialog_progress);
         setCanceledOnTouchOutside(false);
         round_progress = (ImageView) findViewById(R.id.round_progress);
@@ -119,13 +82,11 @@ public class ShowProgressDialog extends ProgressDialog implements DialogInterfac
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (getmProgressType() == ProgressType.DEFAULT_ROUND) {
-            if (hasFocus) {
-                round_progress.setVisibility(View.VISIBLE);
-                rotationAnim.start();
-            } else {
-                rotationAnim.cancel();
-            }
+        if (hasFocus) {
+            round_progress.setVisibility(View.VISIBLE);
+            rotationAnim.start();
+        } else {
+            rotationAnim.cancel();
         }
     }
 }
