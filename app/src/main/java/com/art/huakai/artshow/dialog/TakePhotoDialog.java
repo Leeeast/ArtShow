@@ -1,15 +1,19 @@
 package com.art.huakai.artshow.dialog;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseDialogFragment;
+import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.config.PhotoConfig;
 import com.art.huakai.artshow.fragment.PerfectInfoFragment;
 import com.luck.picture.lib.PictureSelector;
@@ -83,17 +87,28 @@ public class TakePhotoDialog extends BaseDialogFragment implements View.OnClickL
 
     @Override
     public void setView() {
-
     }
 
     /**
      * Fragment中拍照
      *
-     * @param fragment
+     * @param object
      */
-    public static void takePhoto(Fragment fragment, List<LocalMedia> selectList) {
+    public static void takePhoto(Object object, List<LocalMedia> selectList) {
+        PictureSelector pictureSelector = null;
+        if (object instanceof Fragment) {
+            pictureSelector = PictureSelector.create((Fragment) object);
+        } else if (object instanceof Activity) {
+            pictureSelector = PictureSelector.create((Activity) object);
+        } else {
+            Toast.makeText(
+                    ShowApplication.getAppContext(),
+                    ShowApplication.getAppContext().getString(R.string.tip_illegal_argument_exception),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         // 单独拍照
-        PictureSelector.create(fragment)
+        pictureSelector
                 .openCamera(PictureMimeType.ofImage())
                 .theme(R.style.picture_default_style)
                 .maxSelectNum(PhotoConfig.MAX_SELECT_NUM)
@@ -123,10 +138,21 @@ public class TakePhotoDialog extends BaseDialogFragment implements View.OnClickL
     /**
      * Fragment中相册选择
      *
-     * @param fragment
+     * @param object
      */
-    public static void photoAlbum(Fragment fragment, List<LocalMedia> selectList) {
-        PictureSelector.create(fragment)
+    public static void photoAlbum(Object object, List<LocalMedia> selectList) {
+        PictureSelector pictureSelector = null;
+        if (object instanceof Fragment) {
+            pictureSelector = PictureSelector.create((Fragment) object);
+        } else if (object instanceof Activity) {
+            pictureSelector = PictureSelector.create((Activity) object);
+        } else {
+            Toast.makeText(
+                    ShowApplication.getAppContext(),
+                    ShowApplication.getAppContext().getString(R.string.tip_illegal_argument_exception),
+                    Toast.LENGTH_SHORT).show();
+        }
+        pictureSelector
                 .openGallery(PictureMimeType.ofImage())
                 .theme(R.style.picture_default_style)
                 .maxSelectNum(PhotoConfig.MAX_SELECT_NUM)

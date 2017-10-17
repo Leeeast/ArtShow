@@ -68,7 +68,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     private SimpleDraweeView sdvAvatar;
     private TakePhotoDialog mTakePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
-    private String avatarUrl;
+    private String mAvatarUrl;
 
     public PerfectInfoFragment() {
         // Required empty public constructor
@@ -191,6 +191,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
         LogUtil.i(TAG, "path = " + path);
         sdvAvatar.setBackground(null);
         sdvAvatar.setImageURI("file:///" + path);
+        showProgressDialog.show();
         RequestUtil.uploadLoadFile(Constant.URL_UPLOAD_FILE, path, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
@@ -201,7 +202,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                 if (isSuccess) {
                     try {
                         JSONObject jsonObject = new JSONObject(obj);
-                        avatarUrl = jsonObject.getString("url");
+                        mAvatarUrl = jsonObject.getString("url");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -225,7 +226,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
      */
     private void doPerfectInfo() {
         String userName = edtName.getText().toString().trim();
-        if (TextUtils.isEmpty(avatarUrl)) {
+        if (TextUtils.isEmpty(mAvatarUrl)) {
             showToast(getString(R.string.tip_set_avatar));
             return;
         }
@@ -237,7 +238,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
         params.put("userId", localUserInfo.getId());
         params.put("accessToken", localUserInfo.getAccessToken());
         params.put("name", userName);
-        params.put("dp", avatarUrl);
+        params.put("dp", mAvatarUrl);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         showProgressDialog.show();
