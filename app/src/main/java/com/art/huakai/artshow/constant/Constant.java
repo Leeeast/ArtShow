@@ -9,6 +9,8 @@ public class Constant {
     public static final int EXIT_APP_TIME_OFFSET = 2000;
     //SplashActivity显示时间
     public static final int SPLASH_TIME_OFFSET = 2000;
+    //分页数据，每页展示数据条数
+    public static final int COUNT_PER_PAGE = 12;
 
     private static boolean isTestEnv = true;
     public static final String TEST_HOST = "http://139.224.47.213:8080";
@@ -33,4 +35,6 @@ public class Constant {
     public static final String URL_USER_EDITINFO = BASE_URL + "/user/editInfo";
     //手机号是否占用
     public static final String URL_USER_VERIFYMOBILE = BASE_URL + "/user/verifyMobile";
+    //招募通告分页列表
+    public static final String URL_ENROLL_PAGE = BASE_URL + "/enroll/page";
 }

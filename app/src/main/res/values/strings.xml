@@ -109,6 +109,7 @@
     <string name="cooperate_search">搜索合作招募</string>
     <string name="cooperate_item_des">快来报名参加吧！</string>
     <string name="cooperate_item_status">报名中</string>
+    <string name="cooperate_end_time">截止时间：%1$s</string>
 
     <!--我的页面相关-->
     <string name="me_unlogin_des">推荐作品</string>

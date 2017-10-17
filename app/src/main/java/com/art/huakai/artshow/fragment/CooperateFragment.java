@@ -12,8 +12,27 @@ import android.widget.EditText;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.CooperateAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.entity.EnrollInfo;
+import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.UserInfo;
+import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.utils.GsonTools;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import okhttp3.Call;
 
 /**
  * 合作Fragment
@@ -24,9 +43,11 @@ public class CooperateFragment extends BaseFragment {
     public static final String TAG_FRAGMENT = CooperateFragment.class.getSimpleName();
     private EditText edtSearch;
     private RecyclerView recyclerView;
+    private int mPage = 1;
+    private List<EnrollInfo> mEnrollInfos;
+    private CooperateAdapter mAollAdapter;
 
     public CooperateFragment() {
-        // Required empty public constructor
     }
 
     public static CooperateFragment newInstance() {
@@ -36,7 +57,8 @@ public class CooperateFragment extends BaseFragment {
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        mEnrollInfos = new ArrayList<>();
+        loadEnrolData(mPage);
     }
 
     @Override
@@ -62,14 +84,48 @@ public class CooperateFragment extends BaseFragment {
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
+    /**
+     * 加载招募列表
+     *
+     * @param page
+     */
+    public void loadEnrolData(int page) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("page", String.valueOf(page));
+        params.put("size", String.valueOf(Constant.COUNT_PER_PAGE));
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        RequestUtil.request(true, Constant.URL_ENROLL_PAGE, params, 30, new RequestUtil.RequestListener() {
+
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    try {
+                        List<EnrollInfo> enrollInfos = GsonTools.parseDatas(obj, EnrollInfo.class);
+                        LogUtil.i(TAG, "mEnrollInfos.size = " + enrollInfos.size());
+                        mEnrollInfos.addAll(enrollInfos);
+                        if (mAollAdapter != null) {
+                            mAollAdapter.notifyDataSetChanged();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+            }
+        });
+    }
+
     @Override
     public void setView() {
-        ArrayList<String> collList = new ArrayList<>();
-        collList.add(null);
-        for (int i = 0; i < 10; i++) {
-            collList.add("item ：" + i);
-        }
-        CooperateAdapter collAdapter = new CooperateAdapter(collList);
-        recyclerView.setAdapter(collAdapter);
+        mAollAdapter = new CooperateAdapter(mEnrollInfos);
+        recyclerView.setAdapter(mAollAdapter);
     }
 }

@@ -9,8 +9,12 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.CooperateDesHolder;
 import com.art.huakai.artshow.adapter.holder.CooperateHolder;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
+import com.art.huakai.artshow.base.ShowApplication;
+import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,10 +25,14 @@ public class CooperateAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_TEXT_DES = 11;
     public static final int TYPE_NORMAL = 12;
-    private List<String> mlist;
+    private List<EnrollInfo> mlist;
+    private final Date mEndDate;
+    private final SimpleDateFormat mSimpleDateFormat;
 
-    public CooperateAdapter(List<String> list) {
+    public CooperateAdapter(List<EnrollInfo> list) {
         this.mlist = list;
+        mEndDate = new Date();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
     }
 
     @Override
@@ -59,9 +67,23 @@ public class CooperateAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_NORMAL:
                 CooperateHolder collHolder = (CooperateHolder) holder;
+                EnrollInfo enrollInfo = mlist.get(position);
+                collHolder.tvItemTitle.setText(enrollInfo.title);
+                collHolder.tvItemDes.setText(enrollInfo.description);
+
+                mEndDate.setTime(enrollInfo.endTime);
+                String formatTime = mSimpleDateFormat.format(mEndDate);
+                String endTime = String.format(
+                        ShowApplication.getAppContext().getString(R.string.cooperate_end_time),
+                        formatTime);
+                collHolder.tvItemTime.setText(endTime);
+                //状态
+                //collHolder.tvItemStatus
+
                 break;
         }
     }
+
 
     @Override
     public int getItemCount() {

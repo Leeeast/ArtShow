@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_item_des"
         android:layout_marginTop="@dimen/DIMEN_18PX"
-        android:text="截止时间：2017年9月3日"
+        android:text="@string/cooperate_end_time"
         android:textColor="@color/black99"
         android:textSize="13sp" />
 
