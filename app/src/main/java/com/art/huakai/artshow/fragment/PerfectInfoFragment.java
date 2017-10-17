@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.config.PhotoConfig;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
@@ -24,10 +26,18 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.compress.Luban;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.DebugUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -49,6 +59,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     private TextInputLayout tilyName;
     private SimpleDraweeView sdvAvatar;
     private TakePhotoDialog mTakePhotoDialog;
+    private List<LocalMedia> selectList = new ArrayList<>();
 
     public PerfectInfoFragment() {
         // Required empty public constructor
@@ -118,7 +129,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                     mTakePhotoDialog.setOnCallBack(new TakePhotoDialog.CallBack() {
                         @Override
                         public void onTakePhoto(DialogFragment dialogFragment) {
-                            Toast.makeText(getContext(), "拍照", Toast.LENGTH_SHORT).show();
+                            takePhoto();
                         }
 
                         @Override
@@ -127,8 +138,54 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                         }
                     });
                 }
-                mTakePhotoDialog.show(getFragmentManager(),"TAKEPHOTO.DIALOG");
+                mTakePhotoDialog.show(getFragmentManager(), "TAKEPHOTO.DIALOG");
                 break;
+        }
+    }
+
+    /**
+     * 拍照
+     */
+    public void takePhoto() {
+        // 单独拍照
+        PictureSelector.create(PerfectInfoFragment.this)
+                .openCamera(PictureMimeType.ofImage())
+                .theme(R.style.picture_default_style)
+                .maxSelectNum(PhotoConfig.MAX_SELECT_NUM)
+                .minSelectNum(1)
+                .selectionMode(PictureConfig.SINGLE)//单选&多选
+                .previewImage(false)//是否显示预览
+                .previewVideo(false)
+                .enablePreviewAudio(false) // 是否可播放音频
+                .compressGrade(Luban.THIRD_GEAR)
+                .isCamera(false)
+                .enableCrop(true)
+                .compress(true)
+                .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)
+                .glideOverride(160, 160)
+                .withAspectRatio(0, 0)
+                .hideBottomControls(true)
+                .isGif(false)//是否现实Gif图片
+                .freeStyleCropEnabled(true)
+                .circleDimmedLayer(false)
+                .showCropFrame(true)
+                .showCropGrid(true)
+                .openClickSound(PhotoConfig.VOICE)
+                .selectionMedia(selectList)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择
+                    selectList = PictureSelector.obtainMultipleResult(data);
+                    DebugUtil.i(TAG, "onActivityResult:" + selectList.size());
+                    break;
+            }
         }
     }
 
