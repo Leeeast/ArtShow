@@ -86,6 +86,7 @@
     <string name="tip_mobile_unregister">未发现该号码请先注册</string>
     <string name="tip_mobile_registered">该手机号码已经被占用</string>
     <string name="tip_data_parsing_exception">数据异常，请返回登录</string>
+    <string name="tip_file_path_unexists">文件不存在，请修重新选择图片</string>
 
     <string name="response_code_200">success</string>
     <string name="response_code_4000">参数签名错误</string>

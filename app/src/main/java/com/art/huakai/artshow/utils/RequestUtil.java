@@ -1,7 +1,10 @@
 package com.art.huakai.artshow.utils;
 
 import android.text.TextUtils;
+import android.widget.Toast;
 
+import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.okhttp.callback.StringCallback;
@@ -9,6 +12,7 @@ import com.art.huakai.artshow.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -131,5 +135,48 @@ public class RequestUtil {
                         }
                     }
                 });
+    }
+
+    public static void uploadLoadFile(String url, String filePath, final RequestListener listener) {
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            Toast.makeText(ShowApplication.getAppContext(), ShowApplication.getAppContext().getString(R.string.tip_file_path_unexists), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        OkHttpUtils
+                .post()
+                .addHeader("Content_Type", "multipart/form-data")
+                .url(url)
+                .addFile("file", "Screenshot_2017-10-08-17-51-24.png", file)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onFailed(call, e, id);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        if (!TextUtils.isEmpty(response)) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                int code = jsonObject.getInt("code");
+                                String msg = jsonObject.getString("msg");
+                                String data = jsonObject.getString("data");
+                                if (ResponseCodeCheck.checkResponseCode(code)) {
+                                    listener.onSuccess(true, data, code, id);
+                                } else {
+                                    listener.onSuccess(false, msg, code, id);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+
+                        }
+                    }
+                });
+
     }
 }

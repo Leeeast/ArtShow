@@ -2,6 +2,10 @@ package com.art.huakai.artshow.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -19,12 +23,15 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
@@ -34,6 +41,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DebugUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -60,6 +68,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     private SimpleDraweeView sdvAvatar;
     private TakePhotoDialog mTakePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
+    private String avatarUrl;
 
     public PerfectInfoFragment() {
         // Required empty public constructor
@@ -74,8 +83,6 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     public void initData(@Nullable Bundle bundle) {
         localUserInfo = LocalUserInfo.getInstance();
         showProgressDialog = new ShowProgressDialog(getContext());
-        //TODO 头像选择做好后记得去掉
-        localUserInfo.setDp("http://139.224.47.213/image//8a999cce5ef5afd7015efb9c150c000d@thumb.png");
     }
 
     @Override
@@ -129,50 +136,20 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                     mTakePhotoDialog.setOnCallBack(new TakePhotoDialog.CallBack() {
                         @Override
                         public void onTakePhoto(DialogFragment dialogFragment) {
-                            takePhoto();
+                            dialogFragment.dismiss();
+                            TakePhotoDialog.takePhoto(PerfectInfoFragment.this, selectList);
                         }
 
                         @Override
                         public void onAlbuml(DialogFragment dialogFragment) {
-                            Toast.makeText(getContext(), "相册", Toast.LENGTH_SHORT).show();
+                            dialogFragment.dismiss();
+                            TakePhotoDialog.photoAlbum(PerfectInfoFragment.this, selectList);
                         }
                     });
                 }
                 mTakePhotoDialog.show(getFragmentManager(), "TAKEPHOTO.DIALOG");
                 break;
         }
-    }
-
-    /**
-     * 拍照
-     */
-    public void takePhoto() {
-        // 单独拍照
-        PictureSelector.create(PerfectInfoFragment.this)
-                .openCamera(PictureMimeType.ofImage())
-                .theme(R.style.picture_default_style)
-                .maxSelectNum(PhotoConfig.MAX_SELECT_NUM)
-                .minSelectNum(1)
-                .selectionMode(PictureConfig.SINGLE)//单选&多选
-                .previewImage(false)//是否显示预览
-                .previewVideo(false)
-                .enablePreviewAudio(false) // 是否可播放音频
-                .compressGrade(Luban.THIRD_GEAR)
-                .isCamera(false)
-                .enableCrop(true)
-                .compress(true)
-                .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)
-                .glideOverride(160, 160)
-                .withAspectRatio(0, 0)
-                .hideBottomControls(true)
-                .isGif(false)//是否现实Gif图片
-                .freeStyleCropEnabled(true)
-                .circleDimmedLayer(false)
-                .showCropFrame(true)
-                .showCropGrid(true)
-                .openClickSound(PhotoConfig.VOICE)
-                .selectionMedia(selectList)
-                .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
     @Override
@@ -184,9 +161,63 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
                     // 图片选择
                     selectList = PictureSelector.obtainMultipleResult(data);
                     DebugUtil.i(TAG, "onActivityResult:" + selectList.size());
+                    if (selectList.size() > 0) {
+                        LocalMedia localMedia = selectList.get(0);
+                        int mimeType = localMedia.getMimeType();
+                        String path = "";
+                        if (localMedia.isCut() && !localMedia.isCompressed()) {
+                            // 裁剪过
+                            path = localMedia.getCutPath();
+                        } else if (localMedia.isCompressed() || (localMedia.isCut() && localMedia.isCompressed())) {
+                            // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
+                            path = localMedia.getCompressPath();
+                        } else {
+                            // 原图
+                            path = localMedia.getPath();
+                        }
+                        uploadPhoto(path);
+                    }
                     break;
             }
         }
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param path
+     */
+    public void uploadPhoto(String path) {
+        LogUtil.i(TAG, "path = " + path);
+        sdvAvatar.setBackground(null);
+        sdvAvatar.setImageURI("file:///" + path);
+        RequestUtil.uploadLoadFile(Constant.URL_UPLOAD_FILE, path, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(obj);
+                        avatarUrl = jsonObject.getString("url");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
     }
 
     /**
@@ -194,7 +225,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
      */
     private void doPerfectInfo() {
         String userName = edtName.getText().toString().trim();
-        if (TextUtils.isEmpty(localUserInfo.getDp())) {
+        if (TextUtils.isEmpty(avatarUrl)) {
             showToast(getString(R.string.tip_set_avatar));
             return;
         }
@@ -206,7 +237,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
         params.put("userId", localUserInfo.getId());
         params.put("accessToken", localUserInfo.getAccessToken());
         params.put("name", userName);
-        params.put("dp", localUserInfo.getDp());
+        params.put("dp", avatarUrl);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         showProgressDialog.show();
