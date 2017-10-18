@@ -37,4 +37,19 @@ public class Constant {
     public static final String URL_USER_VERIFYMOBILE = BASE_URL + "/user/verifyMobile";
     //招募通告分页列表
     public static final String URL_ENROLL_PAGE = BASE_URL + "/enroll/page";
+
+
+
+
+    public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
+
+    public static final String URL_GET_CLASSFY_LIST = BASE_URL + "/classify/list";
+
+
+
+//    获取地区借口
+//    http://139.224.47.213:8080/showonline_api/region/list
+//
+
+
 }

@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.EnrollInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lining on 17-9-7.
@@ -22,13 +24,13 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="IndustryNewsAdapter";
 
-    private ArrayList<String> list ;
+    private List<EnrollInfo> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public CooperationOpportunitiesAdapter(Context context, ArrayList<String> list) {
+    public CooperationOpportunitiesAdapter(Context context, List<EnrollInfo> list) {
         this.list = list;
         this.mContext = context;
 

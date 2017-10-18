@@ -5,18 +5,32 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.BoringLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.StaggerAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.SpacesItemDecoration;
+import com.art.huakai.artshow.entity.HomePageDetails;
+import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
 
 public class StaggerActivity extends BaseActivity implements View.OnClickListener {
 
@@ -77,7 +91,6 @@ public class StaggerActivity extends BaseActivity implements View.OnClickListene
         decoration=new SpacesItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_20PX));
         recyclerView.addItemDecoration(decoration);
 
-
     }
 
     @Override
@@ -106,4 +119,9 @@ public class StaggerActivity extends BaseActivity implements View.OnClickListene
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
+
+
+
+
 }

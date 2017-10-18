@@ -12,9 +12,11 @@ import android.widget.Toast;
 
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lining on 17-9-7.
@@ -23,14 +25,14 @@ public class IndustryNewsAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="IndustryNewsAdapter";
 
-    private ArrayList<String> list ;
+    private List<NewsesBean> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
     private static final int TYPE_ONE=1;
     private static final int TYPE_TWO=2;
 
 
-    public IndustryNewsAdapter(Context context, ArrayList<String> list) {
+    public IndustryNewsAdapter(Context context, List<NewsesBean> list) {
         this.list = list;
         this.mContext = context;
 
@@ -61,7 +63,7 @@ public class IndustryNewsAdapter extends  RecyclerView.Adapter{
         Log.e(TAG, "onBindViewHolder: position=="+position );
         if (holder instanceof TypeOneViewHolder){
            TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
-           typeOneViewHolder.chinaShowImageViewOne.setImageResource(R.mipmap.test);
+            typeOneViewHolder.chinaShowImageViewOne.setImageResource(R.mipmap.test);
             typeOneViewHolder.chinaShowImageViewTwo.setImageResource(R.mipmap.test);
 //            typeOneViewHolder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -109,7 +111,7 @@ public class IndustryNewsAdapter extends  RecyclerView.Adapter{
     public int getItemCount() {
         if(list!=null&&list.size()>0){
             Log.e(TAG, "getItemCount: size=="+list.size() );
-            return list.size();
+            return list.size()-1;
         }
         Log.e(TAG, "getItemCount: 00000" );
         return 0;

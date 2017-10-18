@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.TheatersBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lining on 17-9-7.
@@ -24,13 +26,13 @@ public class RecommendTheaterAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="IndustryNewsAdapter";
 
-    private ArrayList<String> list ;
+    private List<TheatersBean> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public RecommendTheaterAdapter(Context context, ArrayList<String> list) {
+    public RecommendTheaterAdapter(Context context, List<TheatersBean> list) {
         this.list = list;
         this.mContext = context;
 

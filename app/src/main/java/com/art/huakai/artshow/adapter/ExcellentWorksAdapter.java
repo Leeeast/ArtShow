@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lining on 17-9-7.
@@ -24,13 +26,13 @@ public class ExcellentWorksAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="IndustryNewsAdapter";
 
-    private ArrayList<String> list ;
+    private List<RepertorysBean> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public ExcellentWorksAdapter(Context context, ArrayList<String> list) {
+    public ExcellentWorksAdapter(Context context, List<RepertorysBean> list) {
         this.list = list;
         this.mContext = context;
 

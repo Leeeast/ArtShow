@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.TalentsBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lining on 17-9-7.
@@ -24,13 +26,13 @@ public class ProfessionalPersonAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="ProfessionalPersonAdapt";
 
-    private ArrayList<String> list ;
+    private List<TalentsBean> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public ProfessionalPersonAdapter(Context context, ArrayList<String> list) {
+    public ProfessionalPersonAdapter(Context context, List<TalentsBean> list) {
         this.list = list;
         this.mContext = context;
 
