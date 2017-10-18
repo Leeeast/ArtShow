@@ -63,7 +63,7 @@ public class CooperateAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         switch (getItemViewType(position)) {
             case TYPE_EMPTY:
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
@@ -77,7 +77,7 @@ public class CooperateAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         if (null != mOnItemClickListener) {
-                            mOnItemClickListener.onItemClickListener(collHolder.getAdapterPosition());
+                            mOnItemClickListener.onItemClickListener(position);
                         }
                     }
                 });

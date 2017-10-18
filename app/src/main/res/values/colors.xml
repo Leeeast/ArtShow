@@ -155,4 +155,9 @@
     <color name="change_pwd_line">#ffe6e9ed</color>
     <color name="check_photo_album">#ff4a4a4a</color>
     <color name="photo_album_bg">#ffe6e6e7</color>
+    <!--合作招募-->
+    <color name="enroll_sub_title">#ff4a4a4a</color>
+    <color name="enroll_start_time">#ff6d747f</color>
+    <color name="enroll_end_time">#ff6e747f</color>
+    <color name="enroll_apply_bg">#e6f9f9f9</color>
 </resources>

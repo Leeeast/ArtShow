@@ -316,7 +316,7 @@ public class ShowCircleFragment extends BaseFragment {
                 LogUtil.i(TAG, obj);
                     if (isSuccess) {
                         Gson gson = new Gson();
-                        TalentClassifyMessage talent = gson.fromJson(obj, TalentClassifyMessage.class);
+                        //TalentClassifyMessage talent = gson.fromJson(obj, TalentClassifyMessage.class);
 
                          Log.e(TAG, "onSuccess: obj=="+obj );
 

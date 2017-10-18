@@ -37,6 +37,8 @@ public class Constant {
     public static final String URL_USER_VERIFYMOBILE = BASE_URL + "/user/verifyMobile";
     //招募通告分页列表
     public static final String URL_ENROLL_PAGE = BASE_URL + "/enroll/page";
+    //招募详情
+    public static final String URL_ENROLL_DETAIL = BASE_URL + "/enroll/detail";
 
 
 

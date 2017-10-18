@@ -66,6 +66,7 @@
     <string name="cancel">取消</string>
     <string name="true_choose">确认选择</string>
     <string name="affirm">确认</string>
+    <string name="affirm_info">确认信息</string>
     <string name="affirm_clear">确认清除</string>
     <string name="login_weixin_title">微信登录</string>
     <string name="login_set_pwd">设置密码</string>
@@ -89,6 +90,7 @@
     <string name="tip_file_path_unexists">文件不存在，请修重新选择图片</string>
     <string name="tip_illegal_argument_exception">请传入Activity或Fragment</string>
     <string name="tip_no_more_date">没有更多数据了</string>
+    <string name="tip_data_error">数据异常</string>
 
     <string name="response_code_200">success</string>
     <string name="response_code_4000">参数签名错误</string>
@@ -111,6 +113,11 @@
     <string name="cooperate_item_des">快来报名参加吧！</string>
     <string name="cooperate_item_status">报名中</string>
     <string name="cooperate_end_time">截止时间：%1$s</string>
+    <string name="enroll_detail_tetle">演出中国-合作招募</string>
+    <string name="enroll_detail">详情介绍</string>
+    <string name="enroll_detail_read">阅读：&#160;%1$d</string>
+    <string name="enroll_apply">我要报名</string>
+
 
     <!--我的页面相关-->
     <string name="me_unlogin_des">推荐作品</string>

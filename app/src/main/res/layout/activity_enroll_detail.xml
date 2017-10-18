@@ -1,20 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteff"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_title_img" />
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title_img" />
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_29PX"
-        android:background="@color/set_account_text_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/DIMEN_15PX"
-        android:text="@string/account_info"
-        android:textColor="@color/login_light"
-        android:textSize="12sp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/include_title"
+        android:background="@color/whiteff"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/DIMEN_52PX">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteff"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:background="@color/me_personal_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_19PX"
+                android:text="2017青戏节开始报名了"
+                android:textColor="@color/black00"
+                android:textSize="26sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_5PX">
+
+                <TextView
+                    android:id="@+id/tv_enroll_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="演出中国"
+                    android:textColor="@color/check_photo_album"
+                    android:textSize="12.5sp" />
+
+                <TextView
+                    android:id="@+id/tv_enroll_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="2017年9月5日"
+                    android:textColor="@color/enroll_start_time"
+                    android:textSize="12.5sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_12PX"
+                    android:layout_height="@dimen/DIMEN_12PX"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_7PX"
+                    android:layout_toLeftOf="@id/tv_enroll_time"
+                    android:background="@mipmap/icon_time" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_enroll_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_19PX"
+                android:text="@string/cooperate_end_time"
+                android:textColor="@color/enroll_end_time"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_19PX"
+                android:text="@string/enroll_detail"
+                android:textColor="@color/enroll_sub_title"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_enroll_detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/DIMEN_16PX"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_16PX"
+                android:lineSpacingExtra="6sp"
+                android:text="The Golden Gate Bridge is a suspension bridge spanning the Golden Gate strait, the mile-wide, three-mile-long channel between San Francisco Bay and the Pacific Ocean. The structure links the U.S. city of San Francisco, on the northern tip of the San Francisco Peninsula, to Marin County, bridging both U.S. Route 101 and California State Route 1 across the strait. The bridge is one of the most "
+                android:textColor="@color/enroll_end_time"
+                android:textSize="13sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:background="@color/main_bottom_bg" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/DIMEN_19PX"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_12PX"
+                android:text="@string/enroll_detail_read"
+                android:textColor="@color/enroll_start_time"
+                android:textSize="12.5sp" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_ad"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_115PX"
+                android:layout_marginBottom="@dimen/DIMEN_15PX"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:background="@mipmap/bg_ad_1"
+                android:scaleType="fitXY"
+                fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rly_enroll_apply"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_52PX"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_bg_white_alpha">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/enroll_apply"
+            android:textColor="@color/enroll_sub_title"
+            android:textSize="19sp" />
+
+        <ImageView
+            android:layout_width="@dimen/DIMEN_22PX"
+            android:layout_height="@dimen/DIMEN_22PX"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:background="@mipmap/arrow_right_red" />
+
+    </RelativeLayout>
+</RelativeLayout>
