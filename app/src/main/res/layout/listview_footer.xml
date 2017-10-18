@@ -8,29 +8,25 @@
     <LinearLayout
         android:id="@+id/listview_footer_content"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/DIMEN_50PX"
         android:gravity="center"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_loading"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
-            android:src="@mipmap/pull_refresh_loading_icon"
-
-            />
+            android:layout_width="@dimen/DIMEN_24PX"
+            android:layout_height="@dimen/DIMEN_24PX"
+            android:src="@mipmap/pull_refresh_loading_icon" />
 
         <TextView
             android:id="@+id/tv_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loading"
-            android:textSize="15sp"
-            android:textColor="#fe8b00"
             android:layout_marginLeft="10dp"
-            android:visibility="gone"
-            />
+            android:text="@string/loading"
+            android:textColor="#fe8b00"
+            android:textSize="15sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

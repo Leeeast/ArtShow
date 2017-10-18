@@ -10,10 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.EnrollDetailActivity;
 import com.art.huakai.artshow.adapter.CooperateAdapter;
 import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -83,7 +85,7 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
      *
      * @param page
      */
-    public void loadEnrolData(int page) {
+    public void loadEnrollData(int page) {
         Map<String, String> params = new TreeMap<>();
         params.put("page", String.valueOf(page));
         params.put("size", String.valueOf(Constant.COUNT_PER_PAGE));
@@ -105,7 +107,9 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
                     try {
                         List<EnrollInfo> enrollInfos = GsonTools.parseDatas(obj, EnrollInfo.class);
                         LogUtil.i(TAG, "mEnrollInfos.size = " + enrollInfos.size());
-                        if (mPage != 1 && (enrollInfos == null || enrollInfos.size() == 0)) {
+                        if (mPage == 1 && (enrollInfos == null || enrollInfos.size() == 0)) {
+                            mEnrollInfos.clear();
+                        } else if (mPage != 1 && (enrollInfos == null || enrollInfos.size() == 0)) {
                             Toast.makeText(getContext(), getString(R.string.tip_no_more_date), Toast.LENGTH_SHORT).show();
                         }
                         mEnrollInfos.addAll(enrollInfos);
@@ -137,12 +141,16 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
         mAollAdapter = new CooperateAdapter(mEnrollInfos);
         recyclerView.setAdapter(mAollAdapter);
         recyclerView.setLoadingListener(this);
+        recyclerView.setPullRefreshEnabled(true);
+        recyclerView.setLoadingMoreEnabled(true);
         recyclerView.refresh();
         mAollAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
-                if (mEnrollInfos.size() > 0) {
-                    Toast.makeText(getContext(), "position = " + position, Toast.LENGTH_SHORT).show();
+                if (mEnrollInfos.size() > 1) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(EnrollDetailActivity.PARAMS_ENROLL_DETAIL, mEnrollInfos.get(position));
+                    invokActivity(getContext(), EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
                 }
             }
         });
@@ -151,12 +159,12 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
     @Override
     public void onRefresh() {
         mPage = 1;
-        loadEnrolData(mPage);
+        loadEnrollData(mPage);
     }
 
     @Override
     public void onLoadMore() {
         ++mPage;
-        loadEnrolData(mPage);
+        loadEnrollData(mPage);
     }
 }

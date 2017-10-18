@@ -27,8 +27,6 @@ public class AccountNameActivity extends BaseActivity {
     @BindView(R.id.tv_account_name)
     TextView tvAccountName;
 
-    private Unbinder mUnbinder;
-
     @Override
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
@@ -42,7 +40,6 @@ public class AccountNameActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        mUnbinder = ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
     }
@@ -77,7 +74,6 @@ public class AccountNameActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
         EventBus.getDefault().unregister(this);
     }
 

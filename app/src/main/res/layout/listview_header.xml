@@ -2,30 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="bottom"
     android:background="#ff666666"
-    >
+    android:gravity="bottom">
 
     <RelativeLayout
         android:id="@+id/listview_header_content"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/DIMEN_50PX"
         android:paddingTop="10dip">
 
         <ImageView
             android:id="@+id/listview_header_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/DIMEN_24PX"
+            android:layout_height="@dimen/DIMEN_29PX"
             android:layout_centerInParent="true"
-            android:src="@mipmap/pull_refresh_icon"
-            />
+            android:src="@mipmap/pull_refresh_icon" />
 
         <ImageView
             android:id="@+id/iv_progress"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
-            android:src="@mipmap/pull_refresh_loading_icon"
+            android:layout_width="@dimen/DIMEN_24PX"
+            android:layout_height="@dimen/DIMEN_24PX"
             android:layout_centerInParent="true"
+            android:src="@mipmap/pull_refresh_loading_icon"
             android:visibility="invisible" />
     </RelativeLayout>
 

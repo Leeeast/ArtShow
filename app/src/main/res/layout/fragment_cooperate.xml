@@ -37,7 +37,7 @@
     <com.art.huakai.artshow.widget.SmartRecyclerview
         android:id="@+id/recyvleview_coll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/rly_coll_head" />
 
 </RelativeLayout>

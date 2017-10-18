@@ -20,6 +20,7 @@ public class JumpCode {
     public static final int FLAG_REQ_DATA_UPLOAD = FLAG_REQ + 6;
     public static final int FLAG_REQ_RESUME_MY = FLAG_REQ + 7;
     public static final int FLAG_REQ_BASE_DATA = FLAG_REQ + 8;
+    public static final int FLAG_REQ_ENROLL_DETAIL = FLAG_REQ + 9;
 
     // 返回码,往下加1
 

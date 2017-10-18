@@ -49,7 +49,8 @@ public class CooperateAdapter extends RecyclerView.Adapter {
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
             layoutParams.height = DeviceUtils.getScreenHeight(parent.getContext()) -
                     parent.getResources().getDimensionPixelSize(R.dimen.main_tab_bottom) -
-                    parent.getResources().getDimensionPixelSize(R.dimen.collaborate_head);
+                    parent.getResources().getDimensionPixelSize(R.dimen.collaborate_head) -
+                    parent.getResources().getDimensionPixelSize(R.dimen.DIMEN_50PX);
             view.setLayoutParams(layoutParams);
             return new EmptyHolder(view);
         } else if (TYPE_TEXT_DES == viewType) {
