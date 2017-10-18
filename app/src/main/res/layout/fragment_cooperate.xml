@@ -34,7 +34,7 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <com.art.huakai.artshow.widget.SmartRecyclerview
         android:id="@+id/recyvleview_coll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

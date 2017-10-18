@@ -28,11 +28,16 @@ public class CooperateAdapter extends RecyclerView.Adapter {
     private List<EnrollInfo> mlist;
     private final Date mEndDate;
     private final SimpleDateFormat mSimpleDateFormat;
+    private OnItemClickListener mOnItemClickListener;
 
     public CooperateAdapter(List<EnrollInfo> list) {
         this.mlist = list;
         mEndDate = new Date();
         mSimpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -66,7 +71,15 @@ public class CooperateAdapter extends RecyclerView.Adapter {
                 CooperateDesHolder collDesHolder = (CooperateDesHolder) holder;
                 break;
             case TYPE_NORMAL:
-                CooperateHolder collHolder = (CooperateHolder) holder;
+                final CooperateHolder collHolder = (CooperateHolder) holder;
+                collHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != mOnItemClickListener) {
+                            mOnItemClickListener.onItemClickListener(collHolder.getAdapterPosition());
+                        }
+                    }
+                });
                 EnrollInfo enrollInfo = mlist.get(position);
                 collHolder.tvItemTitle.setText(enrollInfo.title);
                 collHolder.tvItemDes.setText(enrollInfo.description);

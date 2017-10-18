@@ -25,7 +25,7 @@ import java.util.List;
 public class SmartRecyclerview extends RecyclerView {
     private boolean isLoadingData = false;
     private boolean isNoMore = false;
-//    private int mRefreshProgressStyle = ProgressStyle.SysProgress;
+    //    private int mRefreshProgressStyle = ProgressStyle.SysProgress;
 //    private int mLoadingMoreProgressStyle = ProgressStyle.SysProgress;
     private ArrayList<View> mHeaderViews = new ArrayList<>();
     private WrapAdapter mWrapAdapter;
@@ -66,6 +66,7 @@ public class SmartRecyclerview extends RecyclerView {
             mRefreshHeader = new ArrowRefreshHeader(getContext());
 //            mRefreshHeader.setProgressStyle(mRefreshProgressStyle);
         }
+        setOverScrollMode(View.OVER_SCROLL_NEVER);
         footView = new LoadingMoreFooter(getContext());
 //        footView.setProgressStyle(mLoadingMoreProgressStyle);
         mFootView = footView;
