@@ -146,6 +146,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 
 
 
+
+
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -367,21 +369,35 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         MainActivity mainActivity= (MainActivity) getActivity();
 
         if(v.getId()==R.id.tv_one_whole){
-
+            if(null!=mainActivity){
+                mainActivity.setWholeItemPosition(1);
+                mainActivity.setCheckId(R.id.rdobtn_me);
+            }
         }else if(v.getId()==R.id.tv_two_whole){
-
+            if(null!=mainActivity){
+                mainActivity.setWholeItemPosition(2);
+                mainActivity.setCheckId(R.id.rdobtn_collaborate);
+            }
         }else if(v.getId()==R.id.tv_three_whole){
 
-            mainActivity.showFragment(DiscoverFragment.TAG_FRAGMENT);
-
+            if(null!=mainActivity){
+                mainActivity.setWholeItemPosition(3);
+                mainActivity.setCheckId(R.id.rdobtn_discover);
+            }
 
         }else if(v.getId()==R.id.tv_four_whole){
 
-            mainActivity.showFragment(DiscoverFragment.TAG_FRAGMENT);
+            if(null!=mainActivity){
+                mainActivity.setWholeItemPosition(4);
+                mainActivity.setCheckId(R.id.rdobtn_discover);
+            }
 
         }else if(v.getId()==R.id.tv_five_whole){
 
-            mainActivity.showFragment(DiscoverFragment.TAG_FRAGMENT);
+            if(null!=mainActivity){
+                mainActivity.setWholeItemPosition(5);
+                mainActivity.setCheckId(R.id.rdobtn_discover);
+            }
 
         }
 

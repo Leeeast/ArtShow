@@ -28,6 +28,8 @@
             fresco:roundBottomRight="false"
             fresco:roundTopLeft="true"
             fresco:roundTopRight="false"
+            android:clickable="false"
+            android:focusable="false"
             fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
 
 
@@ -46,6 +48,8 @@
                 android:layout_marginRight="@dimen/DIMEN_30PX"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:clickable="false"
+                android:focusable="false"
                 android:text="蒙拉丽莎的眼泪"
                 android:textColor="#ff1a1a1c"
                 android:textSize="@dimen/DIMEN_19PX" />
@@ -62,6 +66,8 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:text="演员人数"
                     android:textColor="#ff797c87"
                     android:textSize="@dimen/DIMEN_13PX" />
@@ -73,6 +79,8 @@
                     android:layout_marginLeft="@dimen/DIMEN_18PX"
                     android:layout_marginRight="@dimen/DIMEN_30PX"
                     android:ellipsize="end"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:maxLines="1"
                     android:text="20"
                     android:textColor="#ff1a1a1c"
@@ -92,6 +100,8 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="首演时间"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:textColor="#ff797c87"
                     android:textSize="@dimen/DIMEN_13PX" />
 
@@ -103,6 +113,8 @@
                     android:layout_marginRight="@dimen/DIMEN_30PX"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:text="2017.09.09"
                     android:textColor="#ff1a1a1c"
                     android:textSize="@dimen/DIMEN_13PX" />
@@ -130,6 +142,8 @@
                     android:maxLines="1"
                     android:text="￥6000"
                     android:textColor="#ff1a1a1c"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:textSize="@dimen/DIMEN_22PX" />
 
                 <TextView
@@ -137,6 +151,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_3PX"
                     android:ellipsize="end"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:maxLines="1"
                     android:text="元/场"
                     android:textColor="#ff797c87"

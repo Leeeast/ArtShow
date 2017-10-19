@@ -50,6 +50,12 @@ public class Constant {
     public static final String URL_GET_CLASSFY_LIST = BASE_URL + "/classify/list";
 
 
+    public static final String URL_GET_THEATRES = BASE_URL + "/theater/page";
+
+    public static final String URL_GET_WORKS = BASE_URL + "/repertory/page";
+
+    public static final String URL_GET_TALENTS = BASE_URL + "/talent/page";
+
 //    获取地区借口
 //    http://139.224.47.213:8080/showonline_api/region/list
 //

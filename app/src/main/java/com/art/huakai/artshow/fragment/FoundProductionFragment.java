@@ -3,6 +3,7 @@ package com.art.huakai.artshow.fragment;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,15 +23,29 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.LookingWorksAdapter;
 import com.art.huakai.artshow.adapter.SingleChooseAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
+import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.entity.Work;
+import com.art.huakai.artshow.okhttp.utils.L;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 public class FoundProductionFragment extends BaseFragment implements View.OnClickListener, SmartRecyclerview.LoadingListener {
     private String TAG="FoundProductionFragment";
@@ -51,7 +66,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     TextView tvRealFilter;
     @BindView(R.id.ll_choose)
     LinearLayout llChoose;
-    private ArrayList<String> list;
+    private ArrayList<Work> list;
     private LookingWorksAdapter lookingWorksAdapter;
     private LinearLayoutManager linearlayoutManager;
     private LinearItemDecoration linearItemDecoration;
@@ -66,8 +81,21 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
     public FoundProductionFragment() {
         Log.e(TAG, "FoundProductionFragment: " );
+
+
         // Required empty public constructor
     }
+
+    private Handler uiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+
+                setData();
+
+            }
+        }
+    };
 
     public static FoundProductionFragment newInstance() {
 
@@ -81,30 +109,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
     }
 
-    @Override
-    public int getLayoutID() {
-        Log.e(TAG, "getLayoutID: " );
-        return R.layout.fragment_found_production;
-    }
-
-    @Override
-    public void initView(View rootView) {
-        Log.e(TAG, "initView: " );
-
-    }
-
-    @Override
-    public void setView() {
-        ivChoosePrice.setOnClickListener(this);
-        ivChooseNumber.setOnClickListener(this);
-        ivRealChoose.setOnClickListener(this);
+    private void setData(){
 
         linearlayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         linearItemDecoration = new LinearItemDecoration((int) getContext().getResources().getDimension(R.dimen.DIMEN_14PX));
-        recyclerView.setLoadingListener(this);
         recyclerView.setLayoutManager(linearlayoutManager);
-//        recyclerView.addItemDecoration(linearItemDecoration);
-        list = new ArrayList<String>();
+        recyclerView.addItemDecoration(linearItemDecoration);
         lookingWorksAdapter = new LookingWorksAdapter(getContext(), list);
         recyclerView.setAdapter(lookingWorksAdapter);
         lookingWorksAdapter.setOnItemClickListener(new LookingWorksAdapter.OnItemClickListener() {
@@ -115,6 +125,27 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
             }
         });
+
+    }
+
+    @Override
+    public int getLayoutID() {
+        Log.e(TAG, "getLayoutID: " );
+        return R.layout.fragment_found_production;
+    }
+
+    @Override
+    public void initView(View rootView) {
+        Log.e(TAG, "initView: " );
+        getList();
+    }
+
+    @Override
+    public void setView() {
+        ivChoosePrice.setOnClickListener(this);
+        ivChooseNumber.setOnClickListener(this);
+        ivRealChoose.setOnClickListener(this);
+        recyclerView.setLoadingListener(this);
         recyclerView.refresh();
 
 
@@ -189,31 +220,14 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefresh() {
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                list.clear();
-                for (int i = 0; i < 50; i++) {
-                    list.add("文字" + i);
-                }
-                recyclerView.refreshComplete();
-            }
 
-        }, 2000);
 
     }
 
     @Override
     public void onLoadMore() {
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                for (int i = 0; i < 30; i++) {
-                    list.add("文字" + i);
-                }
-                recyclerView.loadMoreComplete();
-            }
 
-        }, 2000);
 
     }
 
@@ -431,7 +445,42 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
     }
 
+    private void getList(){
 
+        Map<String, String> params = new TreeMap<>();
+        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_WORKS);
+        params.put("page", "1");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        Log.e(TAG, "getList: sign=="+sign );
+        RequestUtil.request(true, Constant.URL_GET_WORKS, params, 106, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    Gson gson = new Gson();
+
+                    if(list==null){
+                        list=new ArrayList<Work>();
+                    }
+                    list.clear();
+                    list=gson.fromJson(obj,new TypeToken<List<Work>>(){}.getType());
+
+                    Log.e(TAG, "onSuccess: theatres.size=="+list.size());
+
+                    uiHandler.sendEmptyMessage(0);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+
+            }
+        });
+    }
 
 
 

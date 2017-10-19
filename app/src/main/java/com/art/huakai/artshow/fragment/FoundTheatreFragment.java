@@ -3,6 +3,7 @@ package com.art.huakai.artshow.fragment;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,18 +20,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.LookingTheatreAdapter;
 import com.art.huakai.artshow.adapter.LookingWorksAdapter;
 import com.art.huakai.artshow.adapter.SingleChooseAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
+import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 public class FoundTheatreFragment extends BaseFragment implements View.OnClickListener, SmartRecyclerview.LoadingListener {
 
@@ -53,8 +67,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     TextView tvRealFilter;
     @BindView(R.id.ll_choose)
     LinearLayout llChoose;
-    private ArrayList<String> list;
-    private LookingWorksAdapter lookingWorksAdapter;
+
+    private LookingTheatreAdapter lookingWorksAdapter;
     private LinearLayoutManager linearlayoutManager;
     private LinearItemDecoration linearItemDecoration;
     private PopupWindow popupWindow;
@@ -65,6 +79,27 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     public FoundTheatreFragment() {
         // Required empty public constructor
     }
+
+    private String order;
+    private String orderType;
+    private String seatingMin;
+    private String seatingMax;
+    private String expenseMin;
+    private String expenseMax;
+    private int page=1;
+
+    List<Theatre> theatres;
+
+    private Handler uiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+
+                setData();
+
+            }
+        }
+    };
 
     public static FoundTheatreFragment newInstance() {
         FoundTheatreFragment fragment = new FoundTheatreFragment();
@@ -88,29 +123,35 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void setView() {
+
         ivChoosePrice.setOnClickListener(this);
         ivChooseNumber.setOnClickListener(this);
         ivRealChoose.setOnClickListener(this);
+        recyclerView.setLoadingListener(this);
+        recyclerView.refresh();
+
+
+
+    }
+
+    private void setData(){
 
         linearlayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         linearItemDecoration = new LinearItemDecoration((int) getContext().getResources().getDimension(R.dimen.DIMEN_14PX));
-        recyclerView.setLoadingListener(this);
         recyclerView.setLayoutManager(linearlayoutManager);
 //        recyclerView.addItemDecoration(linearItemDecoration);
-        list = new ArrayList<String>();
-        lookingWorksAdapter = new LookingWorksAdapter(getContext(), list);
+        lookingWorksAdapter = new LookingTheatreAdapter(getContext(), theatres);
         recyclerView.setAdapter(lookingWorksAdapter);
-        lookingWorksAdapter.setOnItemClickListener(new LookingWorksAdapter.OnItemClickListener() {
+        lookingWorksAdapter.setOnItemClickListener(new LookingTheatreAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
 
-                Toast.makeText(getContext(), "itemclick", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onItemClickListener: position=="+position );
 
             }
         });
-        recyclerView.refresh();
-    }
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -180,31 +221,13 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefresh() {
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                list.clear();
-                for (int i = 0; i < 50; i++) {
-                    list.add("文字" + i);
-                }
-                recyclerView.refreshComplete();
-            }
-
-        }, 2000);
+        getList();
 
     }
 
     @Override
     public void onLoadMore() {
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                for (int i = 0; i < 30; i++) {
-                    list.add("文字" + i);
-                }
-                recyclerView.loadMoreComplete();
-            }
-
-        }, 2000);
 
     }
 
@@ -354,5 +377,45 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         }
 
     }
+
+
+        private void getList(){
+
+        Map<String, String> params = new TreeMap<>();
+        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_THEATRES);
+        params.put("page", "1");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        Log.e(TAG, "getList: sign=="+sign );
+        RequestUtil.request(true, Constant.URL_GET_THEATRES, params, 105, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                    if (isSuccess) {
+                         Gson gson = new Gson();
+                        if(theatres==null){
+                            theatres=new ArrayList<Theatre>();
+                        }
+                        theatres.clear();
+                        theatres=gson.fromJson(obj,new TypeToken<List<Theatre>>(){}.getType());
+
+
+                        Log.e(TAG, "onSuccess: theatres.size=="+theatres.size());
+
+                         uiHandler.sendEmptyMessage(0);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+
+            }
+        });
+    }
+
+
 
 }

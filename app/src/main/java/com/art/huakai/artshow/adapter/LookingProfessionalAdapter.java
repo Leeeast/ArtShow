@@ -3,6 +3,7 @@ package com.art.huakai.artshow.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.Talent;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lining on 17-10-7.
@@ -23,13 +26,13 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="LookingProfessionalAdap";
 
-    private ArrayList<String> list ;
+    private List<Talent> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public LookingProfessionalAdapter(Context context, ArrayList<String> list) {
+    public LookingProfessionalAdapter(Context context, List<Talent> list) {
         this.list = list;
         this.mContext = context;
 
@@ -54,7 +57,19 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
 //            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
-            typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
+            if(list.get(position)!=null){
+                Talent talent=list.get(position);
+                if(!TextUtils.isEmpty(talent.getLogo())){
+                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(talent.getLogo()));
+
+
+                }
+
+
+            }
+
+
+//            typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

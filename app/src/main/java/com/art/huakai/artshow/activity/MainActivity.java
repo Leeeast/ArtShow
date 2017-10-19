@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -32,7 +33,23 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             DiscoverFragment.TAG_FRAGMENT, CooperateFragment.TAG_FRAGMENT, MeFragment.TAG_FRAGMENT};
     //再次点击退出使用
     private long touchTime = 0;
+    private int wholeItemPosition=1000;
+    private boolean isValid=true;
+    private RadioGroup radioGroup;
 
+    public int getWholeItemPosition() {
+        if(isValid){
+            isValid=false;
+            return wholeItemPosition;
+        }else{
+            return 1000;
+        }
+    }
+
+    public void setWholeItemPosition(int wholeItemPosition) {
+        isValid=true;
+        this.wholeItemPosition = wholeItemPosition;
+    }
     @Override
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
@@ -62,7 +79,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void initView() {
-        ((RadioGroup) findViewById(R.id.rdogp_main_tab)).setOnCheckedChangeListener(this);
+        radioGroup= (RadioGroup) findViewById(R.id.rdogp_main_tab);
+        radioGroup.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -93,7 +111,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      *
      * @param tag
      */
-    public void showFragment(String tag) {
+    private void showFragment(String tag) {
+        Log.e(TAG, "showFragment: tag=="+tag );
         ft = fragmentManager.beginTransaction();
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragmentManager.findFragmentByTag(tag) == null) {
@@ -107,8 +126,15 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
         hideOtherFragment(tag, ft);
         ft.commitAllowingStateLoss();
+        if(fragment instanceof DiscoverFragment){
+            DiscoverFragment discoverFragment= (DiscoverFragment) fragment;
+            ((DiscoverFragment) fragment).setCurrentItem();
+        }
     }
 
+    public void setCheckId(int id){
+        radioGroup.check(id);
+    }
 
     /**
      * 添加Fragment
@@ -125,10 +151,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         } else if (tag.equals(CooperateFragment.TAG_FRAGMENT)) {
             fragment = CooperateFragment.newInstance();
         } else if (tag.equals(MeFragment.TAG_FRAGMENT)) {
-            fragment = MeFragment.newInstance();
+        fragment = MeFragment.newInstance();
         }
         return fragment;
-    }
+        }
 
     /**
      * 隐藏别的Fragment

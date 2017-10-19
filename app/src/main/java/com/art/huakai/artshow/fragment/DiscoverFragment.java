@@ -2,6 +2,7 @@ package com.art.huakai.artshow.fragment;
 
 
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.MainActivity;
 import com.art.huakai.artshow.adapter.DisPagerAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.utils.DeviceUtils;
@@ -74,8 +76,39 @@ public class DiscoverFragment extends BaseFragment {
     public void setView() {
         Log.e(TAG, "setView: " );
         DisPagerAdapter disPagerAdapter = new DisPagerAdapter(getChildFragmentManager(), mFragments, mTabArray);
+        MainActivity mainActivity= (MainActivity) getActivity();
+        if(mainActivity!=null){
+            int wholeItemPosition=mainActivity.getWholeItemPosition();
+            if(wholeItemPosition==3){
+                viewPager.setCurrentItem(1);
+            }else if(wholeItemPosition==4){
+                viewPager.setCurrentItem(0);
+            }else if(wholeItemPosition==5){
+                viewPager.setCurrentItem(2);
+            }
+        }
+
         viewPager.setAdapter(disPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         stlDisTab.setViewPager(viewPager);
     }
+
+
+    public void setCurrentItem(){
+
+        if(viewPager==null)return;
+        MainActivity mainActivity= (MainActivity) getActivity();
+        if(mainActivity!=null){
+            int wholeItemPosition=mainActivity.getWholeItemPosition();
+            if(wholeItemPosition==3){
+                viewPager.setCurrentItem(1);
+            }else if(wholeItemPosition==4){
+                viewPager.setCurrentItem(0);
+            }else if(wholeItemPosition==5){
+                viewPager.setCurrentItem(2);
+            }
+        }
+
+    }
+
 }

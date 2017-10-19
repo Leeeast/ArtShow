@@ -3,6 +3,7 @@ package com.art.huakai.artshow.fragment;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,18 +20,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.LookingProfessionalAdapter;
 import com.art.huakai.artshow.adapter.LookingWorksAdapter;
 import com.art.huakai.artshow.adapter.SingleChooseAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
+import com.art.huakai.artshow.entity.Talent;
+import com.art.huakai.artshow.entity.Work;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 public class FoundTalentsFragment extends BaseFragment implements View.OnClickListener, SmartRecyclerview.LoadingListener {
     private String TAG="FoundTalentsFragment";
@@ -52,8 +67,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     TextView tvRealFilter;
     @BindView(R.id.ll_choose)
     LinearLayout llChoose;
-    private ArrayList<String> list;
-    private LookingWorksAdapter lookingWorksAdapter;
+    private ArrayList<Talent> list;
+    private LookingProfessionalAdapter lookingWorksAdapter;
     private LinearLayoutManager linearlayoutManager;
     private LinearItemDecoration linearItemDecoration;
 
@@ -76,6 +91,17 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         // Required empty public constructor
     }
 
+    private Handler uiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+
+                setData();
+
+            }
+        }
+    };
+
     public static FoundTalentsFragment newInstance() {
         FoundTalentsFragment fragment = new FoundTalentsFragment();
         return fragment;
@@ -93,32 +119,35 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void initView(View rootView) {
+        ivChoosePrice.setOnClickListener(this);
+        ivChooseNumber.setOnClickListener(this);
+        ivRealChoose.setOnClickListener(this);
+        recyclerView.setLoadingListener(this);
+        recyclerView.refresh();
+        getList();
+    }
+
+    private void setData(){
+
+        linearlayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        linearItemDecoration = new LinearItemDecoration((int) getContext().getResources().getDimension(R.dimen.DIMEN_14PX));
+        recyclerView.setLayoutManager(linearlayoutManager);
+//        recyclerView.addItemDecoration(linearItemDecoration);
+        lookingWorksAdapter = new LookingProfessionalAdapter(getContext(), list);
+        recyclerView.setAdapter(lookingWorksAdapter);
+        lookingWorksAdapter.setOnItemClickListener(new LookingProfessionalAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+
+            }
+        });
 
     }
 
     @Override
     public void setView() {
-        ivChoosePrice.setOnClickListener(this);
-        ivChooseNumber.setOnClickListener(this);
-        ivRealChoose.setOnClickListener(this);
 
-        linearlayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        linearItemDecoration = new LinearItemDecoration((int) getContext().getResources().getDimension(R.dimen.DIMEN_14PX));
-        recyclerView.setLoadingListener(this);
-        recyclerView.setLayoutManager(linearlayoutManager);
-//        recyclerView.addItemDecoration(linearItemDecoration);
-        list = new ArrayList<String>();
-        lookingWorksAdapter = new LookingWorksAdapter(getContext(), list);
-        recyclerView.setAdapter(lookingWorksAdapter);
-        lookingWorksAdapter.setOnItemClickListener(new LookingWorksAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClickListener(int position) {
 
-                Toast.makeText(getContext(), "itemclick", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        recyclerView.refresh();
     }
 
 
@@ -190,31 +219,14 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefresh() {
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                list.clear();
-                for (int i = 0; i < 50; i++) {
-                    list.add("文字" + i);
-                }
-                recyclerView.refreshComplete();
-            }
 
-        }, 2000);
 
     }
 
     @Override
     public void onLoadMore() {
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                for (int i = 0; i < 30; i++) {
-                    list.add("文字" + i);
-                }
-                recyclerView.loadMoreComplete();
-            }
 
-        }, 2000);
 
     }
 
@@ -586,7 +598,44 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         if (popupWindow != null && !popupWindow.isShowing()) {
             popupWindow.showAsDropDown(llChoose, 0, 0);
         }
+    }
 
+
+
+    private void getList(){
+
+        Map<String, String> params = new TreeMap<>();
+        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_WORKS);
+        params.put("page", "1");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        Log.e(TAG, "getList: sign=="+sign );
+        RequestUtil.request(true, Constant.URL_GET_TALENTS, params, 107, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    Gson gson = new Gson();
+
+                    Log.e(TAG, "onSuccess: obj=="+obj);
+                    if(list==null){
+                        list=new ArrayList<Talent>();
+                    }
+                    list.clear();
+                    list=gson.fromJson(obj,new TypeToken<List<Talent>>(){}.getType());
+                    Log.e(TAG, "onSuccess: theatres.size=="+list.size());
+                    uiHandler.sendEmptyMessage(0);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+
+            }
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+
+            }
+        });
     }
 
 

@@ -3,8 +3,10 @@ package com.art.huakai.artshow.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,9 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.entity.Work;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lining on 17-10-7.
@@ -23,15 +28,15 @@ public class LookingWorksAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="LookingWorksAdapter";
 
-    private ArrayList<String> list ;
+    private List<Work> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public LookingWorksAdapter(Context context, ArrayList<String> list) {
-        this.list = list;
-        this.mContext = context;
+        public LookingWorksAdapter(Context context, List<Work> list) {
+            this.list = list;
+            this.mContext = context;
 
     }
 
@@ -42,7 +47,7 @@ public class LookingWorksAdapter extends  RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.looking_works_item, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.looking_works_item, null);
             TypeOneViewHolder typeOneViewHolder = new TypeOneViewHolder(view);
             return typeOneViewHolder;
     }
@@ -53,7 +58,17 @@ public class LookingWorksAdapter extends  RecyclerView.Adapter{
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
 //            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
-            typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
+            if(list.get(position)!=null){
+                Work work=list.get(position);
+                if(!TextUtils.isEmpty(work.getLogo())){
+                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(work.getLogo()));
+                }
+//                typeOneViewHolder.tv_actor_number.setText(work.getPeopleNum());
+//                typeOneViewHolder.tv_show_time.setText(work.getPremiereTime()+"");
+//                typeOneViewHolder.tv_works_fee.setText(work.getExpense());
+
+            }
+
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
