@@ -1,35 +1,17 @@
 package com.art.huakai.artshow.entity;
 
-import java.util.List;
-
 /**
- * Created by lining on 2017/10/18.
+ * 简历bean
+ * Created by lidongliang on 2017/10/20.
  */
-public class TalentsBean {
 
-    /**
-     * id : 402894115f2f3d8f015f2f3e239301e2
-     * logo : https://www.showonline.com.cn/image/2017/07/21/e8cd6ae0c18d4544a85010524949b2e8@thumb.jpg
-     * name : 秦枫
-     * school : 中央戏剧学院
-     * age : 0
-     * birthday : 1508256000000
-     * classifyNames : ["话剧演员","编剧","导演"]
-     * classifyNamesStr : 话剧演员 编剧 导演
-     * regionName :
-     * status : 1
-     * createTime : 1508326122000
-     * userId : 8a999cce5d599d5c015d62bf21ac0038
-     * authentication : 1
-     * agency : 北京现代音乐学院
-     * linkTel : 15101116378
-     */
+public class ResumeBean {
     private String id;
     private String logo;
     private String name;
     private String school;
-    private int age;
-    private long birthday;
+    private String age;
+    private String birthday;
     private String classifyNamesStr;
     private String regionName;
     private int status;
@@ -38,11 +20,11 @@ public class TalentsBean {
     private int authentication;
     private String agency;
     private String linkTel;
-    private List<String> classifyNames;
+    private String classifyNames;
 
     public String getId() {
         return id;
-}
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -72,19 +54,19 @@ public class TalentsBean {
         this.school = school;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public long getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(long birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -152,12 +134,11 @@ public class TalentsBean {
         this.linkTel = linkTel;
     }
 
-    public List<String> getClassifyNames() {
+    public String getClassifyNames() {
         return classifyNames;
     }
 
-    public void setClassifyNames(List<String> classifyNames) {
+    public void setClassifyNames(String classifyNames) {
         this.classifyNames = classifyNames;
     }
-
 }

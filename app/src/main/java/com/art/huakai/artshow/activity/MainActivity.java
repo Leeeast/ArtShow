@@ -12,14 +12,26 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.fragment.CooperateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
 import com.art.huakai.artshow.fragment.ShowCircleFragment;
+import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SharePreUtil;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+import okhttp3.Call;
 
 /**
  * 主界面
@@ -64,6 +76,52 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void initData() {
         fragmentManager = getSupportFragmentManager();
+        updateUserInfo();
+    }
+
+    /**
+     * 更新用户信息
+     */
+    private void updateUserInfo() {
+        if (LoginUtil.checkUserLogin(this, false)) {
+            Map<String, String> params = new TreeMap<>();
+            params.put("userId", LocalUserInfo.getInstance().getId());
+            params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+            String sign = SignUtil.getSign(params);
+            params.put("sign", sign);
+            RequestUtil.request(true, Constant.URL_USER_INFO, params, 16, new RequestUtil.RequestListener() {
+                @Override
+                public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                    LogUtil.i(TAG, obj);
+                    if (isSuccess) {
+                        try {
+                            UserInfo.User user = GsonTools.parseData(obj, UserInfo.User.class);
+                            LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
+                            localUserInfo.setId(user.id);
+                            localUserInfo.setName(user.name);
+                            localUserInfo.setMobile(user.mobile);
+                            localUserInfo.setEmail(user.email);
+                            localUserInfo.setWechatOpenid(user.wechatOpenid);
+                            localUserInfo.setDp(user.dp);
+                            localUserInfo.setPassword(user.password);
+                            localUserInfo.setUserType(user.userType);
+                            localUserInfo.setStatus(user.status);
+                            localUserInfo.setCreateTime(user.createTime);
+                            SharePreUtil.getInstance().storeUserInfo(localUserInfo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        ResponseCodeCheck.showErrorMsg(code);
+                    }
+                }
+
+                @Override
+                public void onFailed(Call call, Exception e, int id) {
+                    LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                }
+            });
+        }
     }
 
     @Override

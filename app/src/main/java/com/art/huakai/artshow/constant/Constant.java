@@ -31,6 +31,8 @@ public class Constant {
     public static final String URL_EDIT_PWD = BASE_URL + "/user/editPassword";
     //登录
     public static final String URL_USER_LOGIN = BASE_URL + "/user/login";
+    //获取用户信息
+    public static final String URL_USER_INFO = BASE_URL + "/user/info";
     //修改个人信息
     public static final String URL_USER_EDITINFO = BASE_URL + "/user/editInfo";
     //手机号是否占用
@@ -43,6 +45,14 @@ public class Constant {
     public static final String URL_ENROLL_ENROLL = BASE_URL + "/enroll/enroll";
     //已报名实体  已入围实体通过status区分 状态，0全部，1已入围的
     public static final String URL_ENROLL_ENROLLED = BASE_URL + "/enroll/enrolled";
+    //简历分页
+    public static final String URL_USER_TALENT = BASE_URL + "/user/talent";
+    //简历分页
+    public static final String URL_USER_TALENT_DETAIL = BASE_URL + "/user/talent/detail";
+    //修改简历个人介绍
+    public static final String URL_TALENT_EDIT_DESCRIPTION = BASE_URL + "/talent/edit/description";
+    //简历详情
+    public static final String URL_TALENT_DETAIL = BASE_URL + "/talent/detail";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";

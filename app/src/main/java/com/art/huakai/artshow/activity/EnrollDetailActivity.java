@@ -130,7 +130,7 @@ public class EnrollDetailActivity extends BaseActivity {
         new Thread() {
             @Override
             public void run() {
-                final Spanned spanned = Html.fromHtml(mEnrollDetailInfo.content, imgGetter, null);
+                final Spanned spanned = Html.fromHtml(mEnrollDetailInfo.enroll.content, imgGetter, null);
                 tvEnrollDetailContent.post(new Runnable() {
                     @Override
                     public void run() {

@@ -88,7 +88,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rly_self_introduction"
+                android:id="@+id/rly_self_introduce"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_48PX">
 
@@ -241,7 +241,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@id/iv_resume_post"
-                    android:text="@string/resume_award_experience"
+                    android:text="@string/resume_post"
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
 

@@ -1,9 +1,12 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -11,10 +14,15 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
-import com.art.huakai.artshow.eventbus.NameChangeEvent;
+import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.ResumeBean;
+import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
@@ -22,18 +30,15 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DebugUtil;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.Call;
 
 /**
@@ -51,7 +56,6 @@ public class ResumeActivity extends BaseActivity {
     private TakePhotoDialog takePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
     private ShowProgressDialog showProgressDialog;
-    private String mAvatarUrl;
 
     @Override
     public void immerseStatusBar() {
@@ -66,13 +70,13 @@ public class ResumeActivity extends BaseActivity {
     @Override
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
+        getTalent();
     }
 
     @Override
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.resume_my);
-
     }
 
     @Override
@@ -86,6 +90,16 @@ public class ResumeActivity extends BaseActivity {
     @OnClick(R.id.lly_back)
     public void setlLyBack() {
         finish();
+    }
+
+    /**
+     * 个人介绍
+     */
+    @OnClick(R.id.rly_self_introduce)
+    public void jumpIntroduction() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ResumeFillActivity.PARAMS_ACTION, ResumeFillActivity.CODE_ACTION_FILL_INTRODUCE);
+        invokActivity(this, ResumeFillActivity.class, bundle, JumpCode.FLAG_REQ_RESUME_FILL);
     }
 
     /**
@@ -175,7 +189,8 @@ public class ResumeActivity extends BaseActivity {
                 if (isSuccess) {
                     try {
                         JSONObject jsonObject = new JSONObject(obj);
-                        mAvatarUrl = jsonObject.getString("url");
+                        String mAvatarUrl = jsonObject.getString("url");
+                        TalentResumeInfo.getInstance().setLogo(mAvatarUrl);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -193,5 +208,238 @@ public class ResumeActivity extends BaseActivity {
             }
         });
     }
+
+    /**
+     * 获取简历列表
+     *
+     * @return
+     */
+    public void getTalent() {
+        //判断是否登录
+        if (!LoginUtil.checkUserLogin(this, true)) {
+            return;
+        }
+        if (TextUtils.isEmpty(LocalUserInfo.getInstance().getId()) ||
+                TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
+            Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("page", "1");
+        params.put("size", "1");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_USER_TALENT, params, 50, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        List<ResumeBean> resumeBeens = GsonTools.parseDatas(obj, ResumeBean.class);
+                        if (resumeBeens != null && resumeBeens.size() > 0) {
+                            ResumeBean resumeBeen = resumeBeens.get(0);
+                            TalentResumeInfo.getInstance().setId(resumeBeen.getId());
+                            getResumeDetail();
+                        } else {
+                            changeResumeDescription();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    /**
+     * 修改简历个人介绍
+     * TODO 此处调用这个方法是为了创建简历，获取简历ID
+     */
+    public void changeResumeDescription() {
+        //判断是否登录
+        if (!LoginUtil.checkUserLogin(this, true)) {
+            return;
+        }
+        if (TextUtils.isEmpty(LocalUserInfo.getInstance().getId()) ||
+                TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
+            Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("description", "创建简历");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_TALENT_EDIT_DESCRIPTION, params, 51, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String resumeId = jsonObject.getString("id");
+                        TalentResumeInfo.getInstance().setId(resumeId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+//    /**
+//     * 获取个人简历详情
+//     */
+//    public void getResumeDetail() {
+//        //判断是否登录
+//        if (!LoginUtil.checkUserLogin(this, true)) {
+//            return;
+//        }
+//        if (TextUtils.isEmpty(LocalUserInfo.getInstance().getId()) ||
+//                TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
+//            Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        Map<String, String> params = new TreeMap<>();
+//        params.put("id", TalentResumeInfo.getInstance().getTalentResumeId());
+//        String sign = SignUtil.getSign(params);
+//        params.put("sign", sign);
+//        LogUtil.i(TAG, "params = " + params);
+//        showProgressDialog.show();
+//        RequestUtil.request(true, Constant.URL_TALENT_DETAIL, params, 53, new RequestUtil.RequestListener() {
+//            @Override
+//            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+//                LogUtil.i(TAG, obj);
+//                if (showProgressDialog.isShowing()) {
+//                    showProgressDialog.dismiss();
+//                }
+//                if (isSuccess) {
+//                    try {
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    ResponseCodeCheck.showErrorMsg(code);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(Call call, Exception e, int id) {
+//                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+//                if (showProgressDialog.isShowing()) {
+//                    showProgressDialog.dismiss();
+//                }
+//            }
+//        });
+//    }
+
+    /**
+     * 获取个人简历详情
+     */
+    public void getResumeDetail() {
+        //判断是否登录
+        if (!LoginUtil.checkUserLogin(this, true)) {
+            return;
+        }
+        if (TextUtils.isEmpty(LocalUserInfo.getInstance().getId()) ||
+                TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
+            Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("id", TalentResumeInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_USER_TALENT_DETAIL, params, 53, new RequestUtil.RequestListener() {
+
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        TalentResumeInfo resume = GsonTools.parseData(obj, TalentResumeInfo.class);
+                        TalentResumeInfo instanceResume = TalentResumeInfo.getInstance();
+                        instanceResume.setId(resume.getId());
+                        instanceResume.setLogo(resume.getLogo());
+                        instanceResume.setName(resume.getName());
+                        instanceResume.setBirthday(resume.getBirthday());
+                        instanceResume.setLinkTel(resume.getLinkTel());
+                        instanceResume.setRegionId(resume.getRegionId());
+                        instanceResume.setDescription(resume.getDescription());
+                        instanceResume.setHeight(resume.getHeight());
+                        instanceResume.setWeight(resume.getWeight());
+                        instanceResume.setSchool(resume.getSchool());
+                        instanceResume.setAgency(resume.getAgency());
+                        instanceResume.setWorksDescpt(resume.getWorksDescpt());
+                        instanceResume.setAwardsDescpt(resume.getAwardsDescpt());
+                        instanceResume.setStatus(resume.getStatus());
+                        instanceResume.setUserId(resume.getUserId());
+                        instanceResume.setCreateTime(resume.getCreateTime());
+                        instanceResume.setUpdateTime(resume.getUpdateTime());
+                        instanceResume.setPictures(resume.getPictures());
+                        instanceResume.setClassifyIds(resume.getClassifyIds());
+                        instanceResume.setClassifyNames(resume.getClassifyNames());
+                        instanceResume.setRegionName(resume.getRegionName());
+                        instanceResume.setAge(resume.getAge());
+                        instanceResume.setViewTimes(resume.getViewTimes());
+                        instanceResume.setAuthentication(resume.getAuthentication());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+    }
+
 
 }

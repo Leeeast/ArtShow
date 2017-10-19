@@ -22,6 +22,7 @@ public class JumpCode {
     public static final int FLAG_REQ_BASE_DATA = FLAG_REQ + 8;
     public static final int FLAG_REQ_ENROLL_DETAIL = FLAG_REQ + 9;
     public static final int FLAG_REQ_ENROLL_APPLY = FLAG_REQ + 10;
+    public static final int FLAG_REQ_RESUME_FILL = FLAG_REQ + 11;
 
     // 返回码,往下加1
 

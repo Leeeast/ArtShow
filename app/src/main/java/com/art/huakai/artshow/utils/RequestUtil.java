@@ -25,8 +25,20 @@ import okhttp3.Call;
 public class RequestUtil {
     public static final String TAG = "RequestUtil";
 
+    /**
+     * 普通回调
+     */
     public interface RequestListener {
         void onSuccess(boolean isSuccess, String obj, int code, int id);
+
+        void onFailed(Call call, Exception e, int id);
+    }
+
+    /**
+     * 列表集合请求回调
+     */
+    public interface RequestListListener {
+        void onSuccess(String response, int id);
 
         void onFailed(Call call, Exception e, int id);
     }
@@ -136,6 +148,82 @@ public class RequestUtil {
                     }
                 });
     }
+
+    /**
+     * 请求统一封装
+     *
+     * @param isPost    是否是post请求
+     * @param url       请求连接
+     * @param params    参数
+     * @param requestId 请求ID
+     * @param listener  请求回调
+     */
+    public static void requestList(boolean isPost, String url, Map<String, String> params, int requestId, RequestListListener listener) {
+        if (isPost) {
+            postRequestList(url, params, requestId, listener);
+        } else {
+            getRequestList(url, params, requestId, listener);
+        }
+    }
+
+    /**
+     * post请求封装
+     *
+     * @param url       请求连接
+     * @param params    参数
+     * @param requestId 请求ID
+     * @param listener  请求回调
+     */
+    public static void postRequestList(String url, Map<String, String> params, int requestId, final RequestListListener listener) {
+        OkHttpUtils
+                .post()
+                .url(url)
+                .params(params)
+                .id(requestId)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onFailed(call, e, id);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        listener.onSuccess(response, id);
+                    }
+                });
+    }
+
+    /**
+     * get请求封装
+     *
+     * @param url       请求连接
+     * @param params    参数
+     * @param requestId 请求ID
+     * @param listener  请求回调
+     */
+    public static void getRequestList(String url, Map<String, String> params, final int requestId, final RequestListListener listener) {
+        OkHttpUtils
+                .get()
+                .url(url)
+                .params(params)
+                .id(requestId)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        LogUtil.e(TAG, e.getMessage() + "-" + id);
+                        listener.onFailed(call, e, id);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        LogUtil.i(TAG, response + ":id = " + id);
+                        listener.onSuccess(response, id);
+                    }
+                });
+    }
+
 
     public static void uploadLoadFile(String url, String filePath, final RequestListener listener) {
 
