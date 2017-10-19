@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      *
      * @param tag
      */
-    protected void showFragment(String tag) {
+    public void showFragment(String tag) {
         ft = fragmentManager.beginTransaction();
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragmentManager.findFragmentByTag(tag) == null) {
@@ -108,6 +108,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         hideOtherFragment(tag, ft);
         ft.commitAllowingStateLoss();
     }
+
 
     /**
      * 添加Fragment

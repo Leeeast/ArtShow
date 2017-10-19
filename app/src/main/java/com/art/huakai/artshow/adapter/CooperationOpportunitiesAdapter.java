@@ -55,6 +55,14 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
         Log.e(TAG, "onBindViewHolder: position=="+position );
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
+            if(list.get(position)!=null){
+
+                typeOneViewHolder.tv_name.setText(list.get(position).title);
+                typeOneViewHolder.tv_detail.setText(list.get(position).description);
+                typeOneViewHolder.tv_update_time.setText(list.get(position).endTime+"");
+
+            }
+
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

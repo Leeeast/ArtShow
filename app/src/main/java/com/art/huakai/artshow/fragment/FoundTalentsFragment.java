@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FoundTalentsFragment extends BaseFragment implements View.OnClickListener, SmartRecyclerview.LoadingListener {
-
+    private String TAG="FoundTalentsFragment";
 
     @BindView(R.id.iv_choose_price)
     ImageView ivChoosePrice;

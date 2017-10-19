@@ -22,6 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_91PX"
             fresco:actualImageScaleType="fitXY"
+            android:clickable="false"
+            android:focusable="false"
             fresco:placeholderImageScaleType="fitXY" />
 
         <TextView
@@ -33,6 +35,8 @@
             android:maxLines="1"
             android:text="20171青戏节正式上线啦"
             android:textColor="#ff333333"
+            android:clickable="false"
+            android:focusable="false"
             android:textSize="@dimen/DIMEN_14PX" />
 
         <TextView
@@ -42,6 +46,8 @@
             android:layout_marginTop="@dimen/DIMEN_5PX"
             android:ellipsize="end"
             android:maxLines="1"
+            android:clickable="false"
+            android:focusable="false"
             android:text="刚刚"
             android:textColor="#ff999999"
             android:textSize="@dimen/DIMEN_13PX" />
@@ -66,6 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_91PX"
             fresco:actualImageScaleType="fitXY"
+            android:clickable="false"
+            android:focusable="false"
             fresco:placeholderImageScaleType="fitXY" />
 
         <TextView
@@ -74,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/DIMEN_5PX"
             android:ellipsize="end"
+            android:clickable="false"
+            android:focusable="false"
             android:maxLines="1"
             android:text="20171青戏节正式上线啦"
             android:textColor="#ff333333"
@@ -86,6 +96,8 @@
             android:layout_marginTop="@dimen/DIMEN_5PX"
             android:ellipsize="end"
             android:maxLines="1"
+            android:clickable="false"
+            android:focusable="false"
             android:text="刚刚"
             android:textColor="#ff999999"
             android:textSize="@dimen/DIMEN_13PX" />

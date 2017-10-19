@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.MainActivity;
 import com.art.huakai.artshow.adapter.CooperationOpportunitiesAdapter;
 import com.art.huakai.artshow.adapter.ExcellentWorksAdapter;
 import com.art.huakai.artshow.adapter.IndustryNewsAdapter;
@@ -54,7 +55,7 @@ import okhttp3.Call;
  * 演圈Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class ShowCircleFragment extends BaseFragment {
+public class ShowCircleFragment extends BaseFragment implements View.OnClickListener {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = ShowCircleFragment.class.getSimpleName();
     private HomePageDetails homePageDetails;
@@ -144,6 +145,7 @@ public class ShowCircleFragment extends BaseFragment {
     TextView tvChName;
 
 
+
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -184,12 +186,17 @@ public class ShowCircleFragment extends BaseFragment {
     @Override
     public void setView() {
         initData();
+        tvOneWhole.setOnClickListener(this);
+        tvTwoWhole.setOnClickListener(this);
+        tvThreeWhole.setOnClickListener(this);
+        tvFourWhole.setOnClickListener(this);
+        tvFiveWhole.setOnClickListener(this);
+
     }
 
     private void initData() {
         getHomePageDetails();
-
-        getList();
+//        getList();
     }
 
 
@@ -206,14 +213,12 @@ public class ShowCircleFragment extends BaseFragment {
                     homePageDetails = gson.fromJson(obj, HomePageDetails.class);
                     Log.e(TAG, "onSuccess: getid" + homePageDetails.getAdvert().getId());
                     Log.e(TAG, "onSuccess: getid" + homePageDetails.getAdvert().getLogo());
-
-
-                    uiHandler.sendEmptyMessage(0);
-                } else {
-                    ResponseCodeCheck.showErrorMsg(code);
-                }
+                uiHandler.sendEmptyMessage(0);
+            } else {
+                Log.e(TAG, "onSuccess: code=="+code );
+                ResponseCodeCheck.showErrorMsg(code);
             }
-
+            }
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
@@ -226,117 +231,196 @@ public class ShowCircleFragment extends BaseFragment {
 
     private void setData() {
 
-        if (homePageDetails.getNewses() != null) {
+        if(homePageDetails==null){
+            Log.e(TAG, "setData: nullnull" );
+            return;
+        }
+        if (homePageDetails.getNewses() != null&&homePageDetails.getNewses().size()>0) {
             if (null == typeOneAdapter) {
                 typeOneAdapter = new IndustryNewsAdapter(getContext(), homePageDetails.getNewses());
                 if (null == linearLayoutManagerOne) {
                     linearLayoutManagerOne = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 }
-//      实现屏蔽recyclerview的滑动效果
+                typeOneAdapter.setOnItemClickListener(new IndustryNewsAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(int position) {
+                        Log.e(TAG, "onItemClickListener: position=="+position );
+                    }
+                });
+//              实现屏蔽recyclerview的滑动效果
                 rcvOne.setNestedScrollingEnabled(false);
-//        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
                 LinearItemDecoration itemDecoration = new LinearItemDecoration(10);
                 rcvOne.addItemDecoration(itemDecoration);
                 rcvOne.setLayoutManager(linearLayoutManagerOne);
                 rcvOne.setAdapter(typeOneAdapter);
             }
+        }else{
+            rcvOne.setVisibility(View.GONE);
+            rlOne.setVisibility(View.GONE);
         }
 
-
-        if (null == typeTwoAdapter) {
-            typeTwoAdapter = new CooperationOpportunitiesAdapter(getContext(), homePageDetails.getEnrolls());
-            linearLayoutManagerTwo = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        if(homePageDetails.getEnrolls()!=null&&homePageDetails.getEnrolls().size()>0){
+            if (null == typeTwoAdapter) {
+                typeTwoAdapter = new CooperationOpportunitiesAdapter(getContext(), homePageDetails.getEnrolls());
+                linearLayoutManagerTwo = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            }
+            rcvTwo.setNestedScrollingEnabled(false);
+            if (null == linearItemDecorationTwo) {
+                linearItemDecorationTwo = new LinearItemDecoration(10);
+            }
+            typeTwoAdapter.setOnItemClickListener(new CooperationOpportunitiesAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    Log.e(TAG, "onItemClickListener: position=="+position );
+                }
+            });
+            rcvTwo.addItemDecoration(linearItemDecorationTwo);
+            rcvTwo.setLayoutManager(linearLayoutManagerTwo);
+            rcvTwo.setAdapter(typeTwoAdapter);
+        }else{
+            rcvTwo.setVisibility(View.GONE);
+            rlTwo.setVisibility(View.GONE);
         }
-        rcvTwo.setNestedScrollingEnabled(false);
-        if (null == linearItemDecorationTwo) {
-            linearItemDecorationTwo = new LinearItemDecoration(10);
-        }
-        rcvTwo.addItemDecoration(linearItemDecorationTwo);
-        rcvTwo.setLayoutManager(linearLayoutManagerTwo);
-        rcvTwo.setAdapter(typeTwoAdapter);
 
-
-        if (null == excellentWorksAdapter) {
-            excellentWorksAdapter = new ExcellentWorksAdapter(getContext(), homePageDetails.getRepertorys());
-            linearLayoutManagerThree = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        }
+        if(homePageDetails.getRepertorys()!=null&&homePageDetails.getRepertorys().size()>0){
+            if (null == excellentWorksAdapter) {
+                excellentWorksAdapter = new ExcellentWorksAdapter(getContext(), homePageDetails.getRepertorys());
+                linearLayoutManagerThree = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            }
 //        rcvThree.setNestedScrollingEnabled(false);
-        if (null == linearItemDecorationThree) {
-            linearItemDecorationThree = new LinearItemDecoration(10);
-        }
-        rcvThree.addItemDecoration(linearItemDecorationThree);
-        rcvThree.setLayoutManager(linearLayoutManagerThree);
-        rcvThree.setAdapter(excellentWorksAdapter);
+            if (null == linearItemDecorationThree) {
+                linearItemDecorationThree = new LinearItemDecoration(10);
+            }
+            excellentWorksAdapter.setOnItemClickListener(new ExcellentWorksAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
 
-        if (null == recommendTheaterAdapter) {
-            recommendTheaterAdapter = new RecommendTheaterAdapter(getContext(), homePageDetails.getTheaters());
-            linearLayoutManagerFour = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        }
-        if (null == linearItemDecorationFour) {
-            linearItemDecorationFour = new LinearItemDecoration(10);
-        }
-        rcvFour.addItemDecoration(linearItemDecorationFour);
-        rcvFour.setLayoutManager(linearLayoutManagerFour);
-        rcvFour.setAdapter(recommendTheaterAdapter);
+                    Log.e(TAG, "onItemClickListener: position=="+position );
 
-        if (null == professionalPersonAdapter) {
-            professionalPersonAdapter = new ProfessionalPersonAdapter(getContext(), homePageDetails.getTalents());
-            linearLayoutManagerFive = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                }
+            });
+            rcvThree.addItemDecoration(linearItemDecorationThree);
+            rcvThree.setLayoutManager(linearLayoutManagerThree);
+            rcvThree.setAdapter(excellentWorksAdapter);
+        }else{
+            rcvThree.setVisibility(View.GONE);
+            rlThree.setVisibility(View.GONE);
         }
-        if (null == linearItemDecorationFive) {
-            linearItemDecorationFive = new LinearItemDecoration(10);
+
+
+        if(homePageDetails.getTheaters()!=null&&homePageDetails.getTheaters().size()>0){
+            if (null == recommendTheaterAdapter) {
+                recommendTheaterAdapter = new RecommendTheaterAdapter(getContext(), homePageDetails.getTheaters());
+                linearLayoutManagerFour = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            }
+            if (null == linearItemDecorationFour) {
+                linearItemDecorationFour = new LinearItemDecoration(10);
+            }
+            recommendTheaterAdapter.setOnItemClickListener(new RecommendTheaterAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    Log.e(TAG, "onItemClickListener: position=="+position );
+                }
+            });
+            rcvFour.addItemDecoration(linearItemDecorationFour);
+            rcvFour.setLayoutManager(linearLayoutManagerFour);
+            rcvFour.setAdapter(recommendTheaterAdapter);
+        }else{
+            rcvFour.setVisibility(View.GONE);
+            rlFour.setVisibility(View.GONE);
         }
-        rcvFive.addItemDecoration(linearItemDecorationFive);
-        rcvFive.setLayoutManager(linearLayoutManagerFive);
-        rcvFive.setAdapter(professionalPersonAdapter);
 
-//        csiv.setImageURI(Uri.parse("asset:///test.png"));
 
-        csiv.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
+        if(homePageDetails.getTalents()!=null&&homePageDetails.getTalents().size()>0){
+            if (null == professionalPersonAdapter) {
+                professionalPersonAdapter = new ProfessionalPersonAdapter(getContext(), homePageDetails.getTalents());
+                linearLayoutManagerFive = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            }
+            if (null == linearItemDecorationFive) {
+                linearItemDecorationFive = new LinearItemDecoration(10);
+            }
+            professionalPersonAdapter.setOnItemClickListener(new ProfessionalPersonAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    Log.e(TAG, "onItemClickListener: position"+position );
+                }
+            });
+            rcvFive.addItemDecoration(linearItemDecorationFive);
+            rcvFive.setLayoutManager(linearLayoutManagerFive);
+            rcvFive.setAdapter(professionalPersonAdapter);
+        }else{
+            rcvFive.setVisibility(View.GONE);
+            rlFive.setVisibility(View.GONE);
+        }
 
+
+        csiv.setImageURI(Uri.parse("asset:///test.png"));
+//        csiv.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
 //      实现不在除此加载界面的时候显示recyclerview的第一个item
         sv.smoothScrollTo(0, 0);
 
     }
 
+    @Override
+    public void onClick(View v) {
+        MainActivity mainActivity= (MainActivity) getActivity();
 
-    private void getList(){
+        if(v.getId()==R.id.tv_one_whole){
 
-        Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_CLASSFY_LIST);
+        }else if(v.getId()==R.id.tv_two_whole){
 
-//        repertory  type  就是获取剧场下面的类型
-        params.put("type", "talent");
-        String sign = SignUtil.getSign(params);
-        params.put("sign", sign);
-        Log.e(TAG, "getList: sign=="+sign );
-        RequestUtil.request(true, Constant.URL_GET_CLASSFY_LIST, params, 101, new RequestUtil.RequestListener() {
-            @Override
-            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                LogUtil.i(TAG, obj);
-                    if (isSuccess) {
-                        Gson gson = new Gson();
-                        //TalentClassifyMessage talent = gson.fromJson(obj, TalentClassifyMessage.class);
+        }else if(v.getId()==R.id.tv_three_whole){
 
-                         Log.e(TAG, "onSuccess: obj=="+obj );
-
-                         uiHandler.sendEmptyMessage(0);
-                } else {
-                    ResponseCodeCheck.showErrorMsg(code);
-                }
-            }
-
-            @Override
-            public void onFailed(Call call, Exception e, int id) {
-                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-
-            }
-        });
+            mainActivity.showFragment(DiscoverFragment.TAG_FRAGMENT);
 
 
+        }else if(v.getId()==R.id.tv_four_whole){
 
+            mainActivity.showFragment(DiscoverFragment.TAG_FRAGMENT);
+
+        }else if(v.getId()==R.id.tv_five_whole){
+
+            mainActivity.showFragment(DiscoverFragment.TAG_FRAGMENT);
+
+        }
 
     }
+
+
+//    private void getList(){
+//
+//        Map<String, String> params = new TreeMap<>();
+//        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_CLASSFY_LIST);
+//
+////        repertory  type  就是获取剧场下面的类型
+//        params.put("type", "talent");
+//        String sign = SignUtil.getSign(params);
+//        params.put("sign", sign);
+//        Log.e(TAG, "getList: sign=="+sign );
+//        RequestUtil.request(true, Constant.URL_GET_CLASSFY_LIST, params, 101, new RequestUtil.RequestListener() {
+//            @Override
+//            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+//                LogUtil.i(TAG, obj);
+//                    if (isSuccess) {
+//                        Gson gson = new Gson();
+//                        TalentClassifyMessage talent = gson.fromJson(obj, TalentClassifyMessage.class);
+//
+//                         Log.e(TAG, "onSuccess: obj=="+obj );
+//
+//                         uiHandler.sendEmptyMessage(0);
+//                } else {
+//                    ResponseCodeCheck.showErrorMsg(code);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(Call call, Exception e, int id) {
+//                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+//
+//            }
+//        });
+//    }
 
 
 

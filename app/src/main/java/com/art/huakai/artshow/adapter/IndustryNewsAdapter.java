@@ -1,9 +1,13 @@
 package com.art.huakai.artshow.adapter;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -62,45 +66,62 @@ public class IndustryNewsAdapter extends  RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.e(TAG, "onBindViewHolder: position=="+position );
         if (holder instanceof TypeOneViewHolder){
-           TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
-            typeOneViewHolder.chinaShowImageViewOne.setImageResource(R.mipmap.test);
-            typeOneViewHolder.chinaShowImageViewTwo.setImageResource(R.mipmap.test);
-//            typeOneViewHolder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.e(TAG, "onClick: 2222" );
-//                }
-//            });
+            TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
+            if(list.size()==1){
+                typeOneViewHolder.ll_whole_two.setVisibility(View.GONE);
+            }else{
+                if(list.get(1)!=null){
+                    if( !TextUtils.isEmpty(list.get(1).getLogo())){
+                        typeOneViewHolder.chinaShowImageViewTwo.setImageURI(Uri.parse(list.get(1).getLogo()));
+                    }
+                    typeOneViewHolder.tv_update_time_two.setText(list.get(1).getCreateTime()+"");
+                    typeOneViewHolder.tv_name_two.setText(list.get(1).getTitle());
+                }
+        }
+        if(list.get(0)!=null){
+            if( !TextUtils.isEmpty(list.get(0).getLogo())){
+                typeOneViewHolder.chinaShowImageViewOne.setImageURI(Uri.parse(list.get(0).getLogo()));
+            }
+            typeOneViewHolder.tv_update_time_one.setText(list.get(0).getCreateTime()+"");
+            typeOneViewHolder.tv_name_one.setText(list.get(0).getTitle());
+        }
+
             typeOneViewHolder.ll_whole_one.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.e(TAG, "onClick: 111111" );
                     if(onItemClickListener!=null){
-                        Log.e(TAG, "onClick: 2222" );
-                        Toast.makeText(mContext,""+position,Toast.LENGTH_LONG).show();
-                        onItemClickListener.onItemClickListener(position);
+                        onItemClickListener.onItemClickListener(0);
                     }
                 }
             });
+
             typeOneViewHolder.ll_whole_two.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onItemClickListener!=null){
-                        Log.e(TAG, "onClick: 2222" );
-                        Toast.makeText(mContext,""+position,Toast.LENGTH_LONG).show();
-                        onItemClickListener.onItemClickListener(position);
+                            @Override
+                            public void onClick(View v) {
+                                Log.e(TAG, "onClick: 2222" );
+                                if(onItemClickListener!=null){
+                                    onItemClickListener.onItemClickListener(1);
                     }
                 }
             });
         }else if(holder instanceof TypeTwoViewHolder){
             TypeTwoViewHolder typeTwoViewHolder= (TypeTwoViewHolder) holder;
-            typeTwoViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
+            if(list.get(position+1)!=null){
+              if(!TextUtils.isEmpty(list.get(position+1).getLogo())){
+                  typeTwoViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position+1).getLogo()));
+              }
+                typeTwoViewHolder.tv_name.setText(list.get(position+1).getTitle());
+                typeTwoViewHolder.tv_subtitle.setText(list.get(position+1).getDescription());
+            }
+
             typeTwoViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(onItemClickListener!=null){
                         Toast.makeText(mContext,""+position,Toast.LENGTH_LONG).show();
                         Log.e(TAG, "onClick: 11111" );
-                        onItemClickListener.onItemClickListener(position);
+                        onItemClickListener.onItemClickListener(position+1);
                     }
                 }
             });
@@ -151,6 +172,12 @@ public class IndustryNewsAdapter extends  RecyclerView.Adapter{
         private LinearLayout ll_whole;
         public TypeTwoViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
             chinaShowImageView= (ChinaShowImageView) itemView.findViewById(R.id.sdv);
             tv_name= (TextView) itemView.findViewById(R.id.tv_name);
             tv_update_time= (TextView) itemView.findViewById(R.id.tv_update_time);

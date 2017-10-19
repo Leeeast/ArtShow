@@ -139,6 +139,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <View
+            android:id="@+id/news_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -160,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="10"
-                android:text="行业快讯"
+                android:text="合作机会"
                 android:textColor="@color/account_type_name"
                 android:textSize="@dimen/DIMEN_19PX" />
 
@@ -190,6 +191,7 @@
 
 
         <View
+            android:id="@+id/cooperation__divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -240,6 +242,7 @@
 
 
         <View
+            android:id="@+id/works__divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -290,6 +293,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <View
+            android:id="@+id/theatre__divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -337,6 +341,7 @@
             android:layout_marginLeft="@dimen/DIMEN_14PX"></android.support.v7.widget.RecyclerView>
 
         <View
+            android:id="@+id/talents_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"

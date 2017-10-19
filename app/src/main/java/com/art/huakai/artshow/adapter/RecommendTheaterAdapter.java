@@ -3,6 +3,7 @@ package com.art.huakai.artshow.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,12 @@ public class RecommendTheaterAdapter extends  RecyclerView.Adapter{
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
 //            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
-            typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
+            if(list.get(position)!=null){
+                if(!TextUtils.isEmpty(list.get(position).getLogo())){
+                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getLogo()));
+                }
+                typeOneViewHolder.tv_name.setText(list.get(position).getName());
+            }
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -94,9 +100,6 @@ public class RecommendTheaterAdapter extends  RecyclerView.Adapter{
             ll_whole= (LinearLayout) itemView.findViewById(R.id.ll_whole);
         }
     }
-
-
-
 
     public interface  OnItemClickListener{
         void onItemClickListener(int position);

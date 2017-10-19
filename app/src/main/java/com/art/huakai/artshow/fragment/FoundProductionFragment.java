@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FoundProductionFragment extends BaseFragment implements View.OnClickListener, SmartRecyclerview.LoadingListener {
-
+    private String TAG="FoundProductionFragment";
     @BindView(R.id.iv_choose_price)
     ImageView ivChoosePrice;
     @BindView(R.id.iv_choose_number)
@@ -65,27 +65,31 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     private int workskind=-1;
 
     public FoundProductionFragment() {
+        Log.e(TAG, "FoundProductionFragment: " );
         // Required empty public constructor
     }
 
     public static FoundProductionFragment newInstance() {
+
         FoundProductionFragment fragment = new FoundProductionFragment();
         return fragment;
     }
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        Log.e(TAG, "initData: " );
 
     }
 
     @Override
     public int getLayoutID() {
+        Log.e(TAG, "getLayoutID: " );
         return R.layout.fragment_found_production;
     }
 
     @Override
     public void initView(View rootView) {
+        Log.e(TAG, "initView: " );
 
     }
 
@@ -119,6 +123,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
+        Log.e(TAG, "onCreateView: " );
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         mLayoutInflater=inflater;
