@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_produce_add"
+    style="?android:attr/borderlessButtonStyle"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/DIMEN_38PX"
+    android:layout_marginBottom="@dimen/DIMEN_15PX"
+    android:layout_marginLeft="@dimen/DIMEN_15PX"
+    android:layout_marginRight="@dimen/DIMEN_15PX"
+    android:layout_marginTop="@dimen/DIMEN_43PX"
+    android:background="@drawable/border_bg_red"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:text="@string/enroll_produce_add"
+    android:textColor="@color/theatre_send_fail" />
+

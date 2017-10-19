@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rly_root_theatre"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/DIMEN_107PX"
+    android:layout_marginLeft="@dimen/DIMEN_15PX"
+    android:layout_marginRight="@dimen/DIMEN_15PX"
+    android:layout_marginTop="@dimen/DIMEN_15PX"
+    android:background="@drawable/enroll_apply_selector"
+    android:orientation="vertical">
+
+    <com.art.huakai.artshow.widget.ChinaShowImageView
+        android:id="@+id/sdv_theatre"
+        android:layout_width="@dimen/DIMEN_112PX"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="false"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="false"
+        fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/sdv_theatre"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/DIMEN_15PX">
+
+        <TextView
+            android:id="@+id/tv_theatre_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蒙拉丽莎的眼泪"
+            android:textColor="@color/theatre_title"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_12PX"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enroll_apply_number"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_actors_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:text="10"
+                android:textColor="@color/theatre_title"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enroll_first_show_time"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_first_show_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_10PX"
+                android:text="100"
+                android:textColor="@color/theatre_title"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/chk_enroll_apply"
+        android:layout_width="@dimen/DIMEN_19PX"
+        android:layout_height="@dimen/DIMEN_19PX"
+        android:enabled="false"
+        android:clickable="false"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/DIMEN_23PX"
+        android:background="@drawable/account_type_selector"
+        android:button="@null" />
+
+</RelativeLayout>

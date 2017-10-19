@@ -141,6 +141,7 @@
     <color name="cooperate_search_text">#ffcfc6d1</color>
     <color name="cooperate_item_bg">#fff5f9fb</color>
     <color name="cooperate_item_title">#ff555555</color>
+    <color name="enroll_apply_item_bg">#fff5f6f9</color>
     <!--我的相关-->
     <color name="me_personal_line">#fff5f3f1</color>
     <color name="me_personal_des">#ff9b9b9b</color>

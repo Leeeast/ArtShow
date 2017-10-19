@@ -117,6 +117,9 @@
     <string name="enroll_detail">详情介绍</string>
     <string name="enroll_detail_read">阅读：&#160;%1$d</string>
     <string name="enroll_apply">我要报名</string>
+    <string name="enroll_apply_number">演员人数</string>
+    <string name="enroll_first_show_time">首演时间</string>
+    <string name="enroll_produce_add">+&#160;&#160;添加新作品</string>
 
 
     <!--我的页面相关-->

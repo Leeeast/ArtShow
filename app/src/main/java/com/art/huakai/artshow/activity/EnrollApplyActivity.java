@@ -1,17 +1,18 @@
 package com.art.huakai.artshow.activity;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.EnrollApplyAdapter;
+import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
-import com.art.huakai.artshow.constant.JumpCode;
-import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.art.huakai.artshow.widget.SmartRecyclerview;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,11 +23,12 @@ public class EnrollApplyActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
     TextView tvSubTitle;
+    @BindView(R.id.recycle_production)
+    SmartRecyclerview recyclerview;
 
     @Override
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
-
     }
 
     @Override
@@ -49,7 +51,23 @@ public class EnrollApplyActivity extends BaseActivity {
 
     @Override
     public void setView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerview.setLayoutManager(linearLayoutManager);
 
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("132");
+        strings.add("132");
+        strings.add("132");
+        strings.add("132");
+        EnrollApplyAdapter enrollApplyAdapter = new EnrollApplyAdapter(strings);
+        enrollApplyAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                Toast.makeText(EnrollApplyActivity.this, "position = " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerview.setAdapter(enrollApplyAdapter);
     }
 
     /**
