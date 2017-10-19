@@ -39,14 +39,15 @@ public class Constant {
     public static final String URL_ENROLL_PAGE = BASE_URL + "/enroll/page";
     //招募详情
     public static final String URL_ENROLL_DETAIL = BASE_URL + "/enroll/detail";
-
-
+    //招募通告报名
+    public static final String URL_ENROLL_ENROLL = BASE_URL + "/enroll/enroll";
+    //已报名实体  已入围实体通过status区分 状态，0全部，1已入围的
+    public static final String URL_ENROLL_ENROLLED = BASE_URL + "/enroll/enrolled";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
 
     public static final String URL_GET_CLASSFY_LIST = BASE_URL + "/classify/list";
-
 
 
 //    获取地区借口
