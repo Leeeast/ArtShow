@@ -190,6 +190,12 @@
     <string name="tip_introduce_input">在此输入个人介绍</string>
     <string name="tip_description_input">请输入个人介绍</string>
     <string name="tip_description_change_suc">个人介绍修改成功</string>
+    <string name="tip_honor_input">在此输入获奖经历</string>
+    <string name="tip_honor_commit_suc">获奖经历修改成功</string>
+    <string name="tip_honor_input_empty">请输入获奖经历</string>
+    <string name="tip_works_input">在此输入个人作品</string>
+    <string name="tip_works_commit_suc">个人作品修改成功</string>
+    <string name="tip_works_empty">请此输入个人作品</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

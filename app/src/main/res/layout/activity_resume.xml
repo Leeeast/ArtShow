@@ -11,7 +11,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whiteff">
+        android:background="@color/whiteff"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -252,7 +253,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:checked="true"
+                    android:checked="false"
                     android:thumb="@drawable/switch_thumb"
                     android:track="@drawable/switch_track" />
 

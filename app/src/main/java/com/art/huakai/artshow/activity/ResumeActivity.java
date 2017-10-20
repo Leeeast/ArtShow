@@ -103,6 +103,26 @@ public class ResumeActivity extends BaseActivity {
     }
 
     /**
+     * 获奖经历
+     */
+    @OnClick(R.id.rly_award_exper)
+    public void jumpAwardExper() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ResumeFillActivity.PARAMS_ACTION, ResumeFillActivity.CODE_ACTION_FILL_AWARD);
+        invokActivity(this, ResumeFillActivity.class, bundle, JumpCode.FLAG_REQ_RESUME_FILL);
+    }
+
+    /**
+     * 或将经历
+     */
+    @OnClick(R.id.rly_self_works)
+    public void jumpSelfWorks() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ResumeFillActivity.PARAMS_ACTION, ResumeFillActivity.CODE_ACTION_FILL_WORKS);
+        invokActivity(this, ResumeFillActivity.class, bundle, JumpCode.FLAG_REQ_RESUME_FILL);
+    }
+
+    /**
      * 修改封面
      */
     @OnClick(R.id.sdv_avatar)
