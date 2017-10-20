@@ -7,18 +7,25 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.ProvinceBean;
+import com.art.huakai.artshow.utils.GsonTools;
+import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.entity.Province;
 import cn.qqtheme.framework.picker.DoublePicker;
 import cn.qqtheme.framework.picker.OptionPicker;
 import cn.qqtheme.framework.picker.SinglePicker;
 import cn.qqtheme.framework.widget.WheelView;
+import okhttp3.Call;
 
 /**
  * 基本资料Activity
@@ -143,5 +150,25 @@ public class BaseDataActivity extends BaseActivity {
             }
         });
         picker.show();
+    }
+
+    @OnClick(R.id.rly_live_city)
+    public void showSelectDialogAddress() {
+        RequestUtil.request(false, Constant.URL_REGION_LIST, null, 55, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                try {
+                    List<ProvinceBean> provinceBeen = GsonTools.parseDatas(obj, ProvinceBean.class);
+                    int size = provinceBeen.size();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+
+            }
+        });
     }
 }

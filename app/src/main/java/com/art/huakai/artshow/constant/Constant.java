@@ -57,6 +57,8 @@ public class Constant {
     public static final String URL_TALENT_EDIT_AWARDSDESCPT = BASE_URL + "/talent/edit/awardsDescpt";
     //修改简历个人作品
     public static final String URL_TALENT_EDIT_WORKSDESCPT = BASE_URL + "/talent/edit/worksDescpt";
+    //获取地区列表
+    public static final String URL_REGION_LIST = BASE_URL + "/region/list";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
