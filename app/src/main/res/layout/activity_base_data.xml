@@ -138,12 +138,24 @@
                     android:textSize="15sp" />
 
                 <ImageView
+                    android:id="@+id/iv_arrow_graduate"
                     android:layout_width="@dimen/DIMEN_10PX"
                     android:layout_height="@dimen/DIMEN_17PX"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:background="@mipmap/arrow_right" />
+
+                <TextView
+                    android:id="@+id/tv_graduate_institutions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toLeftOf="@id/iv_arrow_graduate"
+                    android:text=""
+                    android:textColor="@color/me_personal_des"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -283,8 +295,8 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@+id/tv_weight"
                     android:background="@null"
-                    android:hint="@string/user_must_fill"
                     android:gravity="right|center_vertical"
+                    android:hint="@string/user_must_fill"
                     android:textColor="@color/set_account_text"
                     android:textColorHint="@color/set_account_text"
                     android:textCursorDrawable="@null" />

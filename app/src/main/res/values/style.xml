@@ -103,4 +103,9 @@
         <item name="android:backgroundDimEnabled">false</item>
         <!--模糊-->
     </style>
+
+    <style name="Animation.CustomPopup" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_out</item>
+    </style>
 </resources>

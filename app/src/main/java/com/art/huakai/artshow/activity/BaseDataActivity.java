@@ -12,6 +12,9 @@ import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.OptionPicker;
+import cn.qqtheme.framework.picker.SinglePicker;
+import cn.qqtheme.framework.widget.WheelView;
 
 /**
  * 基本资料Activity
@@ -26,6 +29,8 @@ public class BaseDataActivity extends BaseActivity {
     TextView tvSubtitle;
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
+    @BindView(R.id.tv_graduate_institutions)
+    TextView tvGraduateInstitu;
 
     @Override
     public void immerseStatusBar() {
@@ -72,4 +77,27 @@ public class BaseDataActivity extends BaseActivity {
         Toast.makeText(this, "确认信息", Toast.LENGTH_SHORT).show();
     }
 
+    @OnClick(R.id.rly_graduate_institutions)
+    public void showSelectDialogGraduate() {
+        String[] graduateArray = getResources().getStringArray(R.array.graduate_institutions);
+        SinglePicker picker = new SinglePicker(this, graduateArray);
+        picker.setCanceledOnTouchOutside(false);
+        picker.setDividerRatio(WheelView.DividerConfig.FILL);
+        picker.setSelectedIndex(0);
+        picker.setCycleDisable(true);
+        picker.setAnimationStyle(R.style.Animation_CustomPopup);
+        picker.setTextSize(23);
+
+        WheelView.DividerConfig dividerConfig = new WheelView.DividerConfig();
+        dividerConfig.setRatio(WheelView.DividerConfig.FILL);
+        dividerConfig.setThick(1);
+        picker.setDividerConfig(dividerConfig);
+        picker.setOnItemPickListener(new OptionPicker.OnOptionPickListener() {
+            @Override
+            public void onOptionPicked(int index, String item) {
+                tvGraduateInstitu.setText(item);
+            }
+        });
+        picker.show();
+    }
 }

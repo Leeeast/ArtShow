@@ -23,4 +23,17 @@
         <item>找人才</item>
     </string-array>
 
+    <string-array name="graduate_institutions">
+        <item>不限</item>
+        <item>中央戏剧学院</item>
+        <item>北京电影学院</item>
+        <item>中国传媒大学</item>
+        <item>上海戏剧学院</item>
+        <item>北京舞蹈学院</item>
+        <item>中央音乐学院</item>
+        <item>解放军艺术学院</item>
+        <item>中国戏曲学院</item>
+        <item>其他学院</item>
+    </string-array>
+
 </resources>
