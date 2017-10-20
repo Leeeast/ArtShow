@@ -5,7 +5,7 @@
     android:id="@+id/rly_head"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/blackb8"
+    android:background="@color/me_head_bg"
     app:contentScrim="?attr/colorPrimary">
 
     <ImageView

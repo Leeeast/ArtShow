@@ -10,9 +10,11 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.LoginActivity;
@@ -117,9 +119,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                         tvType.setText(getString(R.string.account_type_personal));
                         switchFragment(CODE_STATUS_PERSONAL);
                         AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) toolbarLayout.getLayoutParams();
-                        //设置不滑动
-                        layoutParams.setScrollFlags(0);
-                        toolbarLayout.setLayoutParams(layoutParams);
+                        layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED |
+                                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL);
+                        //设置不刷新
                         mRefreshLayout.setEnabled(false);
                         break;
                     case LocalUserInfo.USER_TYPE_PUBLISHER:
@@ -136,6 +138,20 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }
             } else {
                 switchFragment(CODE_STATUS_UNLOGIN);
+                appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                    @Override
+                    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                        if (verticalOffset >= 0) {
+                            mRefreshLayout.setEnabled(true);
+                        } else {
+                            mRefreshLayout.setEnabled(false);
+                        }
+                    }
+                });
+                AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) toolbarLayout.getLayoutParams();
+                //设置滑动
+                layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL |
+                        AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,7 +188,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }
             }
         });
-
         AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) toolbarLayout.getLayoutParams();
         //设置滑动
         layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL |

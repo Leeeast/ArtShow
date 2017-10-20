@@ -153,7 +153,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
 
-                //setData();
+                setData();
 
             }
         }

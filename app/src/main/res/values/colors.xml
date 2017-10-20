@@ -156,6 +156,7 @@
     <color name="change_pwd_line">#ffe6e9ed</color>
     <color name="check_photo_album">#ff4a4a4a</color>
     <color name="photo_album_bg">#ffe6e6e7</color>
+    <color name="me_head_bg">#fff0f1f3</color>
     <!--合作招募-->
     <color name="enroll_sub_title">#ff4a4a4a</color>
     <color name="enroll_start_time">#ff6d747f</color>

@@ -16,7 +16,6 @@
             android:id="@+id/app_barlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blackb8"
             android:fitsSystemWindows="false"
             android:orientation="vertical">
 

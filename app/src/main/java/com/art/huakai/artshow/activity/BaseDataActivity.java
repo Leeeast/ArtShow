@@ -1,11 +1,13 @@
 package com.art.huakai.artshow.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import butterknife.BindView;
@@ -22,6 +24,8 @@ public class BaseDataActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
     TextView tvSubtitle;
+    @BindView(R.id.tv_user_name)
+    TextView tvUserName;
 
     @Override
     public void immerseStatusBar() {
@@ -42,6 +46,9 @@ public class BaseDataActivity extends BaseActivity {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.resume_base_data);
         tvSubtitle.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(LocalUserInfo.getInstance().getName())) {
+            tvUserName.setText(LocalUserInfo.getInstance().getName());
+        }
     }
 
     @Override
