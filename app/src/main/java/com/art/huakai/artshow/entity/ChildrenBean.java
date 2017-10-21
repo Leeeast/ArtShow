@@ -1,0 +1,33 @@
+package com.art.huakai.artshow.entity;
+
+/**
+ * Created by lining on 2017/10/21.
+ */
+public class ChildrenBean {
+
+    /**
+     * id : 178
+     * name : 话剧演员
+     * children : []
+     */
+
+    private int id;
+    private String name;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+}
