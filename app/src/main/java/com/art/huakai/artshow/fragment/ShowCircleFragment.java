@@ -7,7 +7,9 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,29 +28,20 @@ import com.art.huakai.artshow.adapter.RecommendTheaterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
-import com.art.huakai.artshow.entity.BannersBean;
-import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.entity.HomePageDetails;
-import com.art.huakai.artshow.entity.NewsesBean;
-import com.art.huakai.artshow.entity.RepertorysBean;
-import com.art.huakai.artshow.entity.TalentClassifyMessage;
-import com.art.huakai.artshow.entity.TalentsBean;
-import com.art.huakai.artshow.entity.TheatersBean;
 import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
-import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
-import com.flyco.tablayout.widget.MsgView;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import okhttp3.Call;
 
 /**
@@ -58,6 +51,17 @@ import okhttp3.Call;
 public class ShowCircleFragment extends BaseFragment implements View.OnClickListener {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = ShowCircleFragment.class.getSimpleName();
+    @BindView(R.id.news_divider)
+    View newsDivider;
+    @BindView(R.id.cooperation_divider)
+    View cooperationDivider;
+    @BindView(R.id.works_divider)
+    View worksDivider;
+    @BindView(R.id.theatre_divider)
+    View theatreDivider;
+    @BindView(R.id.talents_divider)
+    View talentsDivider;
+    Unbinder unbinder;
     private HomePageDetails homePageDetails;
 
     @BindView(R.id.iv_search)
@@ -71,90 +75,81 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     @BindView(R.id.tv_home_page_top_festival)
     TextView tvHomePageTopFestival;
     @BindView(R.id.tv_one_title)
-    TextView tvOneTitle;
+    TextView tvIndustryNewsTitle;
     @BindView(R.id.tv_one_whole)
-    TextView tvOneWhole;
+    TextView tvIndustryNewsWhole;
     @BindView(R.id.rl_one)
-    RelativeLayout rlOne;
+    RelativeLayout rlIndustryNews;
     @BindView(R.id.rcv_one)
-    RecyclerView rcvOne;
-    IndustryNewsAdapter typeOneAdapter;
-    LinearLayoutManager linearLayoutManagerOne;
-
+    RecyclerView rcvIndustryNews;
+    IndustryNewsAdapter industryNewsAdapter;
+    LinearLayoutManager industryNewsLayoutManager;
 
     @BindView(R.id.sv)
-    ScrollView sv;
+    ScrollView scrollView;
     @BindView(R.id.tv_two_title)
-    TextView tvTwoTitle;
+    TextView tvCooperationTitle;
     @BindView(R.id.tv_two_whole)
-    TextView tvTwoWhole;
+    TextView tvCooperationWhole;
     @BindView(R.id.rl_two)
-    RelativeLayout rlTwo;
+    RelativeLayout rlCooperation;
     @BindView(R.id.rcv_two)
-    RecyclerView rcvTwo;
-    CooperationOpportunitiesAdapter typeTwoAdapter;
-    LinearLayoutManager linearLayoutManagerTwo;
-    LinearItemDecoration linearItemDecorationTwo;
-
+    RecyclerView rcvCooperation;
+    CooperationOpportunitiesAdapter cooperationAdapter;
+    LinearLayoutManager cooperationLayoutManager;
+    LinearItemDecoration cooperationItemDecoration;
 
     @BindView(R.id.tv_three_title)
-    TextView tvThreeTitle;
+    TextView tvWorksTitle;
     @BindView(R.id.tv_three_whole)
-    TextView tvThreeWhole;
+    TextView tvWorksWhole;
     @BindView(R.id.rl_three)
-    RelativeLayout rlThree;
+    RelativeLayout rlWorks;
     @BindView(R.id.rcv_three)
-    RecyclerView rcvThree;
-    LinearLayoutManager linearLayoutManagerThree;
+    RecyclerView rcvWorks;
+    LinearLayoutManager worksLayoutManager;
     ExcellentWorksAdapter excellentWorksAdapter;
-    LinearItemDecoration linearItemDecorationThree;
-
+    LinearItemDecoration worksItemDecorationThree;
 
     @BindView(R.id.tv_four_title)
-    TextView tvFourTitle;
+    TextView tvTheatreTitle;
     @BindView(R.id.tv_four_whole)
-    TextView tvFourWhole;
+    TextView tvTheatreWhole;
     @BindView(R.id.rl_four)
-    RelativeLayout rlFour;
+    RelativeLayout rlTheatre;
     @BindView(R.id.rcv_four)
-    RecyclerView rcvFour;
-    LinearLayoutManager linearLayoutManagerFour;
+    RecyclerView rcvTheatre;
+    LinearLayoutManager theatreLayoutManagerFour;
     RecommendTheaterAdapter recommendTheaterAdapter;
-    LinearItemDecoration linearItemDecorationFour;
+    LinearItemDecoration theatreItemDecoration;
 
     @BindView(R.id.tv_five_title)
-    TextView tvFiveTitle;
+    TextView tvProfessionalTitle;
     @BindView(R.id.tv_five_whole)
-    TextView tvFiveWhole;
+    TextView tvProfessionalWhole;
     @BindView(R.id.rl_five)
-    RelativeLayout rlFive;
+    RelativeLayout rlProfessional;
     @BindView(R.id.rcv_five)
-    RecyclerView rcvFive;
-    LinearLayoutManager linearLayoutManagerFive;
+    RecyclerView rcvProfesional;
+    LinearLayoutManager professionalLayoutManager;
     ProfessionalPersonAdapter professionalPersonAdapter;
-    LinearItemDecoration linearItemDecorationFive;
-
+    LinearItemDecoration professionalItemDecoration;
 
     @BindView(R.id.csiv)
-    ChinaShowImageView csiv;
+    ChinaShowImageView chinaShowImageView;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_eg_name)
     TextView tvEgName;
     @BindView(R.id.tv_ch_name)
     TextView tvChName;
-
-
-
-
+    private int scrollDistance;
 
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-
                 setData();
-
             }
         }
     };
@@ -173,6 +168,23 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            if (homePageDetails == null) {
+                getHomePageDetails();
+            }
+            if (scrollView != null) {
+                if(scrollDistance==0){
+                    scrollView.smoothScrollTo(0, 0);
+                }
+            }
+        }else{
+            scrollDistance=scrollView.getScrollY();
+        }
+    }
+
+    @Override
     public int getLayoutID() {
         return R.layout.fragment_show_circle;
     }
@@ -188,12 +200,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     @Override
     public void setView() {
         initData();
-        tvOneWhole.setOnClickListener(this);
-        tvTwoWhole.setOnClickListener(this);
-        tvThreeWhole.setOnClickListener(this);
-        tvFourWhole.setOnClickListener(this);
-        tvFiveWhole.setOnClickListener(this);
-
+        tvIndustryNewsWhole.setOnClickListener(this);
+        tvCooperationWhole.setOnClickListener(this);
+        tvWorksWhole.setOnClickListener(this);
+        tvTheatreWhole.setOnClickListener(this);
+        tvProfessionalWhole.setOnClickListener(this);
     }
 
     private void initData() {
@@ -201,243 +212,218 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //        getList();
     }
 
-
     private void getHomePageDetails() {
-
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_HOMEPAGE_INFOS==" + Constant.URL_GET_HOMEPAGE_INFOS);
         RequestUtil.request(true, Constant.URL_GET_HOMEPAGE_INFOS, params, 100, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                LogUtil.i(TAG, obj);
                 if (isSuccess) {
-                    Gson gson = new Gson();
-                    homePageDetails = gson.fromJson(obj, HomePageDetails.class);
-                    Log.e(TAG, "onSuccess: getid" + homePageDetails.getAdvert().getId());
-                    Log.e(TAG, "onSuccess: getid" + homePageDetails.getAdvert().getLogo());
-                uiHandler.sendEmptyMessage(0);
-            } else {
-                Log.e(TAG, "onSuccess: code=="+code );
-                ResponseCodeCheck.showErrorMsg(code);
+                    if(!TextUtils.isEmpty(obj)){
+                        Gson gson = new Gson();
+                        homePageDetails = gson.fromJson(obj, HomePageDetails.class);
+                        Log.e(TAG, "onSuccess: getid" + homePageDetails.getAdvert().getLogo());
+                        uiHandler.sendEmptyMessage(0);
+                    }else{
+                        Log.e(TAG, "onSuccess: obj=nullnull");
+                    }
+                } else {
+                    Log.e(TAG, "onSuccess: code==" + code);
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
             }
-            }
+
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-
             }
         });
-
     }
 
 
     private void setData() {
 
-        if(homePageDetails==null){
-            Log.e(TAG, "setData: nullnull" );
+        if (homePageDetails == null) {
+            Log.e(TAG, "setData: nullnull");
             return;
         }
-        if (homePageDetails.getNewses() != null&&homePageDetails.getNewses().size()>0) {
-            if (null == typeOneAdapter) {
-                typeOneAdapter = new IndustryNewsAdapter(getContext(), homePageDetails.getNewses());
-                if (null == linearLayoutManagerOne) {
-                    linearLayoutManagerOne = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                }
-                typeOneAdapter.setOnItemClickListener(new IndustryNewsAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClickListener(int position) {
-                        Log.e(TAG, "onItemClickListener: position=="+position );
-                    }
-                });
-//              实现屏蔽recyclerview的滑动效果
-                rcvOne.setNestedScrollingEnabled(false);
-//              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-                LinearItemDecoration itemDecoration = new LinearItemDecoration(10);
-                rcvOne.addItemDecoration(itemDecoration);
-                rcvOne.setLayoutManager(linearLayoutManagerOne);
-                rcvOne.setAdapter(typeOneAdapter);
-            }
-        }else{
-            rcvOne.setVisibility(View.GONE);
-            rlOne.setVisibility(View.GONE);
-        }
 
-        if(homePageDetails.getEnrolls()!=null&&homePageDetails.getEnrolls().size()>0){
-            if (null == typeTwoAdapter) {
-                typeTwoAdapter = new CooperationOpportunitiesAdapter(getContext(), homePageDetails.getEnrolls());
-                linearLayoutManagerTwo = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        if (homePageDetails.getNewses() != null && homePageDetails.getNewses().size() > 0) {
+            if (null == industryNewsAdapter) {
+                industryNewsAdapter = new IndustryNewsAdapter(getContext(), homePageDetails.getNewses());
             }
-            rcvTwo.setNestedScrollingEnabled(false);
-            if (null == linearItemDecorationTwo) {
-                linearItemDecorationTwo = new LinearItemDecoration(10);
+            if (null == industryNewsLayoutManager) {
+                industryNewsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             }
-            typeTwoAdapter.setOnItemClickListener(new CooperationOpportunitiesAdapter.OnItemClickListener() {
+            industryNewsAdapter.setOnItemClickListener(new IndustryNewsAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
-                    Log.e(TAG, "onItemClickListener: position=="+position );
+                    Log.e(TAG, "onItemClickListener: position==" + position);
                 }
             });
-            rcvTwo.addItemDecoration(linearItemDecorationTwo);
-            rcvTwo.setLayoutManager(linearLayoutManagerTwo);
-            rcvTwo.setAdapter(typeTwoAdapter);
-        }else{
-            rcvTwo.setVisibility(View.GONE);
-            rlTwo.setVisibility(View.GONE);
+//              实现屏蔽recyclerview的滑动效果
+            rcvIndustryNews.setNestedScrollingEnabled(false);
+//              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+            LinearItemDecoration itemDecoration = new LinearItemDecoration(10);
+            rcvIndustryNews.addItemDecoration(itemDecoration);
+            rcvIndustryNews.setLayoutManager(industryNewsLayoutManager);
+            rcvIndustryNews.setAdapter(industryNewsAdapter);
+        } else {
+            rcvIndustryNews.setVisibility(View.GONE);
+            rlIndustryNews.setVisibility(View.GONE);
+            newsDivider.setVisibility(View.GONE);
         }
 
-        if(homePageDetails.getRepertorys()!=null&&homePageDetails.getRepertorys().size()>0){
+        if (homePageDetails.getEnrolls() != null && homePageDetails.getEnrolls().size() > 0) {
+            if (null == cooperationAdapter) {
+                cooperationAdapter = new CooperationOpportunitiesAdapter(getContext(), homePageDetails.getEnrolls());
+                cooperationLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            }
+            rcvCooperation.setNestedScrollingEnabled(false);
+            if (null == cooperationItemDecoration) {
+                cooperationItemDecoration = new LinearItemDecoration(10);
+            }
+            cooperationAdapter.setOnItemClickListener(new CooperationOpportunitiesAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    Log.e(TAG, "onItemClickListener: position==" + position);
+                }
+            });
+            rcvCooperation.addItemDecoration(cooperationItemDecoration);
+            rcvCooperation.setLayoutManager(cooperationLayoutManager);
+            rcvCooperation.setAdapter(cooperationAdapter);
+        } else {
+            rcvCooperation.setVisibility(View.GONE);
+            rlCooperation.setVisibility(View.GONE);
+            cooperationDivider.setVisibility(View.GONE);
+
+        }
+        if (homePageDetails.getRepertorys() != null && homePageDetails.getRepertorys().size() > 0) {
             if (null == excellentWorksAdapter) {
                 excellentWorksAdapter = new ExcellentWorksAdapter(getContext(), homePageDetails.getRepertorys());
-                linearLayoutManagerThree = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                worksLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
-//        rcvThree.setNestedScrollingEnabled(false);
-            if (null == linearItemDecorationThree) {
-                linearItemDecorationThree = new LinearItemDecoration(10);
+//        rcvWorks.setNestedScrollingEnabled(false);
+            if (null == worksItemDecorationThree) {
+                worksItemDecorationThree = new LinearItemDecoration(10);
             }
             excellentWorksAdapter.setOnItemClickListener(new ExcellentWorksAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
 
-                    Log.e(TAG, "onItemClickListener: position=="+position );
+                    Log.e(TAG, "onItemClickListener: position==" + position);
 
                 }
             });
-            rcvThree.addItemDecoration(linearItemDecorationThree);
-            rcvThree.setLayoutManager(linearLayoutManagerThree);
-            rcvThree.setAdapter(excellentWorksAdapter);
-        }else{
-            rcvThree.setVisibility(View.GONE);
-            rlThree.setVisibility(View.GONE);
+            rcvWorks.addItemDecoration(worksItemDecorationThree);
+            rcvWorks.setLayoutManager(worksLayoutManager);
+            rcvWorks.setAdapter(excellentWorksAdapter);
+        } else {
+            rcvWorks.setVisibility(View.GONE);
+            rlWorks.setVisibility(View.GONE);
+            worksDivider.setVisibility(View.GONE);
         }
 
 
-        if(homePageDetails.getTheaters()!=null&&homePageDetails.getTheaters().size()>0){
+        if (homePageDetails.getTheaters() != null && homePageDetails.getTheaters().size() > 0) {
             if (null == recommendTheaterAdapter) {
                 recommendTheaterAdapter = new RecommendTheaterAdapter(getContext(), homePageDetails.getTheaters());
-                linearLayoutManagerFour = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                theatreLayoutManagerFour = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
-            if (null == linearItemDecorationFour) {
-                linearItemDecorationFour = new LinearItemDecoration(10);
+            if (null == theatreItemDecoration) {
+                theatreItemDecoration = new LinearItemDecoration(10);
             }
             recommendTheaterAdapter.setOnItemClickListener(new RecommendTheaterAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
-                    Log.e(TAG, "onItemClickListener: position=="+position );
+                    Log.e(TAG, "onItemClickListener: position==" + position);
                 }
             });
-            rcvFour.addItemDecoration(linearItemDecorationFour);
-            rcvFour.setLayoutManager(linearLayoutManagerFour);
-            rcvFour.setAdapter(recommendTheaterAdapter);
-        }else{
-            rcvFour.setVisibility(View.GONE);
-            rlFour.setVisibility(View.GONE);
+            rcvTheatre.addItemDecoration(theatreItemDecoration);
+            rcvTheatre.setLayoutManager(theatreLayoutManagerFour);
+            rcvTheatre.setAdapter(recommendTheaterAdapter);
+        } else {
+            rcvTheatre.setVisibility(View.GONE);
+            rlTheatre.setVisibility(View.GONE);
+            theatreDivider.setVisibility(View.GONE);
         }
 
 
-        if(homePageDetails.getTalents()!=null&&homePageDetails.getTalents().size()>0){
+        if (homePageDetails.getTalents() != null && homePageDetails.getTalents().size() > 0) {
             if (null == professionalPersonAdapter) {
                 professionalPersonAdapter = new ProfessionalPersonAdapter(getContext(), homePageDetails.getTalents());
-                linearLayoutManagerFive = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                professionalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
-            if (null == linearItemDecorationFive) {
-                linearItemDecorationFive = new LinearItemDecoration(10);
+            if (null == professionalItemDecoration) {
+                professionalItemDecoration = new LinearItemDecoration(10);
             }
             professionalPersonAdapter.setOnItemClickListener(new ProfessionalPersonAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
-                    Log.e(TAG, "onItemClickListener: position"+position );
+                    Log.e(TAG, "onItemClickListener: position" + position);
                 }
             });
-            rcvFive.addItemDecoration(linearItemDecorationFive);
-            rcvFive.setLayoutManager(linearLayoutManagerFive);
-            rcvFive.setAdapter(professionalPersonAdapter);
-        }else{
-            rcvFive.setVisibility(View.GONE);
-            rlFive.setVisibility(View.GONE);
+            rcvProfesional.addItemDecoration(professionalItemDecoration);
+            rcvProfesional.setLayoutManager(professionalLayoutManager);
+            rcvProfesional.setAdapter(professionalPersonAdapter);
+        } else {
+            rcvProfesional.setVisibility(View.GONE);
+            rlProfessional.setVisibility(View.GONE);
+            talentsDivider.setVisibility(View.GONE);
         }
-
-
-        csiv.setImageURI(Uri.parse("asset:///test.png"));
-//        csiv.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
+        chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
+//        chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
 //      实现不在除此加载界面的时候显示recyclerview的第一个item
-        sv.smoothScrollTo(0, 0);
-
+        scrollView.smoothScrollTo(0, 0);
     }
 
     @Override
     public void onClick(View v) {
-        MainActivity mainActivity= (MainActivity) getActivity();
-
-        if(v.getId()==R.id.tv_one_whole){
-            if(null!=mainActivity){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (v.getId() == R.id.tv_one_whole) {
+            if (null != mainActivity) {
                 mainActivity.setWholeItemPosition(1);
                 mainActivity.setCheckId(R.id.rdobtn_me);
             }
-        }else if(v.getId()==R.id.tv_two_whole){
-            if(null!=mainActivity){
+        } else if (v.getId() == R.id.tv_two_whole) {
+            if (null != mainActivity) {
                 mainActivity.setWholeItemPosition(2);
                 mainActivity.setCheckId(R.id.rdobtn_collaborate);
             }
-        }else if(v.getId()==R.id.tv_three_whole){
-
-            if(null!=mainActivity){
+        } else if (v.getId() == R.id.tv_three_whole) {
+            if (null != mainActivity) {
                 mainActivity.setWholeItemPosition(3);
                 mainActivity.setCheckId(R.id.rdobtn_discover);
             }
 
-        }else if(v.getId()==R.id.tv_four_whole){
-
-            if(null!=mainActivity){
+        } else if (v.getId() == R.id.tv_four_whole) {
+            if (null != mainActivity) {
                 mainActivity.setWholeItemPosition(4);
                 mainActivity.setCheckId(R.id.rdobtn_discover);
             }
 
-        }else if(v.getId()==R.id.tv_five_whole){
-
-            if(null!=mainActivity){
+        } else if (v.getId() == R.id.tv_five_whole) {
+            if (null != mainActivity) {
                 mainActivity.setWholeItemPosition(5);
                 mainActivity.setCheckId(R.id.rdobtn_discover);
             }
 
         }
-
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
-//    private void getList(){
-//
-//        Map<String, String> params = new TreeMap<>();
-//        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_CLASSFY_LIST);
-//
-////        repertory  type  就是获取剧场下面的类型
-//        params.put("type", "talent");
-//        String sign = SignUtil.getSign(params);
-//        params.put("sign", sign);
-//        Log.e(TAG, "getList: sign=="+sign );
-//        RequestUtil.request(true, Constant.URL_GET_CLASSFY_LIST, params, 101, new RequestUtil.RequestListener() {
-//            @Override
-//            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-//                LogUtil.i(TAG, obj);
-//                    if (isSuccess) {
-//                        Gson gson = new Gson();
-//                        TalentClassifyMessage talent = gson.fromJson(obj, TalentClassifyMessage.class);
-//
-//                         Log.e(TAG, "onSuccess: obj=="+obj );
-//
-//                         uiHandler.sendEmptyMessage(0);
-//                } else {
-//                    ResponseCodeCheck.showErrorMsg(code);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailed(Call call, Exception e, int id) {
-//                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-//
-//            }
-//        });
-//    }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
 
 }

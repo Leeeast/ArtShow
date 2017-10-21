@@ -191,7 +191,7 @@
 
 
         <View
-            android:id="@+id/cooperation__divider"
+            android:id="@+id/cooperation_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -242,7 +242,7 @@
 
 
         <View
-            android:id="@+id/works__divider"
+            android:id="@+id/works_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -293,7 +293,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <View
-            android:id="@+id/theatre__divider"
+            android:id="@+id/theatre_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"

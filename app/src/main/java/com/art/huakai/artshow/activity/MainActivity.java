@@ -1,18 +1,19 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
-import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.fragment.CooperateFragment;
@@ -31,6 +32,8 @@ import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import java.util.Map;
 import java.util.TreeMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 
 /**
@@ -41,27 +44,36 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     protected FragmentManager fragmentManager;
     protected FragmentTransaction ft;
+    @BindView(R.id.rdobtn_show_circle)
+    RadioButton rdobtnShowCircle;
+    @BindView(R.id.rdobtn_discover)
+    RadioButton rdobtnDiscover;
+    @BindView(R.id.rdobtn_collaborate)
+    RadioButton rdobtnCollaborate;
+    @BindView(R.id.rdobtn_me)
+    RadioButton rdobtnMe;
     private String[] fragmentTags = new String[]{ShowCircleFragment.TAG_FRAGMENT,
             DiscoverFragment.TAG_FRAGMENT, CooperateFragment.TAG_FRAGMENT, MeFragment.TAG_FRAGMENT};
     //再次点击退出使用
     private long touchTime = 0;
-    private int wholeItemPosition=1000;
-    private boolean isValid=true;
+    private int wholeItemPosition = 1000;
+    private boolean isValid = true;
     private RadioGroup radioGroup;
 
     public int getWholeItemPosition() {
-        if(isValid){
-            isValid=false;
+        if (isValid) {
+            isValid = false;
             return wholeItemPosition;
-        }else{
+        } else {
             return 1000;
         }
     }
 
     public void setWholeItemPosition(int wholeItemPosition) {
-        isValid=true;
+        isValid = true;
         this.wholeItemPosition = wholeItemPosition;
     }
+
     @Override
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
@@ -137,7 +149,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void initView() {
-        radioGroup= (RadioGroup) findViewById(R.id.rdogp_main_tab);
+        radioGroup = (RadioGroup) findViewById(R.id.rdogp_main_tab);
         radioGroup.setOnCheckedChangeListener(this);
     }
 
@@ -148,6 +160,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, @IdRes int checkedId) {
+
         switch (checkedId) {
             case R.id.rdobtn_show_circle:
                 showFragment(ShowCircleFragment.TAG_FRAGMENT);
@@ -170,28 +183,39 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      * @param tag
      */
     private void showFragment(String tag) {
-        Log.e(TAG, "showFragment: tag=="+tag );
+        Log.e(TAG, "showFragment: tag==" + tag);
         ft = fragmentManager.beginTransaction();
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragmentManager.findFragmentByTag(tag) == null) {
+            Log.e(TAG, "showFragment: 111111==" + tag);
             fragment = addFragment(tag);
         }
         if (!fragment.isAdded()) {
+            Log.e(TAG, "showFragment: 222222==" + tag);
             ft.add(R.id.fly_content, fragment, tag);
         } else {
+            Log.e(TAG, "showFragment: 3333==" + tag);
             ft.show(fragment);
             // ft.addToBackStack(tag);
         }
         hideOtherFragment(tag, ft);
         ft.commitAllowingStateLoss();
-        if(fragment instanceof DiscoverFragment){
-            DiscoverFragment discoverFragment= (DiscoverFragment) fragment;
+        if (fragment instanceof DiscoverFragment) {
+            DiscoverFragment discoverFragment = (DiscoverFragment) fragment;
             ((DiscoverFragment) fragment).setCurrentItem();
         }
     }
 
-    public void setCheckId(int id){
-        radioGroup.check(id);
+    public void setCheckId(int id) {
+       if(id==R.id.rdobtn_collaborate){
+           rdobtnCollaborate.setChecked(true);
+       }else if(id==R.id.rdobtn_discover){
+           rdobtnDiscover.setChecked(true);
+       }else if(id==R.id.rdobtn_show_circle){
+           rdobtnShowCircle.setChecked(true);
+       }else if(id==R.id.rdobtn_me){
+           rdobtnMe.setChecked(true);
+       }
     }
 
     /**
@@ -209,10 +233,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         } else if (tag.equals(CooperateFragment.TAG_FRAGMENT)) {
             fragment = CooperateFragment.newInstance();
         } else if (tag.equals(MeFragment.TAG_FRAGMENT)) {
-        fragment = MeFragment.newInstance();
+            fragment = MeFragment.newInstance();
         }
         return fragment;
-        }
+    }
 
     /**
      * 隐藏别的Fragment
@@ -241,5 +265,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         } else {
             this.finish();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

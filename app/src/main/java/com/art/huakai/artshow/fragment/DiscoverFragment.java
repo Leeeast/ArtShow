@@ -2,6 +2,7 @@ package com.art.huakai.artshow.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class DiscoverFragment extends BaseFragment {
     private ArrayList<Fragment> mFragments;
     private SlidingTabLayout stlDisTab;
     private ViewPager viewPager;
+    private Handler handler=new Handler();
 
     public DiscoverFragment() {
         Log.e(TAG, "DiscoverFragment: " );
@@ -73,24 +75,52 @@ public class DiscoverFragment extends BaseFragment {
     }
 
     @Override
-    public void setView() {
-        Log.e(TAG, "setView: " );
-        DisPagerAdapter disPagerAdapter = new DisPagerAdapter(getChildFragmentManager(), mFragments, mTabArray);
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
         MainActivity mainActivity= (MainActivity) getActivity();
         if(mainActivity!=null){
             int wholeItemPosition=mainActivity.getWholeItemPosition();
-            if(wholeItemPosition==3){
-                viewPager.setCurrentItem(1);
-            }else if(wholeItemPosition==4){
-                viewPager.setCurrentItem(0);
-            }else if(wholeItemPosition==5){
-                viewPager.setCurrentItem(2);
+            if(viewPager!=null&&viewPager.getChildCount()==3){
+                Log.e(TAG, "setView: wholeItemPosition=="+wholeItemPosition );
+                if(wholeItemPosition==3){
+                    viewPager.setCurrentItem(1);
+                }else if(wholeItemPosition==4){
+                    viewPager.setCurrentItem(0);
+                }else if(wholeItemPosition==5){
+                    viewPager.setCurrentItem(2);
+                }
             }
         }
 
+    }
+
+    @Override
+    public void setView() {
+        Log.e(TAG, "setView: " );
+        DisPagerAdapter disPagerAdapter = new DisPagerAdapter(getChildFragmentManager(), mFragments, mTabArray);
+        final MainActivity mainActivity= (MainActivity) getActivity();
         viewPager.setAdapter(disPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         stlDisTab.setViewPager(viewPager);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(mainActivity!=null){
+                    int wholeItemPosition=mainActivity.getWholeItemPosition();
+                    Log.e(TAG, "setView: wholeItemPosition=="+wholeItemPosition );
+                    if(viewPager.getChildCount()==3){
+                        if(wholeItemPosition==3){
+                            viewPager.setCurrentItem(1);
+                        }else if(wholeItemPosition==4){
+                            viewPager.setCurrentItem(0);
+                        }else if(wholeItemPosition==5){
+                            viewPager.setCurrentItem(2);
+                        }
+                    }
+                }
+            }
+        },300);
+
     }
 
 
