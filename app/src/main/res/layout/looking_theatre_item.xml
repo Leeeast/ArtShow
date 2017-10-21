@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/DIMEN_163PX"
+    android:layout_height="wrap_content"
+
     >
 
     <LinearLayout
@@ -12,6 +12,10 @@
         android:layout_height="@dimen/DIMEN_163PX"
         android:clickable="true"
         android:focusable="true"
+        android:layout_marginBottom="@dimen/DIMEN_15PX"
+        android:layout_marginLeft="@dimen/DIMEN_15PX"
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:background="@drawable/shape_theatre_item"
         android:orientation="horizontal"
         >
 
@@ -122,7 +126,7 @@
    <View
        android:layout_width="match_parent"
        android:layout_height="@dimen/DIMEN_1PX"
-       android:background="#ff1a1a1c"
+       android:background="#ffb3b3b3"
        android:layout_marginRight="@dimen/DIMEN_30PX"
        android:layout_marginTop="@dimen/DIMEN_3PX"
        />

@@ -24,7 +24,7 @@
             android:id="@+id/tv_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
+            android:textSize="@dimen/DIMEN_12PX"
             android:textColor="#ff5a4b41"
             android:text="费用由高到低"
             android:layout_marginTop="@dimen/DIMEN_15PX"
@@ -57,13 +57,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
         <TextView
             android:id="@+id/tv_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
+            android:textSize="@dimen/DIMEN_12PX"
             android:textColor="#ff5a4b41"
             android:text="费用由低到高"
             android:layout_marginTop="@dimen/DIMEN_15PX"
@@ -104,7 +102,7 @@
             android:id="@+id/tv_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
+            android:textSize="@dimen/DIMEN_12PX"
             android:textColor="#ff5a4b41"
             android:text="座位数由高到低"
             android:layout_marginTop="@dimen/DIMEN_15PX"
@@ -145,7 +143,7 @@
             android:id="@+id/tv_four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
+            android:textSize="@dimen/DIMEN_12PX"
             android:textColor="#ff5a4b41"
             android:text="座位数由低到高"
             android:layout_marginTop="@dimen/DIMEN_15PX"

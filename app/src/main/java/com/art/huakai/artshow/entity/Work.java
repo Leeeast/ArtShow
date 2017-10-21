@@ -7,17 +7,17 @@ public class Work {
     /**
      * id : 8a999cce5e4ccfa8015e5691aeeb009b
      * logo : https://www.showonline.com.cn/image/2017/09/06/84826db9521144628d10b0095b765cad@thumb.jpeg
-     * title : 我是我爷爷
-     * agency : 青麦演艺经纪（北京）有限公司
-     * expense : 100000
-     * peopleNum : 30
-     * premiereTime : 1508256000000
-     * classifyId : 4
-     * classifyName : 音乐剧
-     * rounds : 0
-     * status : 1
-     * createTime : 1508347961982
-     */
+    * title : 我是我爷爷
+    * agency : 青麦演艺经纪（北京）有限公司
+    * expense : 100000
+            * peopleNum : 30
+            * premiereTime : 1508256000000
+            * classifyId : 4
+            * classifyName : 音乐剧
+    * rounds : 0
+            * status : 1
+            * createTime : 1508347961982
+            */
 
     private String id;
     private String logo;

@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.Talent;
+import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
@@ -56,20 +58,28 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
 
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
-//            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
+            if(position==0){
+                RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
+                layoutParams.setMargins((int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX));
+                typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
+             }
+
             if(list.get(position)!=null){
                 Talent talent=list.get(position);
                 if(!TextUtils.isEmpty(talent.getLogo())){
                     typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(talent.getLogo()));
-
-
                 }
-
-
+                String str="";
+                if(talent.getClassifyNames()!=null&&talent.getClassifyNames().size()>0){
+                    for(int i=0;i<talent.getClassifyNames().size();i++){
+                        str=str+talent.getClassifyNames().get(i);
+                    }
+                }
+                typeOneViewHolder.tv_professional_name.setText(talent.getName());
+                typeOneViewHolder.tv_majors.setText(str);
+                typeOneViewHolder.tv_subside_organ.setText(talent.getAgency());
             }
 
-
-//            typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,6 +123,20 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
 
     public interface  OnItemClickListener{
         void onItemClickListener(int position);
+    }
+
+    public void add(ArrayList<Talent> theatres){
+        int lastIndex = this.list.size();
+        if (this.list.addAll(theatres)) {
+            notifyItemRangeInserted(lastIndex, list.size());
+        }
+    }
+
+    public void notifyDataSetChange(ArrayList<Talent> theatres){
+        list.clear();
+        if(this.list.addAll(theatres)){
+            notifyDataSetChanged();
+        }
     }
 
 

@@ -13,25 +13,20 @@
     android:background="#ffffffff"
     >
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        
         <TextView
             android:id="@+id/tv_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
+            android:textSize="@dimen/DIMEN_12PX"
             android:textColor="#ff5a4b41"
             android:text="年龄由高到低"
             android:layout_marginTop="@dimen/DIMEN_15PX"
             android:clickable="true"
             />
-
-
         <ImageView
             android:id="@+id/iv_one"
             android:layout_width="wrap_content"
@@ -42,7 +37,6 @@
             android:visibility="gone"
             />
     </RelativeLayout>
-
 
     <View
         android:layout_width="match_parent"
@@ -57,13 +51,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
         <TextView
             android:id="@+id/tv_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
+            android:textSize="@dimen/DIMEN_12PX"
             android:textColor="#ff5a4b41"
             android:text="年龄由低到高"
             android:layout_marginTop="@dimen/DIMEN_15PX"
@@ -83,9 +75,7 @@
     </RelativeLayout>
 
 
-
     <View
-
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
         android:layout_marginLeft="@dimen/DIMEN_14PX"

@@ -8,8 +8,8 @@
 
 
     <TextView
-        android:id="@+id/tv"
-        android:layout_width="match_parent"
+    android:id="@+id/tv"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/DIMEN_50PX"
     android:clickable="true"
     android:textColor="#ff202020"
@@ -19,6 +19,5 @@
     android:ellipsize="end"
     android:background="#fffe8b00"
     />
-
 
 </RelativeLayout>

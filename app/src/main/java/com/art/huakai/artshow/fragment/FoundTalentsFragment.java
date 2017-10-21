@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +22,15 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.LookingProfessionalAdapter;
-import com.art.huakai.artshow.adapter.LookingWorksAdapter;
-import com.art.huakai.artshow.adapter.SingleChooseAdapter;
+import com.art.huakai.artshow.adapter.SkillChooseAdapter;
+import com.art.huakai.artshow.adapter.TalentFilterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
+import com.art.huakai.artshow.entity.ChildrenBean;
+import com.art.huakai.artshow.entity.SkillBean;
 import com.art.huakai.artshow.entity.Talent;
-import com.art.huakai.artshow.entity.Work;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -48,44 +50,50 @@ import butterknife.Unbinder;
 import okhttp3.Call;
 
 public class FoundTalentsFragment extends BaseFragment implements View.OnClickListener, SmartRecyclerview.LoadingListener {
-    private String TAG="FoundTalentsFragment";
+    @BindView(R.id.ll_complex_ranking)
+    LinearLayout llComplexRanking;
+    @BindView(R.id.ll_city_choose)
+    LinearLayout llSkillChoose;
+    @BindView(R.id.ll_filter)
+    LinearLayout llFilter;
+    private String TAG = "FoundTalentsFragment";
 
     @BindView(R.id.iv_choose_price)
-    ImageView ivChoosePrice;
+    ImageView ivComplexRanking;
     @BindView(R.id.iv_choose_number)
-    ImageView ivChooseNumber;
+    ImageView ivChooseSkill;
     @BindView(R.id.iv_real_choose)
-    ImageView ivRealChoose;
+    ImageView ivFilter;
     Unbinder unbinder;
     @BindView(R.id.recyclerView)
     SmartRecyclerview recyclerView;
     @BindView(R.id.tv_whole_ranking)
-    TextView tvWholeRanking;
+    TextView tvComplexRanking;
     @BindView(R.id.tv_city_choose)
-    TextView tvCityChoose;
+    TextView tvSkillChoose;
     @BindView(R.id.tv_real_filter)
-    TextView tvRealFilter;
-    @BindView(R.id.ll_choose)
-    LinearLayout llChoose;
-    private ArrayList<Talent> list;
+    TextView tvFilter;
+    private ArrayList<Talent> talentLists=new ArrayList<Talent>();
     private LookingProfessionalAdapter lookingWorksAdapter;
     private LinearLayoutManager linearlayoutManager;
     private LinearItemDecoration linearItemDecoration;
 
     private PopupWindow popupWindow;
     private LayoutInflater mLayoutInflater;
-    private int WholeRankingRule = 0;
-    private int theatreSize = -1;
-    private int theatrefee = -1;
-    private int college = -1;
-    private int workskind = -1;
+    private int complexRankingRule = 0;
+    private int yearPosition = -1;
+    private String collegeName = "";
+    private int certificationPosition = -1;
+    private int noRequest = -1;
+    private int others = -1;
 
-    private int actorType = -1;
-    private int directorType = -1;
-    private int skillKind = -1;
-    private int managerKind = -1;
-    private int noRequest=-1;
-    private int others=-1;
+    private String skillParentId="";
+    private String skillChildId="";
+    private int skillChildPosition=-1;
+
+    private int page=1;
+
+    private List<SkillBean>skillBeanList=new ArrayList<SkillBean>();
 
     public FoundTalentsFragment() {
         // Required empty public constructor
@@ -95,9 +103,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-
                 setData();
-
             }
         }
     };
@@ -109,7 +115,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        getList();
+        getSkillClassify();
     }
 
     @Override
@@ -119,21 +126,18 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void initView(View rootView) {
-        ivChoosePrice.setOnClickListener(this);
-        ivChooseNumber.setOnClickListener(this);
-        ivRealChoose.setOnClickListener(this);
+        llComplexRanking.setOnClickListener(this);
+        llSkillChoose.setOnClickListener(this);
+        llFilter.setOnClickListener(this);
         recyclerView.setLoadingListener(this);
-        recyclerView.refresh();
-        getList();
     }
 
-    private void setData(){
+    private void setData() {
 
         linearlayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         linearItemDecoration = new LinearItemDecoration((int) getContext().getResources().getDimension(R.dimen.DIMEN_14PX));
         recyclerView.setLayoutManager(linearlayoutManager);
-//        recyclerView.addItemDecoration(linearItemDecoration);
-        lookingWorksAdapter = new LookingProfessionalAdapter(getContext(), list);
+        lookingWorksAdapter = new LookingProfessionalAdapter(getContext(), talentLists);
         recyclerView.setAdapter(lookingWorksAdapter);
         lookingWorksAdapter.setOnItemClickListener(new LookingProfessionalAdapter.OnItemClickListener() {
             @Override
@@ -141,7 +145,6 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
             }
         });
-
     }
 
     @Override
@@ -172,41 +175,41 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         Log.e(TAG, "onClick: v.getId==" + v.getId());
         switch (v.getId()) {
 
-            case R.id.iv_choose_number:
+            case R.id.ll_city_choose:
 
                 Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
-                tvWholeRanking.setTextColor(0xff5a4b41);
-                ivChoosePrice.setImageResource(R.mipmap.arrow_down_icon);
-                tvCityChoose.setTextColor(0xffe93c2c);
-                ivChooseNumber.setImageResource(R.mipmap.arrow_active);
-                tvRealFilter.setTextColor(0xff5a4b41);
-                ivRealChoose.setImageResource(R.mipmap.filter_default);
+                tvComplexRanking.setTextColor(0xff5a4b41);
+                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+                tvSkillChoose.setTextColor(0xffe93c2c);
+                ivChooseSkill.setImageResource(R.mipmap.arrow_active);
+                tvFilter.setTextColor(0xff5a4b41);
+                ivFilter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(2);
 
                 break;
 
-            case R.id.iv_choose_price:
+            case R.id.ll_complex_ranking:
 
 
-                tvWholeRanking.setTextColor(0xffe93c2c);
-                ivChoosePrice.setImageResource(R.mipmap.arrow_active);
-                tvCityChoose.setTextColor(0xff5a4b41);
-                ivChooseNumber.setImageResource(R.mipmap.arrow_down_icon);
-                tvRealFilter.setTextColor(0xff5a4b41);
-                ivRealChoose.setImageResource(R.mipmap.filter_default);
+                tvComplexRanking.setTextColor(0xffe93c2c);
+                ivComplexRanking.setImageResource(R.mipmap.arrow_active);
+                tvSkillChoose.setTextColor(0xff5a4b41);
+                ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
+                tvFilter.setTextColor(0xff5a4b41);
+                ivFilter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(1);
                 Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
 
                 break;
 
-            case R.id.iv_real_choose:
+            case R.id.ll_filter:
 
-                tvWholeRanking.setTextColor(0xff5a4b41);
-                ivChoosePrice.setImageResource(R.mipmap.arrow_down_icon);
-                tvCityChoose.setTextColor(0xff5a4b41);
-                ivChooseNumber.setImageResource(R.mipmap.arrow_down_icon);
-                tvRealFilter.setTextColor(0xffe93c2c);
-                ivRealChoose.setImageResource(R.mipmap.filter_active);
+                tvComplexRanking.setTextColor(0xff5a4b41);
+                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+                tvSkillChoose.setTextColor(0xff5a4b41);
+                ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
+                tvFilter.setTextColor(0xffe93c2c);
+                ivFilter.setImageResource(R.mipmap.filter_active);
                 showPopuwindow(3);
                 Toast.makeText(getContext(), "iv_real_choose", Toast.LENGTH_SHORT).show();
 
@@ -219,14 +222,15 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefresh() {
 
-
+        page=1;
+        getList();
 
     }
 
     @Override
     public void onLoadMore() {
 
-
+        getList();
 
     }
 
@@ -234,6 +238,20 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         if (popupWindow == null) {
             popupWindow = new PopupWindow();
         }
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+
+                if(complexRankingRule!=0){
+                    ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
+                    tvComplexRanking.setTextColor(0xffe93c2c);
+                }
+                if(TextUtils.isEmpty(skillChildId)){
+                    ivChooseSkill.setImageResource(R.mipmap.arrow_down_active);
+                    tvSkillChoose.setTextColor(0xffe93c2c);
+                }
+            }
+        });
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -241,36 +259,40 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         popupWindow.setFocusable(true);
         if (type == 1) {
             View content = mLayoutInflater.inflate(R.layout.found_talent_whole_ranking_popuwindow_item, null);
-            if (WholeRankingRule == 1) {
+            if (complexRankingRule == 1) {
                 content.findViewById(R.id.iv_one).setVisibility(View.VISIBLE);
                 TextView view = (TextView) content.findViewById(R.id.tv_one);
                 view.setTextColor(0xffe93c2c);
-            } else if (WholeRankingRule == 2) {
+
+            } else if (complexRankingRule == 2) {
                 content.findViewById(R.id.iv_two).setVisibility(View.VISIBLE);
                 TextView view = (TextView) content.findViewById(R.id.tv_two);
                 view.setTextColor(0xffe93c2c);
+
             }
             popupWindow.setContentView(content);
             content.findViewById(R.id.tv_one).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WholeRankingRule = 1;
+                    complexRankingRule = 1;
+                    tvSkillChoose.setText("年龄由高到低");
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
                 }
-            });
-            content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    WholeRankingRule = 2;
-                    if (popupWindow != null && popupWindow.isShowing()) {
-                        popupWindow.dismiss();
+                });
+                content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        complexRankingRule = 2;
+                        tvSkillChoose.setText("年龄由低到高");
+                        if (popupWindow != null && popupWindow.isShowing()) {
+                            popupWindow.dismiss();
                     }
                 }
             });
         } else if (type == 3) {
-            View content = mLayoutInflater.inflate(R.layout.found_talents_real_filter_popuwindow_item, null);
+            final View content = mLayoutInflater.inflate(R.layout.found_talents_real_filter_popuwindow_item, null);
 
             ArrayList<String> stringsone = new ArrayList<String>();
             stringsone.add("不限");
@@ -281,11 +303,11 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             stringsone.add("46-60岁");
             stringsone.add("60岁以上");
             RecyclerView recyclerViewone = (RecyclerView) content.findViewById(R.id.rcv_one);
-            final SingleChooseAdapter singleChooseAdapterone = new SingleChooseAdapter(getContext(), stringsone, theatreSize);
-            singleChooseAdapterone.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
+            final TalentFilterAdapter singleChooseAdapterone = new TalentFilterAdapter(getContext(), stringsone, yearPosition);
+            singleChooseAdapterone.setOnItemClickListener(new TalentFilterAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, String url) {
-                    theatreSize = position;
+                    yearPosition = position;
                 }
             });
             GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(2, GridLayoutManager.VERTICAL, 40, 20);
@@ -309,11 +331,12 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             stringstwo.add("中央音乐学院");
             stringstwo.add("解放军艺术学校");
             stringstwo.add("其他");
-            final SingleChooseAdapter singleChooseAdaptertwo = new SingleChooseAdapter(getContext(), stringstwo, theatrefee);
-            singleChooseAdaptertwo.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
+            int position=stringstwo.indexOf(collegeName);
+            final TalentFilterAdapter singleChooseAdaptertwo = new TalentFilterAdapter(getContext(), stringstwo, position);
+            singleChooseAdaptertwo.setOnItemClickListener(new TalentFilterAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(int position, String url) {
-                    theatrefee = position;
+                public void onItemClick(int position, String name) {
+                    collegeName=name;
                 }
             });
             GridLayoutItemDecoration gridLayoutItemDecorationtwo = new GridLayoutItemDecoration(2, GridLayoutManager.VERTICAL, 40, 20);
@@ -331,11 +354,11 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             stringsthree.add("不限");
             stringsthree.add("专业认证");
 
-            final SingleChooseAdapter singleChooseAdapterthree = new SingleChooseAdapter(getContext(), stringsthree, college);
-            singleChooseAdapterthree.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
+            final TalentFilterAdapter singleChooseAdapterthree = new TalentFilterAdapter(getContext(), stringsthree, certificationPosition);
+            singleChooseAdapterthree.setOnItemClickListener(new TalentFilterAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, String url) {
-                    college = position;
+                    certificationPosition = position;
                 }
             });
             GridLayoutItemDecoration gridLayoutItemDecorationthree = new GridLayoutItemDecoration(2, GridLayoutManager.VERTICAL, 40, 20);
@@ -351,15 +374,15 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 @Override
                 public void onClick(View v) {
                     if (singleChooseAdapterone != null) {
-                        theatreSize = -1;
+                        yearPosition = -1;
                         singleChooseAdapterone.resetData();
                     }
                     if (singleChooseAdaptertwo != null) {
-                        theatrefee = -1;
+                        collegeName = "";
                         singleChooseAdaptertwo.resetData();
                     }
                     if (singleChooseAdapterthree != null) {
-                        college = -1;
+                        certificationPosition = -1;
                         singleChooseAdapterthree.resetData();
                     }
                 }
@@ -379,23 +402,21 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         } else if (type == 2) {
 
             View content = mLayoutInflater.inflate(R.layout.found_talents_skill_kind_popuwindow_item, null);
-            final TextView tv_no_request= (TextView) content.findViewById(R.id.tv_no_request);
-            final TextView tv_others= (TextView) content.findViewById(R.id.tv_others);
-            if(noRequest==0){
+            LinearLayout rl_whole= (LinearLayout) content.findViewById(R.id.rl_whole);
+            final TextView tv_no_request = (TextView) content.findViewById(R.id.tv_no_request);
+            final TextView tv_others = (TextView) content.findViewById(R.id.tv_others);
+            if (noRequest == 0) {
                 tv_no_request.setTextColor(0xffe93c2c);
                 tv_no_request.setBackgroundResource(R.drawable.red_rectang);
-            }else{
+            } else {
                 tv_no_request.setTextColor(0xff9b9b9b);
                 tv_no_request.setBackgroundResource(R.drawable.grey_rectang);
             }
 
-
-
-
-            if(others==0){
+            if (others == 0) {
                 tv_others.setTextColor(0xffe93c2c);
                 tv_others.setBackgroundResource(R.drawable.red_rectang);
-            }else{
+            } else {
                 tv_others.setTextColor(0xff9b9b9b);
                 tv_others.setBackgroundResource(R.drawable.grey_rectang);
             }
@@ -403,240 +424,233 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             tv_no_request.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    others=0;
+                    others = 0;
                     tv_others.setTextColor(0xffe93c2c);
                     tv_others.setBackgroundResource(R.drawable.red_rectang);
                     tv_no_request.setTextColor(0xff9b9b9b);
                     tv_no_request.setBackgroundResource(R.drawable.grey_rectang);
-                    noRequest=-1;
+                    noRequest = -1;
+                    skillChildId="";
+                    skillParentId="";
+                    skillChildPosition=-1;
                 }
             });
 
-            ArrayList<String> stringsone = new ArrayList<String>();
-            stringsone.add("话剧演员");
-            stringsone.add("影视演员");
-            stringsone.add("戏曲演员");
-            stringsone.add("舞蹈演员");
-            stringsone.add("歌唱演员");
-            stringsone.add("器乐演员");
-            stringsone.add("曲艺演员");
-            stringsone.add("杂技演员");
-            RecyclerView recyclerViewone = (RecyclerView) content.findViewById(R.id.rcv_one);
-            final SingleChooseAdapter singleChooseAdapterone = new SingleChooseAdapter(getContext(), stringsone, actorType);
-            singleChooseAdapterone.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position, String url) {
-                    actorType = position;
-                    tv_no_request.setTextColor(0xff9b9b9b);
-                    tv_no_request.setBackgroundResource(R.drawable.grey_rectang);
-                    noRequest=-1;
+            for(int i=0;i<skillBeanList.size();i++){
+                final List<ChildrenBean>tempChildrenBeans=skillBeanList.get(i).getChildren();
+                if(tempChildrenBeans==null&&tempChildrenBeans.size()==0){
+                    Log.e(TAG, "showPopuwindow: hahaha00000" );
                 }
-            });
-            GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
-            recyclerViewone.setItemAnimator(null);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            recyclerViewone.addItemDecoration(gridLayoutItemDecorationone);
-            recyclerViewone.setLayoutManager(gridLayoutManager);
-            recyclerViewone.setAdapter(singleChooseAdapterone);
-            recyclerViewone.setNestedScrollingEnabled(false);
-
-            RecyclerView recyclerViewtwo = (RecyclerView) content.findViewById(R.id.rcv_two);
-            ArrayList<String> stringstwo = new ArrayList<String>();
-            stringstwo.add("编剧");
-            stringstwo.add("导演");
-            stringstwo.add("编舞");
-            stringstwo.add("作词作曲");
-            stringstwo.add("戏剧构作");
-
-            final SingleChooseAdapter singleChooseAdaptertwo = new SingleChooseAdapter(getContext(), stringstwo, directorType);
-            singleChooseAdaptertwo.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position, String url) {
-                    directorType = position;
-                    tv_no_request.setTextColor(0xff9b9b9b);
-                    tv_no_request.setBackgroundResource(R.drawable.grey_rectang);
-                    noRequest=-1;
-
-                }
-            });
-            GridLayoutItemDecoration gridLayoutItemDecorationtwo = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
-            recyclerViewtwo.setItemAnimator(null);
-            GridLayoutManager gridLayoutManagertwo = new GridLayoutManager(getContext(), 3);
-            gridLayoutManagertwo.setOrientation(GridLayoutManager.VERTICAL);
-            recyclerViewtwo.addItemDecoration(gridLayoutItemDecorationtwo);
-            recyclerViewtwo.setLayoutManager(gridLayoutManagertwo);
-            recyclerViewtwo.setAdapter(singleChooseAdaptertwo);
-            recyclerViewtwo.setNestedScrollingEnabled(false);
-
-
-            RecyclerView recyclerViewthree = (RecyclerView) content.findViewById(R.id.rcv_three);
-            ArrayList<String> stringsthree = new ArrayList<String>();
-            stringsthree.add("舞美设计");
-            stringsthree.add("灯光设计");
-            stringsthree.add("服装设计");
-            stringsthree.add("音乐音响");
-            stringsthree.add("多媒体视频");
-            stringsthree.add("舞台特效");
-            stringsthree.add("平面设计");
-
-            final SingleChooseAdapter singleChooseAdapterthree = new SingleChooseAdapter(getContext(), stringsthree, skillKind);
-            singleChooseAdapterthree.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position, String url) {
-                    skillKind = position;
-                    tv_no_request.setTextColor(0xff9b9b9b);
-                    tv_no_request.setBackgroundResource(R.drawable.grey_rectang);
-                    noRequest=-1;
-                }
-            });
-            GridLayoutItemDecoration gridLayoutItemDecorationthree = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
-            recyclerViewthree.setItemAnimator(null);
-            GridLayoutManager gridLayoutManagerthree = new GridLayoutManager(getContext(), 3);
-            gridLayoutManagerthree.setOrientation(GridLayoutManager.VERTICAL);
-            recyclerViewthree.addItemDecoration(gridLayoutItemDecorationthree);
-            recyclerViewthree.setLayoutManager(gridLayoutManagerthree);
-            recyclerViewthree.setAdapter(singleChooseAdapterthree);
-            recyclerViewthree.setNestedScrollingEnabled(false);
-
-
-            RecyclerView recyclerViewfour = (RecyclerView) content.findViewById(R.id.rcv_four);
-            ArrayList<String> stringsfour = new ArrayList<String>();
-            stringsfour.add("制作人");
-            stringsfour.add("宣传推广");
-            stringsfour.add("票务营销");
-            stringsfour.add("商务合作");
-            stringsfour.add("舞台监督");
-            stringsfour.add("剧场经理");
-
-            final SingleChooseAdapter singleChooseAdapterfour = new SingleChooseAdapter(getContext(), stringsfour, managerKind);
-            singleChooseAdapterfour.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position, String url) {
-                    managerKind = position;
-                    tv_no_request.setTextColor(0xff9b9b9b);
-                    tv_no_request.setBackgroundResource(R.drawable.grey_rectang);
-                    noRequest=-1;
-                }
-        });
-        GridLayoutItemDecoration gridLayoutItemDecorationfour = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
-        recyclerViewfour.setItemAnimator(null);
-        GridLayoutManager gridLayoutManagerfour = new GridLayoutManager(getContext(), 3);
-        gridLayoutManagerfour.setOrientation(GridLayoutManager.VERTICAL);
-        recyclerViewfour.addItemDecoration(gridLayoutItemDecorationfour);
-        recyclerViewfour.setLayoutManager(gridLayoutManagerfour);
-        recyclerViewfour.setAdapter(singleChooseAdapterfour);
-        recyclerViewfour.setNestedScrollingEnabled(false);
-
-
-        content.findViewById(R.id.but_reset).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (singleChooseAdapterone != null) {
-                        actorType = -1;
-                        singleChooseAdapterone.resetData();
+                View view=LayoutInflater.from(getContext()).inflate(R.layout.skill_choose_item,null);
+                TextView tv= (TextView) view.findViewById(R.id.tv_name);
+                RecyclerView recyclerView= (RecyclerView) view.findViewById(R.id.rcv);
+                final String tempSkillParentId=skillBeanList.get(i).getId()+"";
+                boolean tempWhetherChoosen=skillParentId.equals(tempSkillParentId);
+                tv.setText(skillBeanList.get(i).getName());
+                final SkillChooseAdapter skillChooseAdapter=new SkillChooseAdapter(getContext(),tempChildrenBeans,skillChildPosition,tempWhetherChoosen);
+                skillChooseAdapter.setOnItemClickListener(new SkillChooseAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, String url) {
+                        skillParentId=tempSkillParentId;
+                        skillChildId=tempChildrenBeans.get(position).getId()+"";
+                        skillChildPosition=position;
+                        if(popupWindow!=null&&popupWindow.isShowing()){
+                            popupWindow.dismiss();
+                        }
                     }
-                    if (singleChooseAdaptertwo != null) {
-                        directorType = -1;
-                        singleChooseAdaptertwo.resetData();
-                    }
-                    if (singleChooseAdapterthree != null) {
-                        skillKind = -1;
-                        singleChooseAdapterthree.resetData();
-                    }
-                    if (singleChooseAdapterfour != null) {
-                        managerKind = -1;
-                        singleChooseAdapterfour.resetData();
-                    }
-                    others=-1;
-                    noRequest=-1;
-                }
-            });
-
-            content.findViewById(R.id.but_sure).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (popupWindow != null && popupWindow.isShowing()) {
-                        popupWindow.dismiss();
-                    }
-                }
-            });
-
-            tv_no_request.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    noRequest=0;
-                    tv_no_request.setTextColor(0xffe93c2c);
-                    tv_no_request.setBackgroundResource(R.drawable.red_rectang);
-                    tv_others.setTextColor(0xff9b9b9b);
-                    tv_others.setBackgroundResource(R.drawable.grey_rectang);
-                    others=-1;
-
-                    if (singleChooseAdapterone != null) {
-                        actorType = -1;
-                        singleChooseAdapterone.resetData();
-                    }
-                    if (singleChooseAdaptertwo != null) {
-                        directorType = -1;
-                        singleChooseAdaptertwo.resetData();
-                    }
-                    if (singleChooseAdapterthree != null) {
-                        skillKind = -1;
-                        singleChooseAdapterthree.resetData();
-                    }
-                    if (singleChooseAdapterfour != null) {
-                        managerKind = -1;
-                        singleChooseAdapterfour.resetData();
-                    }
-
-                }
-            });
-
+                });
+                GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
+                recyclerView.setItemAnimator(null);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+                gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+                recyclerView.addItemDecoration(gridLayoutItemDecorationone);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setAdapter(skillChooseAdapter);
+                recyclerView.setNestedScrollingEnabled(false);
+                rl_whole.addView(view,i+1);
+            }
 
             popupWindow.setContentView(content);
         }
         if (popupWindow != null && !popupWindow.isShowing()) {
-            popupWindow.showAsDropDown(llChoose, 0, 0);
+            popupWindow.showAsDropDown(llComplexRanking, 0, 0);
         }
     }
 
 
-
-    private void getList(){
+    private void getList() {
 
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_WORKS);
-        params.put("page", "1");
+        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_TALENTS);
+        if(!TextUtils.isEmpty(skillChildId)){
+            params.put("classifyId", skillChildId);
+        }
+        if(yearPosition==1){
+            params.put("ageMax","10");
+        }else if(yearPosition==2){
+            params.put("ageMin","10");
+            params.put("ageMax","20");
+        }else if(yearPosition==3){
+            params.put("ageMin","21");
+            params.put("ageMax","30");
+        }else if(yearPosition==4){
+            params.put("ageMin","31");
+            params.put("ageMax","45");
+        }else if(yearPosition==5){
+            params.put("ageMin","46");
+            params.put("ageMax","60");
+        }else if(yearPosition==6){
+            params.put("ageMin","60");
+        }
+        if(!TextUtils.isEmpty(collegeName)&&collegeName.equals("不限")){
+            params.put("school",collegeName);
+        }
+        if(complexRankingRule==1){
+            params.put("order","age");
+            params.put("order","desc");
+        }else if(complexRankingRule==2){
+            params.put("order","age");
+            params.put("order","asc");
+        }
+        params.put("page", page+"");
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        Log.e(TAG, "getList: sign=="+sign );
-        RequestUtil.request(true, Constant.URL_GET_TALENTS, params, 107, new RequestUtil.RequestListener() {
+        Log.e(TAG, "getList: sign==" + sign);
+        Log.e(TAG, "getList: params=="+params.toString() );
+
+        RequestUtil.request(true, Constant.URL_GET_TALENTS, params, 110, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (isSuccess) {
-                    Gson gson = new Gson();
-
-                    Log.e(TAG, "onSuccess: obj=="+obj);
-                    if(list==null){
-                        list=new ArrayList<Talent>();
+                if (isSuccess){
+                    if(!TextUtils.isEmpty(obj)){
+                        Log.e(TAG, "onSuccess: obj=="+obj );
+                        Gson gson = new Gson();
+                        ArrayList<Talent> tempTheatres=new ArrayList<Talent>();
+//                        theatres.clear();
+                        tempTheatres = gson.fromJson(obj, new TypeToken<List<Talent>>() {
+                        }.getType());
+                        if(tempTheatres!=null&&tempTheatres.size()>0){
+                            if(talentLists.size()==0){
+                                if(talentLists.addAll(tempTheatres)){
+                                    uiHandler.sendEmptyMessage(0);
+                                }
+                                page++;
+                            }else{
+                                if(page==1){
+                                    recyclerView.refreshComplete();
+                                    talentLists.clear();
+                                    if(talentLists.addAll(tempTheatres)){
+                                        uiHandler.sendEmptyMessage(0);
+                                    }
+                                }else{
+                                    recyclerView.loadMoreComplete();
+                                    talentLists.addAll(tempTheatres);
+                                    if(lookingWorksAdapter!=null){
+                                        lookingWorksAdapter.add(tempTheatres);
+                                    }
+                                    page++;
+                                }
+                            }
+                        }else{
+                            if(talentLists.size()==0){
+                                Log.e(TAG, "onSuccess: 首次加载数据失败" );
+                            }else{
+                                if(page==1){
+                                    Log.e(TAG, "onSuccess: 刷新数据失败" );
+                                    recyclerView.refreshComplete();
+                                }else{
+                                    recyclerView.loadMoreComplete();
+                                    Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                }
+                            }
+                        }
+                        Log.e(TAG, "onSuccess: theatres.size==" + talentLists.size());
+                    }else{
+                        if(talentLists.size()==0){
+                            Log.e(TAG, "onSuccess: 首次加载数据失败" );
+                        }else{
+                            if(page==1){
+                                recyclerView.refreshComplete();
+                                Log.e(TAG, "onSuccess: 刷新数据失败" );
+                            }else{
+                                recyclerView.loadMoreComplete();
+                                Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                            }
+                        }
                     }
-                    list.clear();
-                    list=gson.fromJson(obj,new TypeToken<List<Talent>>(){}.getType());
-                    Log.e(TAG, "onSuccess: theatres.size=="+list.size());
-                    uiHandler.sendEmptyMessage(0);
                 } else {
+                    if(talentLists.size()==0){
+                        Log.e(TAG, "onSuccess: 首次加载数据失败" );
+                    }else{
+                        if(page==1){
+                            recyclerView.refreshComplete();
+                            Log.e(TAG, "onSuccess: 刷新数据失败" );
+                        }else{
+                            recyclerView.loadMoreComplete();
+                            Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                        }
+                    }
                     ResponseCodeCheck.showErrorMsg(code);
                 }
-
             }
+
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if(talentLists.size()==0){
+                    Log.e(TAG, "onSuccess: 首次加载数据失败" );
+                }else{
+                    if(page==1){
+                        recyclerView.refreshComplete();
+                        Log.e(TAG, "onSuccess: 刷新数据失败" );
+                    }else{
+                        recyclerView.loadMoreComplete();
+                        Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                    }
+                }
 
             }
         });
     }
+
+
+    private void getSkillClassify() {
+
+        Map<String, String> params = new TreeMap<>();
+        Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_CLASSFY_LIST);
+        params.put("type", "talent");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        Log.e(TAG, "getList: sign==" + sign);
+        Log.e(TAG, "getRepertoryClassify: "+params.toString() );
+        RequestUtil.request(true, Constant.URL_GET_CLASSFY_LIST, params, 108, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                if (isSuccess) {
+                    if (!TextUtils.isEmpty(obj)){
+                        Log.e(TAG, "onSuccess: obj222="+obj );
+                        Gson gson = new Gson();
+                        if(skillBeanList.size()>0){
+                            skillBeanList.clear();
+                        }
+                        skillBeanList=gson.fromJson(obj, new TypeToken<List<SkillBean>>() {
+                        }.getType());
+                        Log.e(TAG, "onSuccess: skillBeanList.size=="+skillBeanList.size() );
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+            }
+        });
+    }
+
+
+
 
 
 }

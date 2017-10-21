@@ -10,6 +10,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,18 +58,21 @@ public class LookingWorksAdapter extends  RecyclerView.Adapter{
 
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
-//            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
+            if(position==0){
+                RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
+                layoutParams.setMargins((int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX));
+                typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
+            }
             if(list.get(position)!=null){
                 Work work=list.get(position);
                 if(!TextUtils.isEmpty(work.getLogo())){
                     typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(work.getLogo()));
                 }
-//                typeOneViewHolder.tv_actor_number.setText(work.getPeopleNum());
-//                typeOneViewHolder.tv_show_time.setText(work.getPremiereTime()+"");
-//                typeOneViewHolder.tv_works_fee.setText(work.getExpense());
-
+                typeOneViewHolder.tv_actor_number.setText(work.getPeopleNum()+"");
+                typeOneViewHolder.tv_show_time.setText(work.getPremiereTime()+"");
+                typeOneViewHolder.tv_works_fee.setText(work.getExpense()+"");
+                typeOneViewHolder.tv_works_name.setText(work.getTitle());
             }
-
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -114,6 +118,22 @@ public class LookingWorksAdapter extends  RecyclerView.Adapter{
     public interface  OnItemClickListener{
         void onItemClickListener(int position);
     }
+
+    public void add(ArrayList<Work> works){
+        int lastIndex = this.list.size();
+        if (this.list.addAll(works)) {
+            notifyItemRangeInserted(lastIndex, list.size());
+        }
+    }
+
+    public void notifyDataSetChange(ArrayList<Work> works){
+        list.clear();
+        if(this.list.addAll(works)){
+            notifyDataSetChanged();
+        }
+    }
+
+
 
 
 }

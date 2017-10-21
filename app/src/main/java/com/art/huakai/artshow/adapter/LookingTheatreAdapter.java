@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,16 +58,20 @@ public class LookingTheatreAdapter extends  RecyclerView.Adapter{
 
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
-//            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
+            if(position==0){
+                RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
+                layoutParams.setMargins((int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX));
+                typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
+            }
             if(list.get(position)!=null){
                 Theatre theatre=list.get(position);
                 if(!TextUtils.isEmpty(theatre.getLogo())){
                     typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(theatre.getLogo()));
                 }
                 typeOneViewHolder.tv_thratre_name.setText(theatre.getName());
-//                typeOneViewHolder.tv_seat_number.setText(theatre.getSeating());
+                typeOneViewHolder.tv_seat_number.setText(theatre.getSeating()+"");
                 typeOneViewHolder.tv_thratre_location.setText(theatre.getRegionName());
-//                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpense());
+                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpense()+"");
             }
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,6 +117,20 @@ public class LookingTheatreAdapter extends  RecyclerView.Adapter{
 
     public interface  OnItemClickListener{
         void onItemClickListener(int position);
+    }
+
+    public void add(ArrayList<Theatre> theatres){
+        int lastIndex = this.list.size();
+        if (this.list.addAll(theatres)) {
+            notifyItemRangeInserted(lastIndex, list.size());
+        }
+    }
+
+    public void notifyDataSetChange(ArrayList<Theatre> theatres){
+        list.clear();
+        if(this.list.addAll(theatres)){
+            notifyDataSetChanged();
+        }
     }
 
 

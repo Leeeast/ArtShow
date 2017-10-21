@@ -61,7 +61,6 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     View theatreDivider;
     @BindView(R.id.talents_divider)
     View talentsDivider;
-    Unbinder unbinder;
     private HomePageDetails homePageDetails;
 
     @BindView(R.id.iv_search)
@@ -415,14 +414,12 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
 

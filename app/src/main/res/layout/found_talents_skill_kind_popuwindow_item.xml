@@ -33,89 +33,10 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/DIMEN_20PX"
         android:textColor="#ff5a4b41"
-        android:text="演员"
-        android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:clickable="true"
-        />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_one"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DIMEN_10PX"
-        >
-
-
-    </android.support.v7.widget.RecyclerView>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/DIMEN_20PX"
-        android:textColor="#ff5a4b41"
-        android:text="编导"
-        android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:clickable="true"
-        />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_two"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">
-
-
-    </android.support.v7.widget.RecyclerView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/DIMEN_20PX"
-        android:textColor="#ff5a4b41"
-        android:text="技术"
-        android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:clickable="true"
-        />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_three"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">
-
-
-    </android.support.v7.widget.RecyclerView>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/DIMEN_20PX"
-        android:textColor="#ff5a4b41"
-        android:text="管理"
-        android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:clickable="true"
-        />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_four"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">
-
-
-    </android.support.v7.widget.RecyclerView>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/DIMEN_20PX"
-        android:textColor="#ff5a4b41"
         android:text="其他"
         android:layout_marginTop="@dimen/DIMEN_15PX"
         android:clickable="true"
+        android:visibility="gone"
         />
 
 
@@ -125,34 +46,12 @@
         android:layout_height="@dimen/DIMEN_50PX"
         android:textSize="@dimen/DIMEN_12PX"
         android:textColor="#ff5a4b41"
-        android:text="不限"
+        android:text="其他"
         android:layout_marginTop="@dimen/DIMEN_10PX"
         android:clickable="true"
+        android:visibility="gone"
         />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DIMEN_20PX"
-        android:layout_marginBottom="@dimen/DIMEN_10PX"
-        >
-
-        <Button
-            android:id="@+id/but_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="重置"
-            />
-
-        <Button
-            android:id="@+id/but_sure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="完成"
-            />
-
-    </RelativeLayout>
 
 
 </LinearLayout>

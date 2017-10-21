@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.RepertoryBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +21,20 @@ import java.util.List;
 public class SingleChooseAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
-    private ArrayList<String> lists;
+    private ArrayList<RepertoryBean> lists;
     private OnItemClickListener onItemClickListener;
     private List<Boolean> checkeds;
     private int lastActivitedPosition = -1;
     private Boolean notifyDataChanged = false;
     private static final String TAG="SingleChooseAdapter";
 
-    public SingleChooseAdapter(Context mContext, ArrayList<String> lists,int initPosition) {
+    public SingleChooseAdapter(Context mContext, ArrayList<RepertoryBean> lists, int initPosition) {
         this.mContext = mContext;
         this.lists = lists;
         addData(lists,initPosition);
     }
-    public void addData(List<String> lists,int initPosition) {
+    public void addData(List<RepertoryBean> lists,int initPosition) {
+        lastActivitedPosition=initPosition;
         checkeds = new ArrayList<Boolean>();
         for (int i = 0; i < lists.size(); i++) {
             if(initPosition==i){
@@ -40,7 +42,6 @@ public class SingleChooseAdapter extends RecyclerView.Adapter {
             }else{
                 checkeds.add(false);
             }
-
         }
     }
 
@@ -57,7 +58,7 @@ public class SingleChooseAdapter extends RecyclerView.Adapter {
         if (holder instanceof WallpaperSwitchViewHolder) {
             Log.e(TAG, "onBindViewHolder: 111");
             final WallpaperSwitchViewHolder wallpaperSwitchViewHolder = (WallpaperSwitchViewHolder) holder;
-            wallpaperSwitchViewHolder.tv.setText(lists.get(position));
+            wallpaperSwitchViewHolder.tv.setText(lists.get(position).getName());
             if (checkeds.get(position)) {
                 wallpaperSwitchViewHolder.tv.setTextColor(0xffe93c2c);
                 wallpaperSwitchViewHolder.tv.setBackgroundResource(R.drawable.red_rectang);
@@ -77,7 +78,7 @@ public class SingleChooseAdapter extends RecyclerView.Adapter {
                      }
                      checkeds.set(position, true);
                      if(null!=onItemClickListener){
-                         onItemClickListener.onItemClick( position, lists.get(position));
+                         onItemClickListener.onItemClick( position, lists.get(position).getName());
                      }
                      lastActivitedPosition=position;
                     wallpaperSwitchViewHolder.tv.setTextColor(0xffe93c2c);

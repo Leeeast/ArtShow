@@ -69,7 +69,6 @@ public class DiscoverFragment extends BaseFragment {
         int statusBarHeight = DeviceUtils.getStatusBarHeight(getContext());
         LinearLayout lLyRoot = (LinearLayout) rootView.findViewById(R.id.lly_root);
         lLyRoot.setPadding(0, statusBarHeight, 0, 0);
-
         stlDisTab = (SlidingTabLayout) rootView.findViewById(R.id.stl_dis_tab);
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
     }
@@ -91,7 +90,6 @@ public class DiscoverFragment extends BaseFragment {
                 }
             }
         }
-
     }
 
     @Override

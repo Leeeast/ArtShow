@@ -1,36 +1,46 @@
 package com.art.huakai.artshow.entity;
 
+import java.util.List;
+
 /**
  * Created by lining on 2017/10/20.
  */
 public class Talent {
+
+
     /**
-     * id : 8a999cce5e4ccfa8015e5691aeeb009b
-     * logo : https://www.showonline.com.cn/image/2017/09/06/84826db9521144628d10b0095b765cad@thumb.jpeg
-     * title : 我是我爷爷
-     * agency : 青麦演艺经纪（北京）有限公司
-     * expense : 100000
-     * peopleNum : 30
-     * premiereTime : 1508256000000
-     * classifyId : 4
-     * classifyName : 音乐剧
-     * rounds : 0
+     * id : 402894115f38179a015f38179aea0000
+     * logo : http://139.224.47.213/image/8a999cce5f35db15015f381749680004.jpg
+     * name : xdssdf
+     * school : 北京舞蹈学院
+     * age : 13
+     * birthday : 1096560000000
+     * classifyNames : ["话剧演员","影视演员"]
+     * classifyNamesStr : 话剧演员 影视演员
+     * regionName : 西城区
      * status : 1
-     * createTime : 1508347961982
+     * createTime : 1508474586000
+     * userId : 2c91faca5f37a50f015f37a6b7f80000
+     * authentication : 1
+     * agency : 收到发生的发
+     * linkTel : 18511320250
      */
 
     private String id;
     private String logo;
-    private String title;
-    private String agency;
-    private int expense;
-    private int peopleNum;
-    private long premiereTime;
-    private int classifyId;
-    private String classifyName;
-    private int rounds;
+    private String name;
+    private String school;
+    private int age;
+    private long birthday;
+    private String classifyNamesStr;
+    private String regionName;
     private int status;
     private long createTime;
+    private String userId;
+    private int authentication;
+    private String agency;
+    private String linkTel;
+    private List<String> classifyNames;
 
     public String getId() {
         return id;
@@ -48,68 +58,52 @@ public class Talent {
         this.logo = logo;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAgency() {
-        return agency;
+    public String getSchool() {
+        return school;
     }
 
-    public void setAgency(String agency) {
-        this.agency = agency;
+    public void setSchool(String school) {
+        this.school = school;
     }
 
-    public int getExpense() {
-        return expense;
+    public int getAge() {
+        return age;
     }
 
-    public void setExpense(int expense) {
-        this.expense = expense;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public int getPeopleNum() {
-        return peopleNum;
+    public long getBirthday() {
+        return birthday;
     }
 
-    public void setPeopleNum(int peopleNum) {
-        this.peopleNum = peopleNum;
+    public void setBirthday(long birthday) {
+        this.birthday = birthday;
     }
 
-    public long getPremiereTime() {
-        return premiereTime;
+    public String getClassifyNamesStr() {
+        return classifyNamesStr;
     }
 
-    public void setPremiereTime(long premiereTime) {
-        this.premiereTime = premiereTime;
+    public void setClassifyNamesStr(String classifyNamesStr) {
+        this.classifyNamesStr = classifyNamesStr;
     }
 
-    public int getClassifyId() {
-        return classifyId;
+    public String getRegionName() {
+        return regionName;
     }
 
-    public void setClassifyId(int classifyId) {
-        this.classifyId = classifyId;
-    }
-
-    public String getClassifyName() {
-        return classifyName;
-    }
-
-    public void setClassifyName(String classifyName) {
-        this.classifyName = classifyName;
-    }
-
-    public int getRounds() {
-        return rounds;
-    }
-
-    public void setRounds(int rounds) {
-        this.rounds = rounds;
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     public int getStatus() {
@@ -126,5 +120,45 @@ public class Talent {
 
     public void setCreateTime(long createTime) {
         this.createTime = createTime;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public int getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(int authentication) {
+        this.authentication = authentication;
+    }
+
+    public String getAgency() {
+        return agency;
+    }
+
+    public void setAgency(String agency) {
+        this.agency = agency;
+    }
+
+    public String getLinkTel() {
+        return linkTel;
+    }
+
+    public void setLinkTel(String linkTel) {
+        this.linkTel = linkTel;
+    }
+
+    public List<String> getClassifyNames() {
+        return classifyNames;
+    }
+
+    public void setClassifyNames(List<String> classifyNames) {
+        this.classifyNames = classifyNames;
     }
 }
