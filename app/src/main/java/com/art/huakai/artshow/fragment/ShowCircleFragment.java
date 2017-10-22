@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +20,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
 import com.art.huakai.artshow.activity.MainActivity;
+import com.art.huakai.artshow.activity.SearchNewsActivity;
 import com.art.huakai.artshow.adapter.CooperationOpportunitiesAdapter;
 import com.art.huakai.artshow.adapter.ExcellentWorksAdapter;
 import com.art.huakai.artshow.adapter.IndustryNewsAdapter;
@@ -204,6 +207,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         tvWorksWhole.setOnClickListener(this);
         tvTheatreWhole.setOnClickListener(this);
         tvProfessionalWhole.setOnClickListener(this);
+        ivSearch.setOnClickListener(this);
     }
 
     private void initData() {
@@ -378,11 +382,16 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        Log.e(TAG, "onClick: 11111111111" );
         MainActivity mainActivity = (MainActivity) getActivity();
         if (v.getId() == R.id.tv_one_whole) {
             if (null != mainActivity) {
-                mainActivity.setWholeItemPosition(1);
-                mainActivity.setCheckId(R.id.rdobtn_me);
+//                mainActivity.setWholeItemPosition(1);
+//                mainActivity.setCheckId(R.id.rdobtn_me);
+
+                Intent intent=new Intent(getContext(), SearchNewsActivity.class);
+                startActivity(intent);
+
             }
         } else if (v.getId() == R.id.tv_two_whole) {
             if (null != mainActivity) {
@@ -407,6 +416,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 mainActivity.setCheckId(R.id.rdobtn_discover);
             }
 
+        }else if(v.getId() == R.id.iv_search){
+            Intent intent=new Intent(getContext(), KeywordSearchAllActivity.class);
+            startActivity(intent);
         }
     }
 

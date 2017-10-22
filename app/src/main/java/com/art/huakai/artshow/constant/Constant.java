@@ -86,6 +86,13 @@ public class Constant {
 
     public static final String URL_GET_TALENTS = BASE_URL + "/talent/page";
 
+
+    public static final String URL_KEYWORD_SEARCH_NEWS = BASE_URL + "/search/news";
+    public static final String URL_KEYWORD_SEARCH_TALENS = BASE_URL + "/search/talent";
+    public static final String URL_KEYWORD_SEARCH_REPERTORYS= BASE_URL + "/search/repertory";
+    public static final String URL_KEYWORD_SEARCH_THEATRES = BASE_URL + "/search/theater";
+    public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search/enroll";
+
 //    获取地区借口
 //    http://139.224.47.213:8080/showonline_api/region/list
 //

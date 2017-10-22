@@ -90,6 +90,20 @@
         <activity
             android:name=".activity.ClassifyTypeActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.KeywordSearchAllActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.SearchNewsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.KeywordSearchResultShowActivity"
+            android:screenOrientation="portrait" />
+
+
     </application>
 
 </manifest>

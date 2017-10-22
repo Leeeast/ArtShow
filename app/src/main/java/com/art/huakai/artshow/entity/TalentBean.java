@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by lining on 2017/10/20.
  */
-public class Talent {
+public class TalentBean {
 
 
     /**

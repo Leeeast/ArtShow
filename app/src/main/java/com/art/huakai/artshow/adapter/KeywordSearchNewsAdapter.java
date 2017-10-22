@@ -14,7 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.entity.TalentBean;
+import com.art.huakai.artshow.entity.NewsesBean;
+import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
@@ -23,20 +24,19 @@ import java.util.List;
 /**
  * Created by lining on 17-10-7.
  */
-public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
+public class KeywordSearchNewsAdapter extends  RecyclerView.Adapter{
 
-    private static final String TAG="LookingProfessionalAdap";
+    private static final String TAG="LookingTheatreAdapter";
 
-    private List<TalentBean> list ;
+    private List<NewsesBean> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public LookingProfessionalAdapter(Context context, List<TalentBean> list) {
+    public KeywordSearchNewsAdapter(Context context, List<NewsesBean> list) {
         this.list = list;
         this.mContext = context;
-
     }
 
     public  void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -46,7 +46,7 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.looking_professional_item, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.search_news_item, parent, false);
             TypeOneViewHolder typeOneViewHolder = new TypeOneViewHolder(view);
             return typeOneViewHolder;
 
@@ -61,24 +61,15 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
                 RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
                 layoutParams.setMargins((int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX));
                 typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
-             }
-
-            if(list.get(position)!=null){
-                TalentBean talent=list.get(position);
-                if(!TextUtils.isEmpty(talent.getLogo())){
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(talent.getLogo()));
-                }
-                String str="";
-                if(talent.getClassifyNames()!=null&&talent.getClassifyNames().size()>0){
-                    for(int i=0;i<talent.getClassifyNames().size();i++){
-                        str=str+talent.getClassifyNames().get(i);
-                    }
-                }
-                typeOneViewHolder.tv_professional_name.setText(talent.getName());
-                typeOneViewHolder.tv_majors.setText(str);
-                typeOneViewHolder.tv_subside_organ.setText(talent.getAgency());
             }
-
+            if(list.get(position)!=null){
+                NewsesBean newsesBean=list.get(position);
+                if(!TextUtils.isEmpty(newsesBean.getLogo())){
+                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(newsesBean.getLogo()));
+                }
+                typeOneViewHolder.tv_news_title.setText(newsesBean.getTitle());
+                typeOneViewHolder.tv_news_time.setText(newsesBean.getCreateTime()+"");
+            }
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,19 +95,17 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
 
 
     public class TypeOneViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_professional_name;
+        private TextView tv_news_title;
         private ChinaShowImageView chinaShowImageView;
         private LinearLayout ll_whole;
-        private TextView tv_majors;
-        private TextView tv_subside_organ;
+        private TextView tv_news_time;
+
         public TypeOneViewHolder(View itemView) {
             super(itemView);
-            tv_professional_name= (TextView) itemView.findViewById(R.id.tv_professional_name);
+            tv_news_title= (TextView) itemView.findViewById(R.id.tv_news_title);
             chinaShowImageView= (ChinaShowImageView) itemView.findViewById(R.id.sdv);
             ll_whole= (LinearLayout) itemView.findViewById(R.id.ll_whole);
-            tv_majors= (TextView) itemView.findViewById(R.id.tv_majors);
-            tv_subside_organ= (TextView) itemView.findViewById(R.id.tv_subside_organ);
-
+            tv_news_time= (TextView) itemView.findViewById(R.id.tv_news_time);
         }
     }
 
@@ -124,14 +113,14 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
         void onItemClickListener(int position);
     }
 
-    public void add(ArrayList<TalentBean> theatres){
-        int lastIndex = this.list.size();
-        if (this.list.addAll(theatres)) {
-            notifyItemRangeInserted(lastIndex, list.size());
-        }
-    }
-
-    public void notifyDataSetChange(ArrayList<TalentBean> theatres){
+//    public void add(ArrayList<Theatre> theatres){
+//        int lastIndex = this.list.size();
+//        if (this.list.addAll(theatres)) {
+//            notifyItemRangeInserted(lastIndex, list.size());
+//        }
+//    }
+//
+    public void notifyDataSetChange(List<NewsesBean> theatres){
         list.clear();
         if(this.list.addAll(theatres)){
             notifyDataSetChanged();

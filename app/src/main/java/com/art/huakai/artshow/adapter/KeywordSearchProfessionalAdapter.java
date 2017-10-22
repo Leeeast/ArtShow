@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by lining on 17-10-7.
  */
-public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
+public class KeywordSearchProfessionalAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="LookingProfessionalAdap";
 
@@ -33,7 +33,7 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
 
 
 
-    public LookingProfessionalAdapter(Context context, List<TalentBean> list) {
+    public KeywordSearchProfessionalAdapter(Context context, List<TalentBean> list) {
         this.list = list;
         this.mContext = context;
 
@@ -131,7 +131,7 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
         }
     }
 
-    public void notifyDataSetChange(ArrayList<TalentBean> theatres){
+    public void notifyDataSetChange(List<TalentBean> theatres){
         list.clear();
         if(this.list.addAll(theatres)){
             notifyDataSetChanged();

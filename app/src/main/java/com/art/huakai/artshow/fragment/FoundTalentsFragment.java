@@ -30,7 +30,7 @@ import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.entity.ChildrenBean;
 import com.art.huakai.artshow.entity.SkillBean;
-import com.art.huakai.artshow.entity.Talent;
+import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -73,7 +73,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     TextView tvSkillChoose;
     @BindView(R.id.tv_real_filter)
     TextView tvFilter;
-    private ArrayList<Talent> talentLists=new ArrayList<Talent>();
+    private ArrayList<TalentBean> talentLists=new ArrayList<TalentBean>();
     private LookingProfessionalAdapter lookingWorksAdapter;
     private LinearLayoutManager linearlayoutManager;
     private LinearItemDecoration linearItemDecoration;
@@ -526,9 +526,9 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     if(!TextUtils.isEmpty(obj)){
                         Log.e(TAG, "onSuccess: obj=="+obj );
                         Gson gson = new Gson();
-                        ArrayList<Talent> tempTheatres=new ArrayList<Talent>();
+                        ArrayList<TalentBean> tempTheatres=new ArrayList<TalentBean>();
 //                        theatres.clear();
-                        tempTheatres = gson.fromJson(obj, new TypeToken<List<Talent>>() {
+                        tempTheatres = gson.fromJson(obj, new TypeToken<List<TalentBean>>() {
                         }.getType());
                         if(tempTheatres!=null&&tempTheatres.size()>0){
                             if(talentLists.size()==0){
