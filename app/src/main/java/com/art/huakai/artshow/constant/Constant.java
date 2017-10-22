@@ -86,7 +86,7 @@ public class Constant {
 
     public static final String URL_GET_TALENTS = BASE_URL + "/talent/page";
 
-
+    public static final String URL_KEYWORD_SEARCH = BASE_URL + "/search";
     public static final String URL_KEYWORD_SEARCH_NEWS = BASE_URL + "/search/news";
     public static final String URL_KEYWORD_SEARCH_TALENS = BASE_URL + "/search/talent";
     public static final String URL_KEYWORD_SEARCH_REPERTORYS= BASE_URL + "/search/repertory";
