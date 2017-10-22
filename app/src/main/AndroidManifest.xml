@@ -87,6 +87,9 @@
             android:name=".activity.ResumeFillActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged" />
+        <activity
+            android:name=".activity.ClassifyTypeActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

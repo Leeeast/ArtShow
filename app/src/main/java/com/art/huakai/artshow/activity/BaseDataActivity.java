@@ -1,5 +1,7 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -8,21 +10,31 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.ClassifyTypeBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.ProvinceBean;
+import com.art.huakai.artshow.utils.ACache;
 import com.art.huakai.artshow.utils.GsonTools;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.SharePreUtil;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.qqtheme.framework.entity.Province;
+import cn.qqtheme.framework.entity.ProvinceBean;
 import cn.qqtheme.framework.picker.DoublePicker;
 import cn.qqtheme.framework.picker.OptionPicker;
+import cn.qqtheme.framework.picker.ProvincePicker;
 import cn.qqtheme.framework.picker.SinglePicker;
 import cn.qqtheme.framework.widget.WheelView;
 import okhttp3.Call;
@@ -44,6 +56,15 @@ public class BaseDataActivity extends BaseActivity {
     TextView tvGraduateInstitu;
     @BindView(R.id.tv_birthday)
     TextView tvBirthday;
+    @BindView(R.id.tv_live_city)
+    TextView tvLiveCity;
+    @BindView(R.id.tv_ability_type)
+    TextView tvAbilityType;
+
+    private ShowProgressDialog showProgressDialog;
+    private int mRegionId = -1;
+    private ACache mACache;
+    private ArrayList<ClassifyTypeBean> classifyTypeAdded;
 
     @Override
     public void immerseStatusBar() {
@@ -57,6 +78,8 @@ public class BaseDataActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        showProgressDialog = new ShowProgressDialog(this);
+        mACache = ACache.get(this);
     }
 
     @Override
@@ -154,21 +177,101 @@ public class BaseDataActivity extends BaseActivity {
 
     @OnClick(R.id.rly_live_city)
     public void showSelectDialogAddress() {
+        //读取缓存
+        String timeAddressCache = mACache.getAsString(Constant.TIME_ADDRESS_CACHE);
+        if (TextUtils.isEmpty(timeAddressCache)) {
+            timeAddressCache = "0";
+        }
+        long lastTime = Long.parseLong(timeAddressCache);//得到上次保存最新礼物的时间
+        long currentTime = System.currentTimeMillis();
+        String addressJson = mACache.getAsString(Constant.ADDRESS_CACHE);
+        if (!TextUtils.isEmpty(addressJson) && currentTime - lastTime <= Constant.TIME_CACHE) {//如果缓存是新鲜的
+            showAddressSelect(addressJson);
+            return;
+        }
+        showProgressDialog.show();
         RequestUtil.request(false, Constant.URL_REGION_LIST, null, 55, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                try {
-                    List<ProvinceBean> provinceBeen = GsonTools.parseDatas(obj, ProvinceBean.class);
-                    int size = provinceBeen.size();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
                 }
+                if (TextUtils.isEmpty(obj)) {
+                    Toast.makeText(BaseDataActivity.this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                long currentTime = System.currentTimeMillis();
+                mACache.put(Constant.TIME_ADDRESS_CACHE, String.valueOf(currentTime));
+                mACache.put(Constant.ADDRESS_CACHE, obj);
+                showAddressSelect(obj);
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
-
+                LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
             }
         });
+    }
+
+    /**
+     * 现实地区选择Dialog
+     */
+    public void showAddressSelect(String address) {
+        try {
+            List<ProvinceBean> provinceBeen = GsonTools.parseDatas(address, ProvinceBean.class);
+            final ProvincePicker picker = new ProvincePicker(BaseDataActivity.this, provinceBeen);
+            picker.setDividerRatio(WheelView.DividerConfig.FILL);
+            picker.setCanceledOnTouchOutside(false);
+            picker.setCycleDisable(true);
+            picker.setSelectedIndex(0);
+            picker.setAnimationStyle(R.style.Animation_CustomPopup);
+            picker.setTextSize(23);
+
+            WheelView.DividerConfig dividerConfig = new WheelView.DividerConfig();
+            dividerConfig.setRatio(WheelView.DividerConfig.FILL);
+            dividerConfig.setThick(1);
+            picker.setDividerConfig(dividerConfig);
+            picker.setOnItemPickListener(new ProvincePicker.OnItemProvincePickListener() {
+                @Override
+                public void onPicked(String province, String city, int regionId) {
+                    tvLiveCity.setText(province + "  " + city);
+                    mRegionId = regionId;
+                }
+            });
+            picker.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.rly_ability_type)
+    public void showAbilityType() {
+        invokActivity(this, ClassifyTypeActivity.class, null, JumpCode.FLAG_REQ_CLASSIFY_TYPE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case JumpCode.FLAG_RES_CLASSIFY_TYPE_CONFIRM:
+                if (data != null) {
+                    classifyTypeAdded = data.getParcelableArrayListExtra(ClassifyTypeActivity.CLASSIFY_TYPE_CONFIRM);
+                    String classifyType = "";
+                    for (int i = 0; i < classifyTypeAdded.size(); i++) {
+                        if (i == classifyTypeAdded.size() - 1) {
+                            classifyType += classifyTypeAdded.get(i).getName();
+                        } else {
+                            classifyType += classifyTypeAdded.get(i).getName() + "  ";
+                        }
+                    }
+                    tvAbilityType.setText(classifyType);
+                }
+                break;
+        }
     }
 }

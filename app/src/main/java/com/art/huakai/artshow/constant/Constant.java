@@ -11,6 +11,17 @@ public class Constant {
     public static final int SPLASH_TIME_OFFSET = 2000;
     //分页数据，每页展示数据条数
     public static final int COUNT_PER_PAGE = 12;
+    //缓存时间 2个小时
+    public static final int TIME_CACHE = 1000 * 60 * 60 * 2;
+    //地区数据缓存时间
+    public static final String TIME_ADDRESS_CACHE = "TIME_ADDRESS_CACHE";
+    //地区数据缓存
+    public static final String ADDRESS_CACHE = "ADDRESS_CACHE";
+    //技能类型数据缓存时间
+    public static final String TIME_CLASSIFY_CACHE = "TIME_CLASSIFY_CACHE";
+    //技能类型缓
+    public static final String CLASSIFY_CACHE = "CLASSIFY_CACHE";
+
 
     private static boolean isTestEnv = true;
     public static final String TEST_HOST = "http://139.224.47.213:8080";
@@ -59,6 +70,8 @@ public class Constant {
     public static final String URL_TALENT_EDIT_WORKSDESCPT = BASE_URL + "/talent/edit/worksDescpt";
     //获取地区列表
     public static final String URL_REGION_LIST = BASE_URL + "/region/list";
+    //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型
+    public static final String URL_CLASSIFY_LIST = BASE_URL + "/classify/list";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";

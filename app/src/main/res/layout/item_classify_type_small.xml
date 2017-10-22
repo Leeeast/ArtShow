@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chk_classify_type"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/DIMEN_34PX"
+    android:background="@drawable/classify_type_bg_selector"
+    android:gravity="center"
+    android:text="不限"
+    android:textAlignment="center"
+    android:textColor="@drawable/classify_type_color_selector"
+    android:textSize="14sp" />
