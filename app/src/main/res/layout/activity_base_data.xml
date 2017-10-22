@@ -38,24 +38,30 @@
                 android:layout_height="@dimen/DIMEN_60PX">
 
                 <TextView
+                    android:id="@+id/tv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
                     android:text="@string/user_name"
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
 
 
-                <TextView
-                    android:id="@+id/tv_user_name"
+                <EditText
+                    android:id="@+id/edt_user_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:text="谢昱缇"
-                    android:textColor="@color/set_account_text"
+                    android:layout_toRightOf="@id/tv_user_name"
+                    android:background="@null"
+                    android:hint="@string/user_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
                     android:textSize="17sp" />
 
                 <View
@@ -179,7 +185,7 @@
                     android:layout_toLeftOf="@id/iv_arrow_graduate"
                     android:text=""
                     android:textColor="@color/me_personal_des"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -199,6 +205,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
                     android:text="@string/user_subsidiary_organ"
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
@@ -211,11 +218,12 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@+id/tv_subsidiary_organ"
                     android:background="@null"
-                    android:gravity="right|center_vertical"
+                    android:gravity="center_vertical"
                     android:hint="@string/user_must_fill"
-                    android:textColor="@color/set_account_text"
+                    android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
-                    android:textCursorDrawable="@null" />
+                    android:textCursorDrawable="@null"
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -238,18 +246,24 @@
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
 
+                <ImageView
+                    android:id="@+id/iv_arrow_city"
+                    android:layout_width="@dimen/DIMEN_10PX"
+                    android:layout_height="@dimen/DIMEN_17PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/arrow_right" />
+
                 <TextView
                     android:id="@+id/tv_live_city"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="@string/user_must_fill"
-                    android:textColor="@color/set_account_text"
-                    android:textColorHint="@color/set_account_text"
-                    android:textCursorDrawable="@null" />
+                    android:layout_toLeftOf="@id/iv_arrow_city"
+                    android:textColor="@color/login_btn"
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -269,6 +283,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
                     android:text="@string/user_stature"
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
@@ -281,11 +296,12 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@+id/tv_stature"
                     android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="@string/user_must_fill"
-                    android:textColor="@color/set_account_text"
+                    android:gravity="center_vertical"
+                    android:hint="@string/user_not_must_fill"
+                    android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
-                    android:textCursorDrawable="@null" />
+                    android:textCursorDrawable="@null"
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -305,6 +321,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
                     android:text="@string/user_weight"
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
@@ -317,11 +334,12 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@+id/tv_weight"
                     android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="@string/user_must_fill"
-                    android:textColor="@color/set_account_text"
+                    android:gravity="center_vertical"
+                    android:hint="@string/user_not_must_fill"
+                    android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
-                    android:textCursorDrawable="@null" />
+                    android:textCursorDrawable="@null"
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -363,11 +381,12 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@+id/tv_connect_method"
                     android:background="@null"
-                    android:gravity="right|center_vertical"
+                    android:gravity="center_vertical"
                     android:hint="@string/user_must_fill"
-                    android:textColor="@color/set_account_text"
+                    android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
-                    android:textCursorDrawable="@null" />
+                    android:textCursorDrawable="@null"
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"

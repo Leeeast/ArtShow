@@ -176,15 +176,16 @@
     <string name="user_info">个人信息</string>
     <string name="user_birthday">出生年月</string>
     <string name="user_ability_type">技能类型</string>
-    <string name="user_name">姓名</string>
+    <string name="user_name">姓名：</string>
     <string name="user_graduate_institutions">毕业院校</string>
-    <string name="user_subsidiary_organ">所属机构</string>
+    <string name="user_subsidiary_organ">所属机构：</string>
     <string name="user_must_fill">必填</string>
+    <string name="user_not_must_fill">选填</string>
     <string name="user_live_city">所在城市</string>
-    <string name="user_stature">身高</string>
-    <string name="user_weight">体重</string>
+    <string name="user_stature">身高：</string>
+    <string name="user_weight">体重：</string>
     <string name="user_connect_info">联系信息</string>
-    <string name="user_connect_method">联系方式</string>
+    <string name="user_connect_method">电话：</string>
     <string name="photo_take">拍摄</string>
     <string name="photo_album">从手机相册中选择</string>
     <string name="tip_introduce_input">在此输入个人介绍</string>
@@ -198,7 +199,13 @@
     <string name="tip_works_empty">请此输入个人作品</string>
     <string name="talent_classify_type">*最多选择三项</string>
     <string name="tip_talent_classify_type">最多选择三项</string>
-    <string name="tip_resumep_birthday_input">请选择出生年月</string>
+    <string name="tip_resume_birthday_input">请选择出生年月</string>
+    <string name="tip_resume_select_birthday">请选择技能类型</string>
+    <string name="tip_resume_agency_input">请输入所属机构</string>
+    <string name="tip_resume_region_city">请选择所在城市</string>
+    <string name="tip_resume_linktel_input">请输入联系方式</string>
+    <string name="share_copy_url">复制链接</string>
+    <string name="share_open_url">在网页中打开</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

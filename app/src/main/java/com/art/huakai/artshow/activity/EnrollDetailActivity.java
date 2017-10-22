@@ -18,6 +18,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.EnrollInfo;
@@ -111,7 +112,8 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.fly_right_img)
     public void shareEnrollDetail() {
-        Toast.makeText(this, "分享", Toast.LENGTH_SHORT).show();
+        ShareDialog shareDialog = ShareDialog.newInstence();
+        shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
 
     /**

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,8 +55,8 @@ public class BaseDataActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
     TextView tvSubtitle;
-    @BindView(R.id.tv_user_name)
-    TextView tvUserName;
+    @BindView(R.id.edt_user_name)
+    EditText edtUserName;
     @BindView(R.id.tv_graduate_institutions)
     TextView tvGraduateInstitu;
     @BindView(R.id.tv_birthday)
@@ -64,6 +65,14 @@ public class BaseDataActivity extends BaseActivity {
     TextView tvLiveCity;
     @BindView(R.id.tv_ability_type)
     TextView tvAbilityType;
+    @BindView(R.id.edt_subsidiary_organ)
+    TextView edtSubsidiaryOrgan;
+    @BindView(R.id.edt_stature)
+    EditText edtStature;
+    @BindView(R.id.edt_weight)
+    EditText edtWeight;
+    @BindView(R.id.edt_connect_method)
+    EditText edtConnectMethod;
 
     private ShowProgressDialog showProgressDialog;
     private int mRegionId = -1;
@@ -92,7 +101,7 @@ public class BaseDataActivity extends BaseActivity {
         tvTitle.setText(R.string.resume_base_data);
         tvSubtitle.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(LocalUserInfo.getInstance().getName())) {
-            tvUserName.setText(LocalUserInfo.getInstance().getName());
+            edtUserName.setText(LocalUserInfo.getInstance().getName());
         }
     }
 
@@ -116,25 +125,69 @@ public class BaseDataActivity extends BaseActivity {
     public void commitInfo() {
         String birthday = tvBirthday.getText().toString().toString();
         if (TextUtils.isEmpty(birthday)) {
-            Toast.makeText(this, getString(R.string.tip_resumep_birthday_input), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tip_resume_birthday_input), Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if (classifyTypeAdded == null || classifyTypeAdded.size() <= 0) {
+            Toast.makeText(this, getString(R.string.tip_resume_select_birthday), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < classifyTypeAdded.size(); i++) {
+            jsonArray.put(String.valueOf(classifyTypeAdded.get(i).getId()));
+        }
+        String classifyIds = jsonArray.toString();
+        String schrool = tvGraduateInstitu.getText().toString().trim();
+        String agency = edtSubsidiaryOrgan.getText().toString().trim();
+        if (TextUtils.isEmpty(agency)) {
+            Toast.makeText(this, getString(R.string.tip_resume_agency_input), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mRegionId == -1) {
+            Toast.makeText(this, getString(R.string.tip_resume_region_city), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String weight = edtStature.getText().toString().trim();
+        String heigth = edtWeight.getText().toString().trim();
+        String linkTel = edtConnectMethod.getText().toString().trim();
+        if (TextUtils.isEmpty(linkTel)) {
+            Toast.makeText(this, getString(R.string.tip_resume_linktel_input), Toast.LENGTH_SHORT).show();
+            return;
+        }
         Map<String, String> params = new TreeMap<>();
         params.put("id", TalentResumeInfo.getInstance().getId());
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("name", LocalUserInfo.getInstance().getName());
         params.put("birthday", birthday);
-//        params.put("classifyIds", );
-//        params.put("school", );
-//        params.put("agency", );
-//        params.put("regionId", );
-//        params.put("height", );
-//        params.put("weight", );
-//        params.put("linkTel", );
-//        String sign = SignUtil.getSign(params);
-//        params.put("sign", sign);
+        params.put("classifyIds", classifyIds);
+        params.put("school", schrool);
+        params.put("agency", agency);
+        params.put("regionId", String.valueOf(mRegionId));
+        params.put("height", heigth);
+        params.put("weight", weight);
+        params.put("linkTel", linkTel);
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_TALENT_DEIT_BASE, params, 58, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
 
     }
 

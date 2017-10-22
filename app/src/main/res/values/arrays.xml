@@ -24,7 +24,7 @@
     </string-array>
 
     <string-array name="graduate_institutions">
-        <item>不限</item>
+        <item>选择院校</item>
         <item>中央戏剧学院</item>
         <item>北京电影学院</item>
         <item>中国传媒大学</item>

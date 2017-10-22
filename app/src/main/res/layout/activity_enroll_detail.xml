@@ -10,6 +10,11 @@
         android:id="@+id/include_title"
         layout="@layout/layout_title_img" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_1PX"
+        android:background="@color/me_personal_line" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,11 +28,6 @@
             android:layout_height="match_parent"
             android:background="@color/whiteff"
             android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_1PX"
-                android:background="@color/me_personal_line" />
 
             <TextView
                 android:layout_width="wrap_content"

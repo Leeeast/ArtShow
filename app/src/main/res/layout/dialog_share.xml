@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/lly_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/DIMEN_15PX"
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:background="@drawable/shape_bg_share_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_58PX"
+            android:background="@drawable/shape_bg_share_top"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/fly_share_wechat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/share_wechat" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fly_share_wechat_momnet"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/share_wechat_moment" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fly_share_qq"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/share_qq" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fly_share_qzone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/share_qzone" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fly_share_tencent_weibo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/share_tencent_weibo" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fly_share_sina_weibo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/share_sina_weibo" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/me_personal_des" />
+
+        <TextView
+            android:id="@+id/tv_url_copy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_54PX"
+            android:gravity="center"
+            android:text="@string/share_copy_url"
+            android:textColor="@color/text_cancel"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/me_personal_des" />
+
+        <TextView
+            android:id="@+id/tv_url_open"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_54PX"
+            android:gravity="center"
+            android:text="@string/share_open_url"
+            android:textColor="@color/text_cancel"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_cancle"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_50PX"
+        android:layout_below="@id/lly_share"
+        android:layout_margin="@dimen/DIMEN_15PX"
+        android:background="@drawable/shape_bg_white"
+        android:text="@string/cancel"
+        android:textColor="@color/text_cancel"
+        android:textSize="20sp" />
+</RelativeLayout>
