@@ -198,6 +198,7 @@
     <string name="tip_works_empty">请此输入个人作品</string>
     <string name="talent_classify_type">*最多选择三项</string>
     <string name="tip_talent_classify_type">最多选择三项</string>
+    <string name="tip_resumep_birthday_input">请选择出生年月</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -129,7 +129,7 @@ public class ClassifyTypeActivity extends BaseActivity {
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         showProgressDialog.show();
-        RequestUtil.request(false, Constant.URL_CLASSIFY_LIST, params, 56, new RequestUtil.RequestListener() {
+        RequestUtil.request(false, Constant.URL_GET_CLASSFY_LIST, params, 56, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);

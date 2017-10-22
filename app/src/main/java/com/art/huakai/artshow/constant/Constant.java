@@ -71,11 +71,12 @@ public class Constant {
     //获取地区列表
     public static final String URL_REGION_LIST = BASE_URL + "/region/list";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型
-    public static final String URL_CLASSIFY_LIST = BASE_URL + "/classify/list";
+    public static final String URL_TALENT_DEIT_BASE = BASE_URL + "/talent/edit/base";
+
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
-
+    //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型
     public static final String URL_GET_CLASSFY_LIST = BASE_URL + "/classify/list";
 
 

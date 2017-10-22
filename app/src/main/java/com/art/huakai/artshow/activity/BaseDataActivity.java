@@ -14,6 +14,8 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.ClassifyTypeBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.ResumeBean;
+import com.art.huakai.artshow.entity.TalentResumeInfo;
 import com.art.huakai.artshow.utils.ACache;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -22,6 +24,8 @@ import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -110,7 +114,28 @@ public class BaseDataActivity extends BaseActivity {
      */
     @OnClick(R.id.tv_subtitle)
     public void commitInfo() {
-        Toast.makeText(this, "确认信息", Toast.LENGTH_SHORT).show();
+        String birthday = tvBirthday.getText().toString().toString();
+        if (TextUtils.isEmpty(birthday)) {
+            Toast.makeText(this, getString(R.string.tip_resumep_birthday_input), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", TalentResumeInfo.getInstance().getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("name", LocalUserInfo.getInstance().getName());
+        params.put("birthday", birthday);
+//        params.put("classifyIds", );
+//        params.put("school", );
+//        params.put("agency", );
+//        params.put("regionId", );
+//        params.put("height", );
+//        params.put("weight", );
+//        params.put("linkTel", );
+//        String sign = SignUtil.getSign(params);
+//        params.put("sign", sign);
+
     }
 
     @OnClick(R.id.rly_graduate_institutions)
