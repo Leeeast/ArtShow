@@ -30,6 +30,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_enroll_main_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
@@ -47,7 +48,7 @@
                 android:layout_marginTop="@dimen/DIMEN_5PX">
 
                 <TextView
-                    android:id="@+id/tv_enroll_title"
+                    android:id="@+id/tv_enroll_anchor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -116,6 +117,7 @@
                 android:background="@color/main_bottom_bg" />
 
             <TextView
+                android:id="@+id/tv_enroll_view_times"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/DIMEN_19PX"

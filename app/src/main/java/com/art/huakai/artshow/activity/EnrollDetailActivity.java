@@ -49,6 +49,16 @@ public class EnrollDetailActivity extends BaseActivity {
     ImageView ivRightImg;
     @BindView(R.id.tv_enroll_detail_content)
     TextView tvEnrollDetailContent;
+    @BindView(R.id.tv_enroll_main_title)
+    TextView tvEnrollMainTitle;
+    @BindView(R.id.tv_enroll_anchor)
+    TextView tvEnrollAnchor;
+    @BindView(R.id.tv_enroll_time)
+    TextView tvEnrollTime;
+    @BindView(R.id.tv_enroll_end_time)
+    TextView tvEnrollEndTime;
+    @BindView(R.id.tv_enroll_view_times)
+    TextView tvEnrollViewTimes;
 
     private EnrollInfo mEnrollInfo;
     private EnrollDetailInfo mEnrollDetailInfo;
@@ -128,6 +138,18 @@ public class EnrollDetailActivity extends BaseActivity {
      * 填充数据
      */
     public void fillData() {
+        tvEnrollMainTitle.setText(mEnrollDetailInfo.enroll.title);
+        tvEnrollAnchor.setText(mEnrollDetailInfo.enroll.authName);
+        tvEnrollTime.setText(String.valueOf(mEnrollDetailInfo.enroll.createTime));
+        tvEnrollEndTime.setText(
+                String.format(getString(R.string.cooperate_end_time),
+                        String.valueOf(mEnrollDetailInfo.enroll.endTime)));
+        tvEnrollViewTimes.setText(
+                String.format(getString(R.string.enroll_detail_read),
+                        mEnrollDetailInfo.enroll.viewTimes)
+        );
+        Spanned spanned = Html.fromHtml(mEnrollDetailInfo.enroll.content);
+        tvEnrollDetailContent.setText(spanned);
         //Spanned spanned = Html.fromHtml(mEnrollDetailInfo.content);
         new Thread() {
             @Override
