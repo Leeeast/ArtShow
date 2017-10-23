@@ -11,14 +11,16 @@
         layout="@layout/layout_title_img" />
 
     <View
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
+        android:layout_below="@+id/include_title"
         android:background="@color/me_personal_line" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/include_title"
+        android:layout_below="@id/view_line"
         android:background="@color/whiteff"
         android:overScrollMode="never"
         android:paddingBottom="@dimen/DIMEN_52PX">

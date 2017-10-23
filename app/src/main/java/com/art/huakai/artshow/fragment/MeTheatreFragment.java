@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * 我Fragment,剧场，出品方
  * Created by lidongliang on 2017/9/27.
  */
-public class MeTheatreFragment extends BaseFragment{
+public class MeTheatreFragment extends BaseFragment {
 
     private RecyclerView rlvTheatre;
 
@@ -49,7 +49,7 @@ public class MeTheatreFragment extends BaseFragment{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvTheatre.setLayoutManager(linearLayoutManager);
-
+        
         ArrayList<String> strings = new ArrayList<>();
         strings.add("");
         strings.add("");

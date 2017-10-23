@@ -123,6 +123,7 @@
         <attr name="item_icon" format="reference" />
         <attr name="item_title" format="reference|string" />
         <attr name="item_arrow" format="reference" />
+        <attr name="item_des" format="reference|string" />
     </declare-styleable>
 
 

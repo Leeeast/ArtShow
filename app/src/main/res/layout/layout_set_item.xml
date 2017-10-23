@@ -35,4 +35,14 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/DIMEN_15PX"
         android:background="@mipmap/arrow_right" />
+
+    <TextView
+        android:id="@+id/tv_item_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:layout_toLeftOf="@+id/iv_item_arrow"
+        android:textColor="@color/me_personal_des"
+        android:textSize="15sp" />
 </RelativeLayout>

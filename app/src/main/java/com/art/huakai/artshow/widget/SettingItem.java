@@ -27,8 +27,9 @@ import com.art.huakai.artshow.R;
 public class SettingItem extends FrameLayout {
     private Context mContext;
     private View mRootView;
-    private String mItemText;
+    private String mItemText, mItemDes;
     private Drawable mItemIcon, mItemArrow;
+    private TextView mTvItemDes;
 
     public SettingItem(Context context) {
         super(context);
@@ -66,6 +67,7 @@ public class SettingItem extends FrameLayout {
         mItemText = ta.getString(R.styleable.SettingItem_item_title);
         mItemIcon = ta.getDrawable(R.styleable.SettingItem_item_icon);
         mItemArrow = ta.getDrawable(R.styleable.SettingItem_item_arrow);
+        mItemDes = ta.getString(R.styleable.SettingItem_item_des);
 
         ta.recycle();
     }
@@ -78,6 +80,7 @@ public class SettingItem extends FrameLayout {
         ImageView mIvItemIcon = (ImageView) mRootView.findViewById(R.id.iv_item_icon);
         ImageView mIvItemArrow = (ImageView) mRootView.findViewById(R.id.iv_item_arrow);
         TextView mTvItemTitle = (TextView) mRootView.findViewById(R.id.tv_item_title);
+        mTvItemDes = (TextView) mRootView.findViewById(R.id.tv_item_des);
         if (!TextUtils.isEmpty(mItemText)) {
             mTvItemTitle.setText(mItemText);
         }
@@ -87,5 +90,19 @@ public class SettingItem extends FrameLayout {
         if (mItemArrow != null) {
             mIvItemArrow.setBackground(mItemArrow);
         }
+        if (TextUtils.isEmpty(mItemDes)) {
+            mTvItemDes.setVisibility(View.GONE);
+        } else {
+            mTvItemDes.setText(mItemDes);
+            mTvItemDes.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 设置描述
+     */
+    public void setDesText(String desText) {
+        mTvItemDes.setText(desText);
+        mTvItemDes.setVisibility(View.VISIBLE);
     }
 }

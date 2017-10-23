@@ -151,6 +151,15 @@
     <string name="me_theatre_position">位置</string>
     <string name="me_theatre_unit">元/天</string>
     <string name="me_theatre_price">￥&#160;%1$d</string>
+    <string name="institution_auth">机构认证</string>
+    <string name="institution_auth_immediately">立刻认证</string>
+    <string name="institution_my_project">我的项目</string>
+    <string name="institution_my_theatre">我的剧场</string>
+    <string name="institution_upload_theatre">上传剧场信息</string>
+    <string name="institution_my_talent">我的人才</string>
+    <string name="institution_upload_talent">上传人才简历</string>
+    <string name="jump_auth">跳过</string>
+
     <!--设置相关-->
     <string name="setting_item_account">账户信息</string>
     <string name="setting_item_bind_wx">微信绑定</string>

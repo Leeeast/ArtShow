@@ -48,6 +48,7 @@ public class MeUnloginFragment extends BaseFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvRecommend.setLayoutManager(linearLayoutManager);
+        rlvRecommend.setNestedScrollingEnabled(false);
 
         ArrayList<String> strings = new ArrayList<>();
         strings.add(null);

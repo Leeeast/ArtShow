@@ -3,28 +3,19 @@ package com.art.huakai.artshow.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.LoginActivity;
 import com.art.huakai.artshow.activity.SetActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.DeviceUtils;
-import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -41,14 +32,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG_FRAGMENT = MeFragment.class.getSimpleName();
     public final int CODE_STATUS_UNLOGIN = 0;
     public final int CODE_STATUS_PERSONAL = 3;
-    public final int CODE_STATUS_PUBLISHER = 2;
-    public final int CODE_STATUS_THEATRE = 1;
-    private SwipeRefreshLayout mRefreshLayout;
+    public final int CODE_STATUS_INSTITUTION = 1;
     private TextView tvNmae, tvType;
     private SimpleDraweeView sdvAvatar;
-    private CollapsingToolbarLayout toolbarLayout;
-    private AppBarLayout appBarLayout;
-    private FloatingActionButton fabAddProduction;
 
     public MeFragment() {
         // Required empty public constructor
@@ -72,25 +58,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initView(View rootView) {
         int statusBarHeight = DeviceUtils.getStatusBarHeight(getContext());
-        mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
         RelativeLayout rLyHead = (RelativeLayout) rootView.findViewById(R.id.rly_head);
         rLyHead.setPadding(0, statusBarHeight, 0, 0);
 
-        fabAddProduction = (FloatingActionButton) rootView.findViewById(R.id.fab_add_production);
-        appBarLayout = (AppBarLayout) rootView.findViewById(R.id.app_barlayout);
-        toolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.toolbar_layout);
 
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRefreshLayout.setRefreshing(false);
-                    }
-                }, 500);
-            }
-        });
         sdvAvatar = (SimpleDraweeView) rootView.findViewById(R.id.sdv_avatar);
         tvType = (TextView) rootView.findViewById(R.id.tv_type);
         tvNmae = (TextView) rootView.findViewById(R.id.tv_name);
@@ -118,35 +89,16 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                     case LocalUserInfo.USER_TYPE_PERSONAL:
                         tvType.setText(getString(R.string.account_type_personal));
                         switchFragment(CODE_STATUS_PERSONAL);
-                        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) toolbarLayout.getLayoutParams();
-                        layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED |
-                                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL);
-                        //设置不刷新
-                        mRefreshLayout.setEnabled(false);
                         break;
-
                     case LocalUserInfo.USER_TYPE_INSTITUTION:
-                        tvType.setText(getString(R.string.account_type_theatre));
-                        switchFragment(CODE_STATUS_THEATRE);
-                        setSRLayout();
+                        tvType.setText(getString(R.string.account_type_institution));
+                        switchFragment(CODE_STATUS_INSTITUTION);
                         break;
                 }
             } else {
                 switchFragment(CODE_STATUS_UNLOGIN);
-                appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-                    @Override
-                    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                        if (verticalOffset >= 0) {
-                            mRefreshLayout.setEnabled(true);
-                        } else {
-                            mRefreshLayout.setEnabled(false);
-                        }
-                    }
-                });
-                AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) toolbarLayout.getLayoutParams();
-                //设置滑动
-                layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL |
-                        AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,9 +111,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case CODE_STATUS_UNLOGIN:
                 baseFragment = MeUnloginFragment.newInstance();
                 break;
-            case CODE_STATUS_THEATRE:
-            case CODE_STATUS_PUBLISHER:
-                baseFragment = MeTheatreFragment.newInstance();
+            case CODE_STATUS_INSTITUTION:
+                baseFragment = MeInstitutionFragment.newInstance();
                 break;
             case CODE_STATUS_PERSONAL:
                 baseFragment = MePersonalFragment.newInstance();
@@ -170,24 +121,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         showFragment(baseFragment);
     }
 
-    //现实添加按钮，添加滑动
-    public void setSRLayout() {
-        fabAddProduction.setVisibility(View.VISIBLE);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset >= 0) {
-                    mRefreshLayout.setEnabled(true);
-                } else {
-                    mRefreshLayout.setEnabled(false);
-                }
-            }
-        });
-        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) toolbarLayout.getLayoutParams();
-        //设置滑动
-        layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL |
-                AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
-    }
 
     @Override
     public void onClick(View v) {

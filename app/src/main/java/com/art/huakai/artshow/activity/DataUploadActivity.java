@@ -1,5 +1,7 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.art.huakai.artshow.R;
@@ -19,10 +21,11 @@ import butterknife.BindView;
  */
 
 public class DataUploadActivity extends BaseActivity {
-
+    public static final String PARAMS_FROM = "PARAMS_FROM";
     @BindView(R.id.fly_content)
     FrameLayout flyContent;
     private int mUserStatus;
+    private String mFrom;
 
 
     @Override
@@ -37,11 +40,16 @@ public class DataUploadActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            mFrom = extras.getString(PARAMS_FROM, DataUploadFragment.FROM_LOGIN);
+        }
         mUserStatus = LocalUserInfo.getInstance().getStatus();
         mUserStatus = LocalUserInfo.USER_STATUS_UNIDENTIFY;
         switch (mUserStatus) {
             case LocalUserInfo.USER_STATUS_UNIDENTIFY:
-                DataUploadFragment dataUploadFragment = DataUploadFragment.newInstance();
+                DataUploadFragment dataUploadFragment = DataUploadFragment.newInstance(mFrom);
                 initFragment(dataUploadFragment);
                 break;
             case LocalUserInfo.USER_STATUS_IDENTIFY_SUC:

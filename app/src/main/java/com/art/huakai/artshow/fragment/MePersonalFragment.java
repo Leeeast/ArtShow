@@ -3,20 +3,13 @@ package com.art.huakai.artshow.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.DataUploadActivity;
 import com.art.huakai.artshow.activity.ResumeActivity;
-import com.art.huakai.artshow.adapter.MeUnloginAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
-
-import java.util.ArrayList;
 
 
 /**
@@ -62,7 +55,9 @@ public class MePersonalFragment extends BaseFragment implements View.OnClickList
                 invokActivity(getContext(), ResumeActivity.class, null, JumpCode.FLAG_REQ_RESUME_MY);
                 break;
             case R.id.rly_pro_auth:
-                invokActivity(getContext(), DataUploadActivity.class, null, JumpCode.FLAG_REQ_DATA_UPLOAD);
+                Bundle bundle = new Bundle();
+                bundle.putString(DataUploadActivity.PARAMS_FROM, DataUploadFragment.FROM_ME);
+                invokActivity(getContext(), DataUploadActivity.class, bundle, JumpCode.FLAG_REQ_DATA_UPLOAD);
                 break;
         }
     }

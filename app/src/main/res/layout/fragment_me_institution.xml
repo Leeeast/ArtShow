@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:set_item="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <com.art.huakai.artshow.widget.SettingItem
+        android:id="@+id/item_institution_auth"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_47PX"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        set_item:item_arrow="@mipmap/arrow_right"
+        set_item:item_des="@string/institution_auth_immediately"
+        set_item:item_icon="@mipmap/icon_authentication"
+        set_item:item_title="@string/institution_auth" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_personal_line" />
+
+    <com.art.huakai.artshow.widget.SettingItem
+        android:id="@+id/item_my_project"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_47PX"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        set_item:item_arrow="@mipmap/arrow_right"
+        set_item:item_des="1"
+        set_item:item_icon="@mipmap/icon_institution_project"
+        set_item:item_title="@string/institution_my_project" />
+
+    <com.art.huakai.artshow.widget.SettingItem
+        android:id="@+id/item_my_theatre"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_47PX"
+        set_item:item_arrow="@mipmap/arrow_right"
+        set_item:item_des="@string/institution_upload_theatre"
+        set_item:item_icon="@mipmap/icon_institution_theatre"
+        set_item:item_title="@string/institution_my_theatre" />
+
+    <com.art.huakai.artshow.widget.SettingItem
+        android:id="@+id/item_my_talent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_47PX"
+        set_item:item_arrow="@mipmap/arrow_right"
+        set_item:item_des="@string/institution_upload_talent"
+        set_item:item_icon="@mipmap/icon_institution_talent"
+        set_item:item_title="@string/institution_my_talent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_personal_line" />
+</LinearLayout>
