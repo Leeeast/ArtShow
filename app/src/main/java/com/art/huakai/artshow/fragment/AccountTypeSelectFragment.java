@@ -6,7 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -36,16 +40,18 @@ import okhttp3.Call;
 public class AccountTypeSelectFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private ConfirmDialog mTypeConfirmDialog;
-    private CheckBox chkTypePublisher, chkTypeTheatre, chkTypePersonal;
+    private CheckBox chkTypeInstitution, chkTypePersonal;
     private int mUserType;
     private LocalUserInfo localUserInfo;
 
     private final int
             USER_TYPE_PERSONAL = 3,
-            USER_TYPE_THEATRE = 1,
-            USER_TYPE_PUBLISHER = 2,
+            USER_TYPE_INSTITUTION = 1,
             USER_TYPE_NONE = -1;
     private ShowProgressDialog showProgressDialog;
+    private LinearLayout lLyInstitution, lLyPersonal;
+    private ImageView ivTypeInstitution, ivTypePersonal;
+    private CheckedTextView chktvInstitutionName, chktvPersonalName;
 
     public AccountTypeSelectFragment() {
         // Required empty public constructor
@@ -58,7 +64,7 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-        mUserType = USER_TYPE_PUBLISHER;
+        mUserType = USER_TYPE_INSTITUTION;
         showProgressDialog = new ShowProgressDialog(getContext());
         localUserInfo = LocalUserInfo.getInstance();
     }
@@ -71,24 +77,28 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
     @Override
     public void initView(View rootView) {
         rootView.findViewById(R.id.btn_next_step).setOnClickListener(this);
-        chkTypePublisher = (CheckBox) rootView.findViewById(R.id.chk_type_publisher);
-        chkTypeTheatre = (CheckBox) rootView.findViewById(R.id.chk_type_theatre);
+        chkTypeInstitution = (CheckBox) rootView.findViewById(R.id.chk_type_institution);
         chkTypePersonal = (CheckBox) rootView.findViewById(R.id.chk_type_personal);
+        ivTypeInstitution = (ImageView) rootView.findViewById(R.id.iv_type_institution);
+        ivTypePersonal = (ImageView) rootView.findViewById(R.id.iv_type_personal);
+        chktvInstitutionName = (CheckedTextView) rootView.findViewById(R.id.chktv_institution_name);
+        chktvPersonalName = (CheckedTextView) rootView.findViewById(R.id.chktv_personal_name);
 
-        rootView.findViewById(R.id.lly_publisher).setOnClickListener(this);
-        rootView.findViewById(R.id.lly_theatre).setOnClickListener(this);
-        rootView.findViewById(R.id.lly_personal).setOnClickListener(this);
+
+        lLyInstitution = (LinearLayout) rootView.findViewById(R.id.lly_institution);
+        lLyPersonal = (LinearLayout) rootView.findViewById(R.id.lly_personal);
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
+        lLyInstitution.setOnClickListener(this);
+        lLyPersonal.setOnClickListener(this);
 
 
-        chkTypePublisher.setOnCheckedChangeListener(this);
-        chkTypeTheatre.setOnCheckedChangeListener(this);
+        chkTypeInstitution.setOnCheckedChangeListener(this);
         chkTypePersonal.setOnCheckedChangeListener(this);
     }
 
     @Override
     public void setView() {
-
+        chkTypeInstitution.setChecked(true);
     }
 
     @Override
@@ -119,11 +129,8 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
                 }
                 mTypeConfirmDialog.show(getFragmentManager(), "TYPECONFIRM.DIALOG");
                 break;
-            case R.id.lly_publisher:
-                chkTypePublisher.setChecked(!chkTypePublisher.isChecked());
-                break;
-            case R.id.lly_theatre:
-                chkTypeTheatre.setChecked(!chkTypeTheatre.isChecked());
+            case R.id.lly_institution:
+                chkTypeInstitution.setChecked(!chkTypeInstitution.isChecked());
                 break;
             case R.id.lly_personal:
                 chkTypePersonal.setChecked(!chkTypePersonal.isChecked());
@@ -134,32 +141,25 @@ public class AccountTypeSelectFragment extends BaseFragment implements View.OnCl
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-            case R.id.chk_type_publisher:
-                if (isChecked) {
-                    chkTypeTheatre.setChecked(false);
-                    chkTypePersonal.setChecked(false);
-                    mUserType = USER_TYPE_PUBLISHER;
-                } else {
-                    if (mUserType == USER_TYPE_PUBLISHER) {
-                        mUserType = USER_TYPE_NONE;
-                    }
-                }
-                break;
-            case R.id.chk_type_theatre:
+            case R.id.chk_type_institution:
+                lLyInstitution.setSelected(isChecked);
+                ivTypeInstitution.setSelected(isChecked);
+                chktvInstitutionName.setChecked(isChecked);
                 if (isChecked) {
                     chkTypePersonal.setChecked(false);
-                    chkTypePublisher.setChecked(false);
-                    mUserType = USER_TYPE_THEATRE;
+                    mUserType = USER_TYPE_INSTITUTION;
                 } else {
-                    if (mUserType == USER_TYPE_THEATRE) {
+                    if (mUserType == USER_TYPE_INSTITUTION) {
                         mUserType = USER_TYPE_NONE;
                     }
                 }
                 break;
             case R.id.chk_type_personal:
+                lLyPersonal.setSelected(isChecked);
+                ivTypePersonal.setSelected(isChecked);
+                chktvPersonalName.setChecked(isChecked);
                 if (isChecked) {
-                    chkTypeTheatre.setChecked(false);
-                    chkTypePublisher.setChecked(false);
+                    chkTypeInstitution.setChecked(false);
                     mUserType = USER_TYPE_PERSONAL;
                 } else {
                     if (mUserType == USER_TYPE_PERSONAL) {

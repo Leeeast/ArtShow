@@ -6,6 +6,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
@@ -117,6 +118,7 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
+
     //显示fragment
     public void initFragment(BaseFragment baseFragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fly_content, baseFragment, baseFragment.getTAG()).commit();
@@ -148,6 +150,7 @@ public class LoginActivity extends BaseActivity {
                 touchTime = currentTime;
             } else {
                 //TODO 退出APP
+                setResult(JumpCode.FLAG_RES_EXIT_APP);
                 this.finish();
             }
         } else {

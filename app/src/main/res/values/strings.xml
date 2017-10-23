@@ -41,11 +41,13 @@
     <string name="account_type">账号类型</string>
     <string name="account_type_select_tip">确定账号类型后，将不能更改</string>
     <string name="account_type_publisher">出品方</string>
+    <string name="account_type_institution">机构</string>
     <string name="account_type_publisher_des">我是戏剧出品方，可能是传媒公司、工作室、个人出品方，我拥有成型并且公演过的戏剧</string>
+    <string name="account_type_institution_des">我是演出机构</string>
     <string name="account_type_theatre">剧场</string>
     <string name="account_type_theatre_des">我是剧场负责人，我拥有符合经营条件的剧场资源</string>
     <string name="account_type_personal">个人</string>
-    <string name="account_type_personal_des">我是戏剧从业者，可能是演员、导演、编剧、舞台技术人员</string>
+    <string name="account_type_personal_des">我是演出从业者</string>
     <string name="perfect_info_next_step">下一步</string>
     <string name="perfect_account_info">帐号信息</string>
     <string name="perfect_name_publisher">出品方名称</string>

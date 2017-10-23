@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.fragment.CooperateFragment;
@@ -142,7 +143,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         if (LoginUtil.checkUserLogin(this, false)) {
             if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_DEFAULT ||
                     LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_UNFILL_DATA) {
-                startActivity(new Intent(this, LoginActivity.class));
+                invokActivity(this, LoginActivity.class, null, JumpCode.FLAG_REQ_MAIN_LOGIN);
             }
         }
     }
@@ -207,15 +208,15 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     public void setCheckId(int id) {
-       if(id==R.id.rdobtn_collaborate){
-           rdobtnCollaborate.setChecked(true);
-       }else if(id==R.id.rdobtn_discover){
-           rdobtnDiscover.setChecked(true);
-       }else if(id==R.id.rdobtn_show_circle){
-           rdobtnShowCircle.setChecked(true);
-       }else if(id==R.id.rdobtn_me){
-           rdobtnMe.setChecked(true);
-       }
+        if (id == R.id.rdobtn_collaborate) {
+            rdobtnCollaborate.setChecked(true);
+        } else if (id == R.id.rdobtn_discover) {
+            rdobtnDiscover.setChecked(true);
+        } else if (id == R.id.rdobtn_show_circle) {
+            rdobtnShowCircle.setChecked(true);
+        } else if (id == R.id.rdobtn_me) {
+            rdobtnMe.setChecked(true);
+        }
     }
 
     /**
@@ -268,9 +269,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case JumpCode.FLAG_RES_EXIT_APP:
+                finish();
+                break;
+        }
     }
 }

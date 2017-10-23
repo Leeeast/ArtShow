@@ -24,10 +24,12 @@ public class JumpCode {
     public static final int FLAG_REQ_ENROLL_APPLY = FLAG_REQ + 10;
     public static final int FLAG_REQ_RESUME_FILL = FLAG_REQ + 11;
     public static final int FLAG_REQ_CLASSIFY_TYPE = FLAG_REQ + 12;
+    public static final int FLAG_REQ_MAIN_LOGIN = FLAG_REQ + 13;
 
     // 返回码,往下加1
 
-    public static final int FLAG_RES_DATA_AUTH = FLAG_RES_RETURN + 1;
-    public static final int FLAG_RES_CLASSIFY_TYPE_CONFIRM = FLAG_RES_RETURN + 2;
+    public static final int FLAG_RES_EXIT_APP = FLAG_RES_RETURN + 1;
+    public static final int FLAG_RES_DATA_AUTH = FLAG_RES_RETURN + 2;
+    public static final int FLAG_RES_CLASSIFY_TYPE_CONFIRM = FLAG_RES_RETURN + 3;
 
 }
