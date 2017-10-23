@@ -11,8 +11,6 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
 import com.art.huakai.artshow.fragment.BindPhoneFragment;
-import com.art.huakai.artshow.fragment.DataUploadFragment;
-import com.art.huakai.artshow.fragment.DataUploadSusFragment;
 import com.art.huakai.artshow.fragment.LoginFragment;
 import com.art.huakai.artshow.fragment.LoginRegFragment;
 import com.art.huakai.artshow.fragment.PerfectInfoFragment;

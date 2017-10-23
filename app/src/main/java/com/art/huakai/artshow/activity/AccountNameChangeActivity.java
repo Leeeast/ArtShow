@@ -63,16 +63,12 @@ public class AccountNameChangeActivity extends BaseActivity {
 
         switch (localUserInfo.getUserType()) {
             case LocalUserInfo.USER_TYPE_PERSONAL:
-                tilyName.setHint(getString(R.string.perfect_name_personal));
+                tilyName.setHint(getString(R.string.perfect_type_personal));
                 tvAccountDes.setText(R.string.perfect_des_other);
                 break;
-            case LocalUserInfo.USER_TYPE_THEATRE:
-                tilyName.setHint(getString(R.string.perfect_name_theatre));
-                tvAccountDes.setText(R.string.perfect_des_other);
-                break;
-            case LocalUserInfo.USER_TYPE_PUBLISHER:
-                tilyName.setHint(getString(R.string.perfect_name_publisher));
-                tvAccountDes.setText(R.string.perfect_des_publisher);
+            case LocalUserInfo.USER_TYPE_INSTITUTION:
+                tilyName.setHint(getString(R.string.perfect_name_institution));
+                tvAccountDes.setText(R.string.perfect_des_institution);
                 break;
         }
 

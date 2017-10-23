@@ -15,8 +15,7 @@ public class LocalUserInfo {
     //用户类型
     public static final int
             USER_TYPE_PERSONAL = 3,
-            USER_TYPE_PUBLISHER = 2,
-            USER_TYPE_THEATRE = 1;
+            USER_TYPE_INSTITUTION = 1;
 
     private LocalUserInfo() {
     }
@@ -39,7 +38,7 @@ public class LocalUserInfo {
     private String wechatOpenid;
     private String dp;
     private String password;
-    //注册类型；3：个人账户，1：剧场用户，2：出品方用户
+    //注册类型；3：个人账户，1：机构
     private int userType;
     //0 默认，注册成功未选择账户类型 ，1 已经选择账户类型，未填写个人资料，2 资料完善，未认证，3，已认证
     private int status;

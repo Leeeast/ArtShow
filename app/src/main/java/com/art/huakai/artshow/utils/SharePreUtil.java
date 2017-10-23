@@ -155,6 +155,26 @@ public class SharePreUtil {
     }
 
     /**
+     * 清除保存的用户信息
+     */
+    public void clearUserInfo() {
+        Editor edit = mSp.edit();
+        edit.putInt(USER_EXPIRE, 0);
+        edit.putString(USER_ACCESSTOKEN, "");
+        edit.putString(USER_ID, "");
+        edit.putString(USER_NAME, "");
+        edit.putString(USER_MOBILE, "");
+        edit.putString(USER_EMAIL, "");
+        edit.putString(USER_WECHATOPENID, "");
+        edit.putString(USER_DP, "");
+        edit.putString(USER_PASSWORD, "");
+        edit.putInt(USER_USERTYPE, 0);
+        edit.putInt(USER_STATUS, 0);
+        edit.putLong(USER_CREATETIME, 0);
+        edit.commit();
+    }
+
+    /**
      * 读取用户信息
      */
     public void initUserInfo() {

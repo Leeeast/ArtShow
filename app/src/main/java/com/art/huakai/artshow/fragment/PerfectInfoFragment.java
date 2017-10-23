@@ -51,10 +51,6 @@ import java.util.TreeMap;
 
 import okhttp3.Call;
 
-import static com.art.huakai.artshow.entity.LocalUserInfo.USER_TYPE_PERSONAL;
-import static com.art.huakai.artshow.entity.LocalUserInfo.USER_TYPE_PUBLISHER;
-import static com.art.huakai.artshow.entity.LocalUserInfo.USER_TYPE_THEATRE;
-
 /**
  * 账户类型选择Fragment
  * Created by lidongliang on 2017/9/27.
@@ -107,16 +103,12 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     public void setView() {
         switch (localUserInfo.getUserType()) {
             case LocalUserInfo.USER_TYPE_PERSONAL:
-                tilyName.setHint(getString(R.string.perfect_name_personal));
+                tilyName.setHint(getString(R.string.perfect_type_personal));
                 tvPerfectDes.setText(R.string.perfect_des_other);
                 break;
-            case LocalUserInfo.USER_TYPE_THEATRE:
-                tilyName.setHint(getString(R.string.perfect_name_theatre));
-                tvPerfectDes.setText(R.string.perfect_des_other);
-                break;
-            case LocalUserInfo.USER_TYPE_PUBLISHER:
-                tilyName.setHint(getString(R.string.perfect_name_publisher));
-                tvPerfectDes.setText(R.string.perfect_des_publisher);
+            case LocalUserInfo.USER_TYPE_INSTITUTION:
+                tilyName.setHint(getString(R.string.perfect_name_institution));
+                tvPerfectDes.setText(R.string.perfect_des_institution);
                 break;
         }
     }

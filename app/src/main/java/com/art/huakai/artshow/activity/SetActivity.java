@@ -17,6 +17,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ConfirmDialog;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
+import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartToast;
 
@@ -139,7 +140,10 @@ public class SetActivity extends BaseActivity {
      */
     @OnClick(R.id.btn_exit_login)
     public void exitLogin() {
-        Toast.makeText(this, "退出登录", Toast.LENGTH_SHORT).show();
+        //TODO 用一个集合保存左右activity，退出关闭所有activity
+        SharePreUtil.getInstance().clearUserInfo();
+        SharePreUtil.getInstance().initSharePre();
+        invokActivity(this, LoginActivity.class, null, JumpCode.FLAG_REQ_MAIN_LOGIN);
     }
 
     @Override

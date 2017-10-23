@@ -58,7 +58,7 @@ public class RegisterSucFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_return_main:
-                getActivity().finish();
+                //getActivity().finish();
                 break;
             case R.id.lly_back:
                 getActivity().finish();

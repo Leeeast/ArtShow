@@ -52,9 +52,11 @@
     <string name="perfect_account_info">帐号信息</string>
     <string name="perfect_name_publisher">出品方名称</string>
     <string name="perfect_name_personal">姓名</string>
+    <string name="perfect_type_personal">个人名称：</string>
     <string name="perfect_name_theatre">剧场名称</string>
-    <string name="perfect_des_publisher">如果您是组织或团队，请填写组织名称，\n如果您是个人出品方，请填写真实姓名</string>
-    <string name="perfect_des_other">如果您是组织或团队，请填写组织名称</string>
+    <string name="perfect_name_institution">机构名称：</string>
+    <string name="perfect_des_institution">*请填写机构名称</string>
+    <string name="perfect_des_other">*请填写真实姓名</string>
     <string name="data_upload">上传资料</string>
     <string name="data_commit">提交资料</string>
     <string name="data_commit_des">%1$s是一个真实的互联网平台，我们要对您的账号进行一些资料的审核.</string>
@@ -64,6 +66,17 @@
     <string name="data_check_success_des">恭喜你已成为演出中国的认证会员！快去使用更多功能吧，发布你的作品，让更多人看到</string>
     <string name="return_main">查看首页</string>
     <string name="register_success">注册成功</string>
+    <!--资质上传-->
+    <string name="data_auth_title">资质审核</string>
+    <string name="data_auth_name_personal">姓名：</string>
+    <string name="data_auth_name_institution">机构名称：</string>
+    <string name="data_auth_identify_personal">身份证号码：</string>
+    <string name="data_auth_identify_institution">组织机构信用代码：</string>
+    <string name="data_auth_connect_name">联系人姓名：</string>
+    <string name="data_auth_connect_phone">联系人手机号：</string>
+    <string name="data_auth_upload_tip_personal">身份证正面照片：</string>
+    <string name="data_auth_upload_tip_institution">营业执照照片：</string>
+    <string name="data_commit_check">提交审核</string>
 
     <string name="cancel">取消</string>
     <string name="true_choose">确认选择</string>

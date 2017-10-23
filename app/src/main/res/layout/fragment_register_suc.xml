@@ -42,12 +42,16 @@
             android:gravity="center"
             android:text="@string/return_main"
             android:textColor="@color/login_btn"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_margin="@dimen/DIMEN_30PX"
+            android:layout_marginBottom="@dimen/DIMEN_30PX"
+            android:layout_marginLeft="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_43PX"
             android:background="@color/login_line" />
 
         <Button
@@ -60,7 +64,7 @@
             android:layout_marginRight="@dimen/DIMEN_30PX"
             android:background="@drawable/shape_bg_red"
             android:gravity="center"
-            android:text="@string/data_upload"
+            android:text="@string/pwd_retrieve_finish"
             android:textColor="@color/whiteff"
             android:textSize="15sp" />
     </LinearLayout>

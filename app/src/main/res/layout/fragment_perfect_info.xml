@@ -60,7 +60,7 @@
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:text="@string/perfect_des_publisher"
+            android:text="@string/perfect_des_institution"
             android:textColor="@color/login_light"
             android:textSize="15sp" />
 

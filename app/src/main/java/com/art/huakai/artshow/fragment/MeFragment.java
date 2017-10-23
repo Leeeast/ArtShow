@@ -124,13 +124,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                         //设置不刷新
                         mRefreshLayout.setEnabled(false);
                         break;
-                    case LocalUserInfo.USER_TYPE_PUBLISHER:
-                        tvType.setText(getString(R.string.account_type_publisher));
-                        switchFragment(CODE_STATUS_PUBLISHER);
-                        setSRLayout();
 
-                        break;
-                    case LocalUserInfo.USER_TYPE_THEATRE:
+                    case LocalUserInfo.USER_TYPE_INSTITUTION:
                         tvType.setText(getString(R.string.account_type_theatre));
                         switchFragment(CODE_STATUS_THEATRE);
                         setSRLayout();
