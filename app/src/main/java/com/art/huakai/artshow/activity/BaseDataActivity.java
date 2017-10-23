@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -15,21 +14,20 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.ClassifyTypeBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.ResumeBean;
 import com.art.huakai.artshow.entity.TalentResumeInfo;
 import com.art.huakai.artshow.utils.ACache;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
-import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.RequestUtil;
-import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import org.json.JSONArray;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -124,6 +122,14 @@ public class BaseDataActivity extends BaseActivity {
     @OnClick(R.id.tv_subtitle)
     public void commitInfo() {
         String birthday = tvBirthday.getText().toString().toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        long birthdayTime = 0;
+        try {
+            Date date = simpleDateFormat.parse(birthday);
+            birthdayTime = date.getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (TextUtils.isEmpty(birthday)) {
             Toast.makeText(this, getString(R.string.tip_resume_birthday_input), Toast.LENGTH_SHORT).show();
             return;
@@ -147,8 +153,8 @@ public class BaseDataActivity extends BaseActivity {
             Toast.makeText(this, getString(R.string.tip_resume_region_city), Toast.LENGTH_SHORT).show();
             return;
         }
-        String weight = edtStature.getText().toString().trim();
-        String heigth = edtWeight.getText().toString().trim();
+        String weight = edtWeight.getText().toString().trim();
+        String heigth = edtStature.getText().toString().trim();
         String linkTel = edtConnectMethod.getText().toString().trim();
         if (TextUtils.isEmpty(linkTel)) {
             Toast.makeText(this, getString(R.string.tip_resume_linktel_input), Toast.LENGTH_SHORT).show();
@@ -159,7 +165,7 @@ public class BaseDataActivity extends BaseActivity {
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("name", LocalUserInfo.getInstance().getName());
-        params.put("birthday", birthday);
+        params.put("birthday", String.valueOf(birthdayTime));
         params.put("classifyIds", classifyIds);
         params.put("school", schrool);
         params.put("agency", agency);
