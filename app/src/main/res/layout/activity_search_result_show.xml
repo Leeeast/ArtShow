@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffffff"
-    android:orientation="vertical"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/include_title"
@@ -15,34 +15,26 @@
         android:id="@+id/tv_search_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="共发现2条相关数据"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
         android:layout_marginTop="@dimen/DIMEN_10PX"
-        android:textColor="#ff797c87"
-        />
+        android:text="共发现2条相关数据"
+        android:textColor="#ff797c87" />
 
     <TextView
         android:id="@+id/tv_search_type"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/DIMEN_20PX"
         android:layout_height="wrap_content"
-        android:text="作品"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
-        />
+        android:layout_marginTop="@dimen/DIMEN_20PX"
+        android:text="项目" />
 
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/rcv"
-    android:layout_marginTop="@dimen/DIMEN_5PX"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/DIMEN_5PX">
 
-</android.support.v7.widget.RecyclerView>
-
-
-
-
-
-
+    </android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

@@ -214,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="10"
-                android:text="优秀作品"
+                android:text="优秀项目"
                 android:textColor="@color/account_type_name"
                 android:textSize="@dimen/DIMEN_19PX" />
 

@@ -483,7 +483,7 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:textSize="@dimen/DIMEN_20PX"
             android:textColor="#ff5a4b41"
-            android:text="作品介绍"
+            android:text="项目介绍"
             android:layout_marginLeft="@dimen/DIMEN_14PX"
             android:layout_marginTop="@dimen/DIMEN_25PX"
             />

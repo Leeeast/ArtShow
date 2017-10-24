@@ -52,7 +52,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:layout_marginTop="@dimen/DIMEN_4PX"
-                android:text="快来支持你想看的作品"
+                android:text="快来支持你想看的项目"
                 android:textColor="#ff555555"
                 android:textSize="@dimen/DIMEN_14PX" />
 

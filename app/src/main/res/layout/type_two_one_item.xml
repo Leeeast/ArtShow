@@ -31,7 +31,7 @@
             android:layout_marginTop="@dimen/DIMEN_5PX"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="演出作品要求时长在60分钟以上，作品
+            android:text="演出项目要求时长在60分钟以上，项目
 内容必须高大上，人数在5到10人之间"
             android:textColor="#ff555555"
             android:textSize="@dimen/DIMEN_13PX" />

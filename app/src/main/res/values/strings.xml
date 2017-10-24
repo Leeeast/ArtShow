@@ -62,8 +62,8 @@
     <string name="data_commit_des">%1$s是一个真实的互联网平台，我们要对您的账号进行一些资料的审核.</string>
     <string name="data_commit_success">资料递交成功</string>
     <string name="data_check_success">已成功认证</string>
-    <string name="data_commit_success_des">审核周期为2个工作日，请耐心等待。如果通过，我们将以短信方式通知到您。审核通过后，您发布的所有剧场信息、作品信息、个人信息资料才会所有人看到</string>
-    <string name="data_check_success_des">恭喜你已成为演出中国的认证会员！快去使用更多功能吧，发布你的作品，让更多人看到</string>
+    <string name="data_commit_success_des">审核周期为2个工作日，请耐心等待。如果通过，我们将以短信方式通知到您。审核通过后，您发布的所有剧场信息、项目信息、个人信息资料才会所有人看到</string>
+    <string name="data_check_success_des">恭喜你已成为演出中国的认证会员！快去使用更多功能吧，发布你的项目，让更多人看到</string>
     <string name="return_main">查看首页</string>
     <string name="register_success">注册成功</string>
     <!--资质上传-->
@@ -142,11 +142,11 @@
     <string name="enroll_apply">我要报名</string>
     <string name="enroll_apply_number">演员人数</string>
     <string name="enroll_first_show_time">首演时间</string>
-    <string name="enroll_produce_add">+&#160;&#160;添加新作品</string>
+    <string name="enroll_produce_add">+&#160;&#160;添加新项目</string>
 
 
     <!--我的页面相关-->
-    <string name="me_unlogin_des">推荐作品</string>
+    <string name="me_unlogin_des">推荐项目</string>
     <string name="me_unlogin">登录/注册</string>
     <string name="me_unlogin_sub">登录后可享受更多</string>
     <string name="me_my_resume">我的简历</string>
@@ -198,7 +198,7 @@
     <string name="resume_upload_cover">上传个人封面</string>
     <string name="resume_base_data">基本资料</string>
     <string name="resume_self_introduction">个人介绍</string>
-    <string name="resume_self_works">个人作品</string>
+    <string name="resume_self_works">个人项目</string>
     <string name="resume_photo">相片</string>
     <string name="resume_award_experience">获奖经历</string>
     <string name="resume_post">发布简历</string>
@@ -225,9 +225,9 @@
     <string name="tip_honor_input">在此输入获奖经历</string>
     <string name="tip_honor_commit_suc">获奖经历修改成功</string>
     <string name="tip_honor_input_empty">请输入获奖经历</string>
-    <string name="tip_works_input">在此输入个人作品</string>
-    <string name="tip_works_commit_suc">个人作品修改成功</string>
-    <string name="tip_works_empty">请此输入个人作品</string>
+    <string name="tip_works_input">在此输入个人项目</string>
+    <string name="tip_works_commit_suc">个人项目修改成功</string>
+    <string name="tip_works_empty">请此输入个人项目</string>
     <string name="talent_classify_type">*最多选择三项</string>
     <string name="tip_talent_classify_type">最多选择三项</string>
     <string name="tip_resume_birthday_input">请选择出生年月</string>

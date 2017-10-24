@@ -60,7 +60,7 @@ public class DataProvider {
 
     public static String[] getHotSearchData() {
         String[] result = new String[]{"找项目", "找剧场", "找人才",
-                "新作品", "品牌合作", "舞台技术",
+                "新项目", "品牌合作", "舞台技术",
                 "入驻机构"
         };
         return result;
