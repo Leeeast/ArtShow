@@ -102,7 +102,18 @@
         <activity
             android:name=".activity.KeywordSearchResultShowActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.TheatreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TheatreEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TheatreBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TheatreFillActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

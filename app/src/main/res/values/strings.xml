@@ -237,6 +237,35 @@
     <string name="tip_resume_linktel_input">请输入联系方式</string>
     <string name="share_copy_url">复制链接</string>
     <string name="share_open_url">在网页中打开</string>
+    <!--剧场相关-->
+    <string name="theatre_title_my">我的剧场</string>
+    <string name="theatre_upload">上传剧场</string>
+    <string name="theatre_edit">编辑剧场</string>
+    <string name="theatre_cover_upload">上传编辑封面</string>
+    <string name="theatre_data_unfill">未填写</string>
+    <string name="theatre_data_base">基本资料</string>
+    <string name="theatre_schedule">剧场档期</string>
+    <string name="theatre_intro">剧场简介</string>
+    <string name="theatre_detail_intro">详细介绍</string>
+    <string name="theatre_seat_pic">座位票区图</string>
+    <string name="theatre_pic">剧场图片</string>
+    <string name="theatre_technical_parameters">技术参数</string>
+    <string name="theatre_post_des">*剧场发布后，所有人可见，未发布，将只有自己可见。</string>
+    <string name="theatre_info">剧场信息</string>
+    <string name="theatre_name">剧场名称：</string>
+    <string name="theatre_hall_name">厅馆名称：</string>
+    <string name="theatre_seat_count">座位数量：</string>
+    <string name="theatre_colocation_price">场租价格：</string>
+    <string name="theatre_detail_address">详细地址：</string>
+    <string name="theatre_connect_info">联系人信息</string>
+    <string name="theatre_connect_name">姓名：</string>
+    <string name="theatre_intro_input_tip">在此输入剧场简介</string>
+    <string name="theatre_detail_intro_input_tip">在此输入详细介绍</string>
+    <string name="theatre_stage_height">舞台高度：</string>
+    <string name="theatre_stage_width">舞台宽度：</string>
+    <string name="theatre_stage_depth">舞台深度：</string>
+    <string name="theatre_stage_dressing">化妆室数量：</string>
+    <string name="theatre_provide_equip">可提供设备</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

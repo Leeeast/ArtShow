@@ -25,6 +25,10 @@ public class JumpCode {
     public static final int FLAG_REQ_RESUME_FILL = FLAG_REQ + 11;
     public static final int FLAG_REQ_CLASSIFY_TYPE = FLAG_REQ + 12;
     public static final int FLAG_REQ_MAIN_LOGIN = FLAG_REQ + 13;
+    public static final int FLAG_REQ_THEATRE_MY = FLAG_REQ + 14;
+    public static final int FLAG_REQ_THEATRE_EDIT = FLAG_REQ + 15;
+    public static final int FLAG_REQ_THEATRE_BASE = FLAG_REQ + 16;
+    public static final int FLAG_REQ_THEATRE_FILL = FLAG_REQ + 17;
 
     // 返回码,往下加1
 

@@ -36,4 +36,14 @@
         <item>其他学院</item>
     </string-array>
 
+    <string-array name="theatre_tech_param">
+        <item>舞美设计</item>
+        <item>灯光设计</item>
+        <item>服装造型</item>
+        <item>音乐音响</item>
+        <item>多媒体视频</item>
+        <item>舞台特效</item>
+        <item>平面设计</item>
+    </string-array>
+
 </resources>

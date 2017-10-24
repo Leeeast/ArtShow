@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:set_item="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_common" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_1PX"
+        android:background="@color/me_personal_line" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteff"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteff"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/DIMEN_25PX">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_avatar"
+                android:layout_width="@dimen/DIMEN_96PX"
+                android:layout_height="@dimen/DIMEN_96PX"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/DIMEN_20PX"
+                fresco:actualImageScaleType="focusCrop"
+                fresco:placeholderImage="@mipmap/avatar_default"
+                fresco:placeholderImageScaleType="fitCenter"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/DIMEN_24PX"
+                android:layout_marginTop="@dimen/DIMEN_5PX"
+                android:gravity="center_horizontal"
+                android:text="@string/theatre_cover_upload"
+                android:textColor="@color/black66"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/set_base_info"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_base"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/theatre_data_base" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/theatre_schedule" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_intro"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/theatre_intro" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_detail_intro"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/theatre_detail_intro" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/set_other_info"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_alignParentBottom="true"
+                android:background="@color/me_personal_line" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_seat_pic"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/theatre_seat_pic" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_pic"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/theatre_pic" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_technical_parameters"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/theatre_technical_parameters" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/resume_post_tip"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_48PX">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:background="@color/me_personal_line" />
+
+                <ImageView
+                    android:id="@+id/iv_resume_post"
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/icon_resume_post" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/iv_resume_post"
+                    android:text="@string/resume_post"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <Switch
+                    android:id="@+id/switch_release"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:checked="false"
+                    android:thumb="@drawable/switch_thumb"
+                    android:track="@drawable/switch_track" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/theatre_post_des"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

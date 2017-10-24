@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whiteff"
     android:orientation="vertical">
 
     <include layout="@layout/layout_title_common" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_1PX"
-        android:background="@color/me_personal_line" />
+        android:layout_height="1px"
+        android:background="@color/change_pwd_line" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,198 +20,193 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sdv_avatar"
-                android:layout_width="@dimen/DIMEN_96PX"
-                android:layout_height="@dimen/DIMEN_96PX"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/DIMEN_20PX"
-                android:background="@mipmap/upload_avatar"
-                fresco:actualImageScaleType="focusCrop"
-                fresco:placeholderImageScaleType="fitCenter"
-                fresco:roundAsCircle="true" />
+            android:background="@color/whiteff"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/DIMEN_25PX">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/theatre_technical_parameters"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_stage_height"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_theatre_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_height"
+                    android:background="@null"
+                    android:hint="@string/user_not_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_stage_width"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_theatre_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_width"
+                    android:background="@null"
+                    android:hint="@string/user_not_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_depth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_stage_depth"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_theatre_depth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_depth"
+                    android:background="@null"
+                    android:hint="@string/user_not_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_dressing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_stage_dressing"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_theatre_dressing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_dressing"
+                    android:background="@null"
+                    android:hint="@string/user_not_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/theatre_provide_equip"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_alignParentBottom="true"
+                android:background="@color/me_personal_line" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/DIMEN_24PX"
-                android:layout_marginTop="@dimen/DIMEN_6PX"
-                android:gravity="center_horizontal"
-                android:text="@string/set_upload_avatar"
-                android:textColor="@color/black66"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_29PX"
-                android:background="@color/set_account_text_bg"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/DIMEN_15PX"
-                android:text="@string/set_base_info"
-                android:textColor="@color/login_light"
-                android:textSize="12sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_47PX">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/DIMEN_15PX"
-                    android:text="@string/account_type"
-                    android:textColor="@color/login_btn"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/tv_account_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:text="剧场"
-                    android:textColor="@color/set_account_text"
-                    android:textSize="17sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_1PX"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/me_personal_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rly_name"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_47PX">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/DIMEN_15PX"
-                    android:text="@string/account_name"
-                    android:textColor="@color/login_btn"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:id="@+id/iv_arrow_name"
-                    android:layout_width="@dimen/DIMEN_10PX"
-                    android:layout_height="@dimen/DIMEN_17PX"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:background="@mipmap/arrow_right" />
-
-                <TextView
-                    android:id="@+id/tv_account_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_9PX"
-                    android:layout_toLeftOf="@id/iv_arrow_name"
-                    android:text="浪里个浪工作室"
-                    android:textColor="@color/set_account_text"
-                    android:textSize="17sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_1PX"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/me_personal_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rly_account_auth"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_47PX">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/DIMEN_15PX"
-                    android:text="@string/account_auth"
-                    android:textColor="@color/login_btn"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:id="@+id/iv_auth_name"
-                    android:layout_width="@dimen/DIMEN_10PX"
-                    android:layout_height="@dimen/DIMEN_17PX"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:background="@mipmap/arrow_right" />
-
-                <TextView
-                    android:id="@+id/tv_auth_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_9PX"
-                    android:layout_toLeftOf="@id/iv_auth_name"
-                    android:text="@string/account_authed"
-                    android:textColor="@color/set_account_text"
-                    android:textSize="17sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_1PX"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/me_personal_line" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_29PX"
-                android:background="@color/set_account_text_bg"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/DIMEN_15PX"
-                android:text="@string/set_other_info"
-                android:textColor="@color/login_light"
-                android:textSize="12sp" />
-
-            <RelativeLayout
-                android:id="@+id/rly_change_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_47PX">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_1PX"
-                    android:background="@color/me_personal_line" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/DIMEN_15PX"
-                    android:text="@string/account_auth_pwd"
-                    android:textColor="@color/login_btn"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:id="@+id/iv_changt_pwd"
-                    android:layout_width="@dimen/DIMEN_10PX"
-                    android:layout_height="@dimen/DIMEN_17PX"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:background="@mipmap/arrow_right" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_1PX"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/me_personal_line" />
-            </RelativeLayout>
+                android:layout_margin="@dimen/DIMEN_15PX"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
         </LinearLayout>
 
     </ScrollView>

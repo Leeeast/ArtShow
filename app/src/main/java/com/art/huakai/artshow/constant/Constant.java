@@ -74,7 +74,8 @@ public class Constant {
     public static final String URL_TALENT_DEIT_BASE = BASE_URL + "/talent/edit/base";
     //资质认证，个人／机构通用  认证类型，个人认证：0，机构认证：1
     public static final String URL_AUTHENTICATION_APPLY = BASE_URL + "/authentication/apply";
-
+    //用户发布的剧场分页列表
+    public static final String URL_USER_THEATER = BASE_URL + "/user/theater";
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型

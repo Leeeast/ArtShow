@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_common" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteff"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/DIMEN_25PX">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/theatre_info"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_name"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/edt_theatre_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_name"
+                    android:background="@null"
+                    android:hint="@string/user_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_hall_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_hall_name"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/edt_theatre_hall_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_hall_name"
+                    android:background="@null"
+                    android:hint="@string/user_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_seat_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_seat_count"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/edt_theatre_seat_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_seat_count"
+                    android:background="@null"
+                    android:hint="@string/user_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_colocation_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_colocation_price"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/edt_theatre_colocation_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_colocation_price"
+                    android:background="@null"
+                    android:hint="@string/user_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rly_live_city"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/user_live_city"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow_city"
+                    android:layout_width="@dimen/DIMEN_10PX"
+                    android:layout_height="@dimen/DIMEN_17PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/arrow_right" />
+
+                <TextView
+                    android:id="@+id/tv_live_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toLeftOf="@id/iv_arrow_city"
+                    android:hint="@string/theatre_data_unfill"
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_detail_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_detail_address"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/edt_theatre_detail_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_detail_address"
+                    android:background="@null"
+                    android:hint="@string/user_must_fill"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/theatre_connect_info"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_connect_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_connect_name"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_connect_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@+id/tv_connect_name"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/user_must_fill"
+                    android:inputType="phone"
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textCursorDrawable="@null"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_connect_method"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/user_connect_method"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_connect_method"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@+id/tv_connect_method"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/user_must_fill"
+                    android:inputType="phone"
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textCursorDrawable="@null"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
