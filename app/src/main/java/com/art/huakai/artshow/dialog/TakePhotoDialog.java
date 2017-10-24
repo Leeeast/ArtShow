@@ -178,4 +178,48 @@ public class TakePhotoDialog extends BaseDialogFragment implements View.OnClickL
                 .selectionMedia(selectList)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
     }
+
+    /**
+     * Fragment&activity中相册选择
+     *
+     * @param object
+     */
+    public static void multiPicSelect(Object object, List<LocalMedia> selectList) {
+        PictureSelector pictureSelector = null;
+        if (object instanceof Fragment) {
+            pictureSelector = PictureSelector.create((Fragment) object);
+        } else if (object instanceof Activity) {
+            pictureSelector = PictureSelector.create((Activity) object);
+        } else {
+            Toast.makeText(
+                    ShowApplication.getAppContext(),
+                    ShowApplication.getAppContext().getString(R.string.tip_illegal_argument_exception),
+                    Toast.LENGTH_SHORT).show();
+        }
+        pictureSelector
+                .openGallery(PictureMimeType.ofImage())
+                .theme(R.style.picture_QQ_style)
+                .maxSelectNum(PhotoConfig.MAX_SELECT_NUM)
+                .minSelectNum(1)
+                .selectionMode(PictureConfig.MULTIPLE)//单选&多选
+                .previewImage(false)//是否显示预览
+                .previewVideo(false)
+                .enablePreviewAudio(false) // 是否可播放音频
+                .compressGrade(Luban.THIRD_GEAR)
+                .isCamera(true)
+                .enableCrop(true)
+                .compress(true)
+                .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)
+                .glideOverride(160, 160)
+                .withAspectRatio(0, 0)
+                .hideBottomControls(true)
+                .isGif(false)//是否现实Gif图片
+                .freeStyleCropEnabled(true)
+                .circleDimmedLayer(false)
+                .showCropFrame(true)
+                .showCropGrid(true)
+                .openClickSound(PhotoConfig.VOICE)
+                .selectionMedia(selectList)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
 }

@@ -77,6 +77,12 @@
     <string name="data_auth_upload_tip_personal">身份证正面照片：</string>
     <string name="data_auth_upload_tip_institution">营业执照照片：</string>
     <string name="data_commit_check">提交审核</string>
+    <string name="tip_name_input_personal">请输入真实姓名</string>
+    <string name="tip_name_input_institution">请输入机构名称</string>
+    <string name="tip_identifyid_input_personal">请输入身份证号码</string>
+    <string name="tip_identifyid_input_institution">请输入组织机构信用代码</string>
+    <string name="tip_connect_name_input">请输入联系人姓名</string>
+    <string name="tip_connect_phone_input">请输入联系人电话号码</string>
 
     <string name="cancel">取消</string>
     <string name="true_choose">确认选择</string>
@@ -106,6 +112,7 @@
     <string name="tip_illegal_argument_exception">请传入Activity或Fragment</string>
     <string name="tip_no_more_date">没有更多数据了</string>
     <string name="tip_data_error">数据异常</string>
+    <string name="tip_auth_data_update">请上传资质认证图片</string>
 
 
     <string name="response_code_200">success</string>

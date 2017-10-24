@@ -72,7 +72,8 @@ public class Constant {
     public static final String URL_REGION_LIST = BASE_URL + "/region/list";
     //修改个人简历基本资料，返回创建或修改的简历ID
     public static final String URL_TALENT_DEIT_BASE = BASE_URL + "/talent/edit/base";
-
+    //资质认证，个人／机构通用  认证类型，个人认证：0，机构认证：1
+    public static final String URL_AUTHENTICATION_APPLY = BASE_URL + "/authentication/apply";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
@@ -89,7 +90,7 @@ public class Constant {
     public static final String URL_KEYWORD_SEARCH = BASE_URL + "/search";
     public static final String URL_KEYWORD_SEARCH_NEWS = BASE_URL + "/search/news";
     public static final String URL_KEYWORD_SEARCH_TALENS = BASE_URL + "/search/talent";
-    public static final String URL_KEYWORD_SEARCH_REPERTORYS= BASE_URL + "/search/repertory";
+    public static final String URL_KEYWORD_SEARCH_REPERTORYS = BASE_URL + "/search/repertory";
     public static final String URL_KEYWORD_SEARCH_THEATRES = BASE_URL + "/search/theater";
     public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search/enroll";
 
