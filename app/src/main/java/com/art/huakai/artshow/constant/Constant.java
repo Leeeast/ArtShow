@@ -76,6 +76,14 @@ public class Constant {
     public static final String URL_AUTHENTICATION_APPLY = BASE_URL + "/authentication/apply";
     //用户发布的剧场分页列表
     public static final String URL_USER_THEATER = BASE_URL + "/user/theater";
+    //修改剧场基本资料，返回创建或修改的剧场id
+    public static final String URL_THEATER_EDIT_BASE = BASE_URL + "/theater/edit/base";
+    //修改剧场简介，返回创建或修改的剧场id
+    public static final String URL_THEATER_EDIT_DESCRIPTION = BASE_URL + "/theater/edit/description";
+    //剧场详情  在发现中使用
+    public static final String URL_THEATER_DETAIL = BASE_URL + "/theater/detail";
+    //用户发布的剧场详情页  我的标签中使用
+    public static final String URL_USER_THEATER_DETAIL = BASE_URL + "/user/theater/detail";
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型

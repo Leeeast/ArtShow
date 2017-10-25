@@ -3,6 +3,7 @@ package com.art.huakai.artshow.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -15,7 +16,9 @@ import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.DataItem;
-import com.art.huakai.artshow.widget.SmartRecyclerview;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -36,6 +39,7 @@ public class TheatreEditActivity extends BaseActivity {
     @BindView(R.id.dataitem_base)
     DataItem dataItemBase;
 
+    public boolean isNewCreate = true;
     private ShowProgressDialog showProgressDialog;
 
     @Override
@@ -51,8 +55,82 @@ public class TheatreEditActivity extends BaseActivity {
     @Override
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
+        if (isNewCreate) {
+            editTheatreDescription();
+        }
     }
 
+    /**
+     * 剧场描述修改
+     * 新创建剧场，为了获取剧场ID
+     */
+    private void editTheatreDescription() {
+        Map<String, String> params = new TreeMap<>();
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("description", "新创建");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        RequestUtil.request(true, Constant.URL_THEATER_EDIT_DESCRIPTION, params, 61, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    try {
+                        //{"id":"8a999cce5f51904d015f528e8bf20005"}
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String theatreID = jsonObject.getString("id");
+                        getTheatreDetail(theatreID);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(TheatreEditActivity.this, getString(R.string.tip_mobile_registered), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+            }
+        });
+    }
+
+    /**
+     * 剧场详情获取
+     */
+    private void getTheatreDetail(String theatreId) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", theatreId);
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        RequestUtil.request(true, Constant.URL_USER_THEATER_DETAIL, params, 62, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    try {
+                        //{"id":"8a999cce5f51904d015f528e8bf20005"}
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String theatreID = jsonObject.getString("id");
+                        //getTheatreDetail(theatreID);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(TheatreEditActivity.this, getString(R.string.tip_mobile_registered), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+            }
+        });
+    }
 
     @Override
     public void initView() {
