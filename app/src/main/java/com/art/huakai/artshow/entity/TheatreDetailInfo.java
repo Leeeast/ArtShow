@@ -7,6 +7,19 @@ import java.util.List;
  */
 
 public class TheatreDetailInfo {
+
+    private TheatreDetailInfo() {
+    }
+
+    private static TheatreDetailInfo theatreDetailInfo;
+
+    public synchronized static TheatreDetailInfo getInstance() {
+        if (theatreDetailInfo == null) {
+            theatreDetailInfo = new TheatreDetailInfo();
+        }
+        return theatreDetailInfo;
+    }
+
     private String id;
     private String logo;
     private String name;

@@ -13,12 +13,15 @@ import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -30,7 +33,7 @@ import butterknife.Unbinder;
 import okhttp3.Call;
 
 public class TheatreDetailIntroFragment extends BaseFragment {
-
+    private static final String PARAMS_INFO = "PARAMS_INFO";
     @BindView(R.id.edt_introduce)
     EditText edtIntroduce;
     @BindView(R.id.tv_title)
@@ -53,7 +56,7 @@ public class TheatreDetailIntroFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentResumeInfo.getInstance().getDescription();
+        mDescription = TheatreDetailInfo.getInstance().getDetailedIntroduce();
     }
 
     @Override
@@ -108,15 +111,15 @@ public class TheatreDetailIntroFragment extends BaseFragment {
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TalentResumeInfo.getInstance().getId());
+        params.put("id", TheatreDetailInfo.getInstance().getId());
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("description", mDescription);
+        params.put("detailedIntroduce", mDescription);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
         showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_TALENT_EDIT_DESCRIPTION, params, 51, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, Constant.URL_THEATER_EDIT_DETAILEDINTRODUCE, params, 53, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -124,8 +127,9 @@ public class TheatreDetailIntroFragment extends BaseFragment {
                     showProgressDialog.dismiss();
                 }
                 if (isSuccess) {
-                    Toast.makeText(getContext(), getString(R.string.tip_description_change_suc), Toast.LENGTH_SHORT).show();
-                    TalentResumeInfo.getInstance().setDescription(mDescription);
+                    Toast.makeText(getContext(), getString(R.string.tip_theatre_des_change_suc), Toast.LENGTH_SHORT).show();
+                    TheatreDetailInfo.getInstance().setDetailedIntroduce(mDescription);
+                    EventBus.getDefault().post(new TheatreInfoChangeEvent());
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

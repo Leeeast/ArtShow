@@ -21,7 +21,8 @@ public class Constant {
     public static final String TIME_CLASSIFY_CACHE = "TIME_CLASSIFY_CACHE";
     //技能类型缓
     public static final String CLASSIFY_CACHE = "CLASSIFY_CACHE";
-
+    //为了获取剧场、人才或项目ID默认描述
+    public static final String DESCRIPTION_DEFAULT = "******";
 
     private static boolean isTestEnv = true;
     public static final String TEST_HOST = "http://139.224.47.213:8080";
@@ -80,6 +81,8 @@ public class Constant {
     public static final String URL_THEATER_EDIT_BASE = BASE_URL + "/theater/edit/base";
     //修改剧场简介，返回创建或修改的剧场id
     public static final String URL_THEATER_EDIT_DESCRIPTION = BASE_URL + "/theater/edit/description";
+    //修改剧场详细介绍，返回创建或修改的剧场id
+    public static final String URL_THEATER_EDIT_DETAILEDINTRODUCE = BASE_URL + "/theater/edit/detailedIntroduce";
     //剧场详情  在发现中使用
     public static final String URL_THEATER_DETAIL = BASE_URL + "/theater/detail";
     //用户发布的剧场详情页  我的标签中使用

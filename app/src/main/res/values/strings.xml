@@ -11,6 +11,8 @@
     <string name="btn_start">立即体验</string>
     <string name="common_back">返回</string>
     <string name="common_finish">完成</string>
+    <string name="app_un_fill">未填写</string>
+    <string name="app_has_filled">已填写</string>
     <!--三方登录、分享-->
     <string name="third_wechat">微信</string>
     <!--登录注册-->
@@ -269,6 +271,8 @@
     <string name="theatre_stage_dressing">化妆室数量：</string>
     <string name="theatre_provide_equip">可提供设备</string>
     <string name="theatre_release">发布剧场</string>
+    <string name="tip_theatre_des_change_suc">剧场详细介绍修改成功</string>
+    <string name="tip_theatre_description_change_suc">剧场介绍修改成功</string>
     <!--项目相关-->
     <string name="project_title_my">我的项目</string>
     <string name="project_upload">上传项目</string>
