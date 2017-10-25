@@ -45,7 +45,7 @@
                 android:layout_marginBottom="@dimen/DIMEN_24PX"
                 android:layout_marginTop="@dimen/DIMEN_5PX"
                 android:gravity="center_horizontal"
-                android:text="@string/theatre_cover_upload"
+                android:text="@string/project_cover"
                 android:textColor="@color/black66"
                 android:textSize="15sp" />
 
@@ -68,28 +68,36 @@
                 set_item:item_title="@string/theatre_data_base" />
 
             <com.art.huakai.artshow.widget.DataItem
-                android:id="@+id/dataitem_schedule"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_47PX"
-                set_item:item_arrow="@mipmap/arrow_right"
-                set_item:item_des="@string/theatre_data_unfill"
-                set_item:item_title="@string/theatre_schedule" />
-
-            <com.art.huakai.artshow.widget.DataItem
                 android:id="@+id/dataitem_intro"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_47PX"
                 set_item:item_arrow="@mipmap/arrow_right"
                 set_item:item_des="@string/theatre_data_unfill"
-                set_item:item_title="@string/theatre_intro" />
+                set_item:item_title="@string/project_intro" />
 
             <com.art.huakai.artshow.widget.DataItem
-                android:id="@+id/dataitem_detail_intro"
+                android:id="@+id/dataitem_show_intro"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_47PX"
                 set_item:item_arrow="@mipmap/arrow_right"
                 set_item:item_des="@string/theatre_data_unfill"
-                set_item:item_title="@string/theatre_detail_intro" />
+                set_item:item_title="@string/project_show_intro" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_award_record"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/project_award_records" />
+
+            <com.art.huakai.artshow.widget.DataItem
+                android:id="@+id/dataitem_creator_intro"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_47PX"
+                set_item:item_arrow="@mipmap/arrow_right"
+                set_item:item_des="@string/theatre_data_unfill"
+                set_item:item_title="@string/project_creator_intro" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -108,28 +116,21 @@
                 android:background="@color/me_personal_line" />
 
             <com.art.huakai.artshow.widget.DataItem
-                android:id="@+id/dataitem_seat_pic"
+                android:id="@+id/dataitem_photo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_47PX"
                 set_item:item_arrow="@mipmap/arrow_right"
                 set_item:item_des="@string/theatre_data_unfill"
-                set_item:item_title="@string/theatre_seat_pic" />
+                set_item:item_title="@string/project_photo" />
+
 
             <com.art.huakai.artshow.widget.DataItem
-                android:id="@+id/dataitem_pic"
+                android:id="@+id/dataitem_tech_require"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_47PX"
                 set_item:item_arrow="@mipmap/arrow_right"
                 set_item:item_des="@string/theatre_data_unfill"
-                set_item:item_title="@string/theatre_pic" />
-
-            <com.art.huakai.artshow.widget.DataItem
-                android:id="@+id/dataitem_technical_parameters"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_47PX"
-                set_item:item_arrow="@mipmap/arrow_right"
-                set_item:item_des="@string/theatre_data_unfill"
-                set_item:item_title="@string/theatre_technical_parameters" />
+                set_item:item_title="@string/project_tech_require" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -164,7 +165,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@id/iv_resume_post"
-                    android:text="@string/theatre_release"
+                    android:text="@string/project_release"
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
 
@@ -193,7 +194,7 @@
                 android:background="@color/set_account_text_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/DIMEN_15PX"
-                android:text="@string/theatre_post_des"
+                android:text="@string/project_post_des"
                 android:textColor="@color/login_light"
                 android:textSize="12sp" />
         </LinearLayout>

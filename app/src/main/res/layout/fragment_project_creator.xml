@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whiteff"
     android:orientation="vertical">
 
     <include layout="@layout/layout_title_common" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_1PX"
-        android:background="@color/me_personal_line" />
+        android:layout_height="1px"
+        android:background="@color/change_pwd_line" />
 
-    <com.art.huakai.artshow.widget.SmartRecyclerview
-        android:id="@+id/recyclerview_theatre"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
         android:scrollbars="none" />
 </LinearLayout>

@@ -7,8 +7,12 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.fragment.FillIntroduceFragment;
-import com.art.huakai.artshow.fragment.FillWorksFragment;
-import com.art.huakai.artshow.fragment.TalentHonourFragment;
+import com.art.huakai.artshow.fragment.ProjectAwardFragment;
+import com.art.huakai.artshow.fragment.ProjectCreatorFragment;
+import com.art.huakai.artshow.fragment.ProjectEnableShowTimeFragment;
+import com.art.huakai.artshow.fragment.ProjectIntroFragment;
+import com.art.huakai.artshow.fragment.ProjectShowIntroFragment;
+import com.art.huakai.artshow.fragment.ProjectTechFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailIntroFragment;
 import com.art.huakai.artshow.fragment.TheatreIntroFragment;
 import com.art.huakai.artshow.fragment.TheatrePicFragment;
@@ -21,13 +25,14 @@ import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
  * Created by lidongliang on 2017/10/14.
  */
 
-public class TheatreFillActivity extends BaseActivity {
+public class ProjectFillActivity extends BaseActivity {
     public static final String PARAMS_ACTION = "PARAMS_ACTION";
-    public static final int CODE_ACTION_THEATRE_INTRO = 0;
-    public static final int CODE_ACTION_THEATRE_DETAIL_INTRO = 1;
-    public static final int CODE_ACTION_THEATRE_TICKET = 2;
-    public static final int CODE_ACTION_THEATRE_PIC = 3;
-    public static final int CODE_ACTION_THEATRE_TECH_PARAM = 4;
+    public static final int CODE_ACTION_PROJECT_INTRO = 0;
+    public static final int CODE_ACTION_PROJECT_DETAIL_INTRO = 1;
+    public static final int CODE_ACTION_PROJECT_AWARD = 2;
+    public static final int CODE_ACTION_PROJECT_TECH_REQUIRE = 3;
+    public static final int CODE_ACTION_PROJECT_ENABLE_SHOW_TIME = 4;
+    public static final int CODE_ACTION_PROJECT_CREATOR_INTRO = 5;
 
     @Override
     public void immerseStatusBar() {
@@ -36,7 +41,7 @@ public class TheatreFillActivity extends BaseActivity {
 
     @Override
     public int getLayoutID() {
-        return R.layout.activity_theatre_fill;
+        return R.layout.activity_project_fill;
     }
 
     @Override
@@ -57,23 +62,25 @@ public class TheatreFillActivity extends BaseActivity {
     private void showFragment(int action) {
         BaseFragment baseFragment = null;
         switch (action) {
-            case CODE_ACTION_THEATRE_INTRO:
-                baseFragment = TheatreIntroFragment.newInstance();
+            case CODE_ACTION_PROJECT_INTRO:
+                baseFragment = ProjectIntroFragment.newInstance();
                 break;
-            case CODE_ACTION_THEATRE_DETAIL_INTRO:
-                baseFragment = TheatreDetailIntroFragment.newInstance();
+            case CODE_ACTION_PROJECT_DETAIL_INTRO:
+                baseFragment = ProjectShowIntroFragment.newInstance();
                 break;
-            case CODE_ACTION_THEATRE_TICKET:
-                baseFragment = TheatreTicketFragment.newInstance();
+            case CODE_ACTION_PROJECT_AWARD:
+                baseFragment = ProjectAwardFragment.newInstance();
                 break;
-            case CODE_ACTION_THEATRE_PIC:
-                baseFragment = TheatrePicFragment.newInstance();
+            case CODE_ACTION_PROJECT_TECH_REQUIRE:
+                baseFragment = ProjectTechFragment.newInstance();
                 break;
-            case CODE_ACTION_THEATRE_TECH_PARAM:
-                baseFragment = TheatreTechParamFragment.newInstance();
+            case CODE_ACTION_PROJECT_ENABLE_SHOW_TIME:
+                baseFragment = ProjectEnableShowTimeFragment.newInstance();
+            case CODE_ACTION_PROJECT_CREATOR_INTRO:
+                baseFragment = ProjectCreatorFragment.newInstance();
                 break;
             default:
-                baseFragment = TheatreIntroFragment.newInstance();
+                baseFragment = ProjectIntroFragment.newInstance();
                 break;
         }
         initFragment(baseFragment);

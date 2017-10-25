@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_common" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/change_pwd_line" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteff"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/DIMEN_25PX">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/project_show_introduce"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/edt_introduce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/DIMEN_15PX"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/project_show_intro_input_tip"
+                android:minHeight="@dimen/DIMEN_162PX"
+                android:textColor="@color/app_title"
+                android:textColorHint="@color/set_account_text"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/change_pwd_line" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

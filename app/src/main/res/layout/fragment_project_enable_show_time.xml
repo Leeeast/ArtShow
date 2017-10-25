@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_common" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/change_pwd_line" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_29PX"
+        android:background="@color/set_account_text_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/DIMEN_15PX"
+        android:text="@string/project_able_show_time"
+        android:textColor="@color/login_light"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:id="@+id/rly_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_60PX">
+
+        <TextView
+            android:id="@+id/tv_project_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_marginRight="@dimen/DIMEN_10PX"
+            android:text="@string/project_start_time"
+            android:textColor="@color/login_btn"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/tv_project_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:layout_toRightOf="@id/tv_project_start"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/project_start_time_tip"
+            android:text=""
+            android:textColor="@color/login_btn"
+            android:textColorHint="@color/set_account_text"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_alignParentBottom="true"
+            android:background="@color/me_personal_line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rly_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_60PX">
+
+        <TextView
+            android:id="@+id/tv_project_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_marginRight="@dimen/DIMEN_10PX"
+            android:text="@string/project_end_time"
+            android:textColor="@color/login_btn"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/tv_project_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:layout_toRightOf="@id/tv_project_end"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/user_select_fill"
+            android:text=""
+            android:textColor="@color/login_btn"
+            android:textColorHint="@color/set_account_text"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_alignParentBottom="true"
+            android:background="@color/me_personal_line" />
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -12,7 +12,7 @@
         android:background="@color/me_personal_line" />
 
     <com.art.huakai.artshow.widget.SmartRecyclerview
-        android:id="@+id/recyclerview_theatre"
+        android:id="@+id/recyclerview_project"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none" />

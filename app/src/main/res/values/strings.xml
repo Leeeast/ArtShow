@@ -10,6 +10,7 @@
     <string name="exit_perfect_tips">请完善个人信息</string>
     <string name="btn_start">立即体验</string>
     <string name="common_back">返回</string>
+    <string name="common_finish">完成</string>
     <!--三方登录、分享-->
     <string name="third_wechat">微信</string>
     <!--登录注册-->
@@ -212,6 +213,7 @@
     <string name="user_subsidiary_organ">所属机构：</string>
     <string name="user_must_fill">必填</string>
     <string name="user_not_must_fill">选填</string>
+    <string name="user_select_fill">可选</string>
     <string name="user_live_city">所在城市</string>
     <string name="user_stature">身高：</string>
     <string name="user_weight">体重：</string>
@@ -266,6 +268,45 @@
     <string name="theatre_stage_depth">舞台深度：</string>
     <string name="theatre_stage_dressing">化妆室数量：</string>
     <string name="theatre_provide_equip">可提供设备</string>
+    <string name="theatre_release">发布剧场</string>
+    <!--项目相关-->
+    <string name="project_title_my">我的项目</string>
+    <string name="project_upload">上传项目</string>
+    <string name="project_edit">编辑项目</string>
+    <string name="project_cover">上传封面</string>
+    <string name="project_intro">项目简介</string>
+    <string name="project_show_intro">演出简介</string>
+    <string name="project_award_records">获奖记录</string>
+    <string name="project_creator_intro">主创介绍</string>
+    <string name="project_photo">剧照</string>
+    <string name="project_tech_require">技术要求</string>
+    <string name="project_release">发布项目</string>
+    <string name="project_post_des">*项目发布后，所有人可见，未发布，将只有自己可见。</string>
+    <string name="project_title_base">基本项目</string>
+    <string name="project_info">项目信息</string>
+    <string name="project_name">项目名称</string>
+    <string name="project_type">项目类型</string>
+    <string name="project_actor_count">演员人数</string>
+    <string name="project_city">所在城市</string>
+    <string name="project_fit_theatre">适合剧场</string>
+    <string name="project_show_hour">演出时长：</string>
+    <string name="project_first_show_time">首演时间</string>
+    <string name="project_show_session">已演场次：</string>
+    <string name="project_show_price">项目报价：</string>
+    <string name="project_able_show_time">可演出日期</string>
+    <string name="project_intro_input_tip">在此输入项目介绍</string>
+    <string name="project_introduce">项目介绍</string>
+    <string name="project_show_introduce">演出介绍</string>
+    <string name="project_show_intro_input_tip">在此输入演出介绍</string>
+    <string name="project_show_award_input_tip">在此输入项目获奖记录</string>
+    <string name="project_show_tech_input_tip">在此输入舞台技术要求</string>
+    <string name="project_start_time">开始时间：</string>
+    <string name="project_end_time">截止时间：</string>
+    <string name="project_start_time_tip">请选择时间</string>
+    <string name="project_member_add">+&#160;&#160;添加新成员</string>
+    <string name="project_member_info">成员信息</string>
+    <string name="project_member_title">头衔</string>
+    <string name="project_member_intro">成员介绍</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

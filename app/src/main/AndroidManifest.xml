@@ -114,6 +114,18 @@
         <activity
             android:name=".activity.TheatreFillActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProjectEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProjectBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProjectFillActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

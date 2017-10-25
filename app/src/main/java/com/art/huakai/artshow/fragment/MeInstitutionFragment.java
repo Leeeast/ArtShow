@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.DataUploadActivity;
+import com.art.huakai.artshow.activity.ProjectActivity;
 import com.art.huakai.artshow.activity.ResumeActivity;
 import com.art.huakai.artshow.activity.TheatreActivity;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -71,6 +72,7 @@ public class MeInstitutionFragment extends BaseFragment implements View.OnClickL
                 invokActivity(getContext(), DataUploadActivity.class, bundle, JumpCode.FLAG_REQ_DATA_UPLOAD);
                 break;
             case R.id.item_my_project:
+                invokActivity(getContext(), ProjectActivity.class, null, JumpCode.FLAG_REQ_PROJECT_MY);
                 break;
             case R.id.item_my_theatre:
                 invokActivity(getContext(), TheatreActivity.class, null, JumpCode.FLAG_REQ_THEATRE_MY);

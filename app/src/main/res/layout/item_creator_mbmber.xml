@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rly_root_theatre"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/DIMEN_15PX"
+    android:layout_marginRight="@dimen/DIMEN_15PX"
+    android:orientation="vertical">
+
+    <com.art.huakai.artshow.widget.ChinaShowImageView
+        android:id="@+id/sdv_theatre"
+        android:layout_width="@dimen/DIMEN_72PX"
+        android:layout_height="@dimen/DIMEN_72PX"
+        android:layout_marginBottom="@dimen/DIMEN_15PX"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImageScaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/sdv_theatre"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/DIMEN_15PX">
+
+        <TextView
+            android:id="@+id/tv_creator_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="谢昱缇"
+            android:textColor="@color/black66"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_creator_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:text="主演"
+            android:textColor="@color/enroll_start_time"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_arrow_project_type"
+        android:layout_width="@dimen/DIMEN_10PX"
+        android:layout_height="@dimen/DIMEN_17PX"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/DIMEN_20PX"
+        android:background="@mipmap/arrow_right" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_1PX"
+        android:layout_below="@+id/sdv_theatre"
+        android:background="@color/me_personal_line" />
+
+</RelativeLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/DIMEN_5PX"
+        android:layout_marginRight="@dimen/DIMEN_5PX"
+        android:background="@drawable/shape_bg_dialog"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_50PX"
+            android:background="@drawable/shape_bg_dialog_top">
+
+            <LinearLayout
+                android:id="@+id/lly_close"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/DIMEN_5PX"
+                    android:layout_marginRight="@dimen/DIMEN_5PX"
+                    android:background="@mipmap/icon_close" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="@color/app_title"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:text="@string/common_finish"
+                android:textColor="@color/theatre_send_fail"
+                android:textSize="15sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <com.art.huakai.artshow.widget.ChinaShowImageView
+            android:id="@+id/sdv_theatre"
+            android:layout_width="@dimen/DIMEN_86PX"
+            android:layout_height="@dimen/DIMEN_86PX"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/DIMEN_18PX"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImageScaleType="fitXY" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_29PX"
+            android:background="@color/set_account_text_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/DIMEN_25PX"
+            android:text="@string/project_member_info"
+            android:textColor="@color/login_light"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_60PX"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:background="@color/whiteff">
+
+            <TextView
+                android:id="@+id/tv_project_member_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_10PX"
+                android:text="@string/perfect_name_personal"
+                android:textColor="@color/login_btn"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/edt_project_member_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_toRightOf="@id/tv_project_member_name"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:hint="@string/user_must_fill"
+                android:text=""
+                android:textColor="@color/login_btn"
+                android:textColorHint="@color/set_account_text"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_alignParentBottom="true"
+                android:background="@color/me_personal_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_60PX"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:background="@color/whiteff">
+
+            <TextView
+                android:id="@+id/tv_project_member_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_10PX"
+                android:text="@string/project_member_title"
+                android:textColor="@color/login_btn"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/edt_project_member_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_toRightOf="@id/tv_project_member_title"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:hint="@string/user_must_fill"
+                android:text=""
+                android:textColor="@color/login_btn"
+                android:textColorHint="@color/set_account_text"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_alignParentBottom="true"
+                android:background="@color/me_personal_line" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_29PX"
+            android:background="@color/set_account_text_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/DIMEN_25PX"
+            android:text="@string/project_member_intro"
+            android:textColor="@color/login_light"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/edt_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/DIMEN_20PX"
+            android:layout_marginLeft="@dimen/DIMEN_10PX"
+            android:layout_marginRight="@dimen/DIMEN_10PX"
+            android:background="@color/whiteff"
+            android:gravity="start"
+            android:hint="@string/project_intro_input_tip"
+            android:minHeight="@dimen/DIMEN_162PX"
+            android:padding="@dimen/DIMEN_15PX"
+            android:textColor="@color/app_title"
+            android:textColorHint="@color/set_account_text"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+</FrameLayout>
