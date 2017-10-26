@@ -21,6 +21,8 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends Fragment {
     protected final String TAG = this.getClass().getSimpleName();
+    private Toast mToast;
+
     protected Unbinder mUnBinder;
 
     @Override
@@ -45,8 +47,18 @@ public abstract class BaseFragment extends Fragment {
         setView();
     }
 
+    /**
+     * 显示Toast
+     *
+     * @param toastStr
+     */
     public void showToast(String toastStr) {
-        Toast.makeText(getContext(), toastStr, Toast.LENGTH_SHORT).show();
+        if (mToast == null) {
+            mToast = Toast.makeText(getContext(), toastStr, Toast.LENGTH_SHORT);
+        } else {
+            mToast.setText(toastStr);
+        }
+        mToast.show();
     }
 
     /**

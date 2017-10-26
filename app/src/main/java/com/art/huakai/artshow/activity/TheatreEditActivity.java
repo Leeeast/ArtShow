@@ -49,6 +49,8 @@ public class TheatreEditActivity extends BaseActivity {
     DataItem dataItemDetailIntro;
     @BindView(R.id.dataitem_intro)
     DataItem dataItemIntro;
+    @BindView(R.id.dataitem_seat_pic)
+    DataItem dataitemSeatPic;
 
     public boolean isNewCreate = true;
     private ShowProgressDialog showProgressDialog;
@@ -297,5 +299,9 @@ public class TheatreEditActivity extends BaseActivity {
                 theaterInstance.getDescription().equals(Constant.DESCRIPTION_DEFAULT)) ?
                 getString(R.string.app_un_fill) : getString(R.string.app_has_filled);
         dataItemIntro.setDesText(theatreIntro);
+
+        String theatrePriceDiagram = TextUtils.isEmpty(theaterInstance.getPriceDiagram())?
+                getString(R.string.app_un_fill) : getString(R.string.app_has_filled);
+        dataitemSeatPic.setDesText(theatrePriceDiagram);
     }
 }

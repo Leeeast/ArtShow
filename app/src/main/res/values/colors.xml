@@ -162,4 +162,7 @@
     <color name="enroll_start_time">#ff6d747f</color>
     <color name="enroll_end_time">#ff6e747f</color>
     <color name="enroll_apply_bg">#e6f9f9f9</color>
+    <!--剧场-->
+    <color name="theatre_add_photo_fill">#fffafafa</color>
+    <color name="theatre_add_photo_border">#ffd5d5d5</color>
 </resources>

@@ -19,6 +19,7 @@ import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -91,6 +92,7 @@ public class TheatrePicFragment extends BaseFragment {
         //判断是否登录
 
     }
+
 
     @Override
     public void onDestroyView() {

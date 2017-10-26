@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -20,6 +21,8 @@ import com.art.huakai.artshow.activity.AccountInfoActivity;
 public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
     protected Unbinder mUnBinder;
+    private Toast mToast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +83,20 @@ public abstract class BaseActivity extends AppCompatActivity {
             intent.putExtras(params);
         }
         startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 显示Toast
+     *
+     * @param toastStr
+     */
+    public void showToast(String toastStr) {
+        if (mToast == null) {
+            mToast = Toast.makeText(this, toastStr, Toast.LENGTH_SHORT);
+        } else {
+            mToast.setText(toastStr);
+        }
+        mToast.show();
     }
 }
 

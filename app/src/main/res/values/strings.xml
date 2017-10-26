@@ -13,6 +13,7 @@
     <string name="common_finish">完成</string>
     <string name="app_un_fill">未填写</string>
     <string name="app_has_filled">已填写</string>
+    <string name="app_upload_photo_success">图片上传成功</string>
     <!--三方登录、分享-->
     <string name="third_wechat">微信</string>
     <!--登录注册-->
@@ -273,6 +274,7 @@
     <string name="theatre_release">发布剧场</string>
     <string name="tip_theatre_des_change_suc">剧场详细介绍修改成功</string>
     <string name="tip_theatre_description_change_suc">剧场介绍修改成功</string>
+    <string name="tip_theatre_select_pic">请选择图片</string>
     <!--项目相关-->
     <string name="project_title_my">我的项目</string>
     <string name="project_upload">上传项目</string>
