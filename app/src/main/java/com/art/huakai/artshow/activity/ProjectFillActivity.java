@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.fragment.PhotoUploadFragment;
 import com.art.huakai.artshow.fragment.ProjectAwardFragment;
 import com.art.huakai.artshow.fragment.ProjectCreatorFragment;
 import com.art.huakai.artshow.fragment.ProjectEnableShowTimeFragment;
@@ -27,6 +28,7 @@ public class ProjectFillActivity extends BaseActivity {
     public static final int CODE_ACTION_PROJECT_TECH_REQUIRE = 3;
     public static final int CODE_ACTION_PROJECT_ENABLE_SHOW_TIME = 4;
     public static final int CODE_ACTION_PROJECT_CREATOR_INTRO = 5;
+    public static final int CODE_ACTION_PROJECT_PHOTO_UPLOAD = 6;
 
     @Override
     public void immerseStatusBar() {
@@ -72,6 +74,9 @@ public class ProjectFillActivity extends BaseActivity {
                 baseFragment = ProjectEnableShowTimeFragment.newInstance();
             case CODE_ACTION_PROJECT_CREATOR_INTRO:
                 baseFragment = ProjectCreatorFragment.newInstance();
+                break;
+            case CODE_ACTION_PROJECT_PHOTO_UPLOAD:
+                baseFragment = PhotoUploadFragment.newInstance(PhotoUploadFragment.TYPE_PROJECT);
                 break;
             default:
                 baseFragment = ProjectIntroFragment.newInstance();

@@ -9,12 +9,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.GridImageAdapter;
+import com.art.huakai.artshow.adapter.StaggeredGridImageAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.config.PhotoConfig;
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.StaggeredGridLayoutItemDecoration;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
@@ -22,11 +29,17 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DebugUtil;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -34,7 +47,7 @@ public class PhotoUploadFragment extends BaseFragment {
     private static final String PARAMS_TYPE = "PARAMS_TYPE";
     public static final String TYPE_TALENT = "TYPE_TALENT";
     public static final String TYPE_THEATRE = "TYPE_THEATRE";
-    public static final String TYPE_RESUME = "TYPE_RESUME";
+    public static final String TYPE_PROJECT = "TYPE_PROJECT";
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
@@ -46,15 +59,14 @@ public class PhotoUploadFragment extends BaseFragment {
     private String mDescription;
     private String mUploadType;
     private List<LocalMedia> selectList = new ArrayList<>();
-    private GridImageAdapter adapter;
+    private JSONArray mJSONArray = new JSONArray();
+    private StaggeredGridImageAdapter adapter;
+    private int maxPicCount;
+    private int index = 0;
+    private boolean isUploadSuc = false;
+    private String mCommitPicUrl;
 
     public PhotoUploadFragment() {
-    }
-
-    @Deprecated
-    public static PhotoUploadFragment newInstance() {
-        PhotoUploadFragment fragment = new PhotoUploadFragment();
-        return fragment;
     }
 
     public static PhotoUploadFragment newInstance(String type) {
@@ -82,21 +94,36 @@ public class PhotoUploadFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
+        String title = "";
+        switch (mUploadType) {
+            case TYPE_THEATRE:
+                title = getString(R.string.theatre_pic);
+                mCommitPicUrl = Constant.URL_THEATER_EDIT_PICTURES;
+                break;
+            case TYPE_TALENT:
+                title = getString(R.string.resume_photo);
+                mCommitPicUrl = Constant.URL_TALENT_TEDIT_PICTURES;
+                break;
+            case TYPE_PROJECT:
+                title = getString(R.string.project_photo);
+                mCommitPicUrl = Constant.URL_REPERTORY_EDIT_PICTURES;
+                break;
+        }
         tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText(R.string.theatre_pic);
+        tvTitle.setText(title);
         tvSubtitle.setVisibility(View.VISIBLE);
 
         StaggeredGridLayoutManager sGLayManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(sGLayManager);
         recyclerView.addItemDecoration(new StaggeredGridLayoutItemDecoration(
                 getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX)));
-        adapter = new GridImageAdapter(getContext(), onAddPicClickListener);
+        adapter = new StaggeredGridImageAdapter(getContext(), onAddPicClickListener);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void setView() {
-        adapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new StaggeredGridImageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
                 if (selectList.size() > 0) {
@@ -133,14 +160,116 @@ public class PhotoUploadFragment extends BaseFragment {
      */
     @OnClick(R.id.tv_subtitle)
     public void confirmInfo() {
-        changeResumeDescription();
+        for (int i = 0; i < mJSONArray.length(); i++) {
+            mJSONArray.remove(i);
+        }
+        maxPicCount = selectList.size();
+        index = 0;
+        uploadMultiPhoto();
     }
 
     /**
-     * 修改简历个人介绍
+     * 上传图片
      */
-    public void changeResumeDescription() {
-        //判断是否登录
+    public void uploadMultiPhoto() {
+        if (isUploadSuc) {
+            showToast(getString(R.string.pic_loading_success));
+            return;
+        }
+        String path = "";
+        String uploadText = String.format(getString(R.string.loading_upload), index + 1, maxPicCount);
+        if (selectList.size() > 0) {
+            LocalMedia localMedia = selectList.get(index);
+            int mimeType = localMedia.getMimeType();
+            if (localMedia.isCut() && !localMedia.isCompressed()) {
+                // 裁剪过
+                path = localMedia.getCutPath();
+            } else if (localMedia.isCompressed() || (localMedia.isCut() && localMedia.isCompressed())) {
+                // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
+                path = localMedia.getCompressPath();
+            } else {
+                // 原图
+                path = localMedia.getPath();
+            }
+        } else {
+            showToast(getString(R.string.tip_theatre_select_pic));
+            return;
+        }
+        LogUtil.i(TAG, "path = " + path);
+        if (!showProgressDialog.isShowing()) {
+            showProgressDialog.show();
+        }
+        showProgressDialog.setLoadingText(uploadText);
+        RequestUtil.uploadLoadFile(Constant.URL_UPLOAD_FILE, path, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String picUrl = jsonObject.getString("url");
+                        mJSONArray.put(picUrl);
+                        if (selectList.size() > ++index) {
+                            uploadMultiPhoto();
+                        } else {
+                            showProgressDialog.setLoadingText(getString(R.string.loading));
+                            commitPic(mJSONArray.toString());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        if (showProgressDialog.isShowing()) {
+                            showProgressDialog.dismiss();
+                        }
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                    if (showProgressDialog.isShowing()) {
+                        showProgressDialog.dismiss();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    /**
+     * 提交图片
+     */
+    public void commitPic(String picJson) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", TheatreDetailInfo.getInstance().getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("pictures", picJson);
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        RequestUtil.request(true, mCommitPicUrl, params, 66, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                isUploadSuc = true;
+                showToast(getString(R.string.tip_theatre_pic_upload));
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
     }
 
     @Override
@@ -164,7 +293,7 @@ public class PhotoUploadFragment extends BaseFragment {
         }
     }
 
-    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
+    private StaggeredGridImageAdapter.onAddPicClickListener onAddPicClickListener = new StaggeredGridImageAdapter.onAddPicClickListener() {
         @Override
         public void onAddPicClick() {
             // 进入相册 以下是例子：不需要的api可以不写

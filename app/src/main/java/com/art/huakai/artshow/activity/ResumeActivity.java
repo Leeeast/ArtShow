@@ -123,6 +123,16 @@ public class ResumeActivity extends BaseActivity {
     }
 
     /**
+     * 相片
+     */
+    @OnClick(R.id.rly_photo)
+    public void jumpBasePhotoUpload() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ResumeFillActivity.PARAMS_ACTION, ResumeFillActivity.CODE_ACTION_UPLOAD_PHOTO);
+        invokActivity(this, ResumeFillActivity.class, bundle, JumpCode.FLAG_REQ_BASE_DATA);
+    }
+
+    /**
      * 修改封面
      */
     @OnClick(R.id.sdv_avatar)

@@ -27,6 +27,9 @@ public class ProjectEditActivity extends BaseActivity {
     DataItem dataItemBase;
     @BindView(R.id.dataitem_intro)
     DataItem dataItemIntro;
+    @BindView(R.id.dataitem_photo)
+    DataItem dataItemPhoto;
+
 
     private ShowProgressDialog showProgressDialog;
 
@@ -121,6 +124,16 @@ public class ProjectEditActivity extends BaseActivity {
     public void jumpCreatorIntro() {
         Bundle bundle = new Bundle();
         bundle.putInt(ProjectFillActivity.PARAMS_ACTION, ProjectFillActivity.CODE_ACTION_PROJECT_CREATOR_INTRO);
+        invokActivity(this, ProjectFillActivity.class, bundle, JumpCode.FLAG_REQ_PROJECT_FILL);
+    }
+
+    /**
+     * 剧照
+     */
+    @OnClick(R.id.dataitem_photo)
+    public void jumpPhotoUpload() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ProjectFillActivity.PARAMS_ACTION, ProjectFillActivity.CODE_ACTION_PROJECT_PHOTO_UPLOAD);
         invokActivity(this, ProjectFillActivity.class, bundle, JumpCode.FLAG_REQ_PROJECT_FILL);
     }
 }

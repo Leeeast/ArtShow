@@ -15,24 +15,25 @@
             android:layout_height="@dimen/DIMEN_120PX"
             android:layout_centerHorizontal="true"
             android:background="@drawable/shape_upload_photo_bg"
+            fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImage="@mipmap/icon_photo"
             fresco:placeholderImageScaleType="centerInside"
             fresco:roundedCornerRadius="5dp" />
 
         <LinearLayout
-            android:id="@+id/ll_del"
-            android:layout_width="30dp"
-            android:layout_height="35dp"
+            android:id="@+id/lly_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_del"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
-                android:src="@mipmap/delet_zhaopian_1x" />
+                android:layout_width="@dimen/DIMEN_25PX"
+                android:layout_height="@dimen/DIMEN_25PX"
+                android:layout_margin="@dimen/DIMEN_7PX"
+                android:background="@mipmap/image_add" />
         </LinearLayout>
 
         <TextView

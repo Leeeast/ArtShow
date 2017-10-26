@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -17,18 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.glide.GlideRoundTransform;
 import com.art.huakai.artshow.utils.LogUtil;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.TransitionOptions;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
@@ -51,11 +39,9 @@ import java.util.List;
  * author：luck
  * project：PictureSelector
  * package：com.luck.pictureselector.adapter
- * email：893855882@qq.com
- * data：16/7/27
  */
-public class GridImageAdapter extends
-        RecyclerView.Adapter<GridImageAdapter.ViewHolder> {
+public class StaggeredGridImageAdapter extends
+        RecyclerView.Adapter<StaggeredGridImageAdapter.ViewHolder> {
     private static final String TAG = "GridImageAdapter";
     public static final int TYPE_CAMERA = 1;
     public static final int TYPE_PICTURE = 2;
@@ -72,7 +58,7 @@ public class GridImageAdapter extends
         void onAddPicClick();
     }
 
-    public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
+    public StaggeredGridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.mOnAddPicClickListener = mOnAddPicClickListener;
@@ -89,13 +75,15 @@ public class GridImageAdapter extends
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         SimpleDraweeView sdv_pic;
-        LinearLayout ll_del;
+        LinearLayout lly_del;
         TextView tv_duration;
+        ImageView iv_del;
 
         public ViewHolder(View view) {
             super(view);
             sdv_pic = (SimpleDraweeView) view.findViewById(R.id.sdv_pic);
-            ll_del = (LinearLayout) view.findViewById(R.id.ll_del);
+            lly_del = (LinearLayout) view.findViewById(R.id.lly_del);
+            iv_del = (ImageView) view.findViewById(R.id.iv_del);
             tv_duration = (TextView) view.findViewById(R.id.tv_duration);
         }
     }
@@ -123,9 +111,9 @@ public class GridImageAdapter extends
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.gv_filter_image,
+        View view = mInflater.inflate(R.layout.item_filter_image,
                 viewGroup, false);
-        final ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -148,10 +136,11 @@ public class GridImageAdapter extends
                     mOnAddPicClickListener.onAddPicClick();
                 }
             });
-            viewHolder.ll_del.setVisibility(View.INVISIBLE);
+            viewHolder.iv_del.setBackgroundResource(R.mipmap.image_add);
         } else {
-            viewHolder.ll_del.setVisibility(View.VISIBLE);
-            viewHolder.ll_del.setOnClickListener(new View.OnClickListener() {
+            viewHolder.lly_del.setVisibility(View.VISIBLE);
+            viewHolder.iv_del.setBackgroundResource(R.mipmap.image_delete);
+            viewHolder.lly_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int index = viewHolder.getAdapterPosition();

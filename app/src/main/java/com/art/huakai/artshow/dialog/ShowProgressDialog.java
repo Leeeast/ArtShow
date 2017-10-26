@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
@@ -26,6 +27,7 @@ public class ShowProgressDialog extends ProgressDialog implements DialogInterfac
     private Context context;
     private ImageView round_progress;//圆环加载图
     private ObjectAnimator rotationAnim;
+    private TextView textLoading;
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -48,6 +50,11 @@ public class ShowProgressDialog extends ProgressDialog implements DialogInterfac
         mLoadingText = strText;
     }
 
+    public void setLoadingText(String loadingText) {
+        if (!TextUtils.isEmpty(loadingText)) {
+            textLoading.setText(loadingText);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,7 @@ public class ShowProgressDialog extends ProgressDialog implements DialogInterfac
         setContentView(R.layout.dialog_progress);
         setCanceledOnTouchOutside(false);
         round_progress = (ImageView) findViewById(R.id.round_progress);
+        textLoading = (TextView) findViewById(R.id.loading_text);
         rotationAnim = ObjectAnimator.ofFloat(round_progress, "rotation", 0f, 360f);
         rotationAnim.setDuration(1500);
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
@@ -62,7 +70,6 @@ public class ShowProgressDialog extends ProgressDialog implements DialogInterfac
         rotationAnim.setRepeatMode(ValueAnimator.RESTART);
         setOnDismissListener(this);
         if (mLoadingText != null && mLoadingText.length() > 0) {
-            TextView textLoading = (TextView) findViewById(R.id.loading_text);
             textLoading.setText(mLoadingText);
         }
     }

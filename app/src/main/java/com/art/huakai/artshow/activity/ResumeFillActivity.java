@@ -8,6 +8,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.fragment.FillIntroduceFragment;
 import com.art.huakai.artshow.fragment.FillWorksFragment;
+import com.art.huakai.artshow.fragment.PhotoUploadFragment;
 import com.art.huakai.artshow.fragment.TalentHonourFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
@@ -21,6 +22,7 @@ public class ResumeFillActivity extends BaseActivity {
     public static final int CODE_ACTION_FILL_INTRODUCE = 0;
     public static final int CODE_ACTION_FILL_AWARD = 1;
     public static final int CODE_ACTION_FILL_WORKS = 3;
+    public static final int CODE_ACTION_UPLOAD_PHOTO = 4;
 
     @Override
     public void immerseStatusBar() {
@@ -58,6 +60,9 @@ public class ResumeFillActivity extends BaseActivity {
                 break;
             case CODE_ACTION_FILL_WORKS:
                 baseFragment = FillWorksFragment.newInstance();
+                break;
+            case CODE_ACTION_UPLOAD_PHOTO:
+                baseFragment = PhotoUploadFragment.newInstance(PhotoUploadFragment.TYPE_TALENT);
                 break;
             default:
                 baseFragment = FillIntroduceFragment.newInstance();

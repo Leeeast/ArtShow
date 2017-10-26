@@ -64,7 +64,7 @@ public class TheatreFillActivity extends BaseActivity {
                 baseFragment = TheatreTicketFragment.newInstance();
                 break;
             case CODE_ACTION_THEATRE_PIC:
-                baseFragment = PhotoUploadFragment.newInstance();
+                baseFragment = PhotoUploadFragment.newInstance(PhotoUploadFragment.TYPE_THEATRE);
                 break;
             case CODE_ACTION_THEATRE_TECH_PARAM:
                 baseFragment = TheatreTechParamFragment.newInstance();

@@ -69,6 +69,9 @@ public class Constant {
     public static final String URL_TALENT_EDIT_AWARDSDESCPT = BASE_URL + "/talent/edit/awardsDescpt";
     //修改简历个人作品
     public static final String URL_TALENT_EDIT_WORKSDESCPT = BASE_URL + "/talent/edit/worksDescpt";
+    //修改简历照片，返回创建或修改的简历ID
+    public static final String URL_TALENT_TEDIT_PICTURES = BASE_URL + "/talent/edit/pictures";
+
     //获取地区列表
     public static final String URL_REGION_LIST = BASE_URL + "/region/list";
     //修改个人简历基本资料，返回创建或修改的简历ID
@@ -89,6 +92,11 @@ public class Constant {
     public static final String URL_USER_THEATER_DETAIL = BASE_URL + "/user/theater/detail";
     //修改剧场座位票区图，返回创建或修改的剧场id
     public static final String URL_THEATER_EDIT_PRICEDIAGRAM = BASE_URL + "/theater/edit/priceDiagram";
+    //edit/pictures
+    public static final String URL_THEATER_EDIT_PICTURES = BASE_URL + "/theater/edit/pictures";
+    //修改演出项目作品剧照，返回创建或修改的演出项目id
+    public static final String URL_REPERTORY_EDIT_PICTURES = BASE_URL + "/repertory/edit/pictures";
+
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型
