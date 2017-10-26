@@ -6,18 +6,12 @@ import android.os.Bundle;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.fragment.FillIntroduceFragment;
 import com.art.huakai.artshow.fragment.ProjectAwardFragment;
 import com.art.huakai.artshow.fragment.ProjectCreatorFragment;
 import com.art.huakai.artshow.fragment.ProjectEnableShowTimeFragment;
 import com.art.huakai.artshow.fragment.ProjectIntroFragment;
 import com.art.huakai.artshow.fragment.ProjectShowIntroFragment;
 import com.art.huakai.artshow.fragment.ProjectTechFragment;
-import com.art.huakai.artshow.fragment.TheatreDetailIntroFragment;
-import com.art.huakai.artshow.fragment.TheatreIntroFragment;
-import com.art.huakai.artshow.fragment.TheatrePicFragment;
-import com.art.huakai.artshow.fragment.TheatreTechParamFragment;
-import com.art.huakai.artshow.fragment.TheatreTicketFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 /**

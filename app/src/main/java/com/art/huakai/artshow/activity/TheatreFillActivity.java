@@ -8,7 +8,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailIntroFragment;
 import com.art.huakai.artshow.fragment.TheatreIntroFragment;
-import com.art.huakai.artshow.fragment.TheatrePicFragment;
+import com.art.huakai.artshow.fragment.PhotoUploadFragment;
 import com.art.huakai.artshow.fragment.TheatreTechParamFragment;
 import com.art.huakai.artshow.fragment.TheatreTicketFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
@@ -64,7 +64,7 @@ public class TheatreFillActivity extends BaseActivity {
                 baseFragment = TheatreTicketFragment.newInstance();
                 break;
             case CODE_ACTION_THEATRE_PIC:
-                baseFragment = TheatrePicFragment.newInstance();
+                baseFragment = PhotoUploadFragment.newInstance();
                 break;
             case CODE_ACTION_THEATRE_TECH_PARAM:
                 baseFragment = TheatreTechParamFragment.newInstance();
