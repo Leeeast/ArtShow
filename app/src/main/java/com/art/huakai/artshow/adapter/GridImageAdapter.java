@@ -2,7 +2,9 @@ package com.art.huakai.artshow.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -27,11 +29,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.image.ImageInfo;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.DebugUtil;
+import com.luck.picture.lib.tools.ScreenUtils;
 import com.luck.picture.lib.tools.StringUtils;
 
 import java.io.File;
@@ -79,13 +88,13 @@ public class GridImageAdapter extends
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView mImg;
+        SimpleDraweeView sdv_pic;
         LinearLayout ll_del;
         TextView tv_duration;
 
         public ViewHolder(View view) {
             super(view);
-            mImg = (ImageView) view.findViewById(R.id.fiv);
+            sdv_pic = (SimpleDraweeView) view.findViewById(R.id.sdv_pic);
             ll_del = (LinearLayout) view.findViewById(R.id.ll_del);
             tv_duration = (TextView) view.findViewById(R.id.tv_duration);
         }
@@ -132,8 +141,8 @@ public class GridImageAdapter extends
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //少于8张，显示继续添加的图标
         if (getItemViewType(position) == TYPE_CAMERA) {
-            viewHolder.mImg.setImageResource(R.mipmap.addimg_1x);
-            viewHolder.mImg.setOnClickListener(new View.OnClickListener() {
+            viewHolder.sdv_pic.setImageResource(R.mipmap.icon_photo);
+            viewHolder.sdv_pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mOnAddPicClickListener.onAddPicClick();
@@ -193,70 +202,9 @@ public class GridImageAdapter extends
             }
             viewHolder.tv_duration.setText(DateUtils.timeParse(duration));
             if (mimeType == PictureMimeType.ofAudio()) {
-                viewHolder.mImg.setImageResource(R.drawable.audio_placeholder);
+                viewHolder.sdv_pic.setImageResource(R.drawable.audio_placeholder);
             } else {
-                RequestOptions options = new RequestOptions()
-                        .transform(new GlideRoundTransform(viewHolder.itemView.getContext(), 20))
-                        .centerCrop()
-                        .placeholder(R.color.upload_photo_bg)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL);
-                Glide.with(viewHolder.itemView.getContext())
-                        .asBitmap()
-                        .load(path)
-                        .listener(new RequestListener<Bitmap>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                int width = resource.getWidth();
-                                int height = resource.getHeight();
-                                LogUtil.i(TAG, "width&height = " + width + "&" + height);
-                                return false;
-                            }
-                        })
-                        .apply(options)
-                        //.into(new CircularBitmapImageViewTarget(viewHolder.itemView.getContext(), viewHolder.mImg, 20))
-//                        .into(new SimpleTarget<Bitmap>() {
-//                            @Override
-//                            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-//                                int height = resource.getHeight();
-//                                int width = resource.getWidth();
-//                                LogUtil.i(TAG, width + "- SimpleTarget- " + height);
-//
-////                                RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(viewHolder.itemView.getResources(), resource);
-////                                /**
-////                                 *   设置图片的shape为圆形.
-////                                 *
-////                                 *   若是需要制定圆角的度数，则调用setCornerRadius（）。
-////                                 */
-////                                bitmapDrawable.setCircular(true);
-////                                bitmapDrawable.setCornerRadius(20);
-////                                viewHolder.mImg.setImageDrawable(bitmapDrawable);
-//                                viewHolder.mImg.setImageBitmap(resource);
-//                            }
-//                        })
-                        .into(viewHolder.mImg)
-//                        .into(new BitmapImageViewTarget(viewHolder.mImg) {
-//                            @Override
-//                            protected void setResource(Bitmap resource) {
-//                                super.setResource(resource);
-//                                RoundedBitmapDrawable circularBitmapDrawable =
-//                                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-//                                circularBitmapDrawable.setCornerRadius(20); //设置圆角弧度
-//                                viewHolder.mImg.setImageDrawable(circularBitmapDrawable);
-//                            }
-//                        })
-//                        .into(new SimpleTarget<Bitmap>() {
-//                            @Override
-//                            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-//                                viewHolder.mImg.setImageBitmap(resource);
-//                            }
-//                        })
-                //.into(new CircularBitmapImageViewTarget(context, viewHolder.mImg, 20))
-                ;
+                showImagePic(viewHolder.sdv_pic, "file:///" + path);
             }
             //itemView 的点击事件
             if (mItemClickListener != null) {
@@ -279,5 +227,39 @@ public class GridImageAdapter extends
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mItemClickListener = listener;
+    }
+
+    public void showImagePic(final SimpleDraweeView sdv, String imagePath) {
+        final int maxWidth = (ScreenUtils.getScreenWidth(context) -
+                context.getResources().getDimensionPixelSize(R.dimen.DIMEN_45PX)) / 2;
+
+        final ViewGroup.LayoutParams layoutParams = sdv.getLayoutParams();
+        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
+            @Override
+            public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
+                if (imageInfo == null) {
+                    return;
+                }
+                int width = imageInfo.getWidth();
+                int height = imageInfo.getHeight();
+                layoutParams.width = maxWidth;
+                layoutParams.height = (int) ((float) (maxWidth * height) / (float) width);
+                sdv.setLayoutParams(layoutParams);
+            }
+
+            @Override
+            public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
+                LogUtil.d("TAG", "Intermediate image received");
+            }
+
+            @Override
+            public void onFailure(String id, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        };
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setControllerListener(controllerListener)
+                .setUri(Uri.parse(imagePath)).build();
+        sdv.setController(controller);
     }
 }
