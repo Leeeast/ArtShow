@@ -278,6 +278,7 @@
     <string name="tip_theatre_description_change_suc">剧场介绍修改成功</string>
     <string name="tip_theatre_select_pic">请选择图片</string>
     <string name="tip_theatre_pic_upload">图片上传成功</string>
+    <string name="theatre_send_status">发布状态</string>
     <!--项目相关-->
     <string name="project_title_my">我的项目</string>
     <string name="project_upload">上传项目</string>

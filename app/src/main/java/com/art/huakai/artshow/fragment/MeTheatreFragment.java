@@ -6,11 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.MeTheatreAdapter;
-import com.art.huakai.artshow.adapter.MeUnloginAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 
 import java.util.ArrayList;
