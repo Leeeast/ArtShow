@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.widget.ChinaShowImageView;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * Created by lidongliang on 2017/10/5.
@@ -14,13 +14,13 @@ import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 public class OrgTheatreHolder extends RecyclerView.ViewHolder {
 
-    public ChinaShowImageView sdvTheatre;
-    public TextView tvTheatreName,tvTheatreStatus, tvSeatCount, tvTheatrePosition, tvTheatrePrice;
+    public SimpleDraweeView sdvTheatre;
+    public TextView tvTheatreName, tvTheatreStatus, tvSeatCount, tvTheatrePosition, tvTheatrePrice;
     public RelativeLayout rLyRootTheatre;
 
     public OrgTheatreHolder(View itemView) {
         super(itemView);
-        sdvTheatre = (ChinaShowImageView) itemView.findViewById(R.id.sdv_theatre);
+        sdvTheatre = (SimpleDraweeView) itemView.findViewById(R.id.sdv_theatre);
         tvTheatreName = (TextView) itemView.findViewById(R.id.tv_thratre_name);
         tvTheatreStatus = (TextView) itemView.findViewById(R.id.tv_theatre_status);
         tvSeatCount = (TextView) itemView.findViewById(R.id.tv_seat_count);

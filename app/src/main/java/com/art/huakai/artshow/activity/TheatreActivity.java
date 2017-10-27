@@ -1,34 +1,24 @@
 package com.art.huakai.artshow.activity;
 
-import android.content.Intent;
-import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.OrgTheatreAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
-import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.eventbus.NameChangeEvent;
+import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.tools.DebugUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +43,8 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     @BindView(R.id.recyclerview_theatre)
     SmartRecyclerview recyclerViewTheatre;
 
+    private List<Theatre> mTheatres;
+    private OrgTheatreAdapter mOrgTheatreAdapter;
     private int mPage = 1;
     private ShowProgressDialog showProgressDialog;
 
@@ -69,15 +61,16 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     @Override
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
+        mTheatres = new ArrayList<>();
         loadTheatreData(mPage);
     }
 
     /**
      * 加载剧场数据
      *
-     * @param mPage
+     * @param page
      */
-    private void loadTheatreData(int mPage) {
+    private void loadTheatreData(final int page) {
         Map<String, String> params = new TreeMap<>();
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
@@ -90,13 +83,31 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-//                if (mPage == 1) {
-//                    recyclerView.refreshComplete();
-//                    mEnrollInfos.clear();
-//                    mEnrollInfos.add(null);
-//                } else {
-//                    recyclerView.loadMoreComplete();
-//                }
+                if (page == 1) {
+                    recyclerViewTheatre.refreshComplete();
+                    mTheatres.clear();
+                } else {
+                    recyclerViewTheatre.loadMoreComplete();
+                }
+                if (isSuccess) {
+                    try {
+                        List<Theatre> theatres = GsonTools.parseDatas(obj, Theatre.class);
+                        LogUtil.i(TAG, "mEnrollInfos.size = " + theatres.size());
+                        if (mPage == 1 && (theatres == null || theatres.size() == 0)) {
+                            mTheatres.clear();
+                        } else if (mPage != 1 && (theatres == null || theatres.size() == 0)) {
+                            showToast(getString(R.string.tip_no_more_date));
+                        }
+                        mTheatres.addAll(theatres);
+                        if (mOrgTheatreAdapter != null) {
+                            mOrgTheatreAdapter.notifyDataSetChanged();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
             }
 
             @Override
@@ -117,9 +128,16 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
 
     @Override
     public void setView() {
+        LinearLayoutManager layManager = new LinearLayoutManager(this);
+        layManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewTheatre.setLayoutManager(layManager);
+
+        mOrgTheatreAdapter = new OrgTheatreAdapter(mTheatres);
+        recyclerViewTheatre.setAdapter(mOrgTheatreAdapter);
         recyclerViewTheatre.setLoadingListener(this);
         recyclerViewTheatre.setPullRefreshEnabled(true);
         recyclerViewTheatre.setLoadingMoreEnabled(true);
+
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.adapter;
 
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
-import com.art.huakai.artshow.adapter.holder.MeTheatreHolder;
 import com.art.huakai.artshow.adapter.holder.OrgTheatreHolder;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.utils.DeviceUtils;
@@ -41,7 +39,7 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
             return new EmptyHolder(view);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_org_theatre, parent, false);
-            return new MeTheatreHolder(view);
+            return new OrgTheatreHolder(view);
         }
     }
 
@@ -52,14 +50,16 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_NORMAL:
-                OrgTheatreHolder meTheatreHolder = (OrgTheatreHolder) holder;
+                OrgTheatreHolder theatreHolder = (OrgTheatreHolder) holder;
                 if (position == 0) {
                     RecyclerView.LayoutParams layoutParams =
-                            (RecyclerView.LayoutParams) meTheatreHolder.rLyRootTheatre.getLayoutParams();
-                    layoutParams.topMargin = meTheatreHolder.rLyRootTheatre.
+                            (RecyclerView.LayoutParams) theatreHolder.rLyRootTheatre.getLayoutParams();
+                    layoutParams.topMargin = theatreHolder.rLyRootTheatre.
                             getResources().getDimensionPixelSize(R.dimen.DIMEN_30PX);
                 }
-                meTheatreHolder.sdvTheatre.setImageURI(Uri.parse("asset:///test.png"));
+                Theatre theatre = mlist.get(position);
+                theatreHolder.sdvTheatre.setImageURI(theatre.getLogo());
+                theatreHolder.tvTheatreName.setText(theatre.getName());
                 break;
         }
     }
