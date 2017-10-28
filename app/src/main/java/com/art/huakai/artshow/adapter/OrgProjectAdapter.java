@@ -7,24 +7,32 @@ import android.view.ViewGroup;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
+import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
 import com.art.huakai.artshow.adapter.holder.OrgTheatreHolder;
+import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by lidongliang on 2017/10/5.
  */
 
-public class OrgTheatreAdapter extends RecyclerView.Adapter {
+public class OrgProjectAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_NORMAL = 12;
-    private List<Theatre> mlist;
+    private List<RepertorysBean> mlist;
     private OnItemClickListener onItemClickListener;
+    private Date mEndDate;
+    private SimpleDateFormat mSimpleDateFormat;
 
-    public OrgTheatreAdapter(List<Theatre> list) {
+    public OrgProjectAdapter(List<RepertorysBean> list) {
         this.mlist = list;
+        mEndDate = new Date();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -43,8 +51,8 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
             view.setLayoutParams(layoutParams);
             return new EmptyHolder(view);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_org_theatre, parent, false);
-            return new OrgTheatreHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_org_project, parent, false);
+            return new OrgProjectHolder(view);
         }
     }
 
@@ -55,8 +63,8 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_NORMAL:
-                OrgTheatreHolder theatreHolder = (OrgTheatreHolder) holder;
-                theatreHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                OrgProjectHolder projectHolder = (OrgProjectHolder) holder;
+                projectHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (onItemClickListener != null) {
@@ -66,23 +74,25 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
                 });
                 if (position == 0) {
                     RecyclerView.LayoutParams layoutParams =
-                            (RecyclerView.LayoutParams) theatreHolder.rLyRootTheatre.getLayoutParams();
-                    layoutParams.topMargin = theatreHolder.rLyRootTheatre.
+                            (RecyclerView.LayoutParams) projectHolder.rLyRootTheatre.getLayoutParams();
+                    layoutParams.topMargin = projectHolder.rLyRootTheatre.
                             getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
                 }
-                Theatre theatre = mlist.get(position);
-                theatreHolder.sdvTheatre.setImageURI(theatre.getLogo());
-                theatreHolder.tvTheatreName.setText(theatre.getName());
-                theatreHolder.tvSeatCount.setText(String.valueOf(theatre.getSeating()));
-                theatreHolder.tvTheatrePosition.setText(theatre.getRegionName());
-                String price = String.format(holder.itemView.getResources().getString(R.string.me_theatre_price), theatre.getExpense());
-                theatreHolder.tvTheatrePrice.setText(price);
-                if (theatre.getStatus() == 1) {
-                    theatreHolder.tvTheatreStatus.setText(R.string.send_status);
-                    theatreHolder.tvTheatreStatus.setTextColor(holder.itemView.getResources().getColor(R.color.theatre_send_suc));
+                RepertorysBean repertorysBean = mlist.get(position);
+                projectHolder.sdvProject.setImageURI(repertorysBean.getLogo());
+                projectHolder.tvProjectTitle.setText(repertorysBean.getTitle());
+                projectHolder.tvActorCount.setText(String.valueOf(repertorysBean.getPeopleNum()));
+                mEndDate.setTime(repertorysBean.getPremiereTime());
+                String premiereTime = mSimpleDateFormat.format(mEndDate);
+                projectHolder.tvFirstShowTime.setText(premiereTime);
+                String price = String.format(holder.itemView.getResources().getString(R.string.me_theatre_price), repertorysBean.getExpense());
+                projectHolder.tvProjectPrice.setText(price);
+                if (repertorysBean.getStatus() == 1) {
+                    projectHolder.tvProjectStatus.setText(R.string.send_status);
+                    projectHolder.tvProjectStatus.setTextColor(holder.itemView.getResources().getColor(R.color.theatre_send_suc));
                 } else {
-                    theatreHolder.tvTheatreStatus.setText(R.string.unsend_status);
-                    theatreHolder.tvTheatreStatus.setTextColor(holder.itemView.getResources().getColor(R.color.theatre_send_fail));
+                    projectHolder.tvProjectStatus.setText(R.string.unsend_status);
+                    projectHolder.tvProjectStatus.setTextColor(holder.itemView.getResources().getColor(R.color.theatre_send_fail));
                 }
                 break;
         }

@@ -32,6 +32,7 @@ public class JumpCode {
     public static final int FLAG_REQ_PROJECT_MY = FLAG_REQ + 18;
     public static final int FLAG_REQ_PROJECT_BASE = FLAG_REQ + 19;
     public static final int FLAG_REQ_PROJECT_FILL = FLAG_REQ + 20;
+    public static final int FLAG_REQ_DETAIL_PROJECT = FLAG_REQ + 21;
 
 
     // 返回码,往下加1

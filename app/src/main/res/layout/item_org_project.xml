@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rly_root_theatre"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/DIMEN_15PX"
+    android:layout_marginRight="@dimen/DIMEN_15PX"
+    android:layout_marginTop="@dimen/DIMEN_15PX"
+    android:background="@drawable/shape_theatre_item">
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_projcet"
+        android:layout_width="@dimen/DIMEN_130PX"
+        android:layout_height="@dimen/DIMEN_163PX"
+        android:clickable="false"
+        android:focusable="false"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="@mipmap/loading_fail"
+        fresco:failureImageScaleType="centerInside"
+        fresco:placeholderImage="@color/pic_loading_bg"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:progressBarAutoRotateInterval="5000"
+        fresco:progressBarImage="@mipmap/loading_gray"
+        fresco:progressBarImageScaleType="centerInside"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="false"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="false"
+        fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@id/sdv_projcet"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/DIMEN_15PX">
+
+        <TextView
+            android:id="@+id/tv_project_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:maxLines="1"
+            android:text="戴安娜"
+            android:textColor="@color/theatre_title"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="@string/theatre_send_status"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_project_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:clickable="false"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="@string/theatre_send_status"
+                android:textColor="@color/theatre_send_suc"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="@string/project_actor_count"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_actor_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="100"
+                android:textColor="@color/theatre_title"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="@string/project_first_show_time"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_first_show_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:maxLines="1"
+                android:text="2017.09.09"
+                android:textColor="@color/theatre_title"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_marginTop="@dimen/DIMEN_6PX"
+            android:background="@color/line_theatre" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_7PX"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_project_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@string/me_theatre_price"
+                android:textColor="@color/theatre_title"
+                android:textSize="@dimen/DIMEN_22PX" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_3PX"
+                android:maxLines="1"
+                android:text="@string/project_unit"
+                android:textColor="@color/theatre_content"
+                android:textSize="@dimen/DIMEN_10PX" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

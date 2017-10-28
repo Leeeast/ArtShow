@@ -26,8 +26,8 @@ public class CooperateAdapter extends RecyclerView.Adapter {
     public static final int TYPE_TEXT_DES = 11;
     public static final int TYPE_NORMAL = 12;
     private List<EnrollInfo> mlist;
-    private final Date mEndDate;
-    private final SimpleDateFormat mSimpleDateFormat;
+    private Date mEndDate;
+    private SimpleDateFormat mSimpleDateFormat;
     private OnItemClickListener mOnItemClickListener;
 
     public CooperateAdapter(List<EnrollInfo> list) {

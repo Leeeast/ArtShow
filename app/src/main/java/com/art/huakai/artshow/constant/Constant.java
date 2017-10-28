@@ -100,8 +100,16 @@ public class Constant {
     public static final String URL_THEATER_EDIT_LOGO = BASE_URL + "/theater/edit/logo";
     //修改剧场技术参数，返回创建或修改的剧场id
     public static final String URL_THEATER_EDIT_TECHNICALS = BASE_URL + "/theater/edit/technicals";
+    //发布项目
     public static final String URL_THEATER_RELEASE = BASE_URL + "/theater/release";
+    //下线项目
     public static final String URL_THEATER_OFFLINE = BASE_URL + "/theater/offline";
+    //用户发布的演出项目分页列表
+    public static final String URL_USER_REPERTORY = BASE_URL + "/user/repertory";
+    //修改演出项目舞台技术要求，返回创建或修改的演出项目id
+    public static final String URL_REPERTORY_EDIT_LOGO = BASE_URL + "/repertory/edit/logo";
+    //用户发布的演出项目分页列表
+    public static final String URL_USER_REPERTORY_DETAIL = BASE_URL + "/user/repertory/detail";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
@@ -121,7 +129,6 @@ public class Constant {
     public static final String URL_KEYWORD_SEARCH_REPERTORYS = BASE_URL + "/search/repertory";
     public static final String URL_KEYWORD_SEARCH_THEATRES = BASE_URL + "/search/theater";
     public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search/enroll";
-    public static final String URL_THEATRE_DETAIL = BASE_URL + "/theater/detail";
     public static final String URL_REPERTORY_DETAIL = BASE_URL + "/repertory/detail";
 
 //    获取地区借口

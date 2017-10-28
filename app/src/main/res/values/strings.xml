@@ -293,7 +293,9 @@
     <string name="tip_theatre_description_change_suc">剧场介绍修改成功</string>
     <string name="tip_theatre_select_pic">请选择图片</string>
     <string name="tip_theatre_pic_upload">图片上传成功</string>
-    <string name="tip_theatre_pic_fail">图片上传成功</string>
+    <string name="tip_theatre_pic_fail">图片上传失败</string>
+    <string name="tip_theatre_cover_upload">剧场封面上传成功</string>
+    <string name="tip_theatre_cover_fail">剧场封面上传失败</string>
     <string name="theatre_send_status">发布状态</string>
     <string name="tip_theatre_input_name">请输入剧场姓名</string>
     <string name="tip_theatre_input_hall">请输入厅馆名称</string>
@@ -348,6 +350,9 @@
     <string name="project_member_info">成员信息</string>
     <string name="project_member_title">头衔</string>
     <string name="project_member_intro">成员介绍</string>
+    <string name="tip_project_cover_suc">项目封面上传成功</string>
+    <string name="tip_project_cover_fail">项目封面上传失败</string>
+    <string name="project_unit">元/场</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -33,6 +33,7 @@ import com.art.huakai.artshow.adapter.ProfessionalPersonAdapter;
 import com.art.huakai.artshow.adapter.RecommendTheaterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.entity.HomePageDetails;
 import com.art.huakai.artshow.utils.DeviceUtils;
@@ -180,12 +181,12 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 getHomePageDetails();
             }
             if (scrollView != null) {
-                if(scrollDistance==0){
+                if (scrollDistance == 0) {
                     scrollView.smoothScrollTo(0, 0);
                 }
             }
-        }else{
-            scrollDistance=scrollView.getScrollY();
+        } else {
+            scrollDistance = scrollView.getScrollY();
         }
     }
 
@@ -225,12 +226,12 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
-                    if(!TextUtils.isEmpty(obj)){
+                    if (!TextUtils.isEmpty(obj)) {
                         Gson gson = new Gson();
                         homePageDetails = gson.fromJson(obj, HomePageDetails.class);
                         Log.e(TAG, "onSuccess: getid" + homePageDetails.getAdvert().getLogo());
                         uiHandler.sendEmptyMessage(0);
-                    }else{
+                    } else {
                         Log.e(TAG, "onSuccess: obj=nullnull");
                     }
                 } else {
@@ -317,10 +318,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position==" + position);
-                    Intent intent=new Intent(getContext(), WorksDetailMessageActivity.class);
-                    intent.putExtra("id",homePageDetails.getRepertorys().get(position).getId());
-                    startActivity(intent);
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString(WorksDetailMessageActivity.PARAMS_ID, homePageDetails.getRepertorys().get(position).getId());
+                    invokActivity(getContext(), WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
                 }
             });
             rcvWorks.addItemDecoration(worksItemDecorationThree);
@@ -346,8 +346,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position==" + position);
 
-                    Intent intent=new Intent(getContext(), TheatreDetailMessageActivity.class);
-                    intent.putExtra("id",homePageDetails.getTheaters().get(position).getId());
+                    Intent intent = new Intent(getContext(), TheatreDetailMessageActivity.class);
+                    intent.putExtra("id", homePageDetails.getTheaters().get(position).getId());
                     startActivity(intent);
                 }
             });
@@ -373,8 +373,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position" + position);
-                    Intent intent=new Intent(getContext(), PersonalDetailMessageActivity.class);
-                    intent.putExtra("id",homePageDetails.getTalents().get(position).getId());
+                    Intent intent = new Intent(getContext(), PersonalDetailMessageActivity.class);
+                    intent.putExtra("id", homePageDetails.getTalents().get(position).getId());
                     startActivity(intent);
 
                 }
@@ -395,14 +395,14 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Log.e(TAG, "onClick: 11111111111" );
+        Log.e(TAG, "onClick: 11111111111");
         MainActivity mainActivity = (MainActivity) getActivity();
         if (v.getId() == R.id.tv_one_whole) {
             if (null != mainActivity) {
 //                mainActivity.setWholeItemPosition(1);
 //                mainActivity.setCheckId(R.id.rdobtn_me);
 
-                Intent intent=new Intent(getContext(), SearchNewsActivity.class);
+                Intent intent = new Intent(getContext(), SearchNewsActivity.class);
                 startActivity(intent);
 
             }
@@ -429,8 +429,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 mainActivity.setCheckId(R.id.rdobtn_discover);
             }
 
-        }else if(v.getId() == R.id.iv_search){
-            Intent intent=new Intent(getContext(), KeywordSearchAllActivity.class);
+        } else if (v.getId() == R.id.iv_search) {
+            Intent intent = new Intent(getContext(), KeywordSearchAllActivity.class);
             startActivity(intent);
         }
     }

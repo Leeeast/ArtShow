@@ -144,8 +144,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         }
         tvTheatreName.setText(theatreDetailBean.getName());
 
-        tvFee.setText(theatreDetailBean.getExpense()+"");
-        tvSeatCount.setText(theatreDetailBean.getSeating()+"");
+        tvFee.setText(theatreDetailBean.getExpense() + "");
+        tvSeatCount.setText(theatreDetailBean.getSeating() + "");
 //        tvWeight.setText(talentDetailBean.getWeight());
 //        tvHeight.setText(talentDetailBean.getHeight());
 //        tvUniversity.setText(talentDetailBean.getSchool());
@@ -202,17 +202,16 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     }
 
 
-
     private void getTheatreDetail() {
 
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_THEATRE_DETAIL==" + Constant.URL_THEATRE_DETAIL);
+        Log.e(TAG, "getMessage: Constant.URL_THEATRE_DETAIL==" + Constant.URL_THEATER_DETAIL);
         params.put("id", theatreId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
         Log.e(TAG, "getRepertoryClassify: " + params.toString());
-        RequestUtil.request(true, Constant.URL_THEATRE_DETAIL, params, 130, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, Constant.URL_THEATER_DETAIL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
@@ -241,7 +240,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             }
         });
     }
-
 
 
 }

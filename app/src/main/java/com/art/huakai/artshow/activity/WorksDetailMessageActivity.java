@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,11 +37,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.Call;
 
 public class WorksDetailMessageActivity extends BaseActivity implements View.OnClickListener {
-
+    public static final String PARAMS_ID = "PARAMS_ID";
 
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
@@ -90,7 +88,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     LinearLayout llMakeTelephone;
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
-    private String workId;
+    private String mProjectId;
     private WorksDetailBean worksDetailBean;
 
 
@@ -98,9 +96,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-
                 setData();
-
             }
         }
     };
@@ -181,8 +177,12 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
     @Override
     public void initData() {
-
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            mProjectId = extras.getString(PARAMS_ID);
+        }
+        getWorkDetail();
     }
 
     @Override
@@ -205,22 +205,10 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-        Intent intent = getIntent();
-        workId = intent.getStringExtra("id");
-        getWorkDetail();
-    }
-
-
     private void getWorkDetail() {
-
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_REPERTORY_DETAIL==" + Constant.URL_REPERTORY_DETAIL);
-        params.put("id", workId);
+        params.put("id", mProjectId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);

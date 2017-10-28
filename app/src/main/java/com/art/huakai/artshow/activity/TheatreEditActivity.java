@@ -495,7 +495,7 @@ public class TheatreEditActivity extends BaseActivity {
                         JSONObject jsonObject = new JSONObject(obj);
                         String theatreId = jsonObject.getString("id");
                         TheatreDetailInfo.getInstance().setId(theatreId);
-                        showToast(getString(R.string.tip_theatre_pic_upload));
+                        showToast(getString(R.string.tip_theatre_cover_upload));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -507,7 +507,7 @@ public class TheatreEditActivity extends BaseActivity {
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                showToast(getString(R.string.tip_theatre_pic_fail));
+                showToast(getString(R.string.tip_theatre_cover_fail));
                 if (showProgressDialog.isShowing()) {
                     showProgressDialog.dismiss();
                 }
