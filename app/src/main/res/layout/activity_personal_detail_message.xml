@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/tools"
     android:background="#ffffffff">
-
 
 
     <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
@@ -21,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_50PX">
@@ -414,34 +414,27 @@
         </LinearLayout>
 
 
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/stl_dis_tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_47PX"
-        android:background="@color/whiteff"
-        tl:tl_indicator_color="@color/black00"
-        tl:tl_indicator_corner_radius="2.5dp"
-        tl:tl_indicator_height="5dp"
-        tl:tl_indicator_width="5dp"
-        tl:tl_tab_space_equal="true"
-        tl:tl_textSelectColor="@color/dis_tab_text_s"
-        tl:tl_textUnselectColor="@color/dis_tab_text_n"
-        tl:tl_textsize="16sp"
-        android:layout_marginTop="@dimen/DIMEN_30PX"
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/stl_dis_tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_40PX"
+            android:layout_marginTop="@dimen/DIMEN_30PX"
+            android:background="@color/whiteff"
+            tl:tl_indicator_color="@color/app_common_red"
+            tl:tl_indicator_height="2dp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textSelectColor="@color/app_common_red"
+            tl:tl_textUnselectColor="@color/login_light"
+            tl:tl_textsize="18sp" />
 
-        />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/dis_viewpager_bg"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/dis_viewpager_bg"
 
-        />
+            />
     </com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager>
-
-
-
-
 
 
     <LinearLayout
@@ -449,11 +442,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_50PX"
         android:layout_alignParentBottom="true"
-        android:background="#ffdddddd"
+        android:background="@color/detail_connect_bg"
         android:gravity="center"
-        android:orientation="horizontal"
-
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="@dimen/DIMEN_17PX"
@@ -469,6 +460,5 @@
             android:textSize="@dimen/DIMEN_18PX" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

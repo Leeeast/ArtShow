@@ -167,4 +167,5 @@
     <color name="theatre_add_photo_border">#ffd5d5d5</color>
     <color name="upload_photo_bg">#fff6f6f6</color>
     <color name="pic_loading_bg">#fff2f2f2</color>
+    <color name="detail_connect_bg">#e6f9f9f9</color>
 </resources>
