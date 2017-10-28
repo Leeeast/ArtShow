@@ -13,27 +13,27 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_50PX">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_30PX">
 
             <View
                 android:layout_width="@dimen/DIMEN_168PX"
                 android:layout_height="@dimen/DIMEN_38PX"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/DIMEN_9PX"
-                android:layout_marginTop="@dimen/DIMEN_12PX"
                 android:background="@mipmap/chinashow_logo" />
 
             <ImageView
                 android:id="@+id/iv_search"
-                android:layout_width="@dimen/DIMEN_35PX"
-                android:layout_height="@dimen/DIMEN_35PX"
+                android:layout_width="@dimen/DIMEN_30PX"
+                android:layout_height="@dimen/DIMEN_30PX"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/DIMEN_16PX"
-                android:layout_marginTop="@dimen/DIMEN_23PX"
                 android:clickable="true"
                 android:focusable="true"
-                android:scaleType="fitXY"
-                android:src="@mipmap/chinashow_search" />
-
+                android:scaleType="centerInside"
+                android:src="@mipmap/search_black" />
         </RelativeLayout>
 
         <RelativeLayout

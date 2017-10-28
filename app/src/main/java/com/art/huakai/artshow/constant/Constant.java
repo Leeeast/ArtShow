@@ -123,12 +123,12 @@ public class Constant {
 
     public static final String URL_GET_TALENTS = BASE_URL + "/talent/page";
 
-    public static final String URL_KEYWORD_SEARCH = BASE_URL + "/search";
-    public static final String URL_KEYWORD_SEARCH_NEWS = BASE_URL + "/search/news";
-    public static final String URL_KEYWORD_SEARCH_TALENS = BASE_URL + "/search/talent";
-    public static final String URL_KEYWORD_SEARCH_REPERTORYS = BASE_URL + "/search/repertory";
-    public static final String URL_KEYWORD_SEARCH_THEATRES = BASE_URL + "/search/theater";
-    public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search/enroll";
+    public static final String URL_KEYWORD_SEARCH = BASE_URL + "/search_black";
+    public static final String URL_KEYWORD_SEARCH_NEWS = BASE_URL + "/search_black/news";
+    public static final String URL_KEYWORD_SEARCH_TALENS = BASE_URL + "/search_black/talent";
+    public static final String URL_KEYWORD_SEARCH_REPERTORYS = BASE_URL + "/search_black/repertory";
+    public static final String URL_KEYWORD_SEARCH_THEATRES = BASE_URL + "/search_black/theater";
+    public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search_black/enroll";
     public static final String URL_REPERTORY_DETAIL = BASE_URL + "/repertory/detail";
 
 //    获取地区借口

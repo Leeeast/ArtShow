@@ -77,7 +77,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     @Override
     public void initView() {
         llyBack.setOnClickListener(this);
-        Drawable drawableLeft = getResources().getDrawable(R.mipmap.chinashow_search);
+        Drawable drawableLeft = getResources().getDrawable(R.mipmap.search_gray);
         drawableLeft.setBounds(
                 getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX),
                 0,

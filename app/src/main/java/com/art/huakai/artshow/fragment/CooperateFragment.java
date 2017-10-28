@@ -64,7 +64,7 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
 
     @Override
     public void initView(View rootView) {
-        Drawable drawableLeft = getResources().getDrawable(R.mipmap.chinashow_search);
+        Drawable drawableLeft = getResources().getDrawable(R.mipmap.search_gray);
         drawableLeft.setBounds(
                 getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX),
                 0,
