@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import com.art.huakai.artshow.adapter.TalentDetailFragmentAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.WorksDetailShowFragment;
@@ -37,19 +40,20 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 public class WorksDetailMessageActivity extends BaseActivity implements View.OnClickListener {
     public static final String PARAMS_ID = "PARAMS_ID";
-
+    public static final String PARAMS_ORG = "PARAMS_ORG";
+    @BindView(R.id.btn_edit)
+    Button btnEdit;
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_subtitle)
-    TextView tvSubtitle;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
+    @BindView(R.id.iv_right_img)
+    ImageView ivRightImg;
     @BindView(R.id.sdv)
     ChinaShowImageView sdv;
     @BindView(R.id.tv_theatre_name)
@@ -90,6 +94,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     private ArrayList<HeaderViewPagerFragment> mFragments;
     private String mProjectId;
     private WorksDetailBean worksDetailBean;
+    private boolean mIsFromOrgan;
 
 
     private Handler uiHandler = new Handler() {
@@ -100,6 +105,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             }
         }
     };
+    private ShareDialog shareDialog;
 
 
     private void setData() {
@@ -181,6 +187,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         if (intent != null) {
             Bundle extras = intent.getExtras();
             mProjectId = extras.getString(PARAMS_ID);
+            mIsFromOrgan = extras.getBoolean(PARAMS_ORG, false);
         }
         getWorkDetail();
     }
@@ -192,7 +199,12 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
     @Override
     public void setView() {
-
+        ivRightImg.setImageResource(R.mipmap.icon_share_gray);
+        if (mIsFromOrgan) {
+            btnEdit.setVisibility(View.VISIBLE);
+        } else {
+            btnEdit.setVisibility(View.GONE);
+        }
     }
 
 
@@ -243,5 +255,18 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         });
     }
 
+    @OnClick(R.id.fly_right_img)
+    public void shareProject() {
+        if (shareDialog == null) {
+            shareDialog = ShareDialog.newInstence();
+        }
+        shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
+    }
 
+    @OnClick(R.id.btn_edit)
+    public void jump2ProjectEdit() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, false);
+        invokActivity(this, ProjectEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
+    }
 }

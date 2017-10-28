@@ -75,6 +75,7 @@ public class EnrollDetailActivity extends BaseActivity {
             }
         }
     };
+    private ShareDialog shareDialog;
 
     @Override
     public void immerseStatusBar() {
@@ -122,7 +123,9 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.fly_right_img)
     public void shareEnrollDetail() {
-        ShareDialog shareDialog = ShareDialog.newInstence();
+        if (shareDialog == null) {
+            shareDialog = ShareDialog.newInstence();
+        }
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
 

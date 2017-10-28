@@ -145,6 +145,7 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
                 ProjectDetailInfo.getInstance().setId(repertorys.getId());
                 Bundle bundle = new Bundle();
                 bundle.putString(WorksDetailMessageActivity.PARAMS_ID, repertorys.getId());
+                bundle.putBoolean(WorksDetailMessageActivity.PARAMS_ORG, true);
                 invokActivity(ProjectActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
             }
         });

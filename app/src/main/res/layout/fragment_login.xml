@@ -64,7 +64,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/pwd_account"
-                        android:imeActionId="@+id/login"
                         android:imeActionLabel="@string/app_login_bold"
                         android:imeOptions="actionUnspecified"
                         android:inputType="textPassword"

@@ -63,6 +63,7 @@ public class ProjectEditActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private TakePhotoDialog takePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
+    private boolean mIsNewCreate;
 
     @Override
     public void immerseStatusBar() {
@@ -77,10 +78,34 @@ public class ProjectEditActivity extends BaseActivity {
     @Override
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
-        if (ProjectDetailInfo.getInstance().getId() != null)
-            getProjectDetailInfo(ProjectDetailInfo.getInstance().getId());
+        //if (ProjectDetailInfo.getInstance().getId() != null)
+        //getProjectDetailInfo(ProjectDetailInfo.getInstance().getId());
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            mIsNewCreate = extras.getBoolean(PARAMS_NEW, true);
+        }
+        if (mIsNewCreate) {
+            initProjectDetailInfo();
+        } else {
+            getProjectDetail(ProjectDetailInfo.getInstance().getId());
+        }
     }
 
+    /**
+     * 获取项目详情
+     *
+     * @param projectId
+     */
+    private void getProjectDetail(String projectId) {
+    }
+
+    /**
+     * 恢复ProjectDetailInfo为原始值
+     */
+    private void initProjectDetailInfo() {
+
+    }
 
     @Override
     public void initView() {

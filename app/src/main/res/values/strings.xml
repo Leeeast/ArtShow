@@ -14,6 +14,7 @@
     <string name="app_un_fill">未填写</string>
     <string name="app_has_filled">已填写</string>
     <string name="app_upload_photo_success">图片上传成功</string>
+    <string name="app_edit_data">编辑资料</string>
     <!--三方登录、分享-->
     <string name="third_wechat">微信</string>
     <!--登录注册-->
