@@ -161,7 +161,7 @@ public class ResumeActivity extends BaseActivity {
      */
     @OnClick(R.id.rly_base_data)
     public void jumpBaseDataActivity() {
-        invokActivity(this, BaseDataActivity.class, null, JumpCode.FLAG_REQ_BASE_DATA);
+        invokActivity(this, ResumeBaseActivity.class, null, JumpCode.FLAG_REQ_BASE_DATA);
     }
 
     @Override

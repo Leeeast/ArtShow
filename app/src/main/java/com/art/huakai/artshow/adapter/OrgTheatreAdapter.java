@@ -21,9 +21,14 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_NORMAL = 12;
     private List<Theatre> mlist;
+    private OnItemClickListener onItemClickListener;
 
     public OrgTheatreAdapter(List<Theatre> list) {
         this.mlist = list;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -44,13 +49,21 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         switch (getItemViewType(position)) {
             case TYPE_EMPTY:
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_NORMAL:
                 OrgTheatreHolder theatreHolder = (OrgTheatreHolder) holder;
+                theatreHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onItemClickListener(position);
+                        }
+                    }
+                });
                 if (position == 0) {
                     RecyclerView.LayoutParams layoutParams =
                             (RecyclerView.LayoutParams) theatreHolder.rLyRootTheatre.getLayoutParams();
@@ -60,6 +73,17 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
                 Theatre theatre = mlist.get(position);
                 theatreHolder.sdvTheatre.setImageURI(theatre.getLogo());
                 theatreHolder.tvTheatreName.setText(theatre.getName());
+                theatreHolder.tvSeatCount.setText(String.valueOf(theatre.getSeating()));
+                theatreHolder.tvTheatrePosition.setText(theatre.getRegionName());
+                String price = String.format(holder.itemView.getResources().getString(R.string.me_theatre_price), theatre.getExpense());
+                theatreHolder.tvTheatrePrice.setText(price);
+                if (theatre.getStatus() == 1) {
+                    theatreHolder.tvTheatreStatus.setText(R.string.send_status);
+                    theatreHolder.tvTheatreStatus.setTextColor(holder.itemView.getResources().getColor(R.color.theatre_send_suc));
+                } else {
+                    theatreHolder.tvTheatreStatus.setText(R.string.unsend_status);
+                    theatreHolder.tvTheatreStatus.setTextColor(holder.itemView.getResources().getColor(R.color.theatre_send_fail));
+                }
                 break;
         }
     }

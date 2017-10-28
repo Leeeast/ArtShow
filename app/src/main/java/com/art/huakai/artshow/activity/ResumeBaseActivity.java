@@ -47,7 +47,7 @@ import okhttp3.Call;
  * Created by lidongliang on 2017/10/14.
  */
 
-public class BaseDataActivity extends BaseActivity {
+public class ResumeBaseActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -84,7 +84,7 @@ public class BaseDataActivity extends BaseActivity {
 
     @Override
     public int getLayoutID() {
-        return R.layout.activity_base_data;
+        return R.layout.activity_resume_base;
     }
 
     @Override
@@ -282,7 +282,7 @@ public class BaseDataActivity extends BaseActivity {
                     showProgressDialog.dismiss();
                 }
                 if (TextUtils.isEmpty(obj)) {
-                    Toast.makeText(BaseDataActivity.this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResumeBaseActivity.this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
@@ -307,7 +307,7 @@ public class BaseDataActivity extends BaseActivity {
     public void showAddressSelect(String address) {
         try {
             List<ProvinceBean> provinceBeen = GsonTools.parseDatas(address, ProvinceBean.class);
-            final ProvincePicker picker = new ProvincePicker(BaseDataActivity.this, provinceBeen);
+            final ProvincePicker picker = new ProvincePicker(ResumeBaseActivity.this, provinceBeen);
             picker.setDividerRatio(WheelView.DividerConfig.FILL);
             picker.setCanceledOnTouchOutside(false);
             picker.setCycleDisable(true);

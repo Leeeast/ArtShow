@@ -168,16 +168,29 @@
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
 
-                <Switch
-                    android:id="@+id/switch_release"
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:checked="false"
-                    android:thumb="@drawable/switch_thumb"
-                    android:track="@drawable/switch_track" />
+                    android:layout_marginRight="@dimen/DIMEN_15PX">
+
+                    <Switch
+                        android:id="@+id/switch_release"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:checked="false"
+                        android:enabled="false"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track" />
+
+                    <View
+                        android:id="@+id/view_theatre_release"
+                        android:layout_width="@dimen/DIMEN_50PX"
+                        android:layout_height="@dimen/DIMEN_30PX"
+                        android:layout_gravity="center" />
+                </FrameLayout>
 
                 <View
                     android:layout_width="match_parent"

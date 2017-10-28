@@ -96,6 +96,12 @@ public class Constant {
     public static final String URL_THEATER_EDIT_PICTURES = BASE_URL + "/theater/edit/pictures";
     //修改演出项目作品剧照，返回创建或修改的演出项目id
     public static final String URL_REPERTORY_EDIT_PICTURES = BASE_URL + "/repertory/edit/pictures";
+    //修改剧场封面图，返回创建或修改的剧场id
+    public static final String URL_THEATER_EDIT_LOGO = BASE_URL + "/theater/edit/logo";
+    //修改剧场技术参数，返回创建或修改的剧场id
+    public static final String URL_THEATER_EDIT_TECHNICALS = BASE_URL + "/theater/edit/technicals";
+    public static final String URL_THEATER_RELEASE = BASE_URL + "/theater/release";
+    public static final String URL_THEATER_OFFLINE = BASE_URL + "/theater/offline";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";

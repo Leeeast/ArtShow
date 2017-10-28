@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,7 +18,9 @@ import com.art.huakai.artshow.decoration.StaggeredGridLayoutItemDecoration;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -29,6 +32,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DebugUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -65,6 +69,7 @@ public class PhotoUploadFragment extends BaseFragment {
     private int index = 0;
     private boolean isUploadSuc = false;
     private String mCommitPicUrl;
+    private String typeId;
 
     public PhotoUploadFragment() {
     }
@@ -99,6 +104,7 @@ public class PhotoUploadFragment extends BaseFragment {
             case TYPE_THEATRE:
                 title = getString(R.string.theatre_pic);
                 mCommitPicUrl = Constant.URL_THEATER_EDIT_PICTURES;
+                typeId = TheatreDetailInfo.getInstance().getId();
                 break;
             case TYPE_TALENT:
                 title = getString(R.string.resume_photo);
@@ -244,7 +250,9 @@ public class PhotoUploadFragment extends BaseFragment {
      */
     public void commitPic(String picJson) {
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TheatreDetailInfo.getInstance().getId());
+        if (!TextUtils.isEmpty(typeId)) {
+            params.put("id", typeId);
+        }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("pictures", picJson);
@@ -260,6 +268,24 @@ public class PhotoUploadFragment extends BaseFragment {
                 }
                 isUploadSuc = true;
                 showToast(getString(R.string.tip_theatre_pic_upload));
+                try {
+                    //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
+                    JSONObject jsonObject = new JSONObject(obj);
+                    String typeId = jsonObject.getString("id");
+                    switch (mUploadType) {
+                        case TYPE_THEATRE:
+                            TheatreDetailInfo.getInstance().setId(typeId);
+                            //TheatreDetailInfo.getInstance().getPictures()
+                            EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                            break;
+                        case TYPE_TALENT:
+                            break;
+                        case TYPE_PROJECT:
+                            break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

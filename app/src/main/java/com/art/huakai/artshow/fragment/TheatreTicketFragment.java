@@ -67,7 +67,6 @@ public class TheatreTicketFragment extends BaseFragment {
 
     private Unbinder unbinder;
     private ShowProgressDialog showProgressDialog;
-    private String mDescription;
     private List<LocalMedia> selectList = new ArrayList<>();
     private String mPhotoUrl;
     private TakePhotoDialog takePhotoDialog;
@@ -83,7 +82,6 @@ public class TheatreTicketFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentResumeInfo.getInstance().getDescription();
     }
 
     @Override
@@ -128,7 +126,9 @@ public class TheatreTicketFragment extends BaseFragment {
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TheatreDetailInfo.getInstance().getId());
+        if (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getId())) {
+            params.put("id", TheatreDetailInfo.getInstance().getId());
+        }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("priceDiagram", mPhotoUrl);
@@ -143,9 +143,17 @@ public class TheatreTicketFragment extends BaseFragment {
                 if (showProgressDialog.isShowing()) {
                     showProgressDialog.dismiss();
                 }
-                showToast(getString(R.string.app_upload_photo_success));
-                TheatreDetailInfo.getInstance().setPriceDiagram(mPhotoUrl);
-                EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                try {
+                    showToast(getString(R.string.app_upload_photo_success));
+                    //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
+                    JSONObject jsonObject = new JSONObject(obj);
+                    String theatreId = jsonObject.getString("id");
+                    TheatreDetailInfo.getInstance().setId(theatreId);
+                    TheatreDetailInfo.getInstance().setPriceDiagram(mPhotoUrl);
+                    EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

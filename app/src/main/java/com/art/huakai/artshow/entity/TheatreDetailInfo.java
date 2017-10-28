@@ -60,7 +60,7 @@ public class TheatreDetailInfo {
     private long createTime;
     private String updateTime;
     private String regionName;
-    private List<String> pictures;
+    private List<PicturesBean> pictures;
     private List<String> disabledDates;
     private String disabledMonths;
     private int viewTimes;
@@ -385,11 +385,11 @@ public class TheatreDetailInfo {
         this.regionName = regionName;
     }
 
-    public List<String> getPictures() {
+    public List<PicturesBean> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<String> pictures) {
+    public void setPictures(List<PicturesBean> pictures) {
         this.pictures = pictures;
     }
 

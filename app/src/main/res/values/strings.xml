@@ -120,6 +120,7 @@
 
 
     <string name="response_code_200">success</string>
+    <string name="response_code_240">账户不存在</string>
     <string name="response_code_4000">参数签名错误</string>
     <string name="response_code_4001">令牌过期或无效</string>
     <string name="response_code_4002">系统内部错误</string>
@@ -130,6 +131,15 @@
     <string name="response_code_4007">手机号已存在</string>
     <string name="response_code_4008">操作频繁，稍候再试</string>
     <string name="response_code_4009">文件类型错误</string>
+    <string name="response_code_4010">重复报名</string>
+    <string name="response_code_4011">账号未认证</string>
+    <string name="response_code_4012">账号不存在</string>
+    <string name="response_code_4013">资源不存在</string>
+    <string name="response_code_4014">越权操作</string>
+    <string name="response_code_4015">账号信息不完整</string>
+    <string name="response_code_4016">资源信息不完整</string>
+    <string name="response_code_4017">帐号审核中</string>
+    <string name="response_code_4018">帐号审核未通过</string>
     <string name="response_code_other">未知错误</string>
 
     <string name="loading">加载中</string>
@@ -271,14 +281,35 @@
     <string name="theatre_stage_height">舞台高度：</string>
     <string name="theatre_stage_width">舞台宽度：</string>
     <string name="theatre_stage_depth">舞台深度：</string>
+    <string name="theatre_screen_height">幕布高度：</string>
+    <string name="theatre_screen_width">幕布宽度：</string>
     <string name="theatre_stage_dressing">化妆室数量：</string>
+    <string name="theatre_stage_rehearsal_roomnum">排练室数量：</string>
+    <string name="theatre_stage_prop_roomnum">道具间数量：</string>
+    <string name="theatre_stage_costume_roomnum">服装间数量：</string>
     <string name="theatre_provide_equip">可提供设备</string>
     <string name="theatre_release">发布剧场</string>
     <string name="tip_theatre_des_change_suc">剧场详细介绍修改成功</string>
     <string name="tip_theatre_description_change_suc">剧场介绍修改成功</string>
     <string name="tip_theatre_select_pic">请选择图片</string>
     <string name="tip_theatre_pic_upload">图片上传成功</string>
+    <string name="tip_theatre_pic_fail">图片上传成功</string>
     <string name="theatre_send_status">发布状态</string>
+    <string name="tip_theatre_input_name">请输入剧场姓名</string>
+    <string name="tip_theatre_input_hall">请输入厅馆名称</string>
+    <string name="tip_theatre_input_seat">请输入座位数量</string>
+    <string name="tip_theatre_input_price">请输入场租价格</string>
+    <string name="tip_theatre_input_linkman">请输入联系人姓名</string>
+    <string name="tip_theatre_input_linktel">请输入联系人电话</string>
+    <string name="tip_theatre_input_detail_address">请输入详细地址</string>
+    <string name="tip_theatre_info_commit_success">信息提交成功</string>
+    <string name="tip_theatre_release">请先完善剧场信息再发布</string>
+    <string name="tip_theatre_release_fail">剧场发布失败</string>
+    <string name="tip_theatre_release_suc">剧场发布成功</string>
+    <string name="tip_theatre_offline_suc">剧场下线成功</string>
+    <string name="tip_theatre_offline_fail">剧场下线失败</string>
+    <string name="send_status">已发布</string>
+    <string name="unsend_status">未发布</string>
     <!--项目相关-->
     <string name="project_title_my">我的项目</string>
     <string name="project_upload">上传项目</string>

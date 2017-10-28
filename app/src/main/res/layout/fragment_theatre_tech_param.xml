@@ -60,7 +60,9 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@id/tv_theatre_height"
                     android:background="@null"
+                    android:digits="0123456789."
                     android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
                     android:text=""
                     android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
@@ -97,7 +99,9 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@id/tv_theatre_width"
                     android:background="@null"
+                    android:digits="0123456789."
                     android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
                     android:text=""
                     android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
@@ -134,7 +138,87 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@id/tv_theatre_depth"
                     android:background="@null"
+                    android:digits="0123456789."
                     android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_curtain_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_screen_height"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_curtain_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_curtain_height"
+                    android:background="@null"
+                    android:digits="0123456789."
+                    android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_curtain_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_screen_width"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_curtain_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_curtain_width"
+                    android:background="@null"
+                    android:digits="0123456789."
+                    android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
                     android:text=""
                     android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
@@ -171,7 +255,126 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@id/tv_theatre_dressing"
                     android:background="@null"
+                    android:digits="0123456789"
                     android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_rehearsal_roomnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_stage_rehearsal_roomnum"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_theatre_rehearsal_roomnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_rehearsal_roomnum"
+                    android:background="@null"
+                    android:digits="0123456789"
+                    android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_prop_roomnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_stage_prop_roomnum"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_theatre_prop_roomnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_prop_roomnum"
+                    android:background="@null"
+                    android:digits="0123456789"
+                    android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
+                    android:text=""
+                    android:textColor="@color/login_btn"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_60PX">
+
+                <TextView
+                    android:id="@+id/tv_theatre_costume_roomnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_marginRight="@dimen/DIMEN_10PX"
+                    android:text="@string/theatre_stage_costume_roomnum"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edt_theatre_costume_roomnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/tv_theatre_costume_roomnum"
+                    android:background="@null"
+                    android:digits="0123456789"
+                    android:hint="@string/user_not_must_fill"
+                    android:inputType="phone"
                     android:text=""
                     android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"

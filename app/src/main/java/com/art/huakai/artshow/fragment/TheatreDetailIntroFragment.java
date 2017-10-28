@@ -22,6 +22,7 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -111,7 +112,9 @@ public class TheatreDetailIntroFragment extends BaseFragment {
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TheatreDetailInfo.getInstance().getId());
+        if (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getId())) {
+            params.put("id", TheatreDetailInfo.getInstance().getId());
+        }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("detailedIntroduce", mDescription);
@@ -127,9 +130,17 @@ public class TheatreDetailIntroFragment extends BaseFragment {
                     showProgressDialog.dismiss();
                 }
                 if (isSuccess) {
-                    Toast.makeText(getContext(), getString(R.string.tip_theatre_des_change_suc), Toast.LENGTH_SHORT).show();
-                    TheatreDetailInfo.getInstance().setDetailedIntroduce(mDescription);
-                    EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                    try {
+                        showToast(getString(R.string.tip_theatre_des_change_suc));
+                        //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String theatreId = jsonObject.getString("id");
+                        TheatreDetailInfo.getInstance().setId(theatreId);
+                        TheatreDetailInfo.getInstance().setDetailedIntroduce(mDescription);
+                        EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

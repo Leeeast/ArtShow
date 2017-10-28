@@ -1,10 +1,12 @@
 package com.art.huakai.artshow.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.adapter.OrgTheatreAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
@@ -12,6 +14,7 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -35,7 +38,6 @@ import okhttp3.Call;
  */
 
 public class TheatreActivity extends BaseActivity implements SmartRecyclerview.LoadingListener {
-
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
@@ -134,6 +136,17 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
 
         mOrgTheatreAdapter = new OrgTheatreAdapter(mTheatres);
         recyclerViewTheatre.setAdapter(mOrgTheatreAdapter);
+        mOrgTheatreAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                Theatre theatre = mTheatres.get(position);
+                TheatreDetailInfo.getInstance().setId(theatre.getId());
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(TheatreEditActivity.PARAMS_NEW_CREATE, false);
+                invokActivity(TheatreActivity.this, TheatreEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
+
+            }
+        });
         recyclerViewTheatre.setLoadingListener(this);
         recyclerViewTheatre.setPullRefreshEnabled(true);
         recyclerViewTheatre.setLoadingMoreEnabled(true);
@@ -153,7 +166,9 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
      */
     @OnClick(R.id.tv_subtitle)
     public void uploadTheatre() {
-        invokActivity(this, TheatreEditActivity.class, null, JumpCode.FLAG_REQ_THEATRE_EDIT);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(TheatreEditActivity.PARAMS_NEW_CREATE, true);
+        invokActivity(this, TheatreEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
     }
 
     @Override

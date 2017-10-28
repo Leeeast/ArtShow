@@ -1,9 +1,11 @@
 package com.art.huakai.artshow.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by lining on 2017/10/20.
  */
-public class Theatre {
+public class Theatre implements Serializable {
 
     /**
      * id : 402881e85f30a14c015f30a15e2b0066

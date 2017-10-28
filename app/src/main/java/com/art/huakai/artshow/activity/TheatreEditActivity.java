@@ -1,8 +1,12 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,22 +15,31 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.art.huakai.artshow.utils.TheatreTechParamsUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.DataItem;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.DebugUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -40,7 +53,7 @@ import okhttp3.Call;
  */
 
 public class TheatreEditActivity extends BaseActivity {
-
+    public static final String PARAMS_NEW_CREATE = "PARAMS_NEW_CREATE";
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.dataitem_base)
@@ -51,9 +64,19 @@ public class TheatreEditActivity extends BaseActivity {
     DataItem dataItemIntro;
     @BindView(R.id.dataitem_seat_pic)
     DataItem dataitemSeatPic;
+    @BindView(R.id.dataitem_technical_parameters)
+    DataItem dataitemTechParams;
+    @BindView(R.id.dataitem_pic)
+    DataItem dataitemPic;
+    @BindView(R.id.sdv_avatar)
+    SimpleDraweeView sdvAvatar;
+    @BindView(R.id.switch_release)
+    Switch switchRelease;
 
-    public boolean isNewCreate = true;
+    public boolean isNewCreate = false;
     private ShowProgressDialog showProgressDialog;
+    private List<LocalMedia> selectList = new ArrayList<>();
+    private TakePhotoDialog takePhotoDialog;
 
     @Override
     public void immerseStatusBar() {
@@ -67,48 +90,69 @@ public class TheatreEditActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        showProgressDialog = new ShowProgressDialog(this);
-        if (isNewCreate) {
-            editTheatreDescription();
-        }
         EventBus.getDefault().register(this);
+        showProgressDialog = new ShowProgressDialog(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            isNewCreate = extras.getBoolean(PARAMS_NEW_CREATE, false);
+        }
+        if (isNewCreate) {
+            initTheatreDetailInfo();
+        } else {
+            getTheatreDetail(TheatreDetailInfo.getInstance().getId());
+        }
     }
 
     /**
-     * 剧场描述修改
-     * 新创建剧场，为了获取剧场ID
+     * 初始化TheatreDetailInfo单例
      */
-    private void editTheatreDescription() {
-        Map<String, String> params = new TreeMap<>();
-        params.put("userId", LocalUserInfo.getInstance().getId());
-        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("description", Constant.DESCRIPTION_DEFAULT);
-        String sign = SignUtil.getSign(params);
-        params.put("sign", sign);
-        LogUtil.i(TAG, "params = " + params);
-        RequestUtil.request(true, Constant.URL_THEATER_EDIT_DESCRIPTION, params, 61, new RequestUtil.RequestListener() {
-            @Override
-            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                LogUtil.i(TAG, obj);
-                if (isSuccess) {
-                    try {
-                        //{"id":"8a999cce5f51904d015f528e8bf20005"}
-                        JSONObject jsonObject = new JSONObject(obj);
-                        String theatreID = jsonObject.getString("id");
-                        getTheatreDetail(theatreID);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(TheatreEditActivity.this, getString(R.string.tip_mobile_registered), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailed(Call call, Exception e, int id) {
-                LogUtil.e(TAG, e.getMessage() + "-id = " + id);
-            }
-        });
+    private void initTheatreDetailInfo() {
+        TheatreDetailInfo instance = TheatreDetailInfo.getInstance();
+        instance.setId(null);
+        instance.setLogo(null);
+        instance.setName(null);
+        instance.setRoomName(null);
+        instance.setSeating(null);
+        instance.setRegionId(null);
+        instance.setAddress(null);
+        instance.setCoordinate(null);
+        instance.setLinkman(null);
+        instance.setLinkTel(null);
+        instance.setExpense(null);
+        instance.setDescription(null);
+        instance.setStageHeight(null);
+        instance.setStageWidth(null);
+        instance.setStageDepth(null);
+        instance.setCurtainHeight(null);
+        instance.setCurtainWidth(null);
+        instance.setDressingRoomNum(null);
+        instance.setRehearsalRoomNum(null);
+        instance.setPropRoomNum(null);
+        instance.setCostumeRoomNum(null);
+        instance.setStageLights(null);
+        instance.setStereoEquipment(null);
+        instance.setBroadcastSystem(null);
+        instance.setSteeve(null);
+        instance.setMusicStage(null);
+        instance.setChorusPlatform(null);
+        instance.setOrchestraPit(null);
+        instance.setAcousticShroud(null);
+        instance.setBandPlatform(null);
+        instance.setCurtainSystem(null);
+        instance.setSpecialEquipment(null);
+        instance.setProjector(null);
+        instance.setPriceDiagram(null);
+        instance.setDetailedIntroduce(null);
+        instance.setUserId(null);
+        instance.setStatus(0);
+        instance.setCreateTime(0);
+        instance.setUpdateTime(null);
+        instance.setRegionName(null);
+        instance.setPictures(null);
+        instance.setDisabledDates(null);
+        instance.setDisabledMonths(null);
+        instance.setViewTimes(0);
     }
 
     /**
@@ -198,6 +242,7 @@ public class TheatreEditActivity extends BaseActivity {
 
     @Override
     public void setView() {
+
     }
 
     @Override
@@ -273,6 +318,30 @@ public class TheatreEditActivity extends BaseActivity {
     }
 
     /**
+     * 更换封面
+     */
+    @OnClick(R.id.sdv_avatar)
+    public void changeCover() {
+        if (takePhotoDialog == null) {
+            takePhotoDialog = TakePhotoDialog.newInstence();
+            takePhotoDialog.setOnCallBack(new TakePhotoDialog.CallBack() {
+                @Override
+                public void onTakePhoto(DialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    TakePhotoDialog.takePhoto(TheatreEditActivity.this, selectList);
+                }
+
+                @Override
+                public void onAlbuml(DialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    TakePhotoDialog.photoAlbum(TheatreEditActivity.this, selectList);
+                }
+            });
+        }
+        takePhotoDialog.show(getSupportFragmentManager(), "TAKEPHOTO.DIALOG");
+    }
+
+    /**
      * 剧场信息更新，通知页面变化
      *
      * @param event
@@ -285,12 +354,16 @@ public class TheatreEditActivity extends BaseActivity {
         updateEditUI();
     }
 
+
     /**
      * 根据剧场信息切换页面变化
      */
     private void updateEditUI() {
         //详细描述
         TheatreDetailInfo theaterInstance = TheatreDetailInfo.getInstance();
+        if (!TextUtils.isEmpty(theaterInstance.getLogo())) {
+            sdvAvatar.setImageURI(theaterInstance.getLogo());
+        }
         String detailInfoStatus = TextUtils.isEmpty(theaterInstance.getDetailedIntroduce()) ?
                 getString(R.string.app_un_fill) : getString(R.string.app_has_filled);
         dataItemDetailIntro.setDesText(detailInfoStatus);
@@ -300,8 +373,232 @@ public class TheatreEditActivity extends BaseActivity {
                 getString(R.string.app_un_fill) : getString(R.string.app_has_filled);
         dataItemIntro.setDesText(theatreIntro);
 
-        String theatrePriceDiagram = TextUtils.isEmpty(theaterInstance.getPriceDiagram())?
+        String theatrePriceDiagram = TextUtils.isEmpty(theaterInstance.getPriceDiagram()) ?
                 getString(R.string.app_un_fill) : getString(R.string.app_has_filled);
         dataitemSeatPic.setDesText(theatrePriceDiagram);
+
+        String theatrePictures = theaterInstance.getPictures() == null || theaterInstance.getPictures().size() <= 0 ?
+                getString(R.string.app_un_fill) : getString(R.string.app_has_filled);
+        dataitemPic.setDesText(theatrePictures);
+
+        String theatreBase = TextUtils.isEmpty(theaterInstance.getName()) ?
+                getString(R.string.app_un_fill) : getString(R.string.app_has_filled);
+        dataItemBase.setDesText(theatreBase);
+
+        String theatreTech = TheatreTechParamsUtil.isTechParamsFill() ?
+                getString(R.string.app_has_filled) : getString(R.string.app_un_fill);
+        dataitemTechParams.setDesText(theatreTech);
+        switchRelease.setChecked(TheatreDetailInfo.getInstance().getStatus() == 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择结果回调
+                    selectList = PictureSelector.obtainMultipleResult(data);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                    // 如果裁剪并压缩了，已取压缩路径为准，因为是先裁剪后压缩的
+                    DebugUtil.i(TAG, "onActivityResult:" + selectList.size());
+                    if (selectList.size() > 0) {
+                        LocalMedia localMedia = selectList.get(0);
+                        int mimeType = localMedia.getMimeType();
+                        String path = "";
+                        if (localMedia.isCut() && !localMedia.isCompressed()) {
+                            // 裁剪过
+                            path = localMedia.getCutPath();
+                        } else if (localMedia.isCompressed() || (localMedia.isCut() && localMedia.isCompressed())) {
+                            // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
+                            path = localMedia.getCompressPath();
+                        } else {
+                            // 原图
+                            path = localMedia.getPath();
+                        }
+                        uploadPhoto(path);
+                    }
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param path
+     */
+    public void uploadPhoto(String path) {
+        LogUtil.i(TAG, "path = " + path);
+        sdvAvatar.setImageURI("file:///" + path);
+        showProgressDialog.show();
+        RequestUtil.uploadLoadFile(Constant.URL_UPLOAD_FILE, path, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String avatarUrl = jsonObject.getString("url");
+                        changeTheatreCover(avatarUrl);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    /**
+     * 修改封面
+     *
+     * @param picUrl
+     */
+    public void changeTheatreCover(String picUrl) {
+        Map<String, String> params = new TreeMap<>();
+        if (TheatreDetailInfo.getInstance().getId() != null) {
+            params.put("id", TheatreDetailInfo.getInstance().getId());
+        }
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("logo", picUrl);
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_THEATER_EDIT_LOGO, params, 67, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        showToast(getString(R.string.tip_theatre_info_commit_success));
+                        //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String theatreId = jsonObject.getString("id");
+                        TheatreDetailInfo.getInstance().setId(theatreId);
+                        showToast(getString(R.string.tip_theatre_pic_upload));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                showToast(getString(R.string.tip_theatre_pic_fail));
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    @OnClick(R.id.view_theatre_release)
+    public void theatreReleaseOffline() {
+        if (switchRelease.isChecked()) {
+            theatreOffline();
+        } else {
+            theatreRelease();
+        }
+    }
+
+    /**
+     * 发布剧场
+     */
+    public void theatreRelease() {
+        if (TextUtils.isEmpty(TheatreDetailInfo.getInstance().getId())) {
+            showToast(getString(R.string.tip_theatre_release));
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", TheatreDetailInfo.getInstance().getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_THEATER_RELEASE, params, 69, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    showToast(getString(R.string.tip_theatre_release_suc));
+                    switchRelease.setChecked(true);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                showToast(getString(R.string.tip_theatre_release_fail));
+            }
+        });
+    }
+
+    /**
+     * 下线剧场
+     */
+    public void theatreOffline() {
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", TheatreDetailInfo.getInstance().getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_THEATER_OFFLINE, params, 69, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    showToast(getString(R.string.tip_theatre_offline_suc));
+                    switchRelease.setChecked(false);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                showToast(getString(R.string.tip_theatre_offline_fail));
+            }
+        });
     }
 }
