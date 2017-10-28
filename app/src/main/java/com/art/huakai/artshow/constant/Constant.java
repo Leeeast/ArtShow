@@ -115,6 +115,8 @@ public class Constant {
     public static final String URL_KEYWORD_SEARCH_REPERTORYS = BASE_URL + "/search/repertory";
     public static final String URL_KEYWORD_SEARCH_THEATRES = BASE_URL + "/search/theater";
     public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search/enroll";
+    public static final String URL_THEATRE_DETAIL = BASE_URL + "/theater/detail";
+    public static final String URL_REPERTORY_DETAIL = BASE_URL + "/repertory/detail";
 
 //    获取地区借口
 //    http://139.224.47.213:8080/showonline_api/region/list

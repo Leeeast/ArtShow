@@ -38,7 +38,7 @@ public class StaggerActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     StaggerAdapter adpter;
-    ArrayList<Integer> data=new ArrayList<Integer>();
+    ArrayList<String> data=new ArrayList<String>();
     SpacesItemDecoration decoration;
     private int itemWidth;
 
@@ -57,36 +57,24 @@ public class StaggerActivity extends BaseActivity implements View.OnClickListene
 
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
-
         itemWidth=(metric.widthPixels-(int) getResources().getDimension(R.dimen.DIMEN_20PX)*2)/2;
 
 
-        data.add(R.mipmap.account_type_n);
-        data.add(R.mipmap.chinashow_search);
-        data.add(R.mipmap.bg_ad_2);
-        data.add(R.mipmap.chinashow_logo);
-        data.add(R.mipmap.test);
-        data.add(R.mipmap.ic_launcher);
-        data.add(R.mipmap.upload_data);
-        data.add(R.mipmap.tab_collaborate_n);
-        data.add(R.mipmap.icon_item_weixin);
-        data.add(R.mipmap.seat);
-        data.add(R.mipmap.tab_show_circle_p);
-        data.add(R.mipmap.guide2);
-
-
-//        data.add("/storage/emulated/0/Pictures/Screenshots/Screenshot_2017-10-08-17-50-47.png");
-//        data.add("/storage/emulated/0/Pictures/Screenshots/Screenshot_2017-10-05-10-46-22.png");
-//        data.add("/storage/emulated/0/DCIM/Camera/IMG_20171002_145957.jpg");
-//        data.add("/storage/emulated/0/DCIM/TmallPic/1506953238259.png");
-//        data.add("/storage/emulated/0/DCIM/TmallPic/1506953961442.png");
-//        data.add("/storage/emulated/0/tencent/MicroMsg/WeiXin/wx_camera_1506706528102.jpg");
-//        data.add("/storage/emulated/0/tencent/MicroMsg/WeiXin/wx_camera_1506829741231.jpg");
-//        data.add("/storage/emulated/0/Pictures/Screenshots/Screenshot_2017-10-08-17-35-31.png");
-//        data.add("/storage/emulated/0/DCIM/Camera/IMG_20171010_220553.jpg");
+        data.add("https://www.showonline.com.cn/image/2017/08/18/bc8ac1d4ee3d410ebb0a6051c76d4120.image");
+        data.add("https://www.showonline.com.cn/image/2017/08/18/a595501659764c3c8220014b04719da0.image");
+        data.add("https://www.showonline.com.cn/image/2017/08/18/bc8ac1d4ee3d410ebb0a6051c76d4120.image");
+        data.add("https://www.showonline.com.cn/image/2017/09/06/84826db9521144628d10b0095b765cad@thumb.jpeg");
+        data.add("https://www.showonline.com.cn/image/2017/08/31/b66ea1790bb94023bebc4685b4953530@thumb.jpg");
+        data.add("https://www.showonline.com.cn/image/2017/09/04/567420dd44b742b493c90751f3e8f9a1.jpg");
+        data.add("https://www.showonline.com.cn/image/2017/09/04/b4532714990244ce9f35d75525f70956@thumb.jpg");
+        data.add("https://www.showonline.com.cn/image/2017/08/30/3ecffee89f574fcd97f79bb888ac562a@thumb.jpg");
+        data.add("https://www.showonline.com.cn/image/2017/08/02/a6b59bc64c9841928ed02a5c74f4e86d.jpg");
+        data.add("https://www.showonline.com.cn/image/2017/07/22/21ab11ed86384731b5c141765ee9954c.jpg");
+        data.add("https://www.showonline.com.cn/image/2017/09/17/9cd5d315931b4ad98e64d742cfc16367@thumb.jpeg");
+        data.add("https://www.showonline.com.cn/image/2017/09/16/99ea670acde0411386df7b7dfd6e12dc@thumb.jpeg");
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        adpter  = new StaggerAdapter(data,StaggerActivity.this,R.layout.stagger_item,itemWidth);
+//        adpter  = new StaggerAdapter(data,StaggerActivity.this,itemWidth);
         recyclerView.setAdapter(adpter);
         decoration=new SpacesItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_20PX));
         recyclerView.addItemDecoration(decoration);

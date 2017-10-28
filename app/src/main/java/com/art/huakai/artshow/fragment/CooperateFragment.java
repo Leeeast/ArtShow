@@ -44,8 +44,8 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
     private List<EnrollInfo> mEnrollInfos;
     private CooperateAdapter mAollAdapter;
 
-    public CooperateFragment() {
-    }
+        public CooperateFragment() {
+        }
 
     public static CooperateFragment newInstance() {
         CooperateFragment fragment = new CooperateFragment();

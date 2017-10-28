@@ -127,6 +127,24 @@
             android:name=".activity.ProjectFillActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.PersonalDetailMessageActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".activity.BroswerPicActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.TheatreDetailMessageActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".activity.WorksDetailMessageActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

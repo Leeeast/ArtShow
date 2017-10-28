@@ -127,4 +127,8 @@
     </declare-styleable>
 
 
+    <declare-styleable name="HeaderViewPager">
+        <attr name="hvp_topOffset" format="dimension"/>
+    </declare-styleable>
+
 </resources>

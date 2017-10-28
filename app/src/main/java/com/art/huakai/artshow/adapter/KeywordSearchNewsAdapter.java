@@ -12,13 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.NewsesBean;
-import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -23,6 +23,25 @@
         <item>找人才</item>
     </string-array>
 
+    <string-array name="talent_detail_tab">
+        <item>个人作品</item>
+        <item>照片</item>
+        <item>获奖经历</item>
+    </string-array>
+
+    <string-array name="work_detail_tab">
+        <item>演出介绍</item>
+        <item>剧照</item>
+        <item>技术要求</item>
+    </string-array>
+
+    <string-array name="theatre_detail_tab">
+        <item>剧场详情</item>
+        <item>剧场图片</item>
+        <item>技术参数</item>
+    </string-array>
+
+
     <string-array name="graduate_institutions">
         <item>选择院校</item>
         <item>中央戏剧学院</item>

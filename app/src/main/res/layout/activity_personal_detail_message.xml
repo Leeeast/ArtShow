@@ -1,485 +1,472 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffffff"
-    android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
+    android:background="#ffffffff">
 
-<ScrollView
-android:layout_width="match_parent"
-android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
+        android:id="@+id/scrollableLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_50PX"
-            >
-
-            <include
-                layout="@layout/layout_title_common" />
-
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="@dimen/DIMEN_21PX"
-                android:layout_height="@dimen/DIMEN_21PX"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/DIMEN_14PX"
-                android:clickable="true"
-                android:src="@mipmap/share_icon" />
-
-        </RelativeLayout>
+        android:orientation="vertical"
+        app:hvp_topOffset="@dimen/DIMEN_47PX">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_50PX">
 
-            <com.art.huakai.artshow.widget.ChinaShowImageView
-                android:id="@+id/sdv"
-                android:layout_width="@dimen/DIMEN_120PX"
-                android:layout_height="@dimen/DIMEN_120PX"
-                fresco:roundedCornerRadius="@dimen/DIMEN_12PX"
-                fresco:actualImageScaleType="fitXY"
-                fresco:placeholderImageScaleType="fitXY"
-                android:layout_marginLeft="@dimen/DIMEN_14PX"
-                />
+                <include layout="@layout/layout_title_common" />
+
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_width="@dimen/DIMEN_21PX"
+                    android:layout_height="@dimen/DIMEN_21PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:clickable="true"
+                    android:src="@mipmap/share_icon" />
+
+            </RelativeLayout>
 
             <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/DIMEN_14PX"
-                android:layout_marginLeft="@dimen/DIMEN_13PX"
-                >
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_23PX"
-                    android:textColor="#ff5a4b41"
-                    android:text="谢昱缇"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_13PX"
-                    android:textColor="#ffaaa6a2"
-                    android:text="舞台监督 / 话剧演员 / 导演"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:layout_marginTop="@dimen/DIMEN_12PX"
-                    />
+                <com.art.huakai.artshow.widget.ChinaShowImageView
+                    android:id="@+id/talents_pic"
+                    android:layout_width="@dimen/DIMEN_120PX"
+                    android:layout_height="@dimen/DIMEN_120PX"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    fresco:actualImageScaleType="fitXY"
+                    fresco:placeholderImageScaleType="fitXY"
+                    fresco:roundedCornerRadius="@dimen/DIMEN_12PX" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="@dimen/DIMEN_20PX"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/iv_authentication"
-                        android:layout_width="@dimen/DIMEN_25PX"
-                        android:layout_height="@dimen/DIMEN_25PX"
-                        android:src="@mipmap/authentication" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/DIMEN_13PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/DIMEN_18PX"
-                        android:textColor="#ff5a4b41"
-                        android:text="专业认证"
-                        android:maxLines="1"
                         android:ellipsize="end"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/DIMEN_2PX"
-                        />
+                        android:maxLines="1"
+                        android:text="谢昱缇"
+                        android:textColor="#ff5a4b41"
+                        android:textSize="@dimen/DIMEN_23PX" />
+
+                    <TextView
+                        android:id="@+id/tv_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/DIMEN_12PX"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="舞台监督 / 话剧演员 / 导演"
+                        android:textColor="#ffaaa6a2"
+                        android:textSize="@dimen/DIMEN_13PX" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/DIMEN_20PX">
+
+                        <ImageView
+                            android:id="@+id/iv_authentication"
+                            android:layout_width="@dimen/DIMEN_25PX"
+                            android:layout_height="@dimen/DIMEN_25PX"
+                            android:src="@mipmap/authentication" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/DIMEN_2PX"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="专业认证"
+                            android:textColor="#ff5a4b41"
+                            android:textSize="@dimen/DIMEN_18PX" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
-            android:textColor="#ff5a4b41"
-            android:text="基本信息"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_25PX"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_25PX"
+                android:text="基本信息"
+                android:textColor="#ff5a4b41"
+                android:textSize="@dimen/DIMEN_20PX" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                >
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_10PX"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="年龄"
+                        android:textColor="#ffaaa6a2"
+                        android:textSize="@dimen/DIMEN_14PX"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_age"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/DIMEN_40PX"
+                        android:text="26"
+                        android:textColor="#ff000000"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/DIMEN_14PX"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="体重"
+                        android:textColor="#ffaaa6a2"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+
+                    <TextView
+                        android:id="@+id/tv_weight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/DIMEN_40PX"
+                        android:text="70kg"
+                        android:textColor="#ff000000"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_5PX"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_weight="1"
+                    android:background="#fff5f3f1" />
+
+                <View
+                    android:layout_width="@dimen/DIMEN_14PX"
+                    android:layout_height="match_parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_weight="1"
+                    android:background="#fff5f3f1" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_10PX"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="身高"
+                        android:textColor="#ffaaa6a2"
+                        android:textSize="@dimen/DIMEN_14PX"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_height"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/DIMEN_40PX"
+                        android:text="180cm"
+                        android:textColor="#ff000000"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/DIMEN_14PX"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="所在城市"
+                        android:textColor="#ffaaa6a2"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+
+                    <TextView
+                        android:id="@+id/tv_city"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/DIMEN_12PX"
+                        android:text="北京"
+                        android:textColor="#ff000000"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_5PX"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_weight="1"
+                    android:background="#fff5f3f1" />
+
+                <View
+                    android:layout_width="@dimen/DIMEN_14PX"
+                    android:layout_height="match_parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_weight="1"
+                    android:background="#fff5f3f1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_10PX">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
+                    android:text="毕业学院"
                     android:textColor="#ffaaa6a2"
-                    android:text="年龄"
+                    android:textSize="@dimen/DIMEN_14PX" />
 
-                    />
+
                 <TextView
-                    android:id="@+id/tv_age"
+                    android:id="@+id/tv_university"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:textColor="#ff000000"
-                    android:text="26"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/DIMEN_40PX"
-                    android:maxLines="1"
                     android:ellipsize="end"
-                    />
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/DIMEN_40PX"
+                    android:text="中央戏剧学院"
+                    android:textColor="#ff000000"
+                    android:textSize="@dimen/DIMEN_14PX" />
 
             </LinearLayout>
+
 
             <View
-                android:layout_width="@dimen/DIMEN_14PX"
-                android:layout_height="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_5PX"
+                android:background="#fff5f3f1" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                >
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_10PX">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
+                    android:text="所属机构"
                     android:textColor="#ffaaa6a2"
-                    android:text="体重"
-                    />
+                    android:textSize="@dimen/DIMEN_14PX" />
 
 
                 <TextView
-                    android:id="@+id/tv_weight"
+                    android:id="@+id/tv_organize"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:textColor="#ff000000"
-                    android:text="70kg"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/DIMEN_40PX"
-                    android:maxLines="1"
                     android:ellipsize="end"
-                    />
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/DIMEN_40PX"
+                    android:text="国有院团"
+                    android:textColor="#ff000000"
+                    android:textSize="@dimen/DIMEN_14PX" />
 
             </LinearLayout>
 
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_5PX"
+                android:background="#fff5f3f1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_25PX"
+                android:text="个人介绍"
+                android:textColor="#ff5a4b41"
+                android:textSize="@dimen/DIMEN_20PX" />
+
+            <TextView
+                android:id="@+id/tv_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_6PX"
+                android:text="Occupying floors 51-59, this spacious suite enjoys beautiful views of Bangkok City and Chao Phraya River. It includes an LCD TV, free soft drinks from the minibar and Nespresso coffee machine. A bathroom has a separate bathtub and luxurious bath toiletries."
+                android:textColor="#ff928470"
+                android:textSize="@dimen/DIMEN_14PX" />
+
         </LinearLayout>
 
 
-    <LinearLayout
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl_dis_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/DIMEN_14PX"
-        android:layout_marginRight="@dimen/DIMEN_14PX"
-        android:layout_marginTop="@dimen/DIMEN_5PX"
-        android:orientation="horizontal">
-       <View
-           android:layout_width="0dp"
-           android:layout_height="@dimen/DIMEN_1PX"
-           android:layout_weight="1"
-           android:background="#fff5f3f1"
-           />
-        <View
-            android:layout_width="@dimen/DIMEN_14PX"
-            android:layout_height="match_parent"/>
+        android:layout_height="@dimen/DIMEN_47PX"
+        android:background="@color/whiteff"
+        tl:tl_indicator_color="@color/black00"
+        tl:tl_indicator_corner_radius="2.5dp"
+        tl:tl_indicator_height="5dp"
+        tl:tl_indicator_width="5dp"
+        tl:tl_tab_space_equal="true"
+        tl:tl_textSelectColor="@color/dis_tab_text_s"
+        tl:tl_textUnselectColor="@color/dis_tab_text_n"
+        tl:tl_textsize="16sp"
+        android:layout_marginTop="@dimen/DIMEN_30PX"
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_weight="1"
-            android:background="#fff5f3f1"
-            />
+        />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dis_viewpager_bg"
 
-      </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:textColor="#ffaaa6a2"
-                    android:text="身高"
-
-                    />
-                <TextView
-                    android:id="@+id/tv_height"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:textColor="#ff000000"
-                    android:text="180cm"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/DIMEN_40PX"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="@dimen/DIMEN_14PX"
-                android:layout_height="match_parent"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:textColor="#ffaaa6a2"
-                    android:text="所在城市"
-                    />
-
-
-                <TextView
-                    android:id="@+id/tv_city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:textColor="#ff000000"
-                    android:text="北京"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/DIMEN_12PX"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_5PX"
-            android:orientation="horizontal">
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/DIMEN_1PX"
-                android:layout_weight="1"
-                android:background="#fff5f3f1"
-                />
-            <View
-                android:layout_width="@dimen/DIMEN_14PX"
-                android:layout_height="match_parent"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/DIMEN_1PX"
-                android:layout_weight="1"
-                android:background="#fff5f3f1"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_10PX"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/DIMEN_14PX"
-                android:textColor="#ffaaa6a2"
-                android:text="毕业学院"
-                />
-
-
-            <TextView
-                android:id="@+id/tv_university"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/DIMEN_14PX"
-                android:textColor="#ff000000"
-                android:text="中央戏剧学院"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/DIMEN_40PX"
-                android:maxLines="1"
-                android:ellipsize="end"
-                />
-
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_5PX"
-            android:background="#fff5f3f1"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_10PX"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/DIMEN_14PX"
-                android:textColor="#ffaaa6a2"
-                android:text="所属机构"
-                />
-
-
-            <TextView
-                android:id="@+id/tv_organize"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/DIMEN_14PX"
-                android:textColor="#ff000000"
-                android:text="国有院团"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/DIMEN_40PX"
-                android:maxLines="1"
-                android:ellipsize="end"
-                />
-
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_5PX"
-            android:background="#fff5f3f1"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_20PX"
-            android:textColor="#ff5a4b41"
-            android:text="个人介绍"
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_25PX"
-            />
-
-        <TextView
-            android:id="@+id/tv_introduce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_14PX"
-            android:textColor="#ff928470"
-            android:text="Occupying floors 51-59, this spacious suite enjoys beautiful views of Bangkok City and Chao Phraya River. It includes an LCD TV, free soft drinks from the minibar and Nespresso coffee machine. A bathroom has a separate bathtub and luxurious bath toiletries."
-            android:layout_marginLeft="@dimen/DIMEN_14PX"
-            android:layout_marginRight="@dimen/DIMEN_14PX"
-            android:layout_marginTop="@dimen/DIMEN_6PX"
-            />
-
-        <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/stl_dis_tab"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_47PX"
-            android:background="@color/whiteff"
-            tl:tl_indicator_color="@color/black00"
-            tl:tl_indicator_corner_radius="2.5dp"
-            tl:tl_indicator_height="5dp"
-            tl:tl_indicator_width="5dp"
-            tl:tl_tab_space_equal="true"
-            tl:tl_textSelectColor="@color/dis_tab_text_s"
-            tl:tl_textUnselectColor="@color/dis_tab_text_n"
-            tl:tl_textsize="16sp" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="@color/dis_viewpager_bg" />
+        />
+    </com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager>
 
 
 
 
-
-    </LinearLayout>
-
-
-</ScrollView>
 
 
     <LinearLayout
         android:id="@+id/ll_make_telephone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_50PX"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:background="#ffdddddd"
+        android:gravity="center"
+        android:orientation="horizontal"
+
         >
-        
+
         <ImageView
             android:layout_width="@dimen/DIMEN_17PX"
             android:layout_height="@dimen/DIMEN_17PX"
-            android:src="@mipmap/phone"
-            />
+            android:src="@mipmap/phone" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_18PX"
-            android:textColor="#ff4a4a4a"
-            android:text="联系ta"
             android:layout_marginLeft="@dimen/DIMEN_13PX"
-            />
+            android:text="联系ta"
+            android:textColor="#ff4a4a4a"
+            android:textSize="@dimen/DIMEN_18PX" />
 
     </LinearLayout>
 

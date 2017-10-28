@@ -22,7 +22,10 @@ import android.widget.TextView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
 import com.art.huakai.artshow.activity.MainActivity;
+import com.art.huakai.artshow.activity.PersonalDetailMessageActivity;
 import com.art.huakai.artshow.activity.SearchNewsActivity;
+import com.art.huakai.artshow.activity.TheatreDetailMessageActivity;
+import com.art.huakai.artshow.activity.WorksDetailMessageActivity;
 import com.art.huakai.artshow.adapter.CooperationOpportunitiesAdapter;
 import com.art.huakai.artshow.adapter.ExcellentWorksAdapter;
 import com.art.huakai.artshow.adapter.IndustryNewsAdapter;
@@ -313,8 +316,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             excellentWorksAdapter.setOnItemClickListener(new ExcellentWorksAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
-
                     Log.e(TAG, "onItemClickListener: position==" + position);
+                    Intent intent=new Intent(getContext(), WorksDetailMessageActivity.class);
+                    intent.putExtra("id",homePageDetails.getRepertorys().get(position).getId());
+                    startActivity(intent);
 
                 }
             });
@@ -340,6 +345,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position==" + position);
+
+                    Intent intent=new Intent(getContext(), TheatreDetailMessageActivity.class);
+                    intent.putExtra("id",homePageDetails.getTheaters().get(position).getId());
+                    startActivity(intent);
                 }
             });
             rcvTheatre.addItemDecoration(theatreItemDecoration);
@@ -364,6 +373,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position" + position);
+                    Intent intent=new Intent(getContext(), PersonalDetailMessageActivity.class);
+                    intent.putExtra("id",homePageDetails.getTalents().get(position).getId());
+                    startActivity(intent);
+
                 }
             });
             rcvProfesional.addItemDecoration(professionalItemDecoration);
@@ -375,7 +388,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             talentsDivider.setVisibility(View.GONE);
         }
         chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
-//        chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
+//      chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
 //      实现不在除此加载界面的时候显示recyclerview的第一个item
         scrollView.smoothScrollTo(0, 0);
     }
