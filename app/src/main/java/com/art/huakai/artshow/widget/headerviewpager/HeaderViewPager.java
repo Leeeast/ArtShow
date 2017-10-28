@@ -59,7 +59,8 @@ public class HeaderViewPager extends LinearLayout {
         super(context, attrs, defStyleAttr);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.HeaderViewPager);
-        topOffset = a.getDimensionPixelSize(a.getIndex(R.styleable.HeaderViewPager_hvp_topOffset), topOffset);
+        topOffset = a.getDimensionPixelSize(R.styleable.HeaderViewPager_hvp_topOffset, topOffset);
+        // topOffset = a.getDimensionPixelSize(a.getIndex(R.styleable.HeaderViewPager_hvp_topOffset), topOffset);
         a.recycle();
 
         mScroller = new Scroller(context);
@@ -89,7 +90,9 @@ public class HeaderViewPager extends LinearLayout {
         super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec) + maxY, MeasureSpec.EXACTLY));
     }
 
-    /** @param disallowIntercept 作用同 requestDisallowInterceptTouchEvent */
+    /**
+     * @param disallowIntercept 作用同 requestDisallowInterceptTouchEvent
+     */
     public void requestHeaderViewPagerDisallowInterceptTouchEvent(boolean disallowIntercept) {
         super.requestDisallowInterceptTouchEvent(disallowIntercept);
         mDisallowIntercept = disallowIntercept;
@@ -254,7 +257,9 @@ public class HeaderViewPager extends LinearLayout {
         }
     }
 
-    /** 对滑动范围做限制 */
+    /**
+     * 对滑动范围做限制
+     */
     @Override
     public void scrollBy(int x, int y) {
         int scrollY = getScrollY();
@@ -268,7 +273,9 @@ public class HeaderViewPager extends LinearLayout {
         super.scrollBy(x, y);
     }
 
-    /** 对滑动范围做限制 */
+    /**
+     * 对滑动范围做限制
+     */
     @Override
     public void scrollTo(int x, int y) {
         if (y >= maxY) {
@@ -283,7 +290,9 @@ public class HeaderViewPager extends LinearLayout {
         super.scrollTo(x, y);
     }
 
-    /** 头部是否已经固定 */
+    /**
+     * 头部是否已经固定
+     */
     public boolean isStickied() {
         return mCurY == maxY;
     }
@@ -300,7 +309,9 @@ public class HeaderViewPager extends LinearLayout {
         return mCurY == minY;
     }
 
-    /** 是否允许下拉，与PTR结合使用 */
+    /**
+     * 是否允许下拉，与PTR结合使用
+     */
     public boolean canPtr() {
         return verticalScrollFlag && mCurY == minY && mScrollable.isTop();
     }
