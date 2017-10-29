@@ -29,6 +29,7 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.entity.RepertoryBean;
 import com.art.huakai.artshow.entity.Work;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -54,6 +55,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     LinearLayout llProjectChoose;
     @BindView(R.id.ll_filter)
     LinearLayout llFilter;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
     private String TAG = "FoundProductionFragment";
     @BindView(R.id.iv_choose_price)
     ImageView ivComplexRanking;
@@ -70,7 +77,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     TextView tvChooseProject;
     @BindView(R.id.tv_real_filter)
     TextView tvFilter;
-    private ArrayList<Work> works=new ArrayList<Work>();
+    private ArrayList<Work> works = new ArrayList<Work>();
     private LookingWorksAdapter lookingWorksAdapter;
     private LinearLayoutManager linearlayoutManager;
     private PopupWindow popupWindow;
@@ -82,11 +89,11 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     private int theatrefee = -1;
     private int showActorAccount = -1;
     private int repertorykind = -1;
-    private int repertoryPosition=-1;
-    private int page=1;
+    private int repertoryPosition = -1;
+    private int page = 1;
     private String time;
 
-    private ArrayList<RepertoryBean> repertorys=new ArrayList<RepertoryBean>();
+    private ArrayList<RepertoryBean> repertorys = new ArrayList<RepertoryBean>();
 
     public FoundProductionFragment() {
         Log.e(TAG, "FoundProductionFragment: ");
@@ -99,7 +106,9 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-
+                ivLoading.setVisibility(View.GONE);
+                llContent.setVisibility(View.VISIBLE);
+                ivNoContent.setVisibility(View.GONE);
                 setData();
 
             }
@@ -145,6 +154,9 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         Log.e(TAG, "initView: ");
         getList();
         getRepertoryClassify();
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        llContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -225,7 +237,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefresh() {
 
-        page=1;
+        page = 1;
         getList();
 
     }
@@ -244,11 +256,11 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                if(complexRankingRule!=0){
+                if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                     tvComplexRanking.setTextColor(0xffe93c2c);
                 }
-                if(repertorykind!=0){
+                if (repertorykind != 0) {
                     ivChooseProject.setImageResource(R.mipmap.arrow_down_active);
                     tvChooseProject.setTextColor(0xffe93c2c);
                 }
@@ -435,12 +447,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             singleChooseAdapterone.setOnItemClickListener(new SingleChooseAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, String url) {
-                    if(position==0){
+                    if (position == 0) {
                         repertorykind = 0;
-                    }else{
+                    } else {
                         repertorykind = repertorys.get(position).getId();
                     }
-                    repertoryPosition=position;
+                    repertoryPosition = position;
                     tvChooseProject.setText(repertorys.get(position).getName());
                 }
             });
@@ -466,142 +478,154 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_WORKS==" + Constant.URL_GET_WORKS);
 
-        if(complexRankingRule==1){
-            params.put("order","expense");
-            params.put("orderType","desc");
-        }else if(complexRankingRule==2){
-            params.put("order","expense");
-            params.put("orderType","asc");
-        }else if(complexRankingRule==3){
-            params.put("order","seating");
-            params.put("orderType","desc");
-        }else if(complexRankingRule==4){
-            params.put("order","seating");
-            params.put("orderType","asc");
+        if (complexRankingRule == 1) {
+            params.put("order", "expense");
+            params.put("orderType", "desc");
+        } else if (complexRankingRule == 2) {
+            params.put("order", "expense");
+            params.put("orderType", "asc");
+        } else if (complexRankingRule == 3) {
+            params.put("order", "seating");
+            params.put("orderType", "desc");
+        } else if (complexRankingRule == 4) {
+            params.put("order", "seating");
+            params.put("orderType", "asc");
         }
 
-        if(theatreSize==1){
-            params.put("seatingRequirMax","400");
-        }else if(theatreSize==2){
-            params.put("seatingRequirMin","400");
-            params.put("seatingRequirMax","800");
-        }else if(theatreSize==3){
-            params.put("seatingRequirMin","800");
-            params.put("seatingRequirMax","1500");
-        }else if(theatreSize==4){
-            params.put("seatingRequirMin","1500");
+        if (theatreSize == 1) {
+            params.put("seatingRequirMax", "400");
+        } else if (theatreSize == 2) {
+            params.put("seatingRequirMin", "400");
+            params.put("seatingRequirMax", "800");
+        } else if (theatreSize == 3) {
+            params.put("seatingRequirMin", "800");
+            params.put("seatingRequirMax", "1500");
+        } else if (theatreSize == 4) {
+            params.put("seatingRequirMin", "1500");
         }
 
-        if(showActorAccount==1){
-            params.put("peopleNumMax","10");
-        }else if(showActorAccount==2){
-            params.put("peopleNumMin","10");
-            params.put("peopleNumMax","20");
-        }else if(showActorAccount==3){
-            params.put("peopleNumMin","20");
-            params.put("peopleNumMax","30");
-        }else if(showActorAccount==4){
-            params.put("peopleNumMin","30");
-            params.put("peopleNumMax","50");
-        }else if(showActorAccount==5){
-            params.put("peopleNumMin","50");
+        if (showActorAccount == 1) {
+            params.put("peopleNumMax", "10");
+        } else if (showActorAccount == 2) {
+            params.put("peopleNumMin", "10");
+            params.put("peopleNumMax", "20");
+        } else if (showActorAccount == 3) {
+            params.put("peopleNumMin", "20");
+            params.put("peopleNumMax", "30");
+        } else if (showActorAccount == 4) {
+            params.put("peopleNumMin", "30");
+            params.put("peopleNumMax", "50");
+        } else if (showActorAccount == 5) {
+            params.put("peopleNumMin", "50");
         }
 
 
-        if(theatrefee==1){
-            params.put("expenseMin","30000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","30000");
-            params.put("expenseMax","50000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","50000");
-            params.put("expenseMax","80000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","80000");
-            params.put("expenseMax","100000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","100000");
+        if (theatrefee == 1) {
+            params.put("expenseMin", "30000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "30000");
+            params.put("expenseMax", "50000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "50000");
+            params.put("expenseMax", "80000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "80000");
+            params.put("expenseMax", "100000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "100000");
         }
 
-        params.put("page",page+"");
-        if(repertorykind!=0&&repertorykind!=-1){
-            params.put("classifyId",repertorykind+"");
+        params.put("page", page + "");
+        if (repertorykind != 0 && repertorykind != -1) {
+            params.put("classifyId", repertorykind + "");
         }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
-        Log.e(TAG, "getList: params=="+params.toString() );
+        Log.e(TAG, "getList: params==" + params.toString());
 
         RequestUtil.request(true, Constant.URL_GET_WORKS, params, 107, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (isSuccess){
-                    if(!TextUtils.isEmpty(obj)){
-                        Log.e(TAG, "onSuccess: obj=="+obj );
+
+                uiHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(page==1&&works.size() == 0){
+                            ivLoading.setVisibility(View.GONE);
+                            llContent.setVisibility(View.GONE);
+                            ivNoContent.setVisibility(View.VISIBLE);
+                        }
+                    }
+                },500);
+                if (isSuccess) {
+                    if (!TextUtils.isEmpty(obj)) {
+                        Log.e(TAG, "onSuccess: obj==" + obj);
                         Gson gson = new Gson();
-                        ArrayList<Work> tempWorks=new ArrayList<Work>();
+                        ArrayList<Work> tempWorks = new ArrayList<Work>();
                         tempWorks = gson.fromJson(obj, new TypeToken<List<Work>>() {
                         }.getType());
-                        if(tempWorks!=null&&tempWorks.size()>0){
-                            if(works.size()==0){
-                                if(works.addAll(tempWorks)){
+                        if (tempWorks != null && tempWorks.size() > 0) {
+                            if (works.size() == 0) {
+                                if (works.addAll(tempWorks)) {
+                                    uiHandler.removeCallbacksAndMessages(null);
                                     uiHandler.sendEmptyMessage(0);
                                 }
                                 page++;
-                            }else{
-                                if(page==1){
+                            } else {
+                                if (page == 1) {
                                     recyclerView.refreshComplete();
                                     works.clear();
-                                    if(works.addAll(tempWorks)){
+                                    if (works.addAll(tempWorks)) {
                                         uiHandler.sendEmptyMessage(0);
                                     }
-                                }else{
+                                } else {
                                     recyclerView.loadMoreComplete();
                                     works.addAll(tempWorks);
-                                    if(lookingWorksAdapter!=null){
+                                    if (lookingWorksAdapter != null) {
                                         lookingWorksAdapter.add(tempWorks);
                                     }
                                 }
                                 page++;
                             }
-                        }else{
-                            if(works.size()==0){
-                                Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                            }else{
-                                if(page==1){
-                                    Log.e(TAG, "onSuccess: 刷新数据失败" );
+                        } else {
+                            if (works.size() == 0) {
+                                Log.e(TAG, "onSuccess: 首次加载数据失败");
+                            } else {
+                                if (page == 1) {
+                                    Log.e(TAG, "onSuccess: 刷新数据失败");
                                     recyclerView.refreshComplete();
-                                }else{
+                                } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
                         }
                         Log.e(TAG, "onSuccess: works.size==" + works.size());
-                    }else{
-                        if(works.size()==0){
-                            Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                        }else{
-                            if(page==1){
+                    } else {
+                        if (works.size() == 0) {
+                            Log.e(TAG, "onSuccess: 首次加载数据失败");
+                        } else {
+                            if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败" );
-                            }else{
+                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                            } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                Log.e(TAG, "onSuccess: 加载更多数据失败");
                             }
                         }
                     }
                 } else {
-                    if(works.size()==0){
-                        Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                    }else{
-                        if(page==1){
+                    if (works.size() == 0) {
+                        Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    } else {
+                        if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败" );
-                        }else{
+                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                        } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                            Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -611,15 +635,18 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(works.size()==0){
-                    Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                }else{
-                    if(page==1){
+                if (works.size() == 0) {
+                    Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    ivLoading.setVisibility(View.GONE);
+                    llContent.setVisibility(View.GONE);
+                    ivNoContent.setVisibility(View.VISIBLE);
+                } else {
+                    if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败" );
-                    }else{
+                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                    } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                        Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
 
@@ -635,35 +662,34 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
-        Log.e(TAG, "getRepertoryClassify: "+params.toString() );
+        Log.e(TAG, "getRepertoryClassify: " + params.toString());
         RequestUtil.request(true, Constant.URL_GET_CLASSFY_LIST, params, 106, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
-                    if (!TextUtils.isEmpty(obj)){
-                        Log.e(TAG, "onSuccess: obj1111="+obj );
+                    if (!TextUtils.isEmpty(obj)) {
+                        Log.e(TAG, "onSuccess: obj1111=" + obj);
                         Gson gson = new Gson();
-                        if(repertorys.size()>0){
+                        if (repertorys.size() > 0) {
                             repertorys.clear();
                         }
-                        repertorys=gson.fromJson(obj, new TypeToken<List<RepertoryBean>>() {
+                        repertorys = gson.fromJson(obj, new TypeToken<List<RepertoryBean>>() {
                         }.getType());
-                        RepertoryBean repertoryBean=new RepertoryBean();
+                        RepertoryBean repertoryBean = new RepertoryBean();
                         repertoryBean.setName("不限");
-                        repertorys.add(0,repertoryBean);
+                        repertorys.add(0, repertoryBean);
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
             }
+
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
             }
         });
     }
-
-
 
 
 }

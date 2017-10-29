@@ -31,6 +31,7 @@ import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.entity.ChildrenBean;
 import com.art.huakai.artshow.entity.SkillBean;
 import com.art.huakai.artshow.entity.TalentBean;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -56,6 +57,12 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     LinearLayout llSkillChoose;
     @BindView(R.id.ll_filter)
     LinearLayout llFilter;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
     private String TAG = "FoundTalentsFragment";
 
     @BindView(R.id.iv_choose_price)
@@ -73,7 +80,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     TextView tvSkillChoose;
     @BindView(R.id.tv_real_filter)
     TextView tvFilter;
-    private ArrayList<TalentBean> talentLists=new ArrayList<TalentBean>();
+    private ArrayList<TalentBean> talentLists = new ArrayList<TalentBean>();
     private LookingProfessionalAdapter lookingWorksAdapter;
     private LinearLayoutManager linearlayoutManager;
     private LinearItemDecoration linearItemDecoration;
@@ -87,13 +94,13 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     private int noRequest = -1;
     private int others = -1;
 
-    private String skillParentId="";
-    private String skillChildId="";
-    private int skillChildPosition=-1;
+    private String skillParentId = "";
+    private String skillChildId = "";
+    private int skillChildPosition = -1;
 
-    private int page=1;
+    private int page = 1;
 
-    private List<SkillBean>skillBeanList=new ArrayList<SkillBean>();
+    private List<SkillBean> skillBeanList = new ArrayList<SkillBean>();
 
     public FoundTalentsFragment() {
         // Required empty public constructor
@@ -103,6 +110,9 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                ivLoading.setVisibility(View.GONE);
+                llContent.setVisibility(View.VISIBLE);
+                ivNoContent.setVisibility(View.GONE);
                 setData();
             }
         }
@@ -130,6 +140,9 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         llSkillChoose.setOnClickListener(this);
         llFilter.setOnClickListener(this);
         recyclerView.setLoadingListener(this);
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        llContent.setVisibility(View.GONE);
     }
 
     private void setData() {
@@ -222,7 +235,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefresh() {
 
-        page=1;
+        page = 1;
         getList();
 
     }
@@ -242,11 +255,11 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onDismiss() {
 
-                if(complexRankingRule!=0){
+                if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                     tvComplexRanking.setTextColor(0xffe93c2c);
                 }
-                if(TextUtils.isEmpty(skillChildId)){
+                if (TextUtils.isEmpty(skillChildId)) {
                     ivChooseSkill.setImageResource(R.mipmap.arrow_down_active);
                     tvSkillChoose.setTextColor(0xffe93c2c);
                 }
@@ -280,14 +293,14 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                 }
-                });
-                content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        complexRankingRule = 2;
-                        tvSkillChoose.setText("年龄由低到高");
-                        if (popupWindow != null && popupWindow.isShowing()) {
-                            popupWindow.dismiss();
+            });
+            content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    complexRankingRule = 2;
+                    tvSkillChoose.setText("年龄由低到高");
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
                     }
                 }
             });
@@ -331,12 +344,12 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             stringstwo.add("中央音乐学院");
             stringstwo.add("解放军艺术学校");
             stringstwo.add("其他");
-            int position=stringstwo.indexOf(collegeName);
+            int position = stringstwo.indexOf(collegeName);
             final TalentFilterAdapter singleChooseAdaptertwo = new TalentFilterAdapter(getContext(), stringstwo, position);
             singleChooseAdaptertwo.setOnItemClickListener(new TalentFilterAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, String name) {
-                    collegeName=name;
+                    collegeName = name;
                 }
             });
             GridLayoutItemDecoration gridLayoutItemDecorationtwo = new GridLayoutItemDecoration(2, GridLayoutManager.VERTICAL, 40, 20);
@@ -402,7 +415,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         } else if (type == 2) {
 
             View content = mLayoutInflater.inflate(R.layout.found_talents_skill_kind_popuwindow_item, null);
-            LinearLayout rl_whole= (LinearLayout) content.findViewById(R.id.rl_whole);
+            LinearLayout rl_whole = (LinearLayout) content.findViewById(R.id.rl_whole);
             final TextView tv_no_request = (TextView) content.findViewById(R.id.tv_no_request);
             final TextView tv_others = (TextView) content.findViewById(R.id.tv_others);
             if (noRequest == 0) {
@@ -430,31 +443,31 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     tv_no_request.setTextColor(0xff9b9b9b);
                     tv_no_request.setBackgroundResource(R.drawable.grey_rectang);
                     noRequest = -1;
-                    skillChildId="";
-                    skillParentId="";
-                    skillChildPosition=-1;
+                    skillChildId = "";
+                    skillParentId = "";
+                    skillChildPosition = -1;
                 }
             });
 
-            for(int i=0;i<skillBeanList.size();i++){
-                final List<ChildrenBean>tempChildrenBeans=skillBeanList.get(i).getChildren();
-                if(tempChildrenBeans==null&&tempChildrenBeans.size()==0){
-                    Log.e(TAG, "showPopuwindow: hahaha00000" );
+            for (int i = 0; i < skillBeanList.size(); i++) {
+                final List<ChildrenBean> tempChildrenBeans = skillBeanList.get(i).getChildren();
+                if (tempChildrenBeans == null && tempChildrenBeans.size() == 0) {
+                    Log.e(TAG, "showPopuwindow: hahaha00000");
                 }
-                View view=LayoutInflater.from(getContext()).inflate(R.layout.skill_choose_item,null);
-                TextView tv= (TextView) view.findViewById(R.id.tv_name);
-                RecyclerView recyclerView= (RecyclerView) view.findViewById(R.id.rcv);
-                final String tempSkillParentId=skillBeanList.get(i).getId()+"";
-                boolean tempWhetherChoosen=skillParentId.equals(tempSkillParentId);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.skill_choose_item, null);
+                TextView tv = (TextView) view.findViewById(R.id.tv_name);
+                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv);
+                final String tempSkillParentId = skillBeanList.get(i).getId() + "";
+                boolean tempWhetherChoosen = skillParentId.equals(tempSkillParentId);
                 tv.setText(skillBeanList.get(i).getName());
-                final SkillChooseAdapter skillChooseAdapter=new SkillChooseAdapter(getContext(),tempChildrenBeans,skillChildPosition,tempWhetherChoosen);
+                final SkillChooseAdapter skillChooseAdapter = new SkillChooseAdapter(getContext(), tempChildrenBeans, skillChildPosition, tempWhetherChoosen);
                 skillChooseAdapter.setOnItemClickListener(new SkillChooseAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position, String url) {
-                        skillParentId=tempSkillParentId;
-                        skillChildId=tempChildrenBeans.get(position).getId()+"";
-                        skillChildPosition=position;
-                        if(popupWindow!=null&&popupWindow.isShowing()){
+                        skillParentId = tempSkillParentId;
+                        skillChildId = tempChildrenBeans.get(position).getId() + "";
+                        skillChildPosition = position;
+                        if (popupWindow != null && popupWindow.isShowing()) {
                             popupWindow.dismiss();
                         }
                     }
@@ -467,7 +480,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 recyclerView.setLayoutManager(gridLayoutManager);
                 recyclerView.setAdapter(skillChooseAdapter);
                 recyclerView.setNestedScrollingEnabled(false);
-                rl_whole.addView(view,i+1);
+                rl_whole.addView(view, i + 1);
             }
 
             popupWindow.setContentView(content);
@@ -482,113 +495,127 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_TALENTS);
-        if(!TextUtils.isEmpty(skillChildId)){
+        if (!TextUtils.isEmpty(skillChildId)) {
             params.put("classifyId", skillChildId);
         }
-        if(yearPosition==1){
-            params.put("ageMax","10");
-        }else if(yearPosition==2){
-            params.put("ageMin","10");
-            params.put("ageMax","20");
-        }else if(yearPosition==3){
-            params.put("ageMin","21");
-            params.put("ageMax","30");
-        }else if(yearPosition==4){
-            params.put("ageMin","31");
-            params.put("ageMax","45");
-        }else if(yearPosition==5){
-            params.put("ageMin","46");
-            params.put("ageMax","60");
-        }else if(yearPosition==6){
-            params.put("ageMin","60");
+        if (yearPosition == 1) {
+            params.put("ageMax", "10");
+        } else if (yearPosition == 2) {
+            params.put("ageMin", "10");
+            params.put("ageMax", "20");
+        } else if (yearPosition == 3) {
+            params.put("ageMin", "21");
+            params.put("ageMax", "30");
+        } else if (yearPosition == 4) {
+            params.put("ageMin", "31");
+            params.put("ageMax", "45");
+        } else if (yearPosition == 5) {
+            params.put("ageMin", "46");
+            params.put("ageMax", "60");
+        } else if (yearPosition == 6) {
+            params.put("ageMin", "60");
         }
-        if(!TextUtils.isEmpty(collegeName)&&collegeName.equals("不限")){
-            params.put("school",collegeName);
+        if (!TextUtils.isEmpty(collegeName) && collegeName.equals("不限")) {
+            params.put("school", collegeName);
         }
-        if(complexRankingRule==1){
-            params.put("order","age");
-            params.put("order","desc");
-        }else if(complexRankingRule==2){
-            params.put("order","age");
-            params.put("order","asc");
+        if (complexRankingRule == 1) {
+            params.put("order", "age");
+            params.put("order", "desc");
+        } else if (complexRankingRule == 2) {
+            params.put("order", "age");
+            params.put("order", "asc");
         }
-        params.put("page", page+"");
+        params.put("page", page + "");
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
-        Log.e(TAG, "getList: params=="+params.toString() );
+        Log.e(TAG, "getList: params==" + params.toString());
 
         RequestUtil.request(true, Constant.URL_GET_TALENTS, params, 110, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (isSuccess){
-                    if(!TextUtils.isEmpty(obj)){
-                        Log.e(TAG, "onSuccess: obj=="+obj );
+                uiHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(page==1&&talentLists.size() == 0){
+                            ivLoading.setVisibility(View.GONE);
+                            llContent.setVisibility(View.GONE);
+                            ivNoContent.setVisibility(View.VISIBLE);
+                        }
+                    }
+                },500);
+                if (isSuccess) {
+                    if (!TextUtils.isEmpty(obj)) {
+                        Log.e(TAG, "onSuccess: obj==" + obj);
                         Gson gson = new Gson();
-                        ArrayList<TalentBean> tempTheatres=new ArrayList<TalentBean>();
+                        ArrayList<TalentBean> tempTheatres = new ArrayList<TalentBean>();
 //                        theatres.clear();
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<TalentBean>>() {
                         }.getType());
-                        if(tempTheatres!=null&&tempTheatres.size()>0){
-                            if(talentLists.size()==0){
-                                if(talentLists.addAll(tempTheatres)){
+                        if (tempTheatres != null && tempTheatres.size() > 0) {
+                            if (talentLists.size() == 0) {
+                                if (talentLists.addAll(tempTheatres)) {
+                                    uiHandler.removeCallbacksAndMessages(null);
                                     uiHandler.sendEmptyMessage(0);
                                 }
                                 page++;
-                            }else{
-                                if(page==1){
+                            } else {
+                                if (page == 1) {
                                     recyclerView.refreshComplete();
                                     talentLists.clear();
-                                    if(talentLists.addAll(tempTheatres)){
+                                    if (talentLists.addAll(tempTheatres)) {
                                         uiHandler.sendEmptyMessage(0);
                                     }
-                                }else{
+                                } else {
                                     recyclerView.loadMoreComplete();
                                     talentLists.addAll(tempTheatres);
-                                    if(lookingWorksAdapter!=null){
+                                    if (lookingWorksAdapter != null) {
                                         lookingWorksAdapter.add(tempTheatres);
                                     }
                                 }
                                 page++;
                             }
-                        }else{
-                            if(talentLists.size()==0){
-                                Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                            }else{
-                                if(page==1){
-                                    Log.e(TAG, "onSuccess: 刷新数据失败" );
+                        } else {
+                            if (talentLists.size() == 0) {
+                                Log.e(TAG, "onSuccess: 首次加载数据失败");
+                            } else {
+                                if (page == 1) {
+                                    Log.e(TAG, "onSuccess: 刷新数据失败");
                                     recyclerView.refreshComplete();
-                                }else{
+                                } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
                         }
                         Log.e(TAG, "onSuccess: theatres.size==" + talentLists.size());
-                    }else{
-                        if(talentLists.size()==0){
-                            Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                        }else{
-                            if(page==1){
+                    } else {
+                        if (talentLists.size() == 0) {
+                            Log.e(TAG, "onSuccess: 首次加载数据失败");
+                        } else {
+                            if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败" );
-                            }else{
+                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                            } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                Log.e(TAG, "onSuccess: 加载更多数据失败");
                             }
                         }
                     }
                 } else {
-                    if(talentLists.size()==0){
-                        Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                    }else{
-                        if(page==1){
+                    if (talentLists.size() == 0) {
+                        Log.e(TAG, "onSuccess: 首次加载数据失败");
+                        ivLoading.setVisibility(View.GONE);
+                        llContent.setVisibility(View.GONE);
+                        ivNoContent.setVisibility(View.VISIBLE);
+                    } else {
+                        if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败" );
-                        }else{
+                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                        } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                            Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -598,15 +625,15 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(talentLists.size()==0){
-                    Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                }else{
-                    if(page==1){
+                if (talentLists.size() == 0) {
+                    Log.e(TAG, "onSuccess: 首次加载数据失败");
+                } else {
+                    if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败" );
-                    }else{
+                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                    } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                        Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
 
@@ -623,34 +650,32 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
-        Log.e(TAG, "getRepertoryClassify: "+params.toString() );
+        Log.e(TAG, "getRepertoryClassify: " + params.toString());
         RequestUtil.request(true, Constant.URL_GET_CLASSFY_LIST, params, 108, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
-                    if (!TextUtils.isEmpty(obj)){
-                        Log.e(TAG, "onSuccess: obj222="+obj );
+                    if (!TextUtils.isEmpty(obj)) {
+                        Log.e(TAG, "onSuccess: obj222=" + obj);
                         Gson gson = new Gson();
-                        if(skillBeanList.size()>0){
+                        if (skillBeanList.size() > 0) {
                             skillBeanList.clear();
                         }
-                        skillBeanList=gson.fromJson(obj, new TypeToken<List<SkillBean>>() {
+                        skillBeanList = gson.fromJson(obj, new TypeToken<List<SkillBean>>() {
                         }.getType());
-                        Log.e(TAG, "onSuccess: skillBeanList.size=="+skillBeanList.size() );
+                        Log.e(TAG, "onSuccess: skillBeanList.size==" + skillBeanList.size());
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
             }
+
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
             }
         });
     }
-
-
-
 
 
 }

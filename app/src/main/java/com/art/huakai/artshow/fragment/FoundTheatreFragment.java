@@ -444,11 +444,17 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if(page==1&&theatres.size() == 0){
-                    ivLoading.setVisibility(View.GONE);
-                    llContent.setVisibility(View.GONE);
-                    ivNoContent.setVisibility(View.VISIBLE);
-                }
+                uiHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(page==1&&theatres.size() == 0){
+                            ivLoading.setVisibility(View.GONE);
+                            llContent.setVisibility(View.GONE);
+                            ivNoContent.setVisibility(View.VISIBLE);
+                        }
+                    }
+                },500);
+
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: obj==" + obj);
@@ -460,6 +466,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         if (tempTheatres != null && tempTheatres.size() > 0) {
                             if (theatres.size() == 0) {
                                 if (theatres.addAll(tempTheatres)) {
+                                    uiHandler.removeCallbacksAndMessages(null);
                                     uiHandler.sendEmptyMessage(0);
                                 }
                                 page++;
@@ -518,7 +525,6 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                             Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
-
                     ResponseCodeCheck.showErrorMsg(code);
                 }
             }
@@ -540,7 +546,6 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
-
             }
         });
     }
