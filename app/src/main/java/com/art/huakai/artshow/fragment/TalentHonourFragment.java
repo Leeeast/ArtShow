@@ -13,7 +13,7 @@ import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -53,7 +53,7 @@ public class TalentHonourFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mAwardsDescpt = TalentResumeInfo.getInstance().getAwardsDescpt();
+        mAwardsDescpt = TalentDetailInfo.getInstance().getAwardsDescpt();
     }
 
     @Override
@@ -108,7 +108,7 @@ public class TalentHonourFragment extends BaseFragment {
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TalentResumeInfo.getInstance().getId());
+        params.put("id", TalentDetailInfo.getInstance().getId());
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("worksDescpt", mAwardsDescpt);
@@ -125,7 +125,7 @@ public class TalentHonourFragment extends BaseFragment {
                 }
                 if (isSuccess) {
                     Toast.makeText(getContext(), getString(R.string.tip_honor_commit_suc), Toast.LENGTH_SHORT).show();
-                    TalentResumeInfo.getInstance().setAwardsDescpt(mAwardsDescpt);
+                    TalentDetailInfo.getInstance().setAwardsDescpt(mAwardsDescpt);
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

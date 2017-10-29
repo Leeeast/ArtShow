@@ -14,7 +14,6 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
@@ -29,9 +28,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.Call;
 
 public class ProjectTechFragment extends BaseFragment {

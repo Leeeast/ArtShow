@@ -3,7 +3,6 @@ package com.art.huakai.artshow.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,14 +13,12 @@ import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
-
-import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -56,7 +53,7 @@ public class FillIntroduceFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentResumeInfo.getInstance().getDescription();
+        mDescription = TalentDetailInfo.getInstance().getDescription();
     }
 
     @Override
@@ -111,7 +108,7 @@ public class FillIntroduceFragment extends BaseFragment {
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TalentResumeInfo.getInstance().getId());
+        params.put("id", TalentDetailInfo.getInstance().getId());
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("description", mDescription);
@@ -128,7 +125,7 @@ public class FillIntroduceFragment extends BaseFragment {
                 }
                 if (isSuccess) {
                     Toast.makeText(getContext(), getString(R.string.tip_description_change_suc), Toast.LENGTH_SHORT).show();
-                    TalentResumeInfo.getInstance().setDescription(mDescription);
+                    TalentDetailInfo.getInstance().setDescription(mDescription);
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

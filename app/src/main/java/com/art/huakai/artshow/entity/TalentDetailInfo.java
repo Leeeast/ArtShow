@@ -6,15 +6,15 @@ import java.util.List;
  * Created by lidongliang on 2017/10/20.
  */
 
-public class TalentResumeInfo {
-    private TalentResumeInfo() {
+public class TalentDetailInfo {
+    private TalentDetailInfo() {
     }
 
-    private static TalentResumeInfo talentResumeInfo;
+    private static TalentDetailInfo talentResumeInfo;
 
-    public synchronized static TalentResumeInfo getInstance() {
+    public synchronized static TalentDetailInfo getInstance() {
         if (talentResumeInfo == null) {
-            talentResumeInfo = new TalentResumeInfo();
+            talentResumeInfo = new TalentDetailInfo();
         }
         return talentResumeInfo;
     }
@@ -35,12 +35,12 @@ public class TalentResumeInfo {
     private int status;
     private String userId;
     private long createTime;
-    private String updateTime;
+    private long updateTime;
     private List<String> pictures;
     private List<String> classifyIds;
     private String classifyNames;
     private String regionName;
-    private String age;
+    private int age;
     private int viewTimes;
     private String authentication;
 
@@ -172,11 +172,11 @@ public class TalentResumeInfo {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -212,11 +212,11 @@ public class TalentResumeInfo {
         this.regionName = regionName;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

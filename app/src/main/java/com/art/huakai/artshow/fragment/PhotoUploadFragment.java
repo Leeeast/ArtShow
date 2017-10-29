@@ -19,8 +19,7 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.PicturesBean;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
-import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
@@ -92,7 +91,7 @@ public class PhotoUploadFragment extends BaseFragment {
             mUploadType = bundle.getString(PARAMS_TYPE, TYPE_TALENT);
         }
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentResumeInfo.getInstance().getDescription();
+        mDescription = TalentDetailInfo.getInstance().getDescription();
     }
 
     @Override
@@ -111,8 +110,8 @@ public class PhotoUploadFragment extends BaseFragment {
                 break;
             case TYPE_TALENT:
                 title = getString(R.string.resume_photo);
-                mCommitPicUrl = Constant.URL_TALENT_TEDIT_PICTURES;
-                typeId = TalentResumeInfo.getInstance().getId();
+                mCommitPicUrl = Constant.URL_TALENT_EDIT_PICTURES;
+                typeId = TalentDetailInfo.getInstance().getId();
                 break;
             case TYPE_PROJECT:
                 title = getString(R.string.project_photo);

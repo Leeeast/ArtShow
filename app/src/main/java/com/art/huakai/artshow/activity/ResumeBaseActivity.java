@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -14,8 +15,9 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.ClassifyTypeBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.utils.ACache;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -39,6 +41,7 @@ import cn.qqtheme.framework.picker.DoublePicker;
 import cn.qqtheme.framework.picker.OptionPicker;
 import cn.qqtheme.framework.picker.ProvincePicker;
 import cn.qqtheme.framework.picker.SinglePicker;
+import cn.qqtheme.framework.util.DateUtils;
 import cn.qqtheme.framework.widget.WheelView;
 import okhttp3.Call;
 
@@ -98,14 +101,24 @@ public class ResumeBaseActivity extends BaseActivity {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.resume_base_data);
         tvSubtitle.setVisibility(View.VISIBLE);
-        if (!TextUtils.isEmpty(LocalUserInfo.getInstance().getName())) {
-            edtUserName.setText(LocalUserInfo.getInstance().getName());
-        }
+
     }
 
     @Override
     public void setView() {
+        if (!TextUtils.isEmpty(TalentDetailInfo.getInstance().getName())) {
+            edtUserName.setText(TalentDetailInfo.getInstance().getName());
+        }
 
+        String birthday = TextUtils.isEmpty(TalentDetailInfo.getInstance().getBirthday()) ?
+                getString(R.string.app_un_fill) :
+                DateUtils.parseDate(TalentDetailInfo.getInstance().getBirthday(), "yyyy-MM").toString();
+        tvBirthday.setText(birthday);
+
+        String classifyType = TextUtils.isEmpty(TalentDetailInfo.getInstance().getClassifyNames()) ?
+                getString(R.string.app_un_fill) :
+                TalentDetailInfo.getInstance().getClassifyNames();
+        tvAbilityType.setText(classifyType);
     }
 
     /**
@@ -161,7 +174,7 @@ public class ResumeBaseActivity extends BaseActivity {
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TalentResumeInfo.getInstance().getId());
+        params.put("id", TalentDetailInfo.getInstance().getId());
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("name", LocalUserInfo.getInstance().getName());
@@ -335,7 +348,9 @@ public class ResumeBaseActivity extends BaseActivity {
 
     @OnClick(R.id.rly_ability_type)
     public void showAbilityType() {
-        invokActivity(this, ClassifyTypeActivity.class, null, JumpCode.FLAG_REQ_CLASSIFY_TYPE);
+        Bundle bundle = new Bundle();
+        bundle.putString(ClassifyTypeActivity.CLASSIFY_TYPE, ClassifyTypeActivity.CLASSIFY_TYPE_TALENT);
+        invokActivity(this, ClassifyTypeActivity.class, bundle, JumpCode.FLAG_REQ_CLASSIFY_TYPE);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class Constant {
     public static final String URL_ENROLL_ENROLLED = BASE_URL + "/enroll/enrolled";
     //简历分页
     public static final String URL_USER_TALENT = BASE_URL + "/user/talent";
-    //简历分页
+    //简历详情
     public static final String URL_USER_TALENT_DETAIL = BASE_URL + "/user/talent/detail";
     //修改简历个人介绍
     public static final String URL_TALENT_EDIT_DESCRIPTION = BASE_URL + "/talent/edit/description";
@@ -70,7 +70,9 @@ public class Constant {
     //修改简历个人作品
     public static final String URL_TALENT_EDIT_WORKSDESCPT = BASE_URL + "/talent/edit/worksDescpt";
     //修改简历照片，返回创建或修改的简历ID
-    public static final String URL_TALENT_TEDIT_PICTURES = BASE_URL + "/talent/edit/pictures";
+    public static final String URL_TALENT_EDIT_PICTURES = BASE_URL + "/talent/edit/pictures";
+    //修改个人简历显示头像，返回创建或修改的简历id
+    public static final String URL_TALENT_EDIT_LOGO = BASE_URL + "/talent/edit/logo";
 
     //获取地区列表
     public static final String URL_REGION_LIST = BASE_URL + "/region/list";

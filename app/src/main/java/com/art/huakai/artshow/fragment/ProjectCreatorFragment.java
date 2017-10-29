@@ -1,40 +1,26 @@
 package com.art.huakai.artshow.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.CreatorIntorAdapter;
 import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.MemberAddDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
-import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
-import com.art.huakai.artshow.utils.LogUtil;
-import com.art.huakai.artshow.utils.LoginUtil;
-import com.art.huakai.artshow.utils.RequestUtil;
-import com.art.huakai.artshow.utils.ResponseCodeCheck;
-import com.art.huakai.artshow.utils.SignUtil;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import okhttp3.Call;
 
 public class ProjectCreatorFragment extends BaseFragment {
 
@@ -60,7 +46,7 @@ public class ProjectCreatorFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentResumeInfo.getInstance().getDescription();
+        mDescription = TalentDetailInfo.getInstance().getDescription();
     }
 
     @Override

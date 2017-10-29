@@ -382,6 +382,8 @@
     <string name="talent_upload_new">上传新简历</string>
     <string name="talent_ability_type">技能类型</string>
     <string name="talent_age">年龄&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="talent_logo_upload_suc">简历头像上传成功</string>
+    <string name="talent_logo_upload_fail">简历头像上传失败</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

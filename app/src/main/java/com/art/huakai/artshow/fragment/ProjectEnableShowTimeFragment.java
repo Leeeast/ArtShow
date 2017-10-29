@@ -4,44 +4,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.constant.Constant;
-import com.art.huakai.artshow.dialog.ShowProgressDialog;
-import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
-import com.art.huakai.artshow.entity.TheatreDetailInfo;
-import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
 import com.art.huakai.artshow.eventbus.ProjectPerformTimeEvent;
-import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.DateUtil;
-import com.art.huakai.artshow.utils.LogUtil;
-import com.art.huakai.artshow.utils.LoginUtil;
-import com.art.huakai.artshow.utils.RequestUtil;
-import com.art.huakai.artshow.utils.ResponseCodeCheck;
-import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.widget.WheelView;
-import okhttp3.Call;
 
 public class ProjectEnableShowTimeFragment extends BaseFragment {
 

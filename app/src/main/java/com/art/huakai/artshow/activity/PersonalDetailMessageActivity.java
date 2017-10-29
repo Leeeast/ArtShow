@@ -22,6 +22,7 @@ import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailAwarsFragment;
@@ -105,6 +106,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     private TalentDetailBean talentDetailBean;
     private boolean mIsFromOrgan;
     private ShareDialog shareDialog;
+    private String URL_TALENT_DETAL;
 
 
     private Handler uiHandler = new Handler() {
@@ -207,6 +209,11 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             talentId = extras.getString(PARAMS_ID);
             mIsFromOrgan = extras.getBoolean(PARAMS_ORG, false);
         }
+        if (mIsFromOrgan) {
+            URL_TALENT_DETAL = Constant.URL_USER_TALENT_DETAIL;
+        } else {
+            URL_TALENT_DETAL = Constant.URL_TALENT_DETAIL;
+        }
         getTalentDetail();
     }
 
@@ -244,15 +251,16 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     }
 
     private void getTalentDetail() {
-
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_TALENT_DETAIL==" + Constant.URL_TALENT_DETAIL);
         params.put("id", talentId);
+        if (mIsFromOrgan) {
+            params.put("userId", LocalUserInfo.getInstance().getId());
+            params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        Log.e(TAG, "getList: sign==" + sign);
         Log.e(TAG, "getRepertoryClassify: " + params.toString());
-        RequestUtil.request(true, Constant.URL_TALENT_DETAIL, params, 120, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, URL_TALENT_DETAL, params, 120, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
@@ -304,4 +312,8 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
 
+    @OnClick(R.id.lly_back)
+    public void back() {
+        this.finish();
+    }
 }

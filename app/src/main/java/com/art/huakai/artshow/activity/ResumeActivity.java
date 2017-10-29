@@ -17,6 +17,7 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.entity.TalentBean;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -35,7 +36,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * 账户信息
+ * 简历列表activity
  * Created by lidongliang on 2017/10/14.
  */
 
@@ -141,11 +142,11 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
             @Override
             public void onItemClickListener(int position) {
                 TalentBean talentBean = mTalentBeans.get(position);
-                ProjectDetailInfo.getInstance().setId(talentBean.getId());
+                TalentDetailInfo.getInstance().setId(talentBean.getId());
                 Bundle bundle = new Bundle();
                 bundle.putString(WorksDetailMessageActivity.PARAMS_ID, talentBean.getId());
                 bundle.putBoolean(WorksDetailMessageActivity.PARAMS_ORG, true);
-                invokActivity(ResumeActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
+                invokActivity(ResumeActivity.this, PersonalDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
             }
         });
         recyclerViewResume.setLoadingListener(this);

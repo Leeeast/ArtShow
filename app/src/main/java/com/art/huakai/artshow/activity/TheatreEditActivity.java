@@ -470,7 +470,7 @@ public class TheatreEditActivity extends BaseActivity {
      *
      * @param picUrl
      */
-    public void changeTheatreCover(String picUrl) {
+    public void changeTheatreCover(final String picUrl) {
         Map<String, String> params = new TreeMap<>();
         if (TheatreDetailInfo.getInstance().getId() != null) {
             params.put("id", TheatreDetailInfo.getInstance().getId());
@@ -490,11 +490,11 @@ public class TheatreEditActivity extends BaseActivity {
                 }
                 if (isSuccess) {
                     try {
-                        showToast(getString(R.string.tip_theatre_info_commit_success));
                         //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
                         JSONObject jsonObject = new JSONObject(obj);
                         String theatreId = jsonObject.getString("id");
                         TheatreDetailInfo.getInstance().setId(theatreId);
+                        TheatreDetailInfo.getInstance().setLogo(picUrl);
                         showToast(getString(R.string.tip_theatre_cover_upload));
                     } catch (Exception e) {
                         e.printStackTrace();

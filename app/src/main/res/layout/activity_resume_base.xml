@@ -48,7 +48,6 @@
                     android:textColor="@color/login_btn"
                     android:textSize="15sp" />
 
-
                 <EditText
                     android:id="@+id/edt_user_name"
                     android:layout_width="wrap_content"

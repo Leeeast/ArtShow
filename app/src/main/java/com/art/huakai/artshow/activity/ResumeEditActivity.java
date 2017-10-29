@@ -15,8 +15,11 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.TalentBean;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
@@ -30,6 +33,9 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DebugUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -47,7 +53,7 @@ import okhttp3.Call;
  */
 
 public class ResumeEditActivity extends BaseActivity {
-
+    public static final String PARAMS_NEW = "PARAMS_NEW";
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.sdv_avatar)
@@ -56,6 +62,8 @@ public class ResumeEditActivity extends BaseActivity {
     private TakePhotoDialog takePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
     private ShowProgressDialog showProgressDialog;
+    private TalentDetailInfo talentInfo;
+    private boolean mIsNewCreate;
 
     @Override
     public void immerseStatusBar() {
@@ -69,8 +77,19 @@ public class ResumeEditActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         showProgressDialog = new ShowProgressDialog(this);
-        getTalent();
+        talentInfo = TalentDetailInfo.getInstance();
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            mIsNewCreate = extras.getBoolean(PARAMS_NEW, true);
+        }
+        if (mIsNewCreate) {
+            initTalentDetailInfo();
+        } else {
+            getTalentDetailInfo(TalentDetailInfo.getInstance().getId());
+        }
     }
 
     @Override
@@ -81,7 +100,44 @@ public class ResumeEditActivity extends BaseActivity {
 
     @Override
     public void setView() {
+        updateEditUI();
+    }
 
+    /**
+     * 通知页面信息更新
+     */
+    public void updateEditUI() {
+
+    }
+
+    /**
+     * 回复简历详情初始值
+     */
+    public void initTalentDetailInfo() {
+        talentInfo.setId(null);
+        talentInfo.setLogo(null);
+        talentInfo.setName(null);
+        talentInfo.setBirthday(null);
+        talentInfo.setLinkTel(null);
+        talentInfo.setRegionId(null);
+        talentInfo.setDescription(null);
+        talentInfo.setHeight(null);
+        talentInfo.setWeight(null);
+        talentInfo.setSchool(null);
+        talentInfo.setAgency(null);
+        talentInfo.setWorksDescpt(null);
+        talentInfo.setAwardsDescpt(null);
+        talentInfo.setStatus(0);
+        talentInfo.setUserId(null);
+        talentInfo.setCreateTime(0);
+        talentInfo.setUpdateTime(0);
+        talentInfo.setPictures(null);
+        talentInfo.setClassifyIds(null);
+        talentInfo.setClassifyNames(null);
+        talentInfo.setRegionName(null);
+        talentInfo.setAge(0);
+        talentInfo.setViewTimes(0);
+        talentInfo.setAuthentication(null);
     }
 
     /**
@@ -219,8 +275,8 @@ public class ResumeEditActivity extends BaseActivity {
                 if (isSuccess) {
                     try {
                         JSONObject jsonObject = new JSONObject(obj);
-                        String mAvatarUrl = jsonObject.getString("url");
-                        TalentResumeInfo.getInstance().setLogo(mAvatarUrl);
+                        String avatarUrl = jsonObject.getString("url");
+                        changeTalentLogo(avatarUrl);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -240,30 +296,23 @@ public class ResumeEditActivity extends BaseActivity {
     }
 
     /**
-     * 获取简历列表
+     * 上传简历头像
      *
-     * @return
+     * @param talentLogoUrl
      */
-    public void getTalent() {
-        //判断是否登录
-        if (!LoginUtil.checkUserLogin(this, true)) {
-            return;
-        }
-        if (TextUtils.isEmpty(LocalUserInfo.getInstance().getId()) ||
-                TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
-            Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
+    private void changeTalentLogo(final String talentLogoUrl) {
+
         Map<String, String> params = new TreeMap<>();
+        if (ProjectDetailInfo.getInstance().getId() != null) {
+            params.put("id", ProjectDetailInfo.getInstance().getId());
+        }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("page", "1");
-        params.put("size", "1");
+        params.put("logo", talentLogoUrl);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        LogUtil.i(TAG, "params = " + params);
         showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_USER_TALENT, params, 50, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, Constant.URL_TALENT_EDIT_LOGO, params, 67, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -272,66 +321,12 @@ public class ResumeEditActivity extends BaseActivity {
                 }
                 if (isSuccess) {
                     try {
-                        List<TalentBean> resumeBeens = GsonTools.parseDatas(obj, TalentBean.class);
-                        if (resumeBeens != null && resumeBeens.size() > 0) {
-                            TalentBean resumeBeen = resumeBeens.get(0);
-                            TalentResumeInfo.getInstance().setId(resumeBeen.getId());
-                            getResumeDetail();
-                        } else {
-                            changeResumeDescription();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    ResponseCodeCheck.showErrorMsg(code);
-                }
-            }
-
-            @Override
-            public void onFailed(Call call, Exception e, int id) {
-                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if (showProgressDialog.isShowing()) {
-                    showProgressDialog.dismiss();
-                }
-            }
-        });
-    }
-
-    /**
-     * 修改简历个人介绍
-     * TODO 此处调用这个方法是为了创建简历，获取简历ID
-     */
-    public void changeResumeDescription() {
-        //判断是否登录
-        if (!LoginUtil.checkUserLogin(this, true)) {
-            return;
-        }
-        if (TextUtils.isEmpty(LocalUserInfo.getInstance().getId()) ||
-                TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
-            Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Map<String, String> params = new TreeMap<>();
-        params.put("userId", LocalUserInfo.getInstance().getId());
-        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("description", "创建简历");
-        String sign = SignUtil.getSign(params);
-        params.put("sign", sign);
-        LogUtil.i(TAG, "params = " + params);
-        showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_TALENT_EDIT_DESCRIPTION, params, 51, new RequestUtil.RequestListener() {
-            @Override
-            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                LogUtil.i(TAG, obj);
-                if (showProgressDialog.isShowing()) {
-                    showProgressDialog.dismiss();
-                }
-                if (isSuccess) {
-                    try {
+                        showToast(getString(R.string.talent_logo_upload_suc));
+                        //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
                         JSONObject jsonObject = new JSONObject(obj);
-                        String resumeId = jsonObject.getString("id");
-                        TalentResumeInfo.getInstance().setId(resumeId);
+                        String theatreId = jsonObject.getString("id");
+                        talentInfo.setId(theatreId);
+                        talentInfo.setLogo(talentLogoUrl);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -343,63 +338,19 @@ public class ResumeEditActivity extends BaseActivity {
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                showToast(getString(R.string.talent_logo_upload_fail));
                 if (showProgressDialog.isShowing()) {
                     showProgressDialog.dismiss();
                 }
             }
         });
-    }
 
-//    /**
-//     * 获取个人简历详情
-//     */
-//    public void getResumeDetail() {
-//        //判断是否登录
-//        if (!LoginUtil.checkUserLogin(this, true)) {
-//            return;
-//        }
-//        if (TextUtils.isEmpty(LocalUserInfo.getInstance().getId()) ||
-//                TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
-//            Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        Map<String, String> params = new TreeMap<>();
-//        params.put("id", TalentResumeInfo.getInstance().getTalentResumeId());
-//        String sign = SignUtil.getSign(params);
-//        params.put("sign", sign);
-//        LogUtil.i(TAG, "params = " + params);
-//        showProgressDialog.show();
-//        RequestUtil.request(true, Constant.URL_TALENT_DETAIL, params, 53, new RequestUtil.RequestListener() {
-//            @Override
-//            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-//                LogUtil.i(TAG, obj);
-//                if (showProgressDialog.isShowing()) {
-//                    showProgressDialog.dismiss();
-//                }
-//                if (isSuccess) {
-//                    try {
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                } else {
-//                    ResponseCodeCheck.showErrorMsg(code);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailed(Call call, Exception e, int id) {
-//                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-//                if (showProgressDialog.isShowing()) {
-//                    showProgressDialog.dismiss();
-//                }
-//            }
-//        });
-//    }
+    }
 
     /**
      * 获取个人简历详情
      */
-    public void getResumeDetail() {
+    public void getTalentDetailInfo(String talentId) {
         //判断是否登录
         if (!LoginUtil.checkUserLogin(this, true)) {
             return;
@@ -411,7 +362,7 @@ public class ResumeEditActivity extends BaseActivity {
         }
         Map<String, String> params = new TreeMap<>();
         params.put("userId", LocalUserInfo.getInstance().getId());
-        params.put("id", TalentResumeInfo.getInstance().getId());
+        params.put("id", talentId);
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
@@ -427,32 +378,31 @@ public class ResumeEditActivity extends BaseActivity {
                 }
                 if (isSuccess) {
                     try {
-                        TalentResumeInfo resume = GsonTools.parseData(obj, TalentResumeInfo.class);
-                        TalentResumeInfo instanceResume = TalentResumeInfo.getInstance();
-                        instanceResume.setId(resume.getId());
-                        instanceResume.setLogo(resume.getLogo());
-                        instanceResume.setName(resume.getName());
-                        instanceResume.setBirthday(resume.getBirthday());
-                        instanceResume.setLinkTel(resume.getLinkTel());
-                        instanceResume.setRegionId(resume.getRegionId());
-                        instanceResume.setDescription(resume.getDescription());
-                        instanceResume.setHeight(resume.getHeight());
-                        instanceResume.setWeight(resume.getWeight());
-                        instanceResume.setSchool(resume.getSchool());
-                        instanceResume.setAgency(resume.getAgency());
-                        instanceResume.setWorksDescpt(resume.getWorksDescpt());
-                        instanceResume.setAwardsDescpt(resume.getAwardsDescpt());
-                        instanceResume.setStatus(resume.getStatus());
-                        instanceResume.setUserId(resume.getUserId());
-                        instanceResume.setCreateTime(resume.getCreateTime());
-                        instanceResume.setUpdateTime(resume.getUpdateTime());
-                        instanceResume.setPictures(resume.getPictures());
-                        instanceResume.setClassifyIds(resume.getClassifyIds());
-                        instanceResume.setClassifyNames(resume.getClassifyNames());
-                        instanceResume.setRegionName(resume.getRegionName());
-                        instanceResume.setAge(resume.getAge());
-                        instanceResume.setViewTimes(resume.getViewTimes());
-                        instanceResume.setAuthentication(resume.getAuthentication());
+                        TalentDetailInfo resume = GsonTools.parseData(obj, TalentDetailInfo.class);
+                        talentInfo.setId(resume.getId());
+                        talentInfo.setLogo(resume.getLogo());
+                        talentInfo.setName(resume.getName());
+                        talentInfo.setBirthday(resume.getBirthday());
+                        talentInfo.setLinkTel(resume.getLinkTel());
+                        talentInfo.setRegionId(resume.getRegionId());
+                        talentInfo.setDescription(resume.getDescription());
+                        talentInfo.setHeight(resume.getHeight());
+                        talentInfo.setWeight(resume.getWeight());
+                        talentInfo.setSchool(resume.getSchool());
+                        talentInfo.setAgency(resume.getAgency());
+                        talentInfo.setWorksDescpt(resume.getWorksDescpt());
+                        talentInfo.setAwardsDescpt(resume.getAwardsDescpt());
+                        talentInfo.setStatus(resume.getStatus());
+                        talentInfo.setUserId(resume.getUserId());
+                        talentInfo.setCreateTime(resume.getCreateTime());
+                        talentInfo.setUpdateTime(resume.getUpdateTime());
+                        talentInfo.setPictures(resume.getPictures());
+                        talentInfo.setClassifyIds(resume.getClassifyIds());
+                        talentInfo.setClassifyNames(resume.getClassifyNames());
+                        talentInfo.setRegionName(resume.getRegionName());
+                        talentInfo.setAge(resume.getAge());
+                        talentInfo.setViewTimes(resume.getViewTimes());
+                        talentInfo.setAuthentication(resume.getAuthentication());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -471,5 +421,18 @@ public class ResumeEditActivity extends BaseActivity {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(TalentInfoChangeEvent event) {
+        if (event == null) {
+            return;
+        }
+        updateEditUI();
+    }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
