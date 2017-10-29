@@ -78,6 +78,7 @@ public class MeInstitutionFragment extends BaseFragment implements View.OnClickL
                 invokActivity(getContext(), TheatreActivity.class, null, JumpCode.FLAG_REQ_THEATRE_MY);
                 break;
             case R.id.item_my_talent:
+                invokActivity(getContext(), ResumeActivity.class, null, JumpCode.FLAG_REQ_TALENT_MY);
                 break;
         }
     }

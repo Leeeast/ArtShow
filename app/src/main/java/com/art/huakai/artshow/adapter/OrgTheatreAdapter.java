@@ -39,7 +39,7 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty, parent, false);
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
             layoutParams.height = DeviceUtils.getScreenHeight(parent.getContext()) -
-                    parent.getResources().getDimensionPixelSize(R.dimen.main_tab_bottom);
+                    parent.getResources().getDimensionPixelSize(R.dimen.DIMEN_200PX);
             view.setLayoutParams(layoutParams);
             return new EmptyHolder(view);
         } else {

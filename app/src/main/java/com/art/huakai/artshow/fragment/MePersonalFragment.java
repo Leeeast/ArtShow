@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.DataUploadActivity;
-import com.art.huakai.artshow.activity.ResumeActivity;
+import com.art.huakai.artshow.activity.ResumeEditActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
 
@@ -52,7 +52,7 @@ public class MePersonalFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rly_my_resume:
-                invokActivity(getContext(), ResumeActivity.class, null, JumpCode.FLAG_REQ_RESUME_MY);
+                invokActivity(getContext(), ResumeEditActivity.class, null, JumpCode.FLAG_REQ_RESUME_MY);
                 break;
             case R.id.rly_pro_auth:
                 Bundle bundle = new Bundle();

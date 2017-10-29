@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_common" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_1PX"
+        android:background="@color/me_personal_line" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteff"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteff"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/DIMEN_25PX">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_avatar"
+                android:layout_width="@dimen/DIMEN_96PX"
+                android:layout_height="@dimen/DIMEN_96PX"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/DIMEN_20PX"
+                fresco:actualImageScaleType="focusCrop"
+                fresco:placeholderImage="@mipmap/avatar_default"
+                fresco:placeholderImageScaleType="fitCenter"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/DIMEN_24PX"
+                android:layout_marginTop="@dimen/DIMEN_5PX"
+                android:gravity="center_horizontal"
+                android:text="@string/resume_upload_cover"
+                android:textColor="@color/black66"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/set_base_info"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:id="@+id/rly_base_data"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_48PX">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/resume_base_data"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_10PX"
+                    android:layout_height="@dimen/DIMEN_17PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/arrow_right" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rly_self_introduce"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_48PX">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/resume_self_introduction"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_10PX"
+                    android:layout_height="@dimen/DIMEN_17PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/arrow_right" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rly_self_works"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_48PX">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/resume_self_works"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_10PX"
+                    android:layout_height="@dimen/DIMEN_17PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/arrow_right" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/set_other_info"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:id="@+id/rly_photo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_48PX">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/resume_photo"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_10PX"
+                    android:layout_height="@dimen/DIMEN_17PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/arrow_right" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rly_award_exper"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_48PX">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:text="@string/resume_award_experience"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/DIMEN_10PX"
+                    android:layout_height="@dimen/DIMEN_17PX"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/arrow_right" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/resume_post_tip"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_48PX">
+
+                <ImageView
+                    android:id="@+id/iv_resume_post"
+                    android:layout_width="@dimen/DIMEN_28PX"
+                    android:layout_height="@dimen/DIMEN_28PX"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:background="@mipmap/icon_resume_post" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_15PX"
+                    android:layout_toRightOf="@id/iv_resume_post"
+                    android:text="@string/resume_post"
+                    android:textColor="@color/login_btn"
+                    android:textSize="15sp" />
+
+                <Switch
+                    android:id="@+id/switch_bind_wechat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
+                    android:checked="false"
+                    android:thumb="@drawable/switch_thumb"
+                    android:track="@drawable/switch_track" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/me_personal_line" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_29PX"
+                android:background="@color/set_account_text_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/DIMEN_15PX"
+                android:text="@string/resume_post_des"
+                android:textColor="@color/login_light"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

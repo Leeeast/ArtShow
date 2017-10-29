@@ -25,7 +25,6 @@ import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
 import com.art.huakai.artshow.activity.MainActivity;
 import com.art.huakai.artshow.activity.NewsShowActivity;
 import com.art.huakai.artshow.activity.PersonalDetailMessageActivity;
-import com.art.huakai.artshow.activity.SearchNewsActivity;
 import com.art.huakai.artshow.activity.TheatreDetailMessageActivity;
 import com.art.huakai.artshow.activity.WorksDetailMessageActivity;
 import com.art.huakai.artshow.adapter.CooperationOpportunitiesAdapter;
@@ -387,10 +386,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position" + position);
-                    Intent intent = new Intent(getContext(), PersonalDetailMessageActivity.class);
-                    intent.putExtra("id", homePageDetails.getTalents().get(position).getId());
-                    startActivity(intent);
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString(PersonalDetailMessageActivity.PARAMS_ID, homePageDetails.getTalents().get(position).getId());
+                    invokActivity(getContext(), PersonalDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PERSONAL);
                 }
             });
             rcvProfesional.addItemDecoration(professionalItemDecoration);

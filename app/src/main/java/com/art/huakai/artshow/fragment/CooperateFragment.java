@@ -44,8 +44,8 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
     private List<EnrollInfo> mEnrollInfos;
     private CooperateAdapter mAollAdapter;
 
-        public CooperateFragment() {
-        }
+    public CooperateFragment() {
+    }
 
     public static CooperateFragment newInstance() {
         CooperateFragment fragment = new CooperateFragment();
@@ -110,7 +110,7 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
                         if (mPage == 1 && (enrollInfos == null || enrollInfos.size() == 0)) {
                             mEnrollInfos.clear();
                         } else if (mPage != 1 && (enrollInfos == null || enrollInfos.size() == 0)) {
-                            Toast.makeText(getContext(), getString(R.string.tip_no_more_date), Toast.LENGTH_SHORT).show();
+                            showToast(getString(R.string.tip_no_more_date));
                         }
                         mEnrollInfos.addAll(enrollInfos);
                         if (mAollAdapter != null) {

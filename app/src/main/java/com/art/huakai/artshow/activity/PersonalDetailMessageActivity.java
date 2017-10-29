@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,6 +20,8 @@ import com.art.huakai.artshow.adapter.TalentDetailFragmentAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.entity.TalentDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailAwarsFragment;
@@ -41,17 +44,22 @@ import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 public class PersonalDetailMessageActivity extends BaseActivity implements View.OnClickListener {
+
+    public static final String PARAMS_ID = "PARAMS_ID";
+    public static final String PARAMS_ORG = "PARAMS_ORG";
+
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_subtitle)
-    TextView tvSubtitle;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
+    @BindView(R.id.iv_right_img)
+    ImageView ivRightImg;
+    @BindView(R.id.btn_edit)
+    Button btnEdit;
     @BindView(R.id.talents_pic)
     ChinaShowImageView talentsPic;
     @BindView(R.id.tv_name)
@@ -95,6 +103,8 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     private Handler handler = new Handler();
     private String talentId;
     private TalentDetailBean talentDetailBean;
+    private boolean mIsFromOrgan;
+    private ShareDialog shareDialog;
 
 
     private Handler uiHandler = new Handler() {
@@ -116,11 +126,11 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         mFragments = new ArrayList<>();
         PersonalDetailworksFragment personalDetailworksFragment = PersonalDetailworksFragment.newInstance();
         mFragments.add(personalDetailworksFragment);
-        if(talentDetailBean.getPictures()!=null&&talentDetailBean.getPictures().size()>0){
+        if (talentDetailBean.getPictures() != null && talentDetailBean.getPictures().size() > 0) {
             StaggerFragment staggerFragment = StaggerFragment.newInstance();
             staggerFragment.setLists(talentDetailBean.getPictures());
             mFragments.add(staggerFragment);
-        }else{
+        } else {
             ErrorFragment errorFragment = ErrorFragment.newInstance();
             mFragments.add(errorFragment);
         }
@@ -191,16 +201,30 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
     @Override
     public void initData() {
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            talentId = extras.getString(PARAMS_ID);
+            mIsFromOrgan = extras.getBoolean(PARAMS_ORG, false);
+        }
+        getTalentDetail();
     }
 
     @Override
     public void initView() {
-
+        ivRightImg.setImageResource(R.mipmap.icon_share_gray);
+        if (mIsFromOrgan) {
+            btnEdit.setVisibility(View.VISIBLE);
+        } else {
+            btnEdit.setVisibility(View.GONE);
+        }
         AnimUtils.rotate(ivLoading);
         ivNoContent.setVisibility(View.GONE);
         rlContent.setVisibility(View.GONE);
 
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        rlContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -218,17 +242,6 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
                 break;
         }
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-        Intent intent = getIntent();
-        talentId = intent.getStringExtra("id");
-        getTalentDetail();
-    }
-
 
     private void getTalentDetail() {
 
@@ -276,5 +289,19 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         });
     }
 
+    @OnClick(R.id.btn_edit)
+    public void jump2ResumeEditActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, false);
+        invokActivity(this, ResumeEditActivity.class, bundle, JumpCode.FLAG_REQ_TALENT_EDIT);
+    }
+
+    @OnClick(R.id.fly_right_img)
+    public void shareProject() {
+        if (shareDialog == null) {
+            shareDialog = ShareDialog.newInstence();
+        }
+        shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
+    }
 
 }

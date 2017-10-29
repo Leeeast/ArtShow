@@ -128,11 +128,11 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         mFragments = new ArrayList<>();
         WorksDetailShowFragment worksDetailShowFragment = WorksDetailShowFragment.newInstance();
         mFragments.add(worksDetailShowFragment);
-        if(worksDetailBean.getPictures()!=null&&worksDetailBean.getPictures().size()>0){
+        if (worksDetailBean.getPictures() != null && worksDetailBean.getPictures().size() > 0) {
             StaggerFragment staggerFragment = StaggerFragment.newInstance();
             staggerFragment.setLists(worksDetailBean.getPictures());
             mFragments.add(staggerFragment);
-        }else{
+        } else {
             ErrorFragment errorFragment = ErrorFragment.newInstance();
             mFragments.add(errorFragment);
         }
@@ -297,12 +297,5 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         Bundle bundle = new Bundle();
         bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, false);
         invokActivity(this, ProjectEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -70,7 +70,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged" />
         <activity
-            android:name=".activity.ResumeActivity"
+            android:name=".activity.ResumeEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged" />
         <activity
@@ -143,6 +143,9 @@
 
         <activity
             android:name=".activity.WorksDetailMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ResumeActivity"
             android:screenOrientation="portrait" />
 
         <activity

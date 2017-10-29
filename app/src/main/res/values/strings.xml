@@ -377,6 +377,11 @@
     <string name="tip_project_award_input_suc">项目获奖记录提交成功</string>
     <string name="tip_project_tech_input">请输入项目技术要求</string>
     <string name="tip_project_tech_input_suc">项目技术要求提交成功</string>
+    <!--人才相关-->
+    <string name="talent_title_my">我的人才</string>
+    <string name="talent_upload_new">上传新简历</string>
+    <string name="talent_ability_type">技能类型</string>
+    <string name="talent_age">年龄&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
