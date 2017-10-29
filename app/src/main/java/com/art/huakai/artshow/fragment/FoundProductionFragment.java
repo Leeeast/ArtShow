@@ -303,6 +303,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
@@ -313,6 +315,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
@@ -323,6 +327,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
@@ -333,6 +339,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
         } else if (type == 3) {
@@ -425,6 +433,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         showActorAccount = -1;
                         singleChooseAdapterthree.resetData();
                     }
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                    page = 1;
+                    getList();
+
                 }
             });
 
@@ -434,6 +448,9 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
+
                 }
             });
 
@@ -454,6 +471,11 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     }
                     repertoryPosition = position;
                     tvChooseProject.setText(repertorys.get(position).getName());
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                    page = 1;
+                    getList();
                 }
             });
             GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
