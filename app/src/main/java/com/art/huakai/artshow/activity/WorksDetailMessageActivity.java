@@ -22,6 +22,7 @@ import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
@@ -52,8 +53,6 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     public static final String PARAMS_ORG = "PARAMS_ORG";
     @BindView(R.id.btn_edit)
     Button btnEdit;
-    @BindView(R.id.lly_back)
-    LinearLayout llyBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_right_img)
@@ -105,6 +104,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     private String mProjectId;
     private WorksDetailBean worksDetailBean;
     private boolean mIsFromOrgan;
+    private String URL_TALENT_DETAL;
 
 
     private Handler uiHandler = new Handler() {
@@ -208,6 +208,11 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             mProjectId = extras.getString(PARAMS_ID);
             mIsFromOrgan = extras.getBoolean(PARAMS_ORG, false);
         }
+        if (mIsFromOrgan) {
+            URL_TALENT_DETAL = Constant.URL_USER_REPERTORY_DETAIL;
+        } else {
+            URL_TALENT_DETAL = Constant.URL_REPERTORY_DETAIL;
+        }
         getWorkDetail();
     }
 
@@ -233,21 +238,21 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.lly_back:
-                finish();
-                break;
+
         }
     }
 
     private void getWorkDetail() {
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_REPERTORY_DETAIL==" + Constant.URL_REPERTORY_DETAIL);
         params.put("id", mProjectId);
+        if (mIsFromOrgan) {
+            params.put("userId", LocalUserInfo.getInstance().getId());
+            params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        Log.e(TAG, "getList: sign==" + sign);
         Log.e(TAG, "getRepertoryClassify: " + params.toString());
-        RequestUtil.request(true, Constant.URL_REPERTORY_DETAIL, params, 130, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, URL_TALENT_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
@@ -297,5 +302,13 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         Bundle bundle = new Bundle();
         bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, false);
         invokActivity(this, ProjectEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
+    }
+
+    /**
+     * 返回
+     */
+    @OnClick(R.id.lly_back)
+    public void back() {
+        finish();
     }
 }

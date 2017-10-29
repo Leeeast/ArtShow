@@ -63,16 +63,16 @@ public class TheatreDetailBean {
     private int seating;
     private int regionId;
     private String address;
-    private Object coordinate;
+    private String coordinate;
     private String linkman;
     private String linkTel;
     private int expense;
     private String description;
-    private int stageHeight;
-    private int stageWidth;
-    private int stageDepth;
-    private int curtainHeight;
-    private int curtainWidth;
+    private String stageHeight;
+    private String stageWidth;
+    private String stageDepth;
+    private String curtainHeight;
+    private String curtainWidth;
     private int dressingRoomNum;
     private int rehearsalRoomNum;
     private int propRoomNum;
@@ -161,7 +161,7 @@ public class TheatreDetailBean {
         return coordinate;
     }
 
-    public void setCoordinate(Object coordinate) {
+    public void setCoordinate(String coordinate) {
         this.coordinate = coordinate;
     }
 
@@ -197,43 +197,43 @@ public class TheatreDetailBean {
         this.description = description;
     }
 
-    public int getStageHeight() {
+    public String getStageHeight() {
         return stageHeight;
     }
 
-    public void setStageHeight(int stageHeight) {
+    public void setStageHeight(String stageHeight) {
         this.stageHeight = stageHeight;
     }
 
-    public int getStageWidth() {
+    public String getStageWidth() {
         return stageWidth;
     }
 
-    public void setStageWidth(int stageWidth) {
+    public void setStageWidth(String stageWidth) {
         this.stageWidth = stageWidth;
     }
 
-    public int getStageDepth() {
+    public String getStageDepth() {
         return stageDepth;
     }
 
-    public void setStageDepth(int stageDepth) {
+    public void setStageDepth(String stageDepth) {
         this.stageDepth = stageDepth;
     }
 
-    public int getCurtainHeight() {
+    public String getCurtainHeight() {
         return curtainHeight;
     }
 
-    public void setCurtainHeight(int curtainHeight) {
+    public void setCurtainHeight(String curtainHeight) {
         this.curtainHeight = curtainHeight;
     }
 
-    public int getCurtainWidth() {
+    public String getCurtainWidth() {
         return curtainWidth;
     }
 
-    public void setCurtainWidth(int curtainWidth) {
+    public void setCurtainWidth(String curtainWidth) {
         this.curtainWidth = curtainWidth;
     }
 
@@ -452,7 +452,6 @@ public class TheatreDetailBean {
     public void setDisabledDates(List<DisabledDatesBean> disabledDates) {
         this.disabledDates = disabledDates;
     }
-
 
 
     public static class DisabledDatesBean {
