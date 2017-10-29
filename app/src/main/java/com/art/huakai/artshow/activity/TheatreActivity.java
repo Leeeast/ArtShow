@@ -142,8 +142,9 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
                 Theatre theatre = mTheatres.get(position);
                 TheatreDetailInfo.getInstance().setId(theatre.getId());
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(TheatreEditActivity.PARAMS_NEW_CREATE, false);
-                invokActivity(TheatreActivity.this, TheatreEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
+                bundle.putString(TheatreDetailMessageActivity.PARAMS_ID, theatre.getId());
+                bundle.putBoolean(TheatreDetailMessageActivity.PARAMS_ORG, true);
+                invokActivity(TheatreActivity.this, TheatreDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_THEATRE);
 
             }
         });

@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ import com.art.huakai.artshow.adapter.TheatreDetailFragmentAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.entity.TalentDetailBean;
 import com.art.huakai.artshow.entity.TheatersBean;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
@@ -43,19 +46,17 @@ import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener {
-
+    public static final String PARAMS_ID = "PARAMS_ID";
+    public static final String PARAMS_ORG = "PARAMS_ORG";
 
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_subtitle)
-    TextView tvSubtitle;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
     @BindView(R.id.sdv)
     ChinaShowImageView sdv;
     @BindView(R.id.tv_theatre_name)
@@ -80,13 +81,19 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     HeaderViewPager scrollableLayout;
     @BindView(R.id.ll_make_telephone)
     LinearLayout llMakeTelephone;
-
+    @BindView(R.id.iv_right_img)
+    ImageView ivRightImg;
+    @BindView(R.id.btn_edit)
+    Button btnEdit;
 
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
     private Handler handler = new Handler();
     private String theatreId;
     private TheatreDetailBean theatreDetailBean;
+    private ShareDialog shareDialog;
+    private boolean mIsFromOrgan;
+
 
     private Handler uiHandler = new Handler() {
         @Override
@@ -98,7 +105,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             }
         }
     };
-
 
     private void setData() {
 
@@ -167,12 +173,23 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
     @Override
     public void initData() {
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            theatreId = extras.getString(PARAMS_ID);
+            mIsFromOrgan = extras.getBoolean(PARAMS_ORG, false);
+            getTheatreDetail();
+        }
     }
 
     @Override
     public void initView() {
-
+        ivRightImg.setImageResource(R.mipmap.icon_share_gray);
+        if (mIsFromOrgan) {
+            btnEdit.setVisibility(View.VISIBLE);
+        } else {
+            btnEdit.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -189,18 +206,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 break;
         }
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-        Intent intent = getIntent();
-        theatreId = intent.getStringExtra("id");
-        getTheatreDetail();
-
-    }
-
 
     private void getTheatreDetail() {
 
@@ -241,5 +246,19 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         });
     }
 
+    @OnClick(R.id.fly_right_img)
+    public void shareProject() {
+        if (shareDialog == null) {
+            shareDialog = ShareDialog.newInstence();
+        }
+        shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
+    }
+
+    @OnClick(R.id.btn_edit)
+    public void jump2TheatreActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(TheatreEditActivity.PARAMS_NEW_CREATE, false);
+        invokActivity(TheatreDetailMessageActivity.this, TheatreEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
+    }
 
 }

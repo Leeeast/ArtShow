@@ -181,9 +181,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         if (!hidden) {
             if (homePageDetails == null) {
                 getHomePageDetails();
-            }else{
-                if(banner!=null){
-                    if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>1){
+            } else {
+                if (banner != null) {
+                    if (homePageDetails.getBanners() != null && homePageDetails.getBanners().size() > 1) {
                         banner.startAutoScroll();
                     }
                 }
@@ -194,8 +194,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 }
             }
         } else {
-            if(banner!=null&&homePageDetails != null){
-                if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>1){
+            if (banner != null && homePageDetails != null) {
+                if (homePageDetails.getBanners() != null && homePageDetails.getBanners().size() > 1) {
                     banner.stopAutoScroll();
                 }
             }
@@ -358,10 +358,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position==" + position);
-
-                    Intent intent = new Intent(getContext(), TheatreDetailMessageActivity.class);
-                    intent.putExtra("id", homePageDetails.getTheaters().get(position).getId());
-                    startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(TheatreDetailMessageActivity.PARAMS_ID, homePageDetails.getTheaters().get(position).getId());
+                    bundle.putBoolean(TheatreDetailMessageActivity.PARAMS_ORG, false);
+                    invokActivity(getContext(), TheatreDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_THEATRE);
                 }
             });
             rcvTheatre.addItemDecoration(theatreItemDecoration);
@@ -406,22 +406,22 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         scrollView.smoothScrollTo(0, 0);
 
         entities.clear();
-        if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>0){
-            for(int i=0;i<homePageDetails.getBanners().size();i++){
-                entities.add(new BannerEntity(0,homePageDetails.getBanners().get(i).getLogo(), "image"));
+        if (homePageDetails.getBanners() != null && homePageDetails.getBanners().size() > 0) {
+            for (int i = 0; i < homePageDetails.getBanners().size(); i++) {
+                entities.add(new BannerEntity(0, homePageDetails.getBanners().get(i).getLogo(), "image"));
             }
-        }else{
-            entities.add(new BannerEntity(0,"http://logo", "image"));
+        } else {
+            entities.add(new BannerEntity(0, "http://logo", "image"));
         }
-        entities.add(new BannerEntity(0,"http://logo", "image"));
+        entities.add(new BannerEntity(0, "http://logo", "image"));
         banner.setEntities(entities);
         banner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void onClick(int position) {
-                Toast.makeText(getContext(),"position=="+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "position==" + position, Toast.LENGTH_SHORT).show();
             }
         });
-        if(homePageDetails.getBanners().size()>1){
+        if (homePageDetails.getBanners().size() > 1) {
             banner.startAutoScroll();
         }
 

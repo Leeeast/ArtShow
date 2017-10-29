@@ -33,6 +33,7 @@ public class JumpCode {
     public static final int FLAG_REQ_PROJECT_BASE = FLAG_REQ + 19;
     public static final int FLAG_REQ_PROJECT_FILL = FLAG_REQ + 20;
     public static final int FLAG_REQ_DETAIL_PROJECT = FLAG_REQ + 21;
+    public static final int FLAG_REQ_DETAIL_THEATRE = FLAG_REQ + 22;
 
 
     // 返回码,往下加1
