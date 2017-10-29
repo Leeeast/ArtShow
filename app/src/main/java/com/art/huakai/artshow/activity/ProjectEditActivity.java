@@ -3,7 +3,9 @@ package com.art.huakai.artshow.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,8 +16,10 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.PicturesBean;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -29,6 +33,9 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DebugUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -47,7 +54,6 @@ import okhttp3.Call;
 
 public class ProjectEditActivity extends BaseActivity {
     public static final String PARAMS_NEW = "PARAMS_NEW";
-
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.dataitem_base)
@@ -56,14 +62,24 @@ public class ProjectEditActivity extends BaseActivity {
     SimpleDraweeView sdvAvatar;
     @BindView(R.id.dataitem_intro)
     DataItem dataItemIntro;
+    @BindView(R.id.dataitem_show_intro)
+    DataItem dataItemShowIntro;
+    @BindView(R.id.dataitem_award_record)
+    DataItem dataItemAwardRecord;
+    @BindView(R.id.dataitem_tech_require)
+    DataItem dataItemTechRequire;
     @BindView(R.id.dataitem_photo)
     DataItem dataItemPhoto;
-
+    @BindView(R.id.dataitem_creator_intro)
+    DataItem dataItemCreatorIntro;
+    @BindView(R.id.switch_release)
+    Switch switchRelease;
 
     private ShowProgressDialog showProgressDialog;
     private TakePhotoDialog takePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
     private boolean mIsNewCreate;
+    private ProjectDetailInfo projectDetailInfo;
 
     @Override
     public void immerseStatusBar() {
@@ -77,9 +93,9 @@ public class ProjectEditActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         showProgressDialog = new ShowProgressDialog(this);
-        //if (ProjectDetailInfo.getInstance().getId() != null)
-        //getProjectDetailInfo(ProjectDetailInfo.getInstance().getId());
+        projectDetailInfo = ProjectDetailInfo.getInstance();
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -88,7 +104,7 @@ public class ProjectEditActivity extends BaseActivity {
         if (mIsNewCreate) {
             initProjectDetailInfo();
         } else {
-            getProjectDetail(ProjectDetailInfo.getInstance().getId());
+            getProjectDetailInfo(ProjectDetailInfo.getInstance().getId());
         }
     }
 
@@ -97,13 +113,140 @@ public class ProjectEditActivity extends BaseActivity {
      *
      * @param projectId
      */
-    private void getProjectDetail(String projectId) {
+    private void getProjectDetailInfo(String projectId) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", projectId);
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        RequestUtil.request(true, Constant.URL_USER_REPERTORY_DETAIL, params, 72, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    try {
+                        //初始化剧场单例类
+                        ProjectDetailInfo p = GsonTools.parseData(obj, ProjectDetailInfo.class);
+                        projectDetailInfo.setId(p.getId());
+                        projectDetailInfo.setLogo(p.getLogo());
+                        projectDetailInfo.setTitle(p.getTitle());
+                        projectDetailInfo.setClassifyId(p.getClassifyId());
+                        projectDetailInfo.setLinkman(p.getLinkman());
+                        projectDetailInfo.setLinkTel(p.getLinkTel());
+                        projectDetailInfo.setPeopleNum(p.getPeopleNum());
+                        projectDetailInfo.setExpense(p.getExpense());
+                        projectDetailInfo.setRegionId(p.getRegionId());
+                        projectDetailInfo.setSeatingRequir(p.getSeatingRequir());
+                        projectDetailInfo.setPremiereTime(p.getPremiereTime());
+                        projectDetailInfo.setRounds(p.getRounds());
+                        projectDetailInfo.setShowLast(p.getShowLast());
+                        projectDetailInfo.setDescription(p.getDescription());
+                        projectDetailInfo.setPlot(p.getPlot());
+                        projectDetailInfo.setAwardsDescpt(p.getAwardsDescpt());
+                        projectDetailInfo.setRequirements(p.getRequirements());
+                        projectDetailInfo.setStatus(p.getStatus());
+                        projectDetailInfo.setUserId(p.getUserId());
+                        projectDetailInfo.setCreateTime(p.getCreateTime());
+                        projectDetailInfo.setUpdateTime(p.getUpdateTime());
+                        projectDetailInfo.setPerformanceBeginDate(p.getPerformanceBeginDate());
+                        projectDetailInfo.setPerformanceEndDate(p.getPerformanceEndDate());
+                        projectDetailInfo.setRegionName(p.getRegionName());
+                        projectDetailInfo.setPictures(p.getPictures());
+                        projectDetailInfo.setStaffs(p.getStaffs());
+                        projectDetailInfo.setViewTimes(p.getViewTimes());
+                        updateEditUI();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+            }
+        });
     }
 
     /**
      * 恢复ProjectDetailInfo为原始值
      */
     private void initProjectDetailInfo() {
+        projectDetailInfo.setId(null);
+        projectDetailInfo.setLogo(null);
+        projectDetailInfo.setTitle(null);
+        projectDetailInfo.setClassifyId(null);
+        projectDetailInfo.setLinkman(null);
+        projectDetailInfo.setLinkTel(null);
+        projectDetailInfo.setPeopleNum(null);
+        projectDetailInfo.setExpense(null);
+        projectDetailInfo.setRegionId(null);
+        projectDetailInfo.setSeatingRequir(null);
+        projectDetailInfo.setPremiereTime(null);
+        projectDetailInfo.setRounds(null);
+        projectDetailInfo.setShowLast(null);
+        projectDetailInfo.setDescription(null);
+        projectDetailInfo.setPlot(null);
+        projectDetailInfo.setAwardsDescpt(null);
+        projectDetailInfo.setRequirements(null);
+        projectDetailInfo.setStatus(0);
+        projectDetailInfo.setUserId(null);
+        projectDetailInfo.setCreateTime(0);
+        projectDetailInfo.setUpdateTime(null);
+        projectDetailInfo.setPerformanceBeginDate(null);
+        projectDetailInfo.setPerformanceEndDate(null);
+        projectDetailInfo.setRegionName(null);
+        projectDetailInfo.setPictures(null);
+        projectDetailInfo.setStaffs(null);
+        projectDetailInfo.setViewTimes(0);
+    }
+
+    /**
+     * 更新相应的页面
+     */
+    private void updateEditUI() {
+        sdvAvatar.setImageURI(projectDetailInfo.getLogo());
+        switchRelease.setChecked(projectDetailInfo.getStatus() == 1);
+
+        String dataBase = TextUtils.isEmpty(projectDetailInfo.getTitle()) ?
+                getResources().getString(R.string.app_un_fill) :
+                projectDetailInfo.getTitle();
+        dataItemBase.setDesText(dataBase);
+
+        String dataProjectDes = TextUtils.isEmpty(projectDetailInfo.getDescription()) ?
+                getResources().getString(R.string.app_un_fill) :
+                getResources().getString(R.string.app_has_filled);
+        dataItemIntro.setDesText(dataProjectDes);
+
+        String dataProjectShowDes = TextUtils.isEmpty(projectDetailInfo.getPlot()) ?
+                getResources().getString(R.string.app_un_fill) :
+                getResources().getString(R.string.app_has_filled);
+        dataItemShowIntro.setDesText(dataProjectShowDes);
+
+        String dataProjectAwardsDes = TextUtils.isEmpty(projectDetailInfo.getAwardsDescpt()) ?
+                getResources().getString(R.string.app_un_fill) :
+                getResources().getString(R.string.app_has_filled);
+        dataItemAwardRecord.setDesText(dataProjectAwardsDes);
+
+        String dataProjectRequire = TextUtils.isEmpty(projectDetailInfo.getRequirements()) ?
+                getResources().getString(R.string.app_un_fill) :
+                getResources().getString(R.string.app_has_filled);
+        dataItemTechRequire.setDesText(dataProjectRequire);
+
+        String dataProjectPic =
+                projectDetailInfo.getPictures() == null || projectDetailInfo.getPictures().size() <= 0 ?
+                        getResources().getString(R.string.app_un_fill) :
+                        getResources().getString(R.string.app_has_filled);
+        dataItemPhoto.setDesText(dataProjectPic);
+
+        String dataProjectStarf =
+                projectDetailInfo.getStaffs() == null || projectDetailInfo.getStaffs().size() <= 0 ?
+                        getResources().getString(R.string.app_un_fill) :
+                        getResources().getString(R.string.app_has_filled);
+        dataItemCreatorIntro.setDesText(dataProjectStarf);
 
     }
 
@@ -151,7 +294,7 @@ public class ProjectEditActivity extends BaseActivity {
     @OnClick(R.id.dataitem_show_intro)
     public void jumpProjectShowIntro() {
         Bundle bundle = new Bundle();
-        bundle.putInt(ProjectFillActivity.PARAMS_ACTION, ProjectFillActivity.CODE_ACTION_PROJECT_INTRO);
+        bundle.putInt(ProjectFillActivity.PARAMS_ACTION, ProjectFillActivity.CODE_ACTION_PROJECT_SHOW_INTRO);
         invokActivity(this, ProjectFillActivity.class, bundle, JumpCode.FLAG_REQ_PROJECT_FILL);
     }
 
@@ -218,41 +361,6 @@ public class ProjectEditActivity extends BaseActivity {
         }
         takePhotoDialog.show(getSupportFragmentManager(), "TAKEPHOTO.DIALOG");
     }
-
-    /**
-     * 获取项目详情
-     */
-    public void getProjectDetailInfo(String projectId) {
-        Map<String, String> params = new TreeMap<>();
-        params.put("id", projectId);
-        params.put("userId", LocalUserInfo.getInstance().getId());
-        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        String sign = SignUtil.getSign(params);
-        params.put("sign", sign);
-        RequestUtil.request(true, Constant.URL_USER_REPERTORY_DETAIL, params, 72, new RequestUtil.RequestListener() {
-            @Override
-            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                LogUtil.i(TAG, obj);
-                if (isSuccess) {
-                    try {
-                        //初始化剧场单例类
-                        //TheatreDetailInfo t = GsonTools.parseData(obj, TheatreDetailInfo.class);
-                        //updateEditUI();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(ProjectEditActivity.this, getString(R.string.tip_mobile_registered), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailed(Call call, Exception e, int id) {
-                LogUtil.e(TAG, e.getMessage() + "-id = " + id);
-            }
-        });
-    }
-
 
     /**
      * 上传图片
@@ -378,4 +486,109 @@ public class ProjectEditActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 发布项目
+     */
+    @OnClick(R.id.view_project_release)
+    public void releaseProject() {
+        if (switchRelease.isChecked()) {
+            projectOffline();
+        } else {
+            projectRelease();
+        }
+    }
+
+    /**
+     * 发布项目
+     */
+    private void projectRelease() {
+        if (TextUtils.isEmpty(projectDetailInfo.getId())) {
+            showToast(getString(R.string.tip_theatre_release));
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", projectDetailInfo.getInstance().getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_REPERTORY_RELEASE, params, 79, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    showToast(getString(R.string.tip_project_release_suc));
+                    projectDetailInfo.setStatus(1);
+                    switchRelease.setChecked(true);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                showToast(getString(R.string.tip_project_release_fail));
+            }
+        });
+    }
+
+    /**
+     * 下线项目
+     */
+    private void projectOffline() {
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", projectDetailInfo.getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_REPERTORY_OFFLINE, params, 77, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    showToast(getString(R.string.tip_project_offline_suc));
+                    switchRelease.setChecked(false);
+                    projectDetailInfo.setStatus(0);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                showToast(getString(R.string.tip_project_offline_fail));
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(ProjectInfoChangeEvent event) {
+        if (event == null) {
+            return;
+        }
+        updateEditUI();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

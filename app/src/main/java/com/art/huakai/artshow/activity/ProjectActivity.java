@@ -149,9 +149,9 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
                 invokActivity(ProjectActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
             }
         });
-//        recyclerViewTheatre.setLoadingListener(this);
-//        recyclerViewTheatre.setPullRefreshEnabled(true);
-//        recyclerViewTheatre.setLoadingMoreEnabled(true);
+        recyclerViewProject.setLoadingListener(this);
+        recyclerViewProject.setPullRefreshEnabled(true);
+        recyclerViewProject.setLoadingMoreEnabled(true);
     }
 
     /**

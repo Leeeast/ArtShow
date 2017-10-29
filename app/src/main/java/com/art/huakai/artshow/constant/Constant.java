@@ -110,6 +110,20 @@ public class Constant {
     public static final String URL_REPERTORY_EDIT_LOGO = BASE_URL + "/repertory/edit/logo";
     //用户发布的演出项目分页列表
     public static final String URL_USER_REPERTORY_DETAIL = BASE_URL + "/user/repertory/detail";
+    //发布演出剧目
+    public static final String URL_REPERTORY_RELEASE = BASE_URL + "/repertory/release";
+    //演出剧目取消发布
+    public static final String URL_REPERTORY_OFFLINE = BASE_URL + "/repertory/offline";
+    //修改演出项目基本资料，返回创建或修改的演出项目id
+    public static final String URL_REPERTORY_EDIT_BASE = BASE_URL + "/repertory/edit/base";
+    //修改演出项目基本资料，返回创建或修改的演出项目id
+    public static final String URL_REPERTORY_EDIT_DESCRIPTION = BASE_URL + "/repertory/edit/description";
+    //演出介绍
+    public static final String URL_REPERTORY_EDIT_PLOT = BASE_URL + "/repertory/edit/plot";
+    //修改演出项目获奖记录
+    public static final String URL_REPERTORY_EDIT_AWARDSDESCPT = BASE_URL + "/repertory/edit/awardsDescpt";
+    //项目技术要求
+    public static final String URL_REPERTORY_EDIT_REQUIREMENTS = BASE_URL + "/repertory/edit/requirements";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";

@@ -23,16 +23,26 @@ public class TheatreTechParamsUtil {
                 !TextUtils.isEmpty(TheatreDetailInfo.getInstance().getRehearsalRoomNum()) ||
                 !TextUtils.isEmpty(TheatreDetailInfo.getInstance().getPropRoomNum()) ||
                 !TextUtils.isEmpty(TheatreDetailInfo.getInstance().getCostumeRoomNum()) ||
-                TheatreDetailInfo.getInstance().getStageLights().equals("1") ||
-                TheatreDetailInfo.getInstance().getStereoEquipment().equals("1") ||
-                TheatreDetailInfo.getInstance().getBroadcastSystem().equals("1") ||
-                TheatreDetailInfo.getInstance().getSteeve().equals("1") ||
-                TheatreDetailInfo.getInstance().getMusicStage().equals("1") ||
-                TheatreDetailInfo.getInstance().getChorusPlatform().equals("1") ||
-                TheatreDetailInfo.getInstance().getAcousticShroud().equals("1") ||
-                TheatreDetailInfo.getInstance().getCurtainSystem().equals("1") ||
-                TheatreDetailInfo.getInstance().getSpecialEquipment().equals("1") ||
-                TheatreDetailInfo.getInstance().getProjector().equals("1");
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getStageLights()) &&
+                        TheatreDetailInfo.getInstance().getStageLights().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getStereoEquipment()) &&
+                        TheatreDetailInfo.getInstance().getStereoEquipment().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getBroadcastSystem()) &&
+                        TheatreDetailInfo.getInstance().getBroadcastSystem().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getSteeve()) &&
+                        TheatreDetailInfo.getInstance().getSteeve().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getMusicStage()) &&
+                        TheatreDetailInfo.getInstance().getMusicStage().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getChorusPlatform()) &&
+                        TheatreDetailInfo.getInstance().getChorusPlatform().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getAcousticShroud()) &&
+                        TheatreDetailInfo.getInstance().getAcousticShroud().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getCurtainSystem()) &&
+                        TheatreDetailInfo.getInstance().getCurtainSystem().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getSpecialEquipment()) &&
+                        TheatreDetailInfo.getInstance().getSpecialEquipment().equals("1")) ||
+                (!TextUtils.isEmpty(TheatreDetailInfo.getInstance().getProjector()) &&
+                        TheatreDetailInfo.getInstance().getProjector().equals("1"));
     }
 
     public static void getTheatreTechParamsAddedList(List<String> added) {

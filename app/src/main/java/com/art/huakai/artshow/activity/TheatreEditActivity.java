@@ -223,7 +223,7 @@ public class TheatreEditActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(TheatreEditActivity.this, getString(R.string.tip_mobile_registered), Toast.LENGTH_SHORT).show();
+                    ResponseCodeCheck.showErrorMsg(code);
                 }
             }
 
@@ -549,6 +549,7 @@ public class TheatreEditActivity extends BaseActivity {
                 if (isSuccess) {
                     showToast(getString(R.string.tip_theatre_release_suc));
                     switchRelease.setChecked(true);
+                    TheatreDetailInfo.getInstance().setStatus(1);
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -586,6 +587,7 @@ public class TheatreEditActivity extends BaseActivity {
                 if (isSuccess) {
                     showToast(getString(R.string.tip_theatre_offline_suc));
                     switchRelease.setChecked(false);
+                    TheatreDetailInfo.getInstance().setStatus(0);
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

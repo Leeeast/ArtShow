@@ -17,9 +17,12 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.StaggeredGridLayoutItemDecoration;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.PicturesBean;
+import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.TalentResumeInfo;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -109,10 +112,12 @@ public class PhotoUploadFragment extends BaseFragment {
             case TYPE_TALENT:
                 title = getString(R.string.resume_photo);
                 mCommitPicUrl = Constant.URL_TALENT_TEDIT_PICTURES;
+                typeId = TalentResumeInfo.getInstance().getId();
                 break;
             case TYPE_PROJECT:
                 title = getString(R.string.project_photo);
                 mCommitPicUrl = Constant.URL_REPERTORY_EDIT_PICTURES;
+                typeId = ProjectDetailInfo.getInstance().getId();
                 break;
         }
         tvTitle.setVisibility(View.VISIBLE);
@@ -275,12 +280,27 @@ public class PhotoUploadFragment extends BaseFragment {
                     switch (mUploadType) {
                         case TYPE_THEATRE:
                             TheatreDetailInfo.getInstance().setId(typeId);
-                            //TheatreDetailInfo.getInstance().getPictures()
+                            ArrayList<PicturesBean> picturesTheatre = new ArrayList<>();
+                            for (int i = 0; i < mJSONArray.length(); i++) {
+                                PicturesBean picturesBean = new PicturesBean();
+                                picturesBean.setLargeUrl(String.valueOf(mJSONArray.get(i)));
+                                picturesTheatre.add(picturesBean);
+                            }
+                            TheatreDetailInfo.getInstance().setPictures(picturesTheatre);
                             EventBus.getDefault().post(new TheatreInfoChangeEvent());
                             break;
                         case TYPE_TALENT:
                             break;
                         case TYPE_PROJECT:
+                            ProjectDetailInfo.getInstance().setId(typeId);
+                            ArrayList<PicturesBean> picturesProject = new ArrayList<>();
+                            for (int i = 0; i < mJSONArray.length(); i++) {
+                                PicturesBean picturesBean = new PicturesBean();
+                                picturesBean.setLargeUrl(String.valueOf(mJSONArray.get(i)));
+                                picturesProject.add(picturesBean);
+                            }
+                            ProjectDetailInfo.getInstance().setPictures(picturesProject);
+                            EventBus.getDefault().post(new ProjectInfoChangeEvent());
                             break;
                     }
                 } catch (Exception e) {

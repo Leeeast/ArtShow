@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,9 @@ import okhttp3.Call;
 
 public class ClassifyTypeActivity extends BaseActivity {
     public static final String CLASSIFY_TYPE_CONFIRM = "CLASSIFY_TYPE_CONFIRM";
+    public static final String CLASSIFY_TYPE = "PARAMS_CLASSIFY_TYPE";
+    public static final String CLASSIFY_TYPE_TALENT = "talent";
+    public static final String CLASSIFY_TYPE_REPERTORY = "repertory";
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
@@ -50,6 +54,7 @@ public class ClassifyTypeActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private ACache mACache;
     private ArrayList<ClassifyTypeBean> classifyTypeAdded;
+    private String mType;
 
 
     @Override
@@ -67,6 +72,11 @@ public class ClassifyTypeActivity extends BaseActivity {
         mACache = ACache.get(this);
         classifyTypeAdded = new ArrayList<>();
         showProgressDialog = new ShowProgressDialog(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            mType = extras.getString(CLASSIFY_TYPE);
+        }
     }
 
     @Override
@@ -80,7 +90,7 @@ public class ClassifyTypeActivity extends BaseActivity {
 
     @Override
     public void setView() {
-        getClassifyTypeData();
+        getClassifyTypeData(mType);
     }
 
     /**
@@ -110,22 +120,22 @@ public class ClassifyTypeActivity extends BaseActivity {
     /**
      * 获取类型数据
      */
-    public void getClassifyTypeData() {
+    public void getClassifyTypeData(final String type) {
         //读取缓存
-        String timeAddressCache = mACache.getAsString(Constant.TIME_CLASSIFY_CACHE);
+        String timeAddressCache = mACache.getAsString(Constant.TIME_CLASSIFY_CACHE + type);
         if (TextUtils.isEmpty(timeAddressCache)) {
             timeAddressCache = "0";
         }
         long lastTime = Long.parseLong(timeAddressCache);//得到上次保存最新礼物的时间
         long currentTime = System.currentTimeMillis();
-        String addressJson = mACache.getAsString(Constant.CLASSIFY_CACHE);
+        String addressJson = mACache.getAsString(Constant.CLASSIFY_CACHE + type);
         if (!TextUtils.isEmpty(addressJson) && currentTime - lastTime <= Constant.TIME_CACHE) {//如果缓存是新鲜的
             setClassifyData(addressJson);
             return;
         }
 
         Map<String, String> params = new TreeMap<>();
-        params.put("type", "talent");
+        params.put("type", type);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         showProgressDialog.show();
@@ -137,8 +147,8 @@ public class ClassifyTypeActivity extends BaseActivity {
                     showProgressDialog.dismiss();
                 }
                 long currentTime = System.currentTimeMillis();
-                mACache.put(Constant.TIME_CLASSIFY_CACHE, String.valueOf(currentTime));
-                mACache.put(Constant.CLASSIFY_CACHE, obj);
+                mACache.put(Constant.TIME_CLASSIFY_CACHE + type, String.valueOf(currentTime));
+                mACache.put(Constant.CLASSIFY_CACHE + type, obj);
                 setClassifyData(obj);
             }
 

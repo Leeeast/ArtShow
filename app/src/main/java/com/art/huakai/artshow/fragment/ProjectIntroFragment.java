@@ -13,20 +13,22 @@ import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.TalentResumeInfo;
+import com.art.huakai.artshow.entity.ProjectDetailInfo;
+import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.Call;
 
 public class ProjectIntroFragment extends BaseFragment {
@@ -38,9 +40,8 @@ public class ProjectIntroFragment extends BaseFragment {
     @BindView(R.id.tv_subtitle)
     TextView tvSubtitle;
 
-    private Unbinder unbinder;
-    private ShowProgressDialog showProgressDialog;
     private String mDescription;
+    private ShowProgressDialog showProgressDialog;
 
     public ProjectIntroFragment() {
     }
@@ -53,7 +54,6 @@ public class ProjectIntroFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentResumeInfo.getInstance().getDescription();
     }
 
     @Override
@@ -63,7 +63,6 @@ public class ProjectIntroFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
-        unbinder = ButterKnife.bind(this, rootView);
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.project_introduce);
         tvSubtitle.setVisibility(View.VISIBLE);
@@ -71,8 +70,8 @@ public class ProjectIntroFragment extends BaseFragment {
 
     @Override
     public void setView() {
-        if (!TextUtils.isEmpty(mDescription)) {
-            edtIntroduce.setText(mDescription);
+        if (!TextUtils.isEmpty(ProjectDetailInfo.getInstance().getDescription())) {
+            edtIntroduce.setText(ProjectDetailInfo.getInstance().getDescription());
         }
     }
 
@@ -104,11 +103,13 @@ public class ProjectIntroFragment extends BaseFragment {
         }
         mDescription = edtIntroduce.getText().toString().trim();
         if (TextUtils.isEmpty(mDescription)) {
-            Toast.makeText(getContext(), getString(R.string.tip_description_input), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.tip_project_description_input), Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TalentResumeInfo.getInstance().getId());
+        if (!TextUtils.isEmpty(ProjectDetailInfo.getInstance().getId())) {
+            params.put("id", ProjectDetailInfo.getInstance().getId());
+        }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("description", mDescription);
@@ -116,7 +117,7 @@ public class ProjectIntroFragment extends BaseFragment {
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
         showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_TALENT_EDIT_DESCRIPTION, params, 51, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, Constant.URL_REPERTORY_EDIT_DESCRIPTION, params, 51, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -124,8 +125,16 @@ public class ProjectIntroFragment extends BaseFragment {
                     showProgressDialog.dismiss();
                 }
                 if (isSuccess) {
-                    Toast.makeText(getContext(), getString(R.string.tip_description_change_suc), Toast.LENGTH_SHORT).show();
-                    TalentResumeInfo.getInstance().setDescription(mDescription);
+                    try {
+                        showToast(getString(R.string.tip_project_description_change_suc));
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String projectId = jsonObject.getString("id");
+                        ProjectDetailInfo.getInstance().setId(projectId);
+                        ProjectDetailInfo.getInstance().setDescription(mDescription);
+                        EventBus.getDefault().post(new ProjectInfoChangeEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -139,11 +148,5 @@ public class ProjectIntroFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

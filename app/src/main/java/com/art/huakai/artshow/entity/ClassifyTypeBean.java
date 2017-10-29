@@ -56,4 +56,9 @@ public class ClassifyTypeBean implements Parcelable {
         dest.writeString(name);
         dest.writeTypedList(children);
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

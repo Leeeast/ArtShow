@@ -47,18 +47,23 @@ public class CitySelectUtil {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (TextUtils.isEmpty(obj)) {
-                    Toast.makeText(
-                            ShowApplication.getAppContext(),
-                            ShowApplication.getAppContext().getString(R.string.tip_data_error),
-                            Toast.LENGTH_SHORT).show();
+                if (isSuccess) {
+                    if (TextUtils.isEmpty(obj)) {
+                        Toast.makeText(
+                                ShowApplication.getAppContext(),
+                                ShowApplication.getAppContext().getString(R.string.tip_data_error),
+                                Toast.LENGTH_SHORT).show();
+                        listener.onFail();
+                        return;
+                    }
+                    long currentTime = System.currentTimeMillis();
+                    mACache.put(Constant.TIME_ADDRESS_CACHE, String.valueOf(currentTime));
+                    mACache.put(Constant.ADDRESS_CACHE, obj);
+                    listener.onSuccess(obj);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
                     listener.onFail();
-                    return;
                 }
-                long currentTime = System.currentTimeMillis();
-                mACache.put(Constant.TIME_ADDRESS_CACHE, String.valueOf(currentTime));
-                mACache.put(Constant.ADDRESS_CACHE, obj);
-                listener.onSuccess(obj);
             }
 
             @Override

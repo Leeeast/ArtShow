@@ -318,8 +318,8 @@
     <string name="project_upload">上传项目</string>
     <string name="project_edit">编辑项目</string>
     <string name="project_cover">上传封面</string>
-    <string name="project_intro">项目简介</string>
-    <string name="project_show_intro">演出简介</string>
+    <string name="project_intro">项目介绍</string>
+    <string name="project_show_intro">演出介绍</string>
     <string name="project_award_records">获奖记录</string>
     <string name="project_creator_intro">主创介绍</string>
     <string name="project_photo">剧照</string>
@@ -354,6 +354,29 @@
     <string name="tip_project_cover_suc">项目封面上传成功</string>
     <string name="tip_project_cover_fail">项目封面上传失败</string>
     <string name="project_unit">元/场</string>
+    <string name="tip_project_release_suc">项目发布成功</string>
+    <string name="tip_project_release_fail">项目发布失败</string>
+    <string name="tip_project_offline_suc">项目下线成功</string>
+    <string name="tip_project_offline_fail">项目下线失败</string>
+    <string name="tip_project_per_start_time">请选择项目可演出日期</string>
+    <string name="tip_project_per_end_time">项目截止日期要在起始日期之后</string>
+    <string name="tip_project_per_time">项目可演出时间提交成功</string>
+    <string name="tip_project_input_title">请输入项目名</string>
+    <string name="tip_project_input_classify">请选择项目类型</string>
+    <string name="tip_project_input_people_num">请输入演出人数</string>
+    <string name="tip_project_input_city">请选择所在城市</string>
+    <string name="tip_project_input_fit">请选择适合的剧场</string>
+    <string name="tip_project_input_show_last">请输入演出时长</string>
+    <string name="tip_project_input_show_expense">请输入演出报价</string>
+    <string name="tip_project_input_first_show">请选择首演日期</string>
+    <string name="tip_project_description_input">请输入项目介绍</string>
+    <string name="tip_project_description_change_suc">项目介绍提交成功</string>
+    <string name="tip_project_plot_input">请输入演出介绍</string>
+    <string name="tip_project_plot_input_change_suc">演出介绍提交成功</string>
+    <string name="tip_project_award_input">请输入项目获奖记录</string>
+    <string name="tip_project_award_input_suc">项目获奖记录提交成功</string>
+    <string name="tip_project_tech_input">请输入项目技术要求</string>
+    <string name="tip_project_tech_input_suc">项目技术要求提交成功</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

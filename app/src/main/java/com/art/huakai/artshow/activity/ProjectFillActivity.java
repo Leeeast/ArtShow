@@ -23,7 +23,7 @@ import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 public class ProjectFillActivity extends BaseActivity {
     public static final String PARAMS_ACTION = "PARAMS_ACTION";
     public static final int CODE_ACTION_PROJECT_INTRO = 0;
-    public static final int CODE_ACTION_PROJECT_DETAIL_INTRO = 1;
+    public static final int CODE_ACTION_PROJECT_SHOW_INTRO = 1;
     public static final int CODE_ACTION_PROJECT_AWARD = 2;
     public static final int CODE_ACTION_PROJECT_TECH_REQUIRE = 3;
     public static final int CODE_ACTION_PROJECT_ENABLE_SHOW_TIME = 4;
@@ -61,7 +61,7 @@ public class ProjectFillActivity extends BaseActivity {
             case CODE_ACTION_PROJECT_INTRO:
                 baseFragment = ProjectIntroFragment.newInstance();
                 break;
-            case CODE_ACTION_PROJECT_DETAIL_INTRO:
+            case CODE_ACTION_PROJECT_SHOW_INTRO:
                 baseFragment = ProjectShowIntroFragment.newInstance();
                 break;
             case CODE_ACTION_PROJECT_AWARD:
@@ -72,6 +72,7 @@ public class ProjectFillActivity extends BaseActivity {
                 break;
             case CODE_ACTION_PROJECT_ENABLE_SHOW_TIME:
                 baseFragment = ProjectEnableShowTimeFragment.newInstance();
+                break;
             case CODE_ACTION_PROJECT_CREATOR_INTRO:
                 baseFragment = ProjectCreatorFragment.newInstance();
                 break;

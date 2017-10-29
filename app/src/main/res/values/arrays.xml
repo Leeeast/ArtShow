@@ -69,5 +69,23 @@
         <item>特殊机具</item>
         <item>投影仪</item>
     </string-array>
-
+    <string-array name="project_type">
+        <item>不限</item>
+        <item>话剧</item>
+        <item>儿童剧</item>
+        <item>音乐剧</item>
+        <item>爆笑喜剧</item>
+        <item>音乐会</item>
+        <item>演唱会</item>
+        <item>戏剧国粹</item>
+        <item>相声曲艺</item>
+        <item>杂技魔术</item>
+        <item>实验当代</item>
+    </string-array>
+    <string-array name="project_fit_theatre">
+        <item>小剧场（400人以内）</item>
+        <item>中剧场（400-800人）</item>
+        <item>大剧场（800-1500人）</item>
+        <item>超大剧场 (1500人以上）</item>
+    </string-array>
 </resources>
