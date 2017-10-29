@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,11 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.PersonalDetailMessageActivity;
 import com.art.huakai.artshow.adapter.LookingProfessionalAdapter;
 import com.art.huakai.artshow.adapter.SkillChooseAdapter;
 import com.art.huakai.artshow.adapter.TalentFilterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.entity.ChildrenBean;
@@ -155,6 +158,12 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         lookingWorksAdapter.setOnItemClickListener(new LookingProfessionalAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
+
+                if(talentLists.get(position)!=null&&!TextUtils.isEmpty(talentLists.get(position).getId())){
+                    Bundle bundle = new Bundle();
+                    bundle.putString(PersonalDetailMessageActivity.PARAMS_ID, talentLists.get(position).getId());
+                    invokActivity(getContext(), PersonalDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PERSONAL);
+                }
 
             }
         });

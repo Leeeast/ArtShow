@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -21,11 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.WorksDetailMessageActivity;
 import com.art.huakai.artshow.adapter.LookingWorksAdapter;
 import com.art.huakai.artshow.adapter.ProjectFilterAdapter;
 import com.art.huakai.artshow.adapter.SingleChooseAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.entity.RepertoryBean;
 import com.art.huakai.artshow.entity.Work;
@@ -135,6 +138,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         lookingWorksAdapter.setOnItemClickListener(new LookingWorksAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
+
+                if((works.get(position)!=null)&&!TextUtils.isEmpty(works.get(position).getId())){
+                    Bundle bundle = new Bundle();
+                    bundle.putString(WorksDetailMessageActivity.PARAMS_ID, works.get(position).getId());
+                    invokActivity(getContext(), WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
+                }
 
                 Toast.makeText(getContext(), "itemclick", Toast.LENGTH_SHORT).show();
 

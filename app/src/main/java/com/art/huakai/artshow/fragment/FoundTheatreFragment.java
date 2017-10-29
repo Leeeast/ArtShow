@@ -21,10 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.TheatreDetailMessageActivity;
 import com.art.huakai.artshow.adapter.LookingTheatreAdapter;
 import com.art.huakai.artshow.adapter.TheatreFilterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.utils.AnimUtils;
@@ -157,6 +159,12 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onItemClickListener(int position) {
 
+                if(theatres.get(position)!=null&&!TextUtils.isEmpty(theatres.get(position).getId())){
+                    Bundle bundle = new Bundle();
+                    bundle.putString(TheatreDetailMessageActivity.PARAMS_ID, theatres.get(position).getId());
+                    bundle.putBoolean(TheatreDetailMessageActivity.PARAMS_ORG, false);
+                    invokActivity(getContext(), TheatreDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_THEATRE);
+                }
                 Log.e(TAG, "onItemClickListener: position==" + position);
 
             }
