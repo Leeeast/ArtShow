@@ -37,6 +37,7 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.entity.HomePageDetails;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -77,6 +78,12 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     @BindView(R.id.banner)
     BannerView banner;
     Unbinder unbinder;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
+    @BindView(R.id.lly_content)
+    LinearLayout llyContent;
     private HomePageDetails homePageDetails;
 
     @BindView(R.id.iv_search)
@@ -157,6 +164,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                ivLoading.setVisibility(View.GONE);
+                scrollView.setVisibility(View.VISIBLE);
+                ivNoContent.setVisibility(View.GONE);
                 setData();
             }
         }
@@ -225,6 +235,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         tvTheatreWhole.setOnClickListener(this);
         tvProfessionalWhole.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        scrollView.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -244,6 +257,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                         homePageDetails = gson.fromJson(obj, HomePageDetails.class);
                         Log.e(TAG, "onSuccess: getid" + homePageDetails.getAdvert().getLogo());
                         uiHandler.sendEmptyMessage(0);
+                        return;
                     } else {
                         Log.e(TAG, "onSuccess: obj=nullnull");
                     }
@@ -251,10 +265,16 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     Log.e(TAG, "onSuccess: code==" + code);
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                ivLoading.setVisibility(View.GONE);
+                scrollView.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
+                ivLoading.setVisibility(View.GONE);
+                scrollView.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
             }
         });

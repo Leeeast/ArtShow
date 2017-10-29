@@ -22,13 +22,12 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.LookingTheatreAdapter;
-import com.art.huakai.artshow.adapter.SingleChooseAdapter;
 import com.art.huakai.artshow.adapter.TheatreFilterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
-import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -58,6 +57,12 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     @BindView(R.id.ll_filter)
     LinearLayout llFilter;
     Unbinder unbinder;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
     private String TAG = "FoundTheatreFragment";
 
     @BindView(R.id.iv_choose_price)
@@ -81,23 +86,27 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private PopupWindow popupWindow;
     private LayoutInflater mLayoutInflater;
     private int complexRankingRule = 0;
-    private int theatreSize =-1;
+    private int theatreSize = -1;
     private int theatrefee = -1;
-    private int locationId=0;
+    private int locationId = 0;
     private int page = 1;
     private String time;
+
     public FoundTheatreFragment() {
         // Required empty public constructor
     }
 
 
-    List<Theatre> theatres=new ArrayList<Theatre>();
+    List<Theatre> theatres = new ArrayList<Theatre>();
 
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 setData();
+                ivLoading.setVisibility(View.GONE);
+                llContent.setVisibility(View.VISIBLE);
+                ivNoContent.setVisibility(View.GONE);
             }
         }
     };
@@ -124,6 +133,9 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         llCityChoose.setOnClickListener(this);
         llFilter.setOnClickListener(this);
         recyclerView.setLoadingListener(this);
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        llContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -211,7 +223,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefresh() {
-        page=1;
+        page = 1;
         getList();
 
     }
@@ -234,10 +246,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                if(complexRankingRule!=0){
+                if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                 }
-                Log.e(TAG, "onDismiss: " );
+                Log.e(TAG, "onDismiss: ");
             }
         });
         if (type == 1) {
@@ -383,124 +395,130 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
     private void getList() {
 
-        Map<String, String> params = new TreeMap<>();
+        final Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_THEATRES);
-        if(complexRankingRule==1){
-            params.put("order","expense");
-            params.put("orderType","desc");
-        }else if(complexRankingRule==2){
-            params.put("order","expense");
-            params.put("orderType","asc");
-        }else if(complexRankingRule==3){
-            params.put("order","seating");
-            params.put("orderType","desc");
-        }else if(complexRankingRule==4){
-            params.put("order","seating");
-            params.put("orderType","asc");
+        if (complexRankingRule == 1) {
+            params.put("order", "expense");
+            params.put("orderType", "desc");
+        } else if (complexRankingRule == 2) {
+            params.put("order", "expense");
+            params.put("orderType", "asc");
+        } else if (complexRankingRule == 3) {
+            params.put("order", "seating");
+            params.put("orderType", "desc");
+        } else if (complexRankingRule == 4) {
+            params.put("order", "seating");
+            params.put("orderType", "asc");
         }
-        if(theatreSize==1){
-            params.put("seatingMax","400");
-        }else if(theatreSize==2){
-            params.put("seatingMin","400");
-            params.put("seatingMax","800");
-        }else if(theatreSize==3){
-            params.put("seatingMin","800");
-            params.put("seatingMax","1500");
-        }else if(theatreSize==4){
-            params.put("seatingMin","1500");
+        if (theatreSize == 1) {
+            params.put("seatingMax", "400");
+        } else if (theatreSize == 2) {
+            params.put("seatingMin", "400");
+            params.put("seatingMax", "800");
+        } else if (theatreSize == 3) {
+            params.put("seatingMin", "800");
+            params.put("seatingMax", "1500");
+        } else if (theatreSize == 4) {
+            params.put("seatingMin", "1500");
         }
-        if(theatrefee==1){
-            params.put("expenseMin","30000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","30000");
-            params.put("expenseMax","50000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","50000");
-            params.put("expenseMax","80000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","80000");
-            params.put("expenseMax","100000");
-        }else if(theatrefee==2){
-            params.put("expenseMin","100000");
+        if (theatrefee == 1) {
+            params.put("expenseMin", "30000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "30000");
+            params.put("expenseMax", "50000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "50000");
+            params.put("expenseMax", "80000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "80000");
+            params.put("expenseMax", "100000");
+        } else if (theatrefee == 2) {
+            params.put("expenseMin", "100000");
         }
-        params.put("page", page+"");
+        params.put("page", page + "");
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
-        Log.e(TAG, "getList: params=="+params.toString() );
+        Log.e(TAG, "getList: params==" + params.toString());
         RequestUtil.request(true, Constant.URL_GET_THEATRES, params, 105, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (isSuccess){
-                    if(!TextUtils.isEmpty(obj)){
-                        Log.e(TAG, "onSuccess: obj=="+obj );
+                if(page==1&&theatres.size() == 0){
+                    ivLoading.setVisibility(View.GONE);
+                    llContent.setVisibility(View.GONE);
+                    ivNoContent.setVisibility(View.VISIBLE);
+                }
+                if (isSuccess) {
+                    if (!TextUtils.isEmpty(obj)) {
+                        Log.e(TAG, "onSuccess: obj==" + obj);
                         Gson gson = new Gson();
-                        ArrayList<Theatre> tempTheatres=new ArrayList<Theatre>();
+                        ArrayList<Theatre> tempTheatres = new ArrayList<Theatre>();
 //                        theatres.clear();
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<Theatre>>() {
                         }.getType());
-                        if(tempTheatres!=null&&tempTheatres.size()>0){
-                          if(theatres.size()==0){
-                              if(theatres.addAll(tempTheatres)){
-                                  uiHandler.sendEmptyMessage(0);
-                              }
-                              page++;
-                          }else{
-                              if(page==1){
-                                  recyclerView.refreshComplete();
-                                  theatres.clear();
-                                  if(theatres.addAll(tempTheatres)){
-                                      uiHandler.sendEmptyMessage(0);
-                                  }
-                              }else{
-                                  recyclerView.loadMoreComplete();
-                                  theatres.addAll(tempTheatres);
-                                  if(lookingWorksAdapter!=null){
-                                      lookingWorksAdapter.add(tempTheatres);
-                                  }
-                              }
-                              page++;
-                          }
-                        }else{
-                            if(theatres.size()==0){
-                                Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                            }else{
-                                if(page==1){
-                                    Log.e(TAG, "onSuccess: 刷新数据失败" );
+                        if (tempTheatres != null && tempTheatres.size() > 0) {
+                            if (theatres.size() == 0) {
+                                if (theatres.addAll(tempTheatres)) {
+                                    uiHandler.sendEmptyMessage(0);
+                                }
+                                page++;
+                            } else {
+                                if (page == 1) {
                                     recyclerView.refreshComplete();
-                                }else{
+                                    theatres.clear();
+                                    if (theatres.addAll(tempTheatres)) {
+                                        uiHandler.sendEmptyMessage(0);
+                                    }
+                                } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                    theatres.addAll(tempTheatres);
+                                    if (lookingWorksAdapter != null) {
+                                        lookingWorksAdapter.add(tempTheatres);
+                                    }
+                                }
+                                page++;
+                            }
+                        } else {
+                            if (theatres.size() == 0) {
+                                Log.e(TAG, "onSuccess: 首次加载数据失败");
+                            } else {
+                                if (page == 1) {
+                                    Log.e(TAG, "onSuccess: 刷新数据失败");
+                                    recyclerView.refreshComplete();
+                                } else {
+                                    recyclerView.loadMoreComplete();
+                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
                         }
                         Log.e(TAG, "onSuccess: theatres.size==" + theatres.size());
-                    }else{
-                        if(theatres.size()==0){
-                            Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                        }else{
-                            if(page==1){
+                    } else {
+                        if (theatres.size() == 0) {
+                            Log.e(TAG, "onSuccess: 首次加载数据失败");
+                        } else {
+                            if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败" );
-                            }else{
+                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                            } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                Log.e(TAG, "onSuccess: 加载更多数据失败");
                             }
                         }
                     }
                 } else {
-                    if(theatres.size()==0){
-                        Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                    }else{
-                        if(page==1){
+                    if (theatres.size() == 0) {
+                        Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    } else {
+                        if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败" );
-                        }else{
+                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                        } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                            Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
+
                     ResponseCodeCheck.showErrorMsg(code);
                 }
             }
@@ -508,15 +526,18 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(theatres.size()==0){
-                    Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                }else{
-                    if(page==1){
+                if (theatres.size() == 0) {
+                    Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    ivLoading.setVisibility(View.GONE);
+                    llContent.setVisibility(View.GONE);
+                    ivNoContent.setVisibility(View.VISIBLE);
+                } else {
+                    if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败" );
-                    }else{
+                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                    } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                        Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
 
@@ -525,11 +546,11 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     }
 
 
-    private String _GetDate(){
+    private String _GetDate() {
         TimeZone tz = TimeZone.getTimeZone("GMT");
         Calendar c = Calendar.getInstance(tz);
-        Log.e(TAG, "_GetDate:year== "+c.get(Calendar.YEAR)+"month=="+ c.get(Calendar.MONTH));
-        return "year = "+c.get(Calendar.YEAR)+"\n month = "+c.get(Calendar.MONTH)+"\n day = "+c.get(Calendar.DAY_OF_MONTH);
+        Log.e(TAG, "_GetDate:year== " + c.get(Calendar.YEAR) + "month==" + c.get(Calendar.MONTH));
+        return "year = " + c.get(Calendar.YEAR) + "\n month = " + c.get(Calendar.MONTH) + "\n day = " + c.get(Calendar.DAY_OF_MONTH);
     }
 
 
