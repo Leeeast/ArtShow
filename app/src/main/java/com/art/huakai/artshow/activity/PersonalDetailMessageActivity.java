@@ -52,9 +52,6 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
-
-    @BindView(R.id.lly_back)
-    LinearLayout llyBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_right_img)

@@ -22,6 +22,7 @@ import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
@@ -50,9 +51,6 @@ import okhttp3.Call;
 public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener {
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
-
-    @BindView(R.id.lly_back)
-    LinearLayout llyBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.sdv)
@@ -97,6 +95,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     private TheatreDetailBean theatreDetailBean;
     private ShareDialog shareDialog;
     private boolean mIsFromOrgan;
+    private String URL_THEATRE_DETAL;
 
 
     private Handler uiHandler = new Handler() {
@@ -118,11 +117,11 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         mFragments = new ArrayList<HeaderViewPagerFragment>();
         TheatreDetailTheatreFragment theatreDetailTheatreFragment = TheatreDetailTheatreFragment.newInstance();
         mFragments.add(theatreDetailTheatreFragment);
-        if(theatreDetailBean.getPictures()!=null&&theatreDetailBean.getPictures().size()>0){
+        if (theatreDetailBean.getPictures() != null && theatreDetailBean.getPictures().size() > 0) {
             StaggerFragment staggerFragment = StaggerFragment.newInstance();
             staggerFragment.setLists(theatreDetailBean.getPictures());
             mFragments.add(staggerFragment);
-        }else{
+        } else {
             ErrorFragment errorFragment = ErrorFragment.newInstance();
             mFragments.add(errorFragment);
         }
@@ -190,8 +189,13 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             Bundle extras = intent.getExtras();
             theatreId = extras.getString(PARAMS_ID);
             mIsFromOrgan = extras.getBoolean(PARAMS_ORG, false);
-            getTheatreDetail();
         }
+        if (mIsFromOrgan) {
+            URL_THEATRE_DETAL = Constant.URL_USER_THEATER_DETAIL;
+        } else {
+            URL_THEATRE_DETAL = Constant.URL_THEATER_DETAIL;
+        }
+        getTheatreDetail();
     }
 
     @Override
@@ -215,23 +219,21 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.lly_back:
-                finish();
-                break;
-        }
+
     }
 
     private void getTheatreDetail() {
 
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_THEATRE_DETAIL==" + Constant.URL_THEATER_DETAIL);
         params.put("id", theatreId);
+        if (mIsFromOrgan) {
+            params.put("userId", LocalUserInfo.getInstance().getId());
+            params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        Log.e(TAG, "getList: sign==" + sign);
         Log.e(TAG, "getRepertoryClassify: " + params.toString());
-        RequestUtil.request(true, Constant.URL_THEATER_DETAIL, params, 130, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, URL_THEATRE_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
@@ -288,5 +290,13 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    /**
+     * 返回
+     */
+    @OnClick(R.id.lly_back)
+    public void back() {
+        finish();
     }
 }
