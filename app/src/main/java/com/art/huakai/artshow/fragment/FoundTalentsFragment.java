@@ -292,6 +292,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
@@ -302,6 +304,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
         } else if (type == 3) {
@@ -398,6 +402,12 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         certificationPosition = -1;
                         singleChooseAdapterthree.resetData();
                     }
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                    page = 1;
+                    getList();
+
                 }
             });
 
@@ -407,6 +417,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
 
@@ -446,6 +458,12 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     skillChildId = "";
                     skillParentId = "";
                     skillChildPosition = -1;
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                    page = 1;
+                    getList();
+
                 }
             });
 
@@ -470,6 +488,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         if (popupWindow != null && popupWindow.isShowing()) {
                             popupWindow.dismiss();
                         }
+                        page = 1;
+                        getList();
                     }
                 });
                 GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
@@ -480,7 +500,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 recyclerView.setLayoutManager(gridLayoutManager);
                 recyclerView.setAdapter(skillChooseAdapter);
                 recyclerView.setNestedScrollingEnabled(false);
-                rl_whole.addView(view, i + 1);
+                rl_whole.addView(view, i + 2);
             }
 
             popupWindow.setContentView(content);
