@@ -36,8 +36,8 @@ public class TalentDetailInfo {
     private String userId;
     private long createTime;
     private long updateTime;
-    private List<String> pictures;
-    private List<String> classifyIds;
+    private List<PicturesBean> pictures;
+    private List<Integer> classifyIds;
     private String classifyNames;
     private String regionName;
     private int age;
@@ -180,19 +180,19 @@ public class TalentDetailInfo {
         this.updateTime = updateTime;
     }
 
-    public List<String> getPictures() {
+    public List<PicturesBean> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<String> pictures) {
+    public void setPictures(List<PicturesBean> pictures) {
         this.pictures = pictures;
     }
 
-    public List<String> getClassifyIds() {
+    public List<Integer> getClassifyIds() {
         return classifyIds;
     }
 
-    public void setClassifyIds(List<String> classifyIds) {
+    public void setClassifyIds(List<Integer> classifyIds) {
         this.classifyIds = classifyIds;
     }
 

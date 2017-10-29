@@ -16,7 +16,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.UserInfo;
+import com.art.huakai.artshow.entity.RegUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MD5;
@@ -193,7 +193,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                         SharePreUtil.getInstance().setUserPwd(edtPassword.getText().toString());
                     }
                     try {
-                        UserInfo userInfo = mGson.fromJson(obj, UserInfo.class);
+                        RegUserInfo userInfo = mGson.fromJson(obj, RegUserInfo.class);
                         LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
                         localUserInfo.setExpire(userInfo.expire);
                         localUserInfo.setAccessToken(userInfo.accessToken);

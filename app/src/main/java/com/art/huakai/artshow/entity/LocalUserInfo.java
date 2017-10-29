@@ -44,6 +44,11 @@ public class LocalUserInfo {
     private int status;
     private long createTime;
 
+    private int authenStatus;
+    private int repertoryCount;
+    private int talentCount;
+    private int theterCount;
+
     //是否记录密码
     private boolean isKeepPwd;
 
@@ -148,6 +153,39 @@ public class LocalUserInfo {
     }
 
     public void setCreateTime(long createTime) {
+
         this.createTime = createTime;
+    }
+
+    public int getAuthenStatus() {
+        return authenStatus;
+    }
+
+    public void setAuthenStatus(int authenStatus) {
+        this.authenStatus = authenStatus;
+    }
+
+    public int getRepertoryCount() {
+        return repertoryCount;
+    }
+
+    public void setRepertoryCount(int repertoryCount) {
+        this.repertoryCount = repertoryCount;
+    }
+
+    public int getTalentCount() {
+        return talentCount;
+    }
+
+    public void setTalentCount(int talentCount) {
+        this.talentCount = talentCount;
+    }
+
+    public int getTheterCount() {
+        return theterCount;
+    }
+
+    public void setTheterCount(int theterCount) {
+        this.theterCount = theterCount;
     }
 }

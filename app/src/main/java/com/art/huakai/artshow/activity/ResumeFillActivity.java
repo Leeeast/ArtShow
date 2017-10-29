@@ -6,10 +6,10 @@ import android.os.Bundle;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.fragment.FillIntroduceFragment;
-import com.art.huakai.artshow.fragment.FillWorksFragment;
+import com.art.huakai.artshow.fragment.ResumeDescFragment;
+import com.art.huakai.artshow.fragment.ResumeWorksFragment;
 import com.art.huakai.artshow.fragment.PhotoUploadFragment;
-import com.art.huakai.artshow.fragment.TalentHonourFragment;
+import com.art.huakai.artshow.fragment.ResumeHonourFragment;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 /**
@@ -53,19 +53,19 @@ public class ResumeFillActivity extends BaseActivity {
         BaseFragment baseFragment = null;
         switch (action) {
             case CODE_ACTION_FILL_INTRODUCE:
-                baseFragment = FillIntroduceFragment.newInstance();
+                baseFragment = ResumeDescFragment.newInstance();
                 break;
             case CODE_ACTION_FILL_AWARD:
-                baseFragment = TalentHonourFragment.newInstance();
+                baseFragment = ResumeHonourFragment.newInstance();
                 break;
             case CODE_ACTION_FILL_WORKS:
-                baseFragment = FillWorksFragment.newInstance();
+                baseFragment = ResumeWorksFragment.newInstance();
                 break;
             case CODE_ACTION_UPLOAD_PHOTO:
                 baseFragment = PhotoUploadFragment.newInstance(PhotoUploadFragment.TYPE_TALENT);
                 break;
             default:
-                baseFragment = FillIntroduceFragment.newInstance();
+                baseFragment = ResumeDescFragment.newInstance();
                 break;
         }
         initFragment(baseFragment);

@@ -78,6 +78,11 @@ public class Constant {
     public static final String URL_REGION_LIST = BASE_URL + "/region/list";
     //修改个人简历基本资料，返回创建或修改的简历ID
     public static final String URL_TALENT_DEIT_BASE = BASE_URL + "/talent/edit/base";
+    //下线个人简历
+    public static final String URL_TALENT_OFFLINE = BASE_URL + "/talent/offline";
+    //发布个人简历
+    public static final String URL_TALENT_RELEASE = BASE_URL + "/talent/release";
+
     //资质认证，个人／机构通用  认证类型，个人认证：0，机构认证：1
     public static final String URL_AUTHENTICATION_APPLY = BASE_URL + "/authentication/apply";
     //用户发布的剧场分页列表
@@ -126,6 +131,7 @@ public class Constant {
     public static final String URL_REPERTORY_EDIT_AWARDSDESCPT = BASE_URL + "/repertory/edit/awardsDescpt";
     //项目技术要求
     public static final String URL_REPERTORY_EDIT_REQUIREMENTS = BASE_URL + "/repertory/edit/requirements";
+    public static final String URL_USER_PREVIEW = BASE_URL + "/user/preview";
 
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";

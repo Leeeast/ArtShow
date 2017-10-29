@@ -22,6 +22,7 @@ import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -289,6 +290,15 @@ public class PhotoUploadFragment extends BaseFragment {
                             EventBus.getDefault().post(new TheatreInfoChangeEvent());
                             break;
                         case TYPE_TALENT:
+                            TalentDetailInfo.getInstance().setId(typeId);
+                            ArrayList<PicturesBean> picturesTalent = new ArrayList<>();
+                            for (int i = 0; i < mJSONArray.length(); i++) {
+                                PicturesBean picturesBean = new PicturesBean();
+                                picturesBean.setLargeUrl(String.valueOf(mJSONArray.get(i)));
+                                picturesTalent.add(picturesBean);
+                            }
+                            TalentDetailInfo.getInstance().setPictures(picturesTalent);
+                            EventBus.getDefault().post(new TalentInfoChangeEvent());
                             break;
                         case TYPE_PROJECT:
                             ProjectDetailInfo.getInstance().setId(typeId);

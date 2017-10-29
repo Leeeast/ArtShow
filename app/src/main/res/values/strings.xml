@@ -221,6 +221,7 @@
     <string name="resume_post">发布简历</string>
     <string name="resume_post_tip">是否发布</string>
     <string name="resume_post_des">*简历发布后，所有人可见，未发布，将只有自己可见。</string>
+    <string name="tip_talent_release">请先完善简历信息再发布</string>
     <string name="user_info">个人信息</string>
     <string name="user_birthday">出生年月</string>
     <string name="user_ability_type">技能类型</string>
@@ -255,6 +256,11 @@
     <string name="tip_resume_linktel_input">请输入联系方式</string>
     <string name="share_copy_url">复制链接</string>
     <string name="share_open_url">在网页中打开</string>
+    <string name="tip_resume_name_input">请输入姓名</string>
+    <string name="tip_resume_release_suc">简历发布成功</string>
+    <string name="tip_resume_release_fail">简历发布失败</string>
+    <string name="tip_resume_offline_suc">简历下线成功</string>
+    <string name="tip_resume_offline_fail">简历下线失败</string>
     <!--剧场相关-->
     <string name="theatre_title_my">我的剧场</string>
     <string name="theatre_upload">上传剧场</string>
