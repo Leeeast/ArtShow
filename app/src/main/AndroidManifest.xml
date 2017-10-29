@@ -145,6 +145,10 @@
             android:name=".activity.WorksDetailMessageActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.NewsShowActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

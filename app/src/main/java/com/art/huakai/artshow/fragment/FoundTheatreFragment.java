@@ -459,8 +459,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                                   if(lookingWorksAdapter!=null){
                                       lookingWorksAdapter.add(tempTheatres);
                                   }
-                                  page++;
                               }
+                              page++;
                           }
                         }else{
                             if(theatres.size()==0){

@@ -549,8 +549,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                                     if(lookingWorksAdapter!=null){
                                         lookingWorksAdapter.add(tempTheatres);
                                     }
-                                    page++;
                                 }
+                                page++;
                             }
                         }else{
                             if(talentLists.size()==0){

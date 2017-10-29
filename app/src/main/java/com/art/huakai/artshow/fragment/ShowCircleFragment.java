@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
 import com.art.huakai.artshow.activity.MainActivity;
+import com.art.huakai.artshow.activity.NewsShowActivity;
 import com.art.huakai.artshow.activity.PersonalDetailMessageActivity;
 import com.art.huakai.artshow.activity.SearchNewsActivity;
 import com.art.huakai.artshow.activity.TheatreDetailMessageActivity;
@@ -437,7 +438,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //                mainActivity.setWholeItemPosition(1);
 //                mainActivity.setCheckId(R.id.rdobtn_me);
 
-                Intent intent = new Intent(getContext(), SearchNewsActivity.class);
+//                Intent intent = new Intent(getContext(), SearchNewsActivity.class);
+//                startActivity(intent);
+
+                Intent intent = new Intent(getContext(), NewsShowActivity.class);
                 startActivity(intent);
 
             }

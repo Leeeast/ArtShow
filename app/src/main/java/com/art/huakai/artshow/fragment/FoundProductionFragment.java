@@ -562,8 +562,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                                     if(lookingWorksAdapter!=null){
                                         lookingWorksAdapter.add(tempWorks);
                                     }
-                                    page++;
                                 }
+                                page++;
                             }
                         }else{
                             if(works.size()==0){

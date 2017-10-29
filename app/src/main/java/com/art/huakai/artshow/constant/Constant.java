@@ -132,10 +132,9 @@ public class Constant {
 
 
     public static final String URL_GET_THEATRES = BASE_URL + "/theater/page";
-
     public static final String URL_GET_WORKS = BASE_URL + "/repertory/page";
-
     public static final String URL_GET_TALENTS = BASE_URL + "/talent/page";
+    public static final String URL_GET_NEWS = BASE_URL + "/news/page";
 
     public static final String URL_KEYWORD_SEARCH = BASE_URL + "/search_black";
     public static final String URL_KEYWORD_SEARCH_NEWS = BASE_URL + "/search_black/news";
@@ -144,6 +143,7 @@ public class Constant {
     public static final String URL_KEYWORD_SEARCH_THEATRES = BASE_URL + "/search_black/theater";
     public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search_black/enroll";
     public static final String URL_REPERTORY_DETAIL = BASE_URL + "/repertory/detail";
+
 
 //    获取地区借口
 //    http://139.224.47.213:8080/showonline_api/region/list
