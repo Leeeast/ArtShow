@@ -12,6 +12,7 @@ import com.art.huakai.artshow.activity.ResumeActivity;
 import com.art.huakai.artshow.activity.TheatreActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.widget.SettingItem;
 
 
@@ -25,6 +26,7 @@ public class MeInstitutionFragment extends BaseFragment implements View.OnClickL
     private SettingItem itemMyProject;
     private SettingItem itemMyTheatre;
     private SettingItem itemMyTalent;
+    private LocalUserInfo localUserInfo;
 
     public MeInstitutionFragment() {
         // Required empty public constructor
@@ -37,7 +39,7 @@ public class MeInstitutionFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        localUserInfo = LocalUserInfo.getInstance();
     }
 
     @Override
@@ -60,13 +62,27 @@ public class MeInstitutionFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void setView() {
+        String talentDes = localUserInfo.getTalentCount() == 0 ?
+                getString(R.string.institution_upload_talent) :
+                String.valueOf(localUserInfo.getTalentCount());
+        itemMyTalent.setDesText(talentDes);
 
+        String theatreDes = localUserInfo.getTheterCount() == 0 ?
+                getString(R.string.institution_upload_theatre) :
+                String.valueOf(localUserInfo.getTheterCount());
+        itemMyTheatre.setDesText(theatreDes);
+
+        String projectDes = localUserInfo.getRepertoryCount() == 0 ?
+                getString(R.string.institution_upload_project) :
+                String.valueOf(localUserInfo.getRepertoryCount());
+        itemMyProject.setDesText(projectDes);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_institution_auth:
+                //if(LocalUserInfo.getInstance().getAuthenStatus()==)
                 Bundle bundle = new Bundle();
                 bundle.putString(DataUploadActivity.PARAMS_FROM, DataUploadFragment.FROM_ME);
                 invokActivity(getContext(), DataUploadActivity.class, bundle, JumpCode.FLAG_REQ_DATA_UPLOAD);

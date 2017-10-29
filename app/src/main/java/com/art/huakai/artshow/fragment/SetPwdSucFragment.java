@@ -12,8 +12,11 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.RegUserInfo;
+import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -145,8 +148,9 @@ public class SetPwdSucFragment extends BaseFragment implements View.OnClickListe
                         EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
                     } else if (LocalUserInfo.getInstance().getStatus() == LocalUserInfo.USER_STATUS_UNFILL_DATA) {
                         EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
+                    } else {
+                        updateUserInfo();
                     }
-                    getActivity().finish();
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -160,5 +164,55 @@ public class SetPwdSucFragment extends BaseFragment implements View.OnClickListe
                 }
             }
         });
+    }
+
+    /**
+     * 更新用户信息
+     */
+    private void updateUserInfo() {
+        if (LoginUtil.checkUserLogin(getContext(), false)) {
+            Map<String, String> params = new TreeMap<>();
+            params.put("userId", LocalUserInfo.getInstance().getId());
+            params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+            String sign = SignUtil.getSign(params);
+            params.put("sign", sign);
+            RequestUtil.request(true, Constant.URL_USER_PREVIEW, params, 16, new RequestUtil.RequestListener() {
+                @Override
+                public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                    LogUtil.i(TAG, obj);
+                    if (isSuccess) {
+                        try {
+                            UserInfo userInfo = GsonTools.parseData(obj, UserInfo.class);
+                            LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
+                            localUserInfo.setId(userInfo.user.id);
+                            localUserInfo.setName(userInfo.user.name);
+                            localUserInfo.setMobile(userInfo.user.mobile);
+                            localUserInfo.setEmail(userInfo.user.email);
+                            localUserInfo.setWechatOpenid(userInfo.user.wechatOpenid);
+                            localUserInfo.setDp(userInfo.user.dp);
+                            localUserInfo.setPassword(userInfo.user.password);
+                            localUserInfo.setUserType(userInfo.user.userType);
+                            localUserInfo.setStatus(userInfo.user.status);
+                            localUserInfo.setCreateTime(userInfo.user.createTime);
+                            localUserInfo.setAuthenStatus(userInfo.authenStatus);
+                            localUserInfo.setTalentCount(userInfo.talentCount);
+                            localUserInfo.setTheterCount(userInfo.theterCount);
+                            localUserInfo.setRepertoryCount(userInfo.repertoryCount);
+                            SharePreUtil.getInstance().storeUserInfo(localUserInfo);
+                            getActivity().finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        ResponseCodeCheck.showErrorMsg(code);
+                    }
+                }
+
+                @Override
+                public void onFailed(Call call, Exception e, int id) {
+                    LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                }
+            });
+        }
     }
 }
