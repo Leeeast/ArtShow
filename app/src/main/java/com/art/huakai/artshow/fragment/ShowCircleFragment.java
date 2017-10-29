@@ -272,9 +272,6 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
-                ivLoading.setVisibility(View.GONE);
-                scrollView.setVisibility(View.GONE);
-                ivNoContent.setVisibility(View.VISIBLE);
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
             }
         });
