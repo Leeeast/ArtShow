@@ -131,4 +131,9 @@
         <attr name="hvp_topOffset" format="dimension"/>
     </declare-styleable>
 
+
+    <declare-styleable name="BannerView">
+        <attr name="banner_line_color" format="color"/>
+    </declare-styleable>
+
 </resources>

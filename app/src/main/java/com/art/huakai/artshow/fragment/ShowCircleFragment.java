@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
@@ -41,8 +42,13 @@ import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
+import com.art.huakai.artshow.widget.banner.BannerEntity;
+import com.art.huakai.artshow.widget.banner.BannerView;
+import com.art.huakai.artshow.widget.banner.OnBannerClickListener;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -68,18 +74,13 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     View theatreDivider;
     @BindView(R.id.talents_divider)
     View talentsDivider;
+    @BindView(R.id.banner)
+    BannerView banner;
+    Unbinder unbinder;
     private HomePageDetails homePageDetails;
 
     @BindView(R.id.iv_search)
     ImageView ivSearch;
-    @BindView(R.id.home_page_top_bg)
-    ChinaShowImageView homePageTopBg;
-    @BindView(R.id.tv_home_page_top_title)
-    TextView tvHomePageTopTitle;
-    @BindView(R.id.tv_home_page_top_director)
-    TextView tvHomePageTopDirector;
-    @BindView(R.id.tv_home_page_top_festival)
-    TextView tvHomePageTopFestival;
     @BindView(R.id.tv_one_title)
     TextView tvIndustryNewsTitle;
     @BindView(R.id.tv_one_whole)
@@ -150,6 +151,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     @BindView(R.id.tv_ch_name)
     TextView tvChName;
     private int scrollDistance;
+    final List<BannerEntity> entities = new ArrayList<>();
 
     private Handler uiHandler = new Handler() {
         @Override
@@ -179,6 +181,12 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         if (!hidden) {
             if (homePageDetails == null) {
                 getHomePageDetails();
+            }else{
+                if(banner!=null){
+                    if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>1){
+                        banner.startAutoScroll();
+                    }
+                }
             }
             if (scrollView != null) {
                 if (scrollDistance == 0) {
@@ -186,6 +194,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 }
             }
         } else {
+            if(banner!=null&&homePageDetails != null){
+                if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>1){
+                    banner.stopAutoScroll();
+                }
+            }
             scrollDistance = scrollView.getScrollY();
         }
     }
@@ -391,6 +404,28 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //      chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
 //      实现不在除此加载界面的时候显示recyclerview的第一个item
         scrollView.smoothScrollTo(0, 0);
+
+        entities.clear();
+        if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>0){
+            for(int i=0;i<homePageDetails.getBanners().size();i++){
+                entities.add(new BannerEntity(0,homePageDetails.getBanners().get(i).getLogo(), "image"));
+            }
+        }else{
+            entities.add(new BannerEntity(0,"http://logo", "image"));
+        }
+        entities.add(new BannerEntity(0,"http://logo", "image"));
+        banner.setEntities(entities);
+        banner.setOnBannerClickListener(new OnBannerClickListener() {
+            @Override
+            public void onClick(int position) {
+                Toast.makeText(getContext(),"position=="+position,Toast.LENGTH_SHORT).show();
+            }
+        });
+        if(homePageDetails.getBanners().size()>1){
+            banner.startAutoScroll();
+        }
+
+
     }
 
     @Override
@@ -439,12 +474,14 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        unbinder.unbind();
     }
 
 

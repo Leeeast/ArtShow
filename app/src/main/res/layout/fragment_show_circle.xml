@@ -41,59 +41,10 @@
             android:layout_height="@dimen/DIMEN_240PX"
             android:layout_marginTop="@dimen/DIMEN_13PX">
 
-            <com.art.huakai.artshow.widget.ChinaShowImageView
-                android:id="@+id/home_page_top_bg"
+            <com.art.huakai.artshow.widget.banner.BannerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                fresco:actualImageResource="@mipmap/home_page_topbackground"
-                fresco:actualImageScaleType="fitXY" />
-
-            <TextView
-                android:id="@+id/tv_home_page_top_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/tv_home_page_top_director"
-                android:layout_marginBottom="@dimen/DIMEN_15PX"
-                android:layout_marginLeft="@dimen/DIMEN_29PX"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="成人童话"
-                android:textColor="@color/white"
-                android:textSize="@dimen/DIMEN_28PX" />
-
-            <TextView
-                android:id="@+id/tv_home_page_top_director"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/tv_home_page_top_festival"
-                android:layout_marginBottom="@dimen/DIMEN_13PX"
-                android:layout_marginLeft="@dimen/DIMEN_29PX"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="导演："
-                android:textColor="@color/white"
-                android:textSize="@dimen/DIMEN_14PX" />
-
-            <TextView
-                android:id="@+id/tv_home_page_top_festival"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/DIMEN_8PX"
-                android:layout_marginLeft="@dimen/DIMEN_29PX"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="北京国际青年戏剧节"
-                android:textColor="@color/white"
-                android:textSize="@dimen/DIMEN_14PX" />
-
-            <View
-                android:layout_width="@dimen/DIMEN_72PX"
-                android:layout_height="@dimen/DIMEN_2PX"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/DIMEN_72PX"
-                android:background="#ffea003d" />
-
+                android:id="@+id/banner"/>
 
         </RelativeLayout>
 
