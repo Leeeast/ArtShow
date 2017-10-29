@@ -36,6 +36,7 @@ import com.art.huakai.artshow.widget.SmartRecyclerview;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -91,6 +92,9 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private int locationId = 0;
     private int page = 1;
     private String time;
+    private ArrayList <String> months=new ArrayList<String>();
+    private ArrayList <String>lists=new ArrayList<String>();
+    private int monthPosition=-1;
 
     public FoundTheatreFragment() {
         // Required empty public constructor
@@ -280,6 +284,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
@@ -290,6 +296,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
@@ -300,6 +308,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
@@ -310,6 +320,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page = 1;
+                    getList();
                 }
             });
         } else if (type == 3) {
@@ -360,6 +372,32 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             recyclerViewtwo.setLayoutManager(gridLayoutManagertwo);
             recyclerViewtwo.setAdapter(singleChooseAdaptertwo);
             recyclerViewtwo.setNestedScrollingEnabled(false);
+
+
+
+            RecyclerView recyclerViewthree= (RecyclerView) content.findViewById(R.id.rcv_three);
+            final TheatreFilterAdapter singleChooseAdapterthree = new TheatreFilterAdapter(getContext(), months, monthPosition);
+            singleChooseAdapterthree.setOnItemClickListener(new TheatreFilterAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position, String url) {
+                    monthPosition = position;
+
+
+                }
+            });
+            GridLayoutItemDecoration gridLayoutItemDecorationthree = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
+            recyclerViewthree.setItemAnimator(null);
+            GridLayoutManager gridLayoutManagerthree = new GridLayoutManager(getContext(), 3);
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+            recyclerViewthree.addItemDecoration(gridLayoutItemDecorationthree);
+            recyclerViewthree.setLayoutManager(gridLayoutManagerthree);
+            recyclerViewthree.setAdapter(singleChooseAdapterthree);
+            recyclerViewthree.setNestedScrollingEnabled(false);
+
+
+
+
+
             content.findViewById(R.id.but_reset).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -371,6 +409,15 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         theatrefee = -1;
                         singleChooseAdaptertwo.resetData();
                     }
+                    if(singleChooseAdapterthree!=null){
+                        monthPosition=-1;
+                        singleChooseAdapterthree.resetData();
+                    }
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                    page=1;
+                    getList();
                 }
             });
 
@@ -380,6 +427,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+                    page=1;
+                    getList();
                 }
             });
 
@@ -435,6 +484,11 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         } else if (theatrefee == 2) {
             params.put("expenseMin", "100000");
         }
+        if(!(monthPosition==0||monthPosition==-1)){
+            String month=months.get(monthPosition);
+            params.put("enabledMonth",month.substring(0,4)+"-"+lists.get(monthPosition));
+        }
+
         params.put("page", page + "");
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
@@ -551,11 +605,43 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     }
 
 
-    private String _GetDate() {
-        TimeZone tz = TimeZone.getTimeZone("GMT");
-        Calendar c = Calendar.getInstance(tz);
-        Log.e(TAG, "_GetDate:year== " + c.get(Calendar.YEAR) + "month==" + c.get(Calendar.MONTH));
-        return "year = " + c.get(Calendar.YEAR) + "\n month = " + c.get(Calendar.MONTH) + "\n day = " + c.get(Calendar.DAY_OF_MONTH);
+    private void _GetDate() {
+//        TimeZone tz = TimeZone.getTimeZone("GMT");
+//        Calendar c = Calendar.getInstance(tz);
+//        Log.e(TAG, "_GetDate:year== " + c.get(Calendar.YEAR) + "month==" + c.get(Calendar.MONTH));
+//        return "year = " + c.get(Calendar.YEAR) + "\n month = " + c.get(Calendar.MONTH) + "\n day = " + c.get(Calendar.DAY_OF_MONTH);
+
+        months.add("不限");
+        lists.add("0");
+        Calendar c = Calendar.getInstance();//
+        Log.e(TAG, "_GetDate: mYear=="+c.get(Calendar.YEAR)+"--mMonth=="+(c.get(Calendar.MONTH) + 1) );
+        int year=c.get(Calendar.YEAR);
+        int month=(c.get(Calendar.MONTH) + 1);
+        if(month<10){
+            months.add(year+"年"+"0"+month+"月");
+        }else{
+            months.add(year+"年"+month+"月");
+        }
+        lists.add(""+month);
+        for(int i=1;i<=11;i++){
+           if((month+1)>12){
+               month=month+1-12;
+               year=year+1;
+           }else{
+               month=month+1;
+               year=year;
+           }
+            if(month<10){
+                months.add(year+"年"+"0"+month+"月");
+            }else{
+                months.add(year+"年"+month+"月");
+            }
+            lists.add(""+month);
+        }
+
+
+
+
     }
 
 

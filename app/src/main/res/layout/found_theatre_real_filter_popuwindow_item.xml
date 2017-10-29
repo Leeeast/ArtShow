@@ -58,27 +58,56 @@
     </android.support.v7.widget.RecyclerView>
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/DIMEN_20PX"
+        android:textColor="#ff5a4b41"
+        android:text="档期"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_three"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/DIMEN_48PX"
         android:layout_marginTop="@dimen/DIMEN_20PX"
-        android:layout_marginBottom="@dimen/DIMEN_10PX"
+        android:layout_marginBottom="@dimen/DIMEN_5PX"
+        android:background="#fff9f9f9"
+        android:gravity="center_vertical"
         >
 
-        <Button
+        <TextView
             android:id="@+id/but_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/DIMEN_72PX"
+            android:layout_height="@dimen/DIMEN_29PX"
+            android:gravity="center"
             android:text="重置"
+            android:background="@drawable/grey_rectang"
+            android:textSize="@dimen/DIMEN_12PX"
+            android:textColor="#ff4a4a4a"
             />
 
-        <Button
+        <TextView
             android:id="@+id/but_sure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/DIMEN_72PX"
+            android:layout_height="@dimen/DIMEN_29PX"
+            android:gravity="center"
             android:text="完成"
+            android:background="@drawable/red_corners"
+            android:textSize="@dimen/DIMEN_12PX"
+            android:textColor="#ffffffff"
+            android:layout_alignParentRight="true"
             />
 
     </RelativeLayout>
