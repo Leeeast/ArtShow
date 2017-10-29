@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
@@ -22,9 +23,11 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.entity.WorksDetailBean;
+import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.WorksDetailShowFragment;
 import com.art.huakai.artshow.fragment.WorksDetailSkillFragment;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -40,6 +43,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
@@ -90,6 +94,12 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     HeaderViewPager scrollableLayout;
     @BindView(R.id.ll_make_telephone)
     LinearLayout llMakeTelephone;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
+    @BindView(R.id.rl_content)
+    RelativeLayout rlContent;
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
     private String mProjectId;
@@ -101,6 +111,10 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.VISIBLE);
+                ivNoContent.setVisibility(View.GONE);
                 setData();
             }
         }
@@ -112,14 +126,19 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
         mTabArray = getResources().getStringArray(R.array.work_detail_tab);
         mFragments = new ArrayList<>();
-        WorksDetailShowFragment foundTheatreFragment = WorksDetailShowFragment.newInstance();
-        StaggerFragment staggerFragment = StaggerFragment.newInstance();
-        staggerFragment.setLists(worksDetailBean.getPictures());
-        WorksDetailSkillFragment foundTalentsFragment = WorksDetailSkillFragment.newInstance();
-        mFragments.add(foundTheatreFragment);
-        mFragments.add(staggerFragment);
-        mFragments.add(foundTalentsFragment);
+        WorksDetailShowFragment worksDetailShowFragment = WorksDetailShowFragment.newInstance();
+        mFragments.add(worksDetailShowFragment);
+        if(worksDetailBean.getPictures()!=null&&worksDetailBean.getPictures().size()>0){
+            StaggerFragment staggerFragment = StaggerFragment.newInstance();
+            staggerFragment.setLists(worksDetailBean.getPictures());
+            mFragments.add(staggerFragment);
+        }else{
+            ErrorFragment errorFragment = ErrorFragment.newInstance();
+            mFragments.add(errorFragment);
+        }
 
+        WorksDetailSkillFragment worksDetailSkillFragment = WorksDetailSkillFragment.newInstance();
+        mFragments.add(worksDetailSkillFragment);
         TalentDetailFragmentAdapter disPagerAdapter = new TalentDetailFragmentAdapter(getSupportFragmentManager(), mFragments, mTabArray);
 
         viewpager.setAdapter(disPagerAdapter);
@@ -195,6 +214,9 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     @Override
     public void initView() {
 
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        rlContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -236,6 +258,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
                             worksDetailBean = gson.fromJson(obj, WorksDetailBean.class);
                             if (worksDetailBean != null) {
                                 uiHandler.sendEmptyMessage(0);
+                                return;
                             }
                         } catch (Exception e) {
                             Log.e(TAG, "onSuccess: 数据解析异常");
@@ -246,11 +269,17 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -268,5 +297,12 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         Bundle bundle = new Bundle();
         bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, false);
         invokActivity(this, ProjectEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

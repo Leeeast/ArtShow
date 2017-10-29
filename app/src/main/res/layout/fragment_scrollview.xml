@@ -10,14 +10,6 @@
         android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/tv_award"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="获奖经历"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/DIMEN_30PX"
-            />
 
 
 

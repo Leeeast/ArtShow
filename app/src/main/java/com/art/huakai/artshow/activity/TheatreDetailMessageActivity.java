@@ -12,24 +12,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.TalentDetailFragmentAdapter;
 import com.art.huakai.artshow.adapter.TheatreDetailFragmentAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
-import com.art.huakai.artshow.entity.TalentDetailBean;
-import com.art.huakai.artshow.entity.TheatersBean;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
-import com.art.huakai.artshow.fragment.PersonalDetailAwarsFragment;
-import com.art.huakai.artshow.fragment.PersonalDetailworksFragment;
+import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailTheatreFragment;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -85,6 +83,12 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     ImageView ivRightImg;
     @BindView(R.id.btn_edit)
     Button btnEdit;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
+    @BindView(R.id.rl_content)
+    RelativeLayout rlContent;
 
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
@@ -99,7 +103,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.VISIBLE);
+                ivNoContent.setVisibility(View.GONE);
                 setData();
 
             }
@@ -110,13 +116,19 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
         mTabArray = getResources().getStringArray(R.array.theatre_detail_tab);
         mFragments = new ArrayList<HeaderViewPagerFragment>();
-        TheatreDetailTheatreFragment foundTheatreFragment = TheatreDetailTheatreFragment.newInstance();
-        StaggerFragment staggerFragment = StaggerFragment.newInstance();
-        staggerFragment.setLists(theatreDetailBean.getPictures());
-        TheatreDetailParamsFragment foundTalentsFragment = TheatreDetailParamsFragment.newInstance();
-        mFragments.add(foundTheatreFragment);
-        mFragments.add(staggerFragment);
-        mFragments.add(foundTalentsFragment);
+        TheatreDetailTheatreFragment theatreDetailTheatreFragment = TheatreDetailTheatreFragment.newInstance();
+        mFragments.add(theatreDetailTheatreFragment);
+        if(theatreDetailBean.getPictures()!=null&&theatreDetailBean.getPictures().size()>0){
+            StaggerFragment staggerFragment = StaggerFragment.newInstance();
+            staggerFragment.setLists(theatreDetailBean.getPictures());
+            mFragments.add(staggerFragment);
+        }else{
+            ErrorFragment errorFragment = ErrorFragment.newInstance();
+            mFragments.add(errorFragment);
+        }
+
+        TheatreDetailParamsFragment theatreDetailParamsFragment = TheatreDetailParamsFragment.newInstance();
+        mFragments.add(theatreDetailParamsFragment);
 
         TheatreDetailFragmentAdapter disPagerAdapter = new TheatreDetailFragmentAdapter(getSupportFragmentManager(), mFragments, mTabArray);
 
@@ -190,6 +202,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         } else {
             btnEdit.setVisibility(View.GONE);
         }
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        rlContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -227,6 +242,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                             theatreDetailBean = gson.fromJson(obj, TheatreDetailBean.class);
                             if (theatreDetailBean != null) {
                                 uiHandler.sendEmptyMessage(0);
+                                return;
                             }
                         } catch (Exception e) {
                             Log.e(TAG, "onSuccess: 数据解析异常");
@@ -237,11 +253,17 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -261,4 +283,10 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         invokActivity(TheatreDetailMessageActivity.this, TheatreEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

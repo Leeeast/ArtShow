@@ -8,62 +8,52 @@ import java.util.List;
  */
 public class TheatreDetailBean {
 
-//  注意个别数据存在问题
 
     /**
-     * id : 402881e85f30a14c015f30a1523e0009
-     * logo : https://www.showonline.com.cn/image/2017/09/13/323b9fb21d6e4fde92a33fc3a75f2dd5@thumb.JPG
-     * name : 北外剧场
-     * roomName :
-     * seating : 1014
-     * regionId : 39
-     * address : 海淀区西三环北路19号
-     * coordinate : 37.870155,112.585521
-     * linkman : 华艺互联
-     * linkTel : 13811615602
-     * expense : 48000
-     * description : 优越的地理位置
-     北外剧场坐落于北京外国语大学西校区东门外，位于中关村核心地带，毗邻三环路，交通十分便利。独立的开放式管理，使大厦停车场及周边车位充足。是海淀区最具成长优势的文化传播基地。
-
-     庞大的青年客群
-     北外剧场按北京外国语大学位置辐射半径3公里计算：有36所高校，周边学生约45万人；海淀区以科技、文化类企业集聚，本地区公司的在职员工约XX万人；在北京外国语大学校内师生可达X人。北外剧场的文化消费一定会形成中关村地区的高校青年客群集聚地、京西地区的演艺地标。
-
-     剧场负责人：崔老师
-     联系  电话：13811615602（同微信）
-
-
-     * stageHeight : 0.95
-     * stageWidth : 20
-     * stageDepth : 10
-     * curtainHeight : null
-     * curtainWidth : null
-     * dressingRoomNum : 2
+     * id : 8a999cce5f4ed221015f4f0e7b640003
+     * logo : http://139.224.47.213/image/8a999cce5f4ed220015f4f0e7b200004.png
+     * name : 鸣人剧场
+     * roomName : 鸣人厅
+     * seating : 800
+     * regionId : 130300
+     * address : 望京地区
+     * coordinate : null
+     * linkman : 鸣人
+     * linkTel : 17610005667
+     * expense : 8000
+     * description : 舞动青春不知道的
+     * stageHeight : 0
+     * stageWidth : 0
+     * stageDepth : 0
+     * curtainHeight : 0
+     * curtainWidth : 0
+     * dressingRoomNum : 0
      * rehearsalRoomNum : 0
-     * propRoomNum : 1
-     * costumeRoomNum : 1
-     * stageLights : 1
+     * propRoomNum : 0
+     * costumeRoomNum : 18
+     * stageLights : 0
      * stereoEquipment : 1
-     * broadcastSystem : 1
-     * steeve : 1
+     * broadcastSystem : 0
+     * steeve : 0
      * musicStage : 0
-     * chorusPlatform : 0
+     * chorusPlatform : 1
      * orchestraPit : 0
      * acousticShroud : 0
      * bandPlatform : 0
      * curtainSystem : 0
      * specialEquipment : 0
      * projector : 0
-     * priceDiagram : https://www.showonline.com.cn/image/2017/09/23/75202da9de4740c689d1c0565af635a8@thumb.jpg
-     * detailedIntroduce : null
-     * userId : 2c91faca5e61246f015e74e3ddee020f
+     * priceDiagram : http://139.224.47.213/image/8a999cce5f621167015f62ebdf6b000e.png
+     * detailedIntroduce : 舞动青春里走过你身边有没有这样做可以不看书学习成绩优秀
+     * userId : 8a999cce5f497b4e015f49860e700005
      * status : 1
-     * createTime : null
-     * updateTime : null
-     * regionName : null
-     * pictures : [{"masterUrl":"https://www.showonline.com.cn/image/2017/09/13/0b65f58d44bd43aaad18b88a2e0b3094@thumb.JPG","largeUrl":"https://www.showonline.com.cn/image/2017/09/13/0b65f58d44bd43aaad18b88a2e0b3094@thumb.JPG","middleUrl":"https://www.showonline.com.cn/image/2017/09/13/0b65f58d44bd43aaad18b88a2e0b3094@thumb.JPG","smallUrl":"https://www.showonline.com.cn/image/2017/09/13/0b65f58d44bd43aaad18b88a2e0b3094@thumb.JPG","height":341,"width":512,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/13/323b9fb21d6e4fde92a33fc3a75f2dd5@thumb.JPG","largeUrl":"https://www.showonline.com.cn/image/2017/09/13/323b9fb21d6e4fde92a33fc3a75f2dd5@thumb.JPG","middleUrl":"https://www.showonline.com.cn/image/2017/09/13/323b9fb21d6e4fde92a33fc3a75f2dd5@thumb.JPG","smallUrl":"https://www.showonline.com.cn/image/2017/09/13/323b9fb21d6e4fde92a33fc3a75f2dd5@thumb.JPG","height":341,"width":512,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/13/4bf6aacc6eed4642bc92e04e36ae3191@thumb.JPG","largeUrl":"https://www.showonline.com.cn/image/2017/09/13/4bf6aacc6eed4642bc92e04e36ae3191@thumb.JPG","middleUrl":"https://www.showonline.com.cn/image/2017/09/13/4bf6aacc6eed4642bc92e04e36ae3191@thumb.JPG","smallUrl":"https://www.showonline.com.cn/image/2017/09/13/4bf6aacc6eed4642bc92e04e36ae3191@thumb.JPG","height":341,"width":512,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/13/b046266ad99d4bde93babe1bd1cf1f7b@thumb.JPG","largeUrl":"https://www.showonline.com.cn/image/2017/09/13/b046266ad99d4bde93babe1bd1cf1f7b@thumb.JPG","middleUrl":"https://www.showonline.com.cn/image/2017/09/13/b046266ad99d4bde93babe1bd1cf1f7b@thumb.JPG","smallUrl":"https://www.showonline.com.cn/image/2017/09/13/b046266ad99d4bde93babe1bd1cf1f7b@thumb.JPG","height":341,"width":512,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/13/d3e5491857d94fd7956657a73f8c199b@thumb.JPG","largeUrl":"https://www.showonline.com.cn/image/2017/09/13/d3e5491857d94fd7956657a73f8c199b@thumb.JPG","middleUrl":"https://www.showonline.com.cn/image/2017/09/13/d3e5491857d94fd7956657a73f8c199b@thumb.JPG","smallUrl":"https://www.showonline.com.cn/image/2017/09/13/d3e5491857d94fd7956657a73f8c199b@thumb.JPG","height":341,"width":512,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/13/efb21a3dd2c64fbcbc5bb665ffa330ba@thumb.JPG","largeUrl":"https://www.showonline.com.cn/image/2017/09/13/efb21a3dd2c64fbcbc5bb665ffa330ba@thumb.JPG","middleUrl":"https://www.showonline.com.cn/image/2017/09/13/efb21a3dd2c64fbcbc5bb665ffa330ba@thumb.JPG","smallUrl":"https://www.showonline.com.cn/image/2017/09/13/efb21a3dd2c64fbcbc5bb665ffa330ba@thumb.JPG","height":341,"width":512,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/14/1c6c8f5e4d6b4f36b7a10bc4c1e40f19@thumb.jpg","largeUrl":"https://www.showonline.com.cn/image/2017/09/14/1c6c8f5e4d6b4f36b7a10bc4c1e40f19@thumb.jpg","middleUrl":"https://www.showonline.com.cn/image/2017/09/14/1c6c8f5e4d6b4f36b7a10bc4c1e40f19@thumb.jpg","smallUrl":"https://www.showonline.com.cn/image/2017/09/14/1c6c8f5e4d6b4f36b7a10bc4c1e40f19@thumb.jpg","height":512,"width":341,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/14/60464286b22a405ca9d6c0645910b9ee@thumb.jpg","largeUrl":"https://www.showonline.com.cn/image/2017/09/14/60464286b22a405ca9d6c0645910b9ee@thumb.jpg","middleUrl":"https://www.showonline.com.cn/image/2017/09/14/60464286b22a405ca9d6c0645910b9ee@thumb.jpg","smallUrl":"https://www.showonline.com.cn/image/2017/09/14/60464286b22a405ca9d6c0645910b9ee@thumb.jpg","height":303,"width":512,"theaterId":null,"createTime":null},{"masterUrl":"https://www.showonline.com.cn/image/2017/09/14/cfb05815d89f4ba2b2746c5f38083214@thumb.jpg","largeUrl":"https://www.showonline.com.cn/image/2017/09/14/cfb05815d89f4ba2b2746c5f38083214@thumb.jpg","middleUrl":"https://www.showonline.com.cn/image/2017/09/14/cfb05815d89f4ba2b2746c5f38083214@thumb.jpg","smallUrl":"https://www.showonline.com.cn/image/2017/09/14/cfb05815d89f4ba2b2746c5f38083214@thumb.jpg","height":512,"width":341,"theaterId":null,"createTime":null}]
-     * disabledDates : []
+     * createTime : 1509194016000
+     * updateTime : 1509197501100
+     * regionName : 秦皇岛市
+     * pictures : [{"masterUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f92036000f@thumb.png","largeUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f92036000f@thumb.png","middleUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f92036000f@thumb.png","smallUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f92036000f@thumb.png","height":911,"width":1366,"theaterId":null,"createTime":null},{"masterUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f924370010@thumb.png","largeUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f924370010@thumb.png","middleUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f924370010@thumb.png","smallUrl":"http://139.224.47.213/image/8a999cce5f621167015f62f924370010@thumb.png","height":911,"width":1366,"theaterId":null,"createTime":null}]
+     * disabledDates : [{"theaterId":null,"date":1509292800000}]
      * disabledMonths : null
-     * viewTimes : 4
+     * viewTimes : 60
      */
 
     private String id;
@@ -73,16 +63,16 @@ public class TheatreDetailBean {
     private int seating;
     private int regionId;
     private String address;
-    private String coordinate;
+    private Object coordinate;
     private String linkman;
     private String linkTel;
     private int expense;
     private String description;
-    private double stageHeight;
+    private int stageHeight;
     private int stageWidth;
     private int stageDepth;
-    private Object curtainHeight;
-    private Object curtainWidth;
+    private int curtainHeight;
+    private int curtainWidth;
     private int dressingRoomNum;
     private int rehearsalRoomNum;
     private int propRoomNum;
@@ -100,16 +90,16 @@ public class TheatreDetailBean {
     private int specialEquipment;
     private int projector;
     private String priceDiagram;
-    private Object detailedIntroduce;
+    private String detailedIntroduce;
     private String userId;
     private int status;
-    private Object createTime;
-    private Object updateTime;
-    private Object regionName;
+    private long createTime;
+    private long updateTime;
+    private String regionName;
     private Object disabledMonths;
     private int viewTimes;
     private ArrayList<PicturesBean> pictures;
-    private List<String> disabledDates;
+    private List<DisabledDatesBean> disabledDates;
 
     public String getId() {
         return id;
@@ -167,11 +157,11 @@ public class TheatreDetailBean {
         this.address = address;
     }
 
-    public String getCoordinate() {
+    public Object getCoordinate() {
         return coordinate;
     }
 
-    public void setCoordinate(String coordinate) {
+    public void setCoordinate(Object coordinate) {
         this.coordinate = coordinate;
     }
 
@@ -207,11 +197,11 @@ public class TheatreDetailBean {
         this.description = description;
     }
 
-    public double getStageHeight() {
+    public int getStageHeight() {
         return stageHeight;
     }
 
-    public void setStageHeight(double stageHeight) {
+    public void setStageHeight(int stageHeight) {
         this.stageHeight = stageHeight;
     }
 
@@ -231,19 +221,19 @@ public class TheatreDetailBean {
         this.stageDepth = stageDepth;
     }
 
-    public Object getCurtainHeight() {
+    public int getCurtainHeight() {
         return curtainHeight;
     }
 
-    public void setCurtainHeight(Object curtainHeight) {
+    public void setCurtainHeight(int curtainHeight) {
         this.curtainHeight = curtainHeight;
     }
 
-    public Object getCurtainWidth() {
+    public int getCurtainWidth() {
         return curtainWidth;
     }
 
-    public void setCurtainWidth(Object curtainWidth) {
+    public void setCurtainWidth(int curtainWidth) {
         this.curtainWidth = curtainWidth;
     }
 
@@ -383,11 +373,11 @@ public class TheatreDetailBean {
         this.priceDiagram = priceDiagram;
     }
 
-    public Object getDetailedIntroduce() {
+    public String getDetailedIntroduce() {
         return detailedIntroduce;
     }
 
-    public void setDetailedIntroduce(Object detailedIntroduce) {
+    public void setDetailedIntroduce(String detailedIntroduce) {
         this.detailedIntroduce = detailedIntroduce;
     }
 
@@ -407,27 +397,27 @@ public class TheatreDetailBean {
         this.status = status;
     }
 
-    public Object getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Object createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public Object getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Object updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
 
-    public Object getRegionName() {
+    public String getRegionName() {
         return regionName;
     }
 
-    public void setRegionName(Object regionName) {
+    public void setRegionName(String regionName) {
         this.regionName = regionName;
     }
 
@@ -455,13 +445,39 @@ public class TheatreDetailBean {
         this.pictures = pictures;
     }
 
-    public List<String> getDisabledDates() {
+    public List<DisabledDatesBean> getDisabledDates() {
         return disabledDates;
     }
 
-    public void setDisabledDates(List<String> disabledDates) {
+    public void setDisabledDates(List<DisabledDatesBean> disabledDates) {
         this.disabledDates = disabledDates;
     }
 
 
+
+    public static class DisabledDatesBean {
+        /**
+         * theaterId : null
+         * date : 1509292800000
+         */
+
+        private Object theaterId;
+        private long date;
+
+        public Object getTheaterId() {
+            return theaterId;
+        }
+
+        public void setTheaterId(Object theaterId) {
+            this.theaterId = theaterId;
+        }
+
+        public long getDate() {
+            return date;
+        }
+
+        public void setDate(long date) {
+            this.date = date;
+        }
+    }
 }

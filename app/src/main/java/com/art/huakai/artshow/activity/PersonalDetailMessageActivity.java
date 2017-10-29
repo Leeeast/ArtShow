@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
@@ -19,10 +20,11 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.TalentDetailBean;
+import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailAwarsFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailworksFragment;
-import com.art.huakai.artshow.fragment.ScrollViewFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -80,6 +82,12 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     HeaderViewPager scrollableLayout;
     @BindView(R.id.ll_make_telephone)
     LinearLayout llMakeTelephone;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
+    @BindView(R.id.rl_content)
+    RelativeLayout rlContent;
 
 
     private String[] mTabArray;
@@ -93,7 +101,9 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.VISIBLE);
+                ivNoContent.setVisibility(View.GONE);
                 setData();
 
             }
@@ -104,14 +114,18 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
         mTabArray = getResources().getStringArray(R.array.talent_detail_tab);
         mFragments = new ArrayList<>();
-        PersonalDetailworksFragment foundTheatreFragment = PersonalDetailworksFragment.newInstance();
-        StaggerFragment staggerFragment = StaggerFragment.newInstance();
-        staggerFragment.setLists(talentDetailBean.getPictures());
-        PersonalDetailAwarsFragment foundTalentsFragment = PersonalDetailAwarsFragment.newInstance();
-        mFragments.add(foundTheatreFragment);
-        mFragments.add(staggerFragment);
-        mFragments.add(foundTalentsFragment);
-
+        PersonalDetailworksFragment personalDetailworksFragment = PersonalDetailworksFragment.newInstance();
+        mFragments.add(personalDetailworksFragment);
+        if(talentDetailBean.getPictures()!=null&&talentDetailBean.getPictures().size()>0){
+            StaggerFragment staggerFragment = StaggerFragment.newInstance();
+            staggerFragment.setLists(talentDetailBean.getPictures());
+            mFragments.add(staggerFragment);
+        }else{
+            ErrorFragment errorFragment = ErrorFragment.newInstance();
+            mFragments.add(errorFragment);
+        }
+        PersonalDetailAwarsFragment personalDetailAwarsFragment = PersonalDetailAwarsFragment.newInstance();
+        mFragments.add(personalDetailAwarsFragment);
         TalentDetailFragmentAdapter disPagerAdapter = new TalentDetailFragmentAdapter(getSupportFragmentManager(), mFragments, mTabArray);
 
         viewpager.setAdapter(disPagerAdapter);
@@ -154,7 +168,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             }
         }
         tvMajor.setText(major);
-        tvAge.setText(talentDetailBean.getAge()+"");
+        tvAge.setText(talentDetailBean.getAge() + "");
         tvWeight.setText(talentDetailBean.getWeight());
         tvHeight.setText(talentDetailBean.getHeight());
         tvUniversity.setText(talentDetailBean.getSchool());
@@ -183,6 +197,9 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     @Override
     public void initView() {
 
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        rlContent.setVisibility(View.GONE);
 
     }
 
@@ -233,6 +250,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
                             talentDetailBean = gson.fromJson(obj, TalentDetailBean.class);
                             if (talentDetailBean != null) {
                                 uiHandler.sendEmptyMessage(0);
+                                return;
                             }
                         } catch (Exception e) {
                             Log.e(TAG, "onSuccess: 数据解析异常");
@@ -243,11 +261,17 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                ivLoading.setVisibility(View.GONE);
+                rlContent.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
             }
         });
     }

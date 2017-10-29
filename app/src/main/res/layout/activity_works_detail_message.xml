@@ -9,6 +9,35 @@
     android:background="#ffffffff">
 
 
+
+    <ImageView
+        android:id="@+id/iv_loading"
+        android:layout_centerInParent="true"
+        android:layout_width="@dimen/DIMEN_100PX"
+        android:layout_height="@dimen/DIMEN_100PX"
+        android:scaleType="fitXY"
+        android:src="@mipmap/loading_gray"
+        android:visibility="visible"
+        />
+    
+
+    <ImageView
+        android:id="@+id/iv_no_content"
+        android:layout_width="@dimen/DIMEN_120PX"
+        android:layout_height="@dimen/DIMEN_120PX"
+        android:src="@mipmap/loading_fail"
+        android:scaleType="fitXY"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+
+<RelativeLayout
+    android:id="@+id/rl_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    >
+    
     <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
         android:id="@+id/scrollableLayout"
         android:layout_width="match_parent"
@@ -533,5 +562,8 @@
             android:textSize="@dimen/DIMEN_18PX" />
 
     </LinearLayout>
+
+
+</RelativeLayout>
 
 </RelativeLayout>
