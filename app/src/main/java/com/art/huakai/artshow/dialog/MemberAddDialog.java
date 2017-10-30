@@ -89,8 +89,7 @@ public class MemberAddDialog extends BaseDialogFragment {
         if (bundle != null) {
             mStaff = (Staff) bundle.getSerializable(PARAMS_STAFF);
             mPosition = bundle.getInt(PARAMS_POSITION);
-        }
-        if (mStaff == null) {
+        } else {
             mStaff = new Staff();
         }
     }
@@ -107,7 +106,10 @@ public class MemberAddDialog extends BaseDialogFragment {
 
     @Override
     public void setView() {
-
+        sdvMember.setImageURI(mStaff.getPhoto());
+        edtProjectMemberName.setText(mStaff.getName() == null ? "" : mStaff.getName());
+        edtProjectMemberTitle.setText(mStaff.getRoleName() == null ? "" : mStaff.getRoleName());
+        edtIntroduce.setText(mStaff.getDescpt() == null ? "" : mStaff.getDescpt());
     }
 
     @OnClick(R.id.lly_close)

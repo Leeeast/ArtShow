@@ -57,7 +57,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
-        android:layout_below="@+id/sdv_theatre"
+        android:layout_below="@+id/sdv_staff"
         android:background="@color/me_personal_line" />
 
 </RelativeLayout>

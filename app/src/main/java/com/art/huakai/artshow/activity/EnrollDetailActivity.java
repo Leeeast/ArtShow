@@ -22,6 +22,7 @@ import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.EnrollInfo;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -145,7 +146,27 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.rly_enroll_apply)
     public void enrollApply() {
+        if (LocalUserInfo.getInstance().getUserType() == 3) {
+            showToast(getString(R.string.tip_enroll_disjoin));
+            return;
+        }
         invokActivity(this, EnrollApplyActivity.class, null, JumpCode.FLAG_REQ_ENROLL_APPLY);
+    }
+
+    /**
+     * 查看全部入围项目
+     */
+    @OnClick(R.id.tv_see_all)
+    public void checkAll() {
+
+    }
+
+    /**
+     * 查看全部参与项目
+     */
+    @OnClick(R.id.tv_enroll_all)
+    public void checkEnrollAll() {
+
     }
 
     /**
@@ -263,21 +284,5 @@ public class EnrollDetailActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    /**
-     * 查看全部入围项目
-     */
-    @OnClick(R.id.tv_see_all)
-    public void checkAll() {
-
-    }
-
-    /**
-     * 查看全部参与项目
-     */
-    @OnClick(R.id.tv_enroll_all)
-    public void checkEnrollAll() {
-
     }
 }

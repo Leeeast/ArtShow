@@ -117,6 +117,7 @@
     <string name="tip_illegal_argument_exception">请传入Activity或Fragment</string>
     <string name="tip_no_more_date">没有更多数据了</string>
     <string name="tip_data_error">数据异常</string>
+    <string name="tip_data_commit_fail">信息提交失败</string>
     <string name="tip_auth_data_update">请上传资质认证图片</string>
 
 
@@ -162,6 +163,7 @@
     <string name="enroll_produce_add">+&#160;&#160;添加新项目</string>
     <string name="enroll_adopt">入围戏剧项目</string>
     <string name="enroll_all">参与报名戏剧项目（%1$d）</string>
+    <string name="tip_enroll_disjoin">只有机构用户才能报名</string>
 
     <!--我的页面相关-->
     <string name="me_unlogin_des">推荐项目</string>
@@ -380,6 +382,7 @@
     <string name="tip_project_input_first_show">请选择首演日期</string>
     <string name="tip_project_description_input">请输入项目介绍</string>
     <string name="tip_project_description_change_suc">项目介绍提交成功</string>
+    <string name="tip_project_stuff_change_suc">主创信息提交成功</string>
     <string name="tip_project_plot_input">请输入演出介绍</string>
     <string name="tip_project_plot_input_change_suc">演出介绍提交成功</string>
     <string name="tip_project_award_input">请输入项目获奖记录</string>
@@ -390,6 +393,7 @@
     <string name="tip_project_staff_name">请输入主创姓名</string>
     <string name="tip_project_staff_title">请输入主创头像</string>
     <string name="tip_project_staff_desc">请输入主创介绍</string>
+    <string name="tip_project_staff_add">请添加主创</string>
     <!--人才相关-->
     <string name="talent_title_my">我的人才</string>
     <string name="talent_upload_new">上传新简历</string>

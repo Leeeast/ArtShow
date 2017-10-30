@@ -45,7 +45,7 @@ public class ProjectDetailInfo {
     private String performanceEndDate;
     private String regionName;
     private List<PicturesBean> pictures;
-    private List<String> staffs;
+    private List<Staff> staffs;
     private int viewTimes;
 
     public String getId() {
@@ -248,11 +248,11 @@ public class ProjectDetailInfo {
         this.pictures = pictures;
     }
 
-    public List<String> getStaffs() {
+    public List<Staff> getStaffs() {
         return staffs;
     }
 
-    public void setStaffs(List<String> staffs) {
+    public void setStaffs(List<Staff> staffs) {
         this.staffs = staffs;
     }
 

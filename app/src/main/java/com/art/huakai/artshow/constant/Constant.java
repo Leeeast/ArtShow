@@ -131,6 +131,9 @@ public class Constant {
     public static final String URL_REPERTORY_EDIT_AWARDSDESCPT = BASE_URL + "/repertory/edit/awardsDescpt";
     //项目技术要求
     public static final String URL_REPERTORY_EDIT_REQUIREMENTS = BASE_URL + "/repertory/edit/requirements";
+    //修改演出项目团队成员，返回创建或修改的演出项目id
+    public static final String URL_REPERTORY_EDIT_TAFFS = BASE_URL + "/repertory/edit/staffs";
+    //用户信息预览
     public static final String URL_USER_PREVIEW = BASE_URL + "/user/preview";
 
 

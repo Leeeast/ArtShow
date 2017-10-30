@@ -1,7 +1,5 @@
 package com.art.huakai.artshow.adapter;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +7,7 @@ import android.view.ViewGroup;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EnrollApplyAddHolder;
-import com.art.huakai.artshow.adapter.holder.EnrollApplyHolder;
 import com.art.huakai.artshow.adapter.holder.StaffHolder;
-import com.art.huakai.artshow.dialog.MemberAddDialog;
 import com.art.huakai.artshow.entity.Staff;
 
 import java.util.List;
@@ -32,6 +28,12 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onCreateNew(int position);
+
+        void onUpdate(int position);
     }
 
     @Override
@@ -57,7 +59,7 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener != null) {
-                            mOnItemClickListener.onItemClickListener(position);
+                            mOnItemClickListener.onCreateNew(position);
                         }
                     }
                 });
@@ -68,7 +70,7 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener != null) {
-                            mOnItemClickListener.onItemClickListener(position);
+                            mOnItemClickListener.onUpdate(position);
                         }
                     }
                 });
