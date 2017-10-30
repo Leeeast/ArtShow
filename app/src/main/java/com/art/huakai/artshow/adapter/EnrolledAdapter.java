@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.EnrollJoinHolder;
-import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
-import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.adapter.holder.EnrolledHolder;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.text.SimpleDateFormat;
@@ -20,18 +19,14 @@ import java.util.List;
  * Created by lidongliang on 2017/10/5.
  */
 
-public class EnrollJoinAdapter extends RecyclerView.Adapter {
+public class EnrolledAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_NORMAL = 12;
     private List<String> mlist;
     private OnItemClickListener onItemClickListener;
-    private Date mEndDate;
-    private SimpleDateFormat mSimpleDateFormat;
 
-    public EnrollJoinAdapter(List<String> list) {
+    public EnrolledAdapter(List<String> list) {
         this.mlist = list;
-        mEndDate = new Date();
-        mSimpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -50,8 +45,8 @@ public class EnrollJoinAdapter extends RecyclerView.Adapter {
             view.setLayoutParams(layoutParams);
             return new EmptyHolder(view);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_enroll_join, parent, false);
-            return new EnrollJoinHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_enroll_edall, parent, false);
+            return new EnrolledHolder(view);
         }
     }
 
@@ -62,7 +57,7 @@ public class EnrollJoinAdapter extends RecyclerView.Adapter {
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_NORMAL:
-                EnrollJoinHolder evrollJoinHolder = (EnrollJoinHolder) holder;
+                EnrolledHolder evrollJoinHolder = (EnrolledHolder) holder;
                 evrollJoinHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

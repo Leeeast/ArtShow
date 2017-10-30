@@ -5,12 +5,16 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.EnrollJoinAdapter;
+import com.art.huakai.artshow.adapter.EnrolledAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
@@ -26,6 +30,7 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -57,6 +62,14 @@ public class EnrollDetailActivity extends BaseActivity {
     TextView tvEnrollEndTime;
     @BindView(R.id.tv_enroll_view_times)
     TextView tvEnrollViewTimes;
+    @BindView(R.id.include_enroll)
+    View checkAdoptAdopt;
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerViewAdopt;
+    @BindView(R.id.recyclerview_all)
+    RecyclerView recyclerViewAll;
+    @BindView(R.id.include_enroll_all)
+    View checkAdoptAll;
 
     private EnrollInfo mEnrollInfo;
     private EnrollDetailInfo mEnrollDetailInfo;
@@ -175,6 +188,39 @@ public class EnrollDetailActivity extends BaseActivity {
 
             }
         }).text(mEnrollDetailInfo.enroll.content);
+
+        initEnrollAdopt();
+        initEnrollAll();
+    }
+
+    private void initEnrollAdopt() {
+        //若果为空直接设置城 checkAdoptAdopt.setVisibility(View.GONE);return;
+        checkAdoptAdopt.setVisibility(View.VISIBLE);
+        ArrayList<String> enrollSAdopt = new ArrayList<>();
+        enrollSAdopt.add("");
+        enrollSAdopt.add("");
+        enrollSAdopt.add("");
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewAdopt.setLayoutManager(linearLayoutManager);
+        EnrollJoinAdapter enrollJoinAdapter = new EnrollJoinAdapter(enrollSAdopt);
+        recyclerViewAdopt.setAdapter(enrollJoinAdapter);
+        recyclerViewAdopt.setNestedScrollingEnabled(false);
+    }
+
+    private void initEnrollAll() {
+        //若果为空直接设置城 checkAdoptAll.setVisibility(View.GONE);return;
+        checkAdoptAll.setVisibility(View.VISIBLE);
+        ArrayList<String> enrollSAdopt = new ArrayList<>();
+        enrollSAdopt.add("");
+        enrollSAdopt.add("");
+        enrollSAdopt.add("");
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewAll.setLayoutManager(linearLayoutManager);
+        EnrolledAdapter enrollJoinAdapter = new EnrolledAdapter(enrollSAdopt);
+        recyclerViewAll.setAdapter(enrollJoinAdapter);
+        recyclerViewAll.setNestedScrollingEnabled(false);
     }
 
     //获取招募详情
@@ -217,5 +263,21 @@ public class EnrollDetailActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    /**
+     * 查看全部入围项目
+     */
+    @OnClick(R.id.tv_see_all)
+    public void checkAll() {
+
+    }
+
+    /**
+     * 查看全部参与项目
+     */
+    @OnClick(R.id.tv_enroll_all)
+    public void checkEnrollAll() {
+
     }
 }

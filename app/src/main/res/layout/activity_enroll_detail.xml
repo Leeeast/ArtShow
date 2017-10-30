@@ -17,7 +17,7 @@
         android:layout_below="@+id/include_title"
         android:background="@color/me_personal_line" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/view_line"
@@ -98,11 +98,17 @@
                 android:textColor="@color/enroll_sub_title"
                 android:textSize="18sp" />
 
+            <include
+                android:id="@+id/include_enroll"
+                layout="@layout/layout_enroll_adopt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <cn.droidlover.xrichtext.XRichText
                 android:id="@+id/xrhtxt_enroll_detail_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/DIMEN_16PX"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_16PX"
@@ -111,11 +117,19 @@
                 android:textColor="@color/enroll_end_time"
                 android:textSize="13sp" />
 
+            <include
+                android:id="@+id/include_enroll_all"
+                layout="@layout/layout_enroll_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_16PX"
                 android:background="@color/main_bottom_bg" />
 
             <TextView
@@ -141,7 +155,7 @@
                 fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <RelativeLayout
         android:id="@+id/rly_enroll_apply"

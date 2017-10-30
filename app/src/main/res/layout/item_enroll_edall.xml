@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rly_root_theatre"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/DIMEN_15PX"
+    android:layout_marginRight="@dimen/DIMEN_15PX"
+    android:layout_marginTop="@dimen/DIMEN_15PX"
+    android:background="@drawable/shape_theatre_item"
+    android:padding="@dimen/DIMEN_15PX">
+
+
+    <TextView
+        android:id="@+id/tv_project_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="蒙拉丽莎的眼泪"
+        android:textColor="@color/theatre_title"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_project_title"
+        android:layout_marginTop="@dimen/DIMEN_10PX"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/instruction"
+            android:textColor="@color/theatre_content"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_org_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/DIMEN_10PX"
+            android:maxLines="1"
+            android:text="华艺互联文化传媒"
+            android:textColor="@color/theatre_title"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/arrow_right" />
+
+</RelativeLayout>

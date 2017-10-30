@@ -160,8 +160,8 @@
     <string name="enroll_apply_number">演员人数</string>
     <string name="enroll_first_show_time">首演时间</string>
     <string name="enroll_produce_add">+&#160;&#160;添加新项目</string>
-    <string name="enroll_produce_adopt">入围戏剧项目</string>
-
+    <string name="enroll_adopt">入围戏剧项目</string>
+    <string name="enroll_all">参与报名戏剧项目（%1$d）</string>
 
     <!--我的页面相关-->
     <string name="me_unlogin_des">推荐项目</string>

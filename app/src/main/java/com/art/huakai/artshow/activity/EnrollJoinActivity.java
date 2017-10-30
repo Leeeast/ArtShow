@@ -44,8 +44,7 @@ public class EnrollJoinActivity extends BaseActivity {
     @Override
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText(R.string.enroll_produce_adopt);
-
+        tvTitle.setText(R.string.enroll_adopt);
 
     }
 
