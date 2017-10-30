@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff"
+    android:clickable="true"
+    android:focusable="true"
+   >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_80PX"
+        android:clickable="false"
+        >
+
+   <View
+       android:id="@+id/view_order"
+       android:layout_width="@dimen/DIMEN_32PX"
+       android:layout_height="@dimen/DIMEN_32PX"
+       android:background="@mipmap/has_ordered"
+       android:visibility="invisible"
+
+       />
+
+    <TextView
+        android:id="@+id/tv_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/DIMEN_18PX"
+        android:text="12"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="今天"
+        android:layout_marginBottom="@dimen/DIMEN_1PX"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffe93c2c"
+        android:visibility="invisible"
+        android:layout_above="@+id/tv_data"
+        android:textSize="@dimen/DIMEN_11PX"
+
+        />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"
+            android:background="#ffe6e9ed"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

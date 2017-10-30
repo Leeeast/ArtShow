@@ -152,6 +152,10 @@
             android:name=".activity.NewsShowActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".widget.calendar.CalendarSelectorActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
