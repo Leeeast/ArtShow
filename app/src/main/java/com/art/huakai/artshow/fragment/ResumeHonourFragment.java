@@ -14,11 +14,15 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,7 +33,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import okhttp3.Call;
 
-public class FillIntroduceFragment extends BaseFragment {
+public class ResumeHonourFragment extends BaseFragment {
 
     @BindView(R.id.edt_introduce)
     EditText edtIntroduce;
@@ -40,39 +44,39 @@ public class FillIntroduceFragment extends BaseFragment {
 
     private Unbinder unbinder;
     private ShowProgressDialog showProgressDialog;
-    private String mDescription;
+    private String mAwardsDescpt;
 
-    public FillIntroduceFragment() {
+    public ResumeHonourFragment() {
     }
 
-    public static FillIntroduceFragment newInstance() {
-        FillIntroduceFragment fragment = new FillIntroduceFragment();
+    public static ResumeHonourFragment newInstance() {
+        ResumeHonourFragment fragment = new ResumeHonourFragment();
         return fragment;
     }
 
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentDetailInfo.getInstance().getDescription();
+        mAwardsDescpt = TalentDetailInfo.getInstance().getAwardsDescpt();
     }
 
     @Override
     public int getLayoutID() {
-        return R.layout.fragment_fill_introduce;
+        return R.layout.fragment_resume_honor;
     }
 
     @Override
     public void initView(View rootView) {
         unbinder = ButterKnife.bind(this, rootView);
         tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText(R.string.resume_self_introduction);
+        tvTitle.setText(R.string.resume_award_experience);
         tvSubtitle.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setView() {
-        if (!TextUtils.isEmpty(mDescription)) {
-            edtIntroduce.setText(mDescription);
+        if (!TextUtils.isEmpty(mAwardsDescpt)) {
+            edtIntroduce.setText(mAwardsDescpt);
         }
     }
 
@@ -86,13 +90,13 @@ public class FillIntroduceFragment extends BaseFragment {
      */
     @OnClick(R.id.tv_subtitle)
     public void confirmInfo() {
-        changeResumeDescription();
+        changeTalentHonor();
     }
 
     /**
      * 修改简历个人介绍
      */
-    public void changeResumeDescription() {
+    public void changeTalentHonor() {
         //判断是否登录
         if (!LoginUtil.checkUserLogin(getContext(), true)) {
             return;
@@ -102,21 +106,23 @@ public class FillIntroduceFragment extends BaseFragment {
             Toast.makeText(getContext(), getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
             return;
         }
-        mDescription = edtIntroduce.getText().toString().trim();
-        if (TextUtils.isEmpty(mDescription)) {
-            Toast.makeText(getContext(), getString(R.string.tip_description_input), Toast.LENGTH_SHORT).show();
+        mAwardsDescpt = edtIntroduce.getText().toString().trim();
+        if (TextUtils.isEmpty(mAwardsDescpt)) {
+            Toast.makeText(getContext(), getString(R.string.tip_honor_input_empty), Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TalentDetailInfo.getInstance().getId());
+        if (!TextUtils.isEmpty(TalentDetailInfo.getInstance().getId())) {
+            params.put("id", TalentDetailInfo.getInstance().getId());
+        }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("description", mDescription);
+        params.put("worksDescpt", mAwardsDescpt);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
         showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_TALENT_EDIT_DESCRIPTION, params, 51, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, Constant.URL_TALENT_EDIT_AWARDSDESCPT, params, 52, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -124,8 +130,17 @@ public class FillIntroduceFragment extends BaseFragment {
                     showProgressDialog.dismiss();
                 }
                 if (isSuccess) {
-                    Toast.makeText(getContext(), getString(R.string.tip_description_change_suc), Toast.LENGTH_SHORT).show();
-                    TalentDetailInfo.getInstance().setDescription(mDescription);
+                    try {
+                        showToast(getString(R.string.tip_honor_commit_suc));
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String talentId = jsonObject.getString("id");
+                        TalentDetailInfo.getInstance().setId(talentId);
+                        TalentDetailInfo.getInstance().setAwardsDescpt(mAwardsDescpt);
+                        EventBus.getDefault().post(new TalentInfoChangeEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

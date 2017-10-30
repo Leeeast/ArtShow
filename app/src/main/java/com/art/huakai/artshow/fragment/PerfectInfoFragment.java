@@ -2,10 +2,6 @@ package com.art.huakai.artshow.fragment;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -14,34 +10,26 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
-import com.art.huakai.artshow.config.PhotoConfig;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DebugUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

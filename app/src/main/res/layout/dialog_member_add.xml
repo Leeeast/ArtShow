@@ -28,8 +28,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/DIMEN_5PX"
-                    android:layout_marginRight="@dimen/DIMEN_5PX"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
                     android:background="@mipmap/icon_close" />
             </LinearLayout>
 
@@ -38,10 +38,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text=""
+                android:text="@string/project_creator_intro"
                 android:textColor="@color/app_title"
-                android:textSize="15sp"
-                android:visibility="gone" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_subtitle"
@@ -51,19 +50,20 @@
                 android:layout_marginRight="@dimen/DIMEN_14PX"
                 android:text="@string/common_finish"
                 android:textColor="@color/theatre_send_fail"
-                android:textSize="15sp"
-                android:visibility="gone" />
+                android:textSize="15sp" />
         </FrameLayout>
 
-        <com.art.huakai.artshow.widget.ChinaShowImageView
-            android:id="@+id/sdv_theatre"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_member"
             android:layout_width="@dimen/DIMEN_86PX"
             android:layout_height="@dimen/DIMEN_86PX"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/DIMEN_18PX"
             android:layout_marginTop="@dimen/DIMEN_15PX"
             fresco:actualImageScaleType="fitXY"
-            fresco:placeholderImageScaleType="fitXY" />
+            fresco:placeholderImage="@mipmap/upload_member_avatar"
+            fresco:placeholderImageScaleType="centerInside"
+            fresco:roundedCornerRadius="4dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -176,7 +176,7 @@
             android:layout_marginRight="@dimen/DIMEN_10PX"
             android:background="@color/whiteff"
             android:gravity="start"
-            android:hint="@string/project_intro_input_tip"
+            android:hint="@string/project_creater_input_tip"
             android:minHeight="@dimen/DIMEN_162PX"
             android:padding="@dimen/DIMEN_15PX"
             android:textColor="@color/app_title"

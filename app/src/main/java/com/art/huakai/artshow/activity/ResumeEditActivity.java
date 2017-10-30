@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,18 @@ public class ResumeEditActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.sdv_avatar)
     SimpleDraweeView sdvAvatar;
+    @BindView(R.id.tv_data_base)
+    TextView tvDataBase;
+    @BindView(R.id.tv_intro)
+    TextView tvIntro;
+    @BindView(R.id.tv_project)
+    TextView tvProject;
+    @BindView(R.id.tv_picture)
+    TextView tvPicture;
+    @BindView(R.id.tv_awards)
+    TextView tvAwards;
+    @BindView(R.id.switch_talent_release)
+    Switch switchTalentRelease;
 
     private TakePhotoDialog takePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -80,9 +93,8 @@ public class ResumeEditActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         showProgressDialog = new ShowProgressDialog(this);
         talentInfo = TalentDetailInfo.getInstance();
-        Intent intent = getIntent();
-        if (intent != null) {
-            Bundle extras = intent.getExtras();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
             mIsNewCreate = extras.getBoolean(PARAMS_NEW, true);
         }
         if (mIsNewCreate) {
@@ -100,14 +112,30 @@ public class ResumeEditActivity extends BaseActivity {
 
     @Override
     public void setView() {
-        updateEditUI();
+
     }
 
     /**
      * 通知页面信息更新
      */
     public void updateEditUI() {
-
+        if (!TextUtils.isEmpty(talentInfo.getName())) {
+            tvDataBase.setText(getString(R.string.app_has_filled));
+        }
+        if (!TextUtils.isEmpty(talentInfo.getDescription())) {
+            tvIntro.setText(getString(R.string.app_has_filled));
+        }
+        if (!TextUtils.isEmpty(talentInfo.getWorksDescpt())) {
+            tvProject.setText(getString(R.string.app_has_filled));
+        }
+        if (talentInfo.getPictures() != null && talentInfo.getPictures().size() > 0) {
+            tvPicture.setText(getString(R.string.app_has_filled));
+        }
+        if (!TextUtils.isEmpty(talentInfo.getAwardsDescpt())) {
+            tvAwards.setText(getString(R.string.app_has_filled));
+        }
+        switchTalentRelease.setChecked(talentInfo.getStatus() == 1);
+        sdvAvatar.setImageURI(talentInfo.getLogo());
     }
 
     /**
@@ -218,6 +246,99 @@ public class ResumeEditActivity extends BaseActivity {
     @OnClick(R.id.rly_base_data)
     public void jumpBaseDataActivity() {
         invokActivity(this, ResumeBaseActivity.class, null, JumpCode.FLAG_REQ_BASE_DATA);
+    }
+
+    @OnClick(R.id.view_talent_release)
+    public void talentRelase() {
+        if (switchTalentRelease.isChecked()) {
+            talentOffline();
+        } else {
+            talentRelease();
+        }
+    }
+
+    /**
+     * 下线简历
+     */
+    public void talentOffline() {
+        if (TextUtils.isEmpty(talentInfo.getId())) {
+            showToast(getString(R.string.tip_talent_release));
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", talentInfo.getInstance().getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_TALENT_OFFLINE, params, 90, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    showToast(getString(R.string.tip_resume_offline_suc));
+                    talentInfo.setStatus(0);
+                    switchTalentRelease.setChecked(false);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                showToast(getString(R.string.tip_resume_offline_fail));
+            }
+        });
+    }
+
+    /**
+     * 发布简历
+     */
+    public void talentRelease() {
+        if (TextUtils.isEmpty(talentInfo.getId())) {
+            showToast(getString(R.string.tip_talent_release));
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("id", talentInfo.getInstance().getId());
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_TALENT_RELEASE, params, 89, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    showToast(getString(R.string.tip_resume_release_suc));
+                    talentInfo.setStatus(1);
+                    switchTalentRelease.setChecked(true);
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                showToast(getString(R.string.tip_resume_release_fail));
+            }
+        });
     }
 
     @Override
@@ -360,6 +481,10 @@ public class ResumeEditActivity extends BaseActivity {
             Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
             return;
         }
+        if (TextUtils.isEmpty(talentId)) {
+            showToast(getString(R.string.tip_data_error));
+            return;
+        }
         Map<String, String> params = new TreeMap<>();
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("id", talentId);
@@ -403,6 +528,7 @@ public class ResumeEditActivity extends BaseActivity {
                         talentInfo.setAge(resume.getAge());
                         talentInfo.setViewTimes(resume.getViewTimes());
                         talentInfo.setAuthentication(resume.getAuthentication());
+                        updateEditUI();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

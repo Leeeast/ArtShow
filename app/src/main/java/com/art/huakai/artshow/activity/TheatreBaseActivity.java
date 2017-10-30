@@ -1,21 +1,16 @@
 package com.art.huakai.artshow.activity;
 
 import android.text.TextUtils;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
-import com.art.huakai.artshow.entity.UserInfo;
-import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.CitySelectUtil;
 import com.art.huakai.artshow.utils.GsonTools;
@@ -24,7 +19,6 @@ import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
-import com.art.huakai.artshow.widget.DataItem;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;

@@ -182,6 +182,7 @@
     <string name="institution_upload_theatre">上传剧场信息</string>
     <string name="institution_my_talent">我的人才</string>
     <string name="institution_upload_talent">上传人才简历</string>
+    <string name="institution_upload_project">上传项目信息</string>
     <string name="jump_auth">跳过</string>
 
     <!--设置相关-->
@@ -221,6 +222,7 @@
     <string name="resume_post">发布简历</string>
     <string name="resume_post_tip">是否发布</string>
     <string name="resume_post_des">*简历发布后，所有人可见，未发布，将只有自己可见。</string>
+    <string name="tip_talent_release">请先完善简历信息再发布</string>
     <string name="user_info">个人信息</string>
     <string name="user_birthday">出生年月</string>
     <string name="user_ability_type">技能类型</string>
@@ -255,6 +257,11 @@
     <string name="tip_resume_linktel_input">请输入联系方式</string>
     <string name="share_copy_url">复制链接</string>
     <string name="share_open_url">在网页中打开</string>
+    <string name="tip_resume_name_input">请输入姓名</string>
+    <string name="tip_resume_release_suc">简历发布成功</string>
+    <string name="tip_resume_release_fail">简历发布失败</string>
+    <string name="tip_resume_offline_suc">简历下线成功</string>
+    <string name="tip_resume_offline_fail">简历下线失败</string>
     <!--剧场相关-->
     <string name="theatre_title_my">我的剧场</string>
     <string name="theatre_upload">上传剧场</string>
@@ -339,6 +346,7 @@
     <string name="project_show_price">项目报价：</string>
     <string name="project_able_show_time">可演出日期</string>
     <string name="project_intro_input_tip">在此输入项目介绍</string>
+    <string name="project_creater_input_tip">在此输入主创介绍</string>
     <string name="project_introduce">项目介绍</string>
     <string name="project_show_introduce">演出介绍</string>
     <string name="project_show_intro_input_tip">在此输入演出介绍</string>
@@ -377,6 +385,10 @@
     <string name="tip_project_award_input_suc">项目获奖记录提交成功</string>
     <string name="tip_project_tech_input">请输入项目技术要求</string>
     <string name="tip_project_tech_input_suc">项目技术要求提交成功</string>
+    <string name="tip_project_staff_photo">请选择主创头像</string>
+    <string name="tip_project_staff_name">请输入主创姓名</string>
+    <string name="tip_project_staff_title">请输入主创头像</string>
+    <string name="tip_project_staff_desc">请输入主创介绍</string>
     <!--人才相关-->
     <string name="talent_title_my">我的人才</string>
     <string name="talent_upload_new">上传新简历</string>

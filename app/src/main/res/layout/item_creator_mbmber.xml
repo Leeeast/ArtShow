@@ -8,20 +8,21 @@
     android:layout_marginRight="@dimen/DIMEN_15PX"
     android:orientation="vertical">
 
-    <com.art.huakai.artshow.widget.ChinaShowImageView
-        android:id="@+id/sdv_theatre"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_staff"
         android:layout_width="@dimen/DIMEN_72PX"
         android:layout_height="@dimen/DIMEN_72PX"
         android:layout_marginBottom="@dimen/DIMEN_15PX"
         android:layout_marginTop="@dimen/DIMEN_15PX"
-        fresco:actualImageScaleType="fitXY"
-        fresco:placeholderImageScaleType="fitXY" />
+        fresco:actualImageScaleType="centerInside"
+        fresco:placeholderImage="@mipmap/upload_member_avatar"
+        fresco:placeholderImageScaleType="centerInside" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/sdv_theatre"
+        android:layout_toRightOf="@id/sdv_staff"
         android:orientation="vertical"
         android:paddingLeft="@dimen/DIMEN_15PX">
 

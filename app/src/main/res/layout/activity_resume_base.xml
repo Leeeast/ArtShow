@@ -100,9 +100,10 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_birthday"
+                    android:hint="@string/app_un_fill"
                     android:text=""
                     android:textColor="@color/me_personal_des"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -141,9 +142,10 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_ability_type"
+                    android:hint="@string/app_un_fill"
                     android:text=""
                     android:textColor="@color/me_personal_des"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -182,6 +184,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_arrow_graduate"
+                    android:hint="@string/app_un_fill"
                     android:text=""
                     android:textColor="@color/me_personal_des"
                     android:textSize="17sp" />
@@ -261,6 +264,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_arrow_city"
+                    android:hint="@string/app_un_fill"
                     android:textColor="@color/login_btn"
                     android:textSize="17sp" />
 

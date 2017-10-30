@@ -20,6 +20,16 @@ public class DateUtil {
         return simpleDateFormat.format(date);
     }
 
+    //转成yyyy-MM-dd这种日期格式
+    public static String transTime(String time, String format) {
+        if (TextUtils.isEmpty(time) || time.equals("-28800000"))
+            return "";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        date.setTime(Long.parseLong(time));
+        return simpleDateFormat.format(date);
+    }
+
     /**
      * 转成时间戳
      */

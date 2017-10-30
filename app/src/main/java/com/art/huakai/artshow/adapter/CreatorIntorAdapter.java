@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EnrollApplyAddHolder;
 import com.art.huakai.artshow.adapter.holder.EnrollApplyHolder;
+import com.art.huakai.artshow.adapter.holder.StaffHolder;
 import com.art.huakai.artshow.dialog.MemberAddDialog;
+import com.art.huakai.artshow.entity.Staff;
 
 import java.util.List;
 
@@ -21,10 +23,10 @@ import java.util.List;
 public class CreatorIntorAdapter extends RecyclerView.Adapter {
     public static final int TYPE_NORMAL = 11;
     public static final int TYPE_ADD = 12;
-    private List<String> mlist;
+    private List<Staff> mlist;
     private OnItemClickListener mOnItemClickListener;
 
-    public CreatorIntorAdapter(List<String> list) {
+    public CreatorIntorAdapter(List<Staff> list) {
         this.mlist = list;
     }
 
@@ -41,7 +43,7 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
             return new EnrollApplyAddHolder(view);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_creator_mbmber, parent, false);
-            return new EnrollApplyHolder(view);
+            return new StaffHolder(view);
         }
     }
 
@@ -61,8 +63,8 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
                 });
                 break;
             case TYPE_NORMAL:
-                final EnrollApplyHolder enrollApplyHolder = (EnrollApplyHolder) holder;
-                enrollApplyHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                StaffHolder staffHolder = (StaffHolder) holder;
+                staffHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener != null) {
@@ -70,8 +72,10 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
                         }
                     }
                 });
-
-                enrollApplyHolder.sdvTheatre.setImageURI(Uri.parse("asset:///test.png"));
+                Staff staff = mlist.get(position);
+                staffHolder.sdvStaff.setImageURI(staff.getPhoto());
+                staffHolder.tvCreatorName.setText(staff.getName());
+                staffHolder.tvCreatorRole.setText(staff.getRoleName());
                 break;
         }
     }

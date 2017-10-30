@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +15,8 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.RegUserInfo;
+import com.art.huakai.artshow.entity.User;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.fragment.CooperateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
@@ -34,7 +35,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.Call;
 
 /**
@@ -102,24 +102,28 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
             String sign = SignUtil.getSign(params);
             params.put("sign", sign);
-            RequestUtil.request(true, Constant.URL_USER_INFO, params, 16, new RequestUtil.RequestListener() {
+            RequestUtil.request(true, Constant.URL_USER_PREVIEW, params, 16, new RequestUtil.RequestListener() {
                 @Override
                 public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                     LogUtil.i(TAG, obj);
                     if (isSuccess) {
                         try {
-                            UserInfo.User user = GsonTools.parseData(obj, UserInfo.User.class);
+                            UserInfo userInfo = GsonTools.parseData(obj, UserInfo.class);
                             LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
-                            localUserInfo.setId(user.id);
-                            localUserInfo.setName(user.name);
-                            localUserInfo.setMobile(user.mobile);
-                            localUserInfo.setEmail(user.email);
-                            localUserInfo.setWechatOpenid(user.wechatOpenid);
-                            localUserInfo.setDp(user.dp);
-                            localUserInfo.setPassword(user.password);
-                            localUserInfo.setUserType(user.userType);
-                            localUserInfo.setStatus(user.status);
-                            localUserInfo.setCreateTime(user.createTime);
+                            localUserInfo.setId(userInfo.user.id);
+                            localUserInfo.setName(userInfo.user.name);
+                            localUserInfo.setMobile(userInfo.user.mobile);
+                            localUserInfo.setEmail(userInfo.user.email);
+                            localUserInfo.setWechatOpenid(userInfo.user.wechatOpenid);
+                            localUserInfo.setDp(userInfo.user.dp);
+                            localUserInfo.setPassword(userInfo.user.password);
+                            localUserInfo.setUserType(userInfo.user.userType);
+                            localUserInfo.setStatus(userInfo.user.status);
+                            localUserInfo.setCreateTime(userInfo.user.createTime);
+                            localUserInfo.setAuthenStatus(userInfo.authenStatus);
+                            localUserInfo.setTalentCount(userInfo.talentCount);
+                            localUserInfo.setTheterCount(userInfo.theterCount);
+                            localUserInfo.setRepertoryCount(userInfo.repertoryCount);
                             SharePreUtil.getInstance().storeUserInfo(localUserInfo);
                         } catch (Exception e) {
                             e.printStackTrace();

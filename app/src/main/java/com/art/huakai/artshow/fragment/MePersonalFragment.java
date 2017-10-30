@@ -52,6 +52,7 @@ public class MePersonalFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rly_my_resume:
+                Bundle bundleParams = new Bundle();
                 invokActivity(getContext(), ResumeEditActivity.class, null, JumpCode.FLAG_REQ_RESUME_MY);
                 break;
             case R.id.rly_pro_auth:

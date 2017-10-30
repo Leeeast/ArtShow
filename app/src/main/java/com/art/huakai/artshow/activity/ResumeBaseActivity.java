@@ -16,15 +16,21 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.ClassifyTypeBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.ACache;
+import com.art.huakai.artshow.utils.CitySelectUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,6 +85,8 @@ public class ResumeBaseActivity extends BaseActivity {
     private int mRegionId = -1;
     private ACache mACache;
     private ArrayList<ClassifyTypeBean> classifyTypeAdded;
+    private TalentDetailInfo talentDetailInfo;
+    private long birthdayTime = 0;
 
     @Override
     public void immerseStatusBar() {
@@ -93,6 +101,7 @@ public class ResumeBaseActivity extends BaseActivity {
     @Override
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
+        talentDetailInfo = TalentDetailInfo.getInstance();
         mACache = ACache.get(this);
     }
 
@@ -112,13 +121,28 @@ public class ResumeBaseActivity extends BaseActivity {
 
         String birthday = TextUtils.isEmpty(TalentDetailInfo.getInstance().getBirthday()) ?
                 getString(R.string.app_un_fill) :
-                DateUtils.parseDate(TalentDetailInfo.getInstance().getBirthday(), "yyyy-MM").toString();
+                DateUtil.transTime(talentDetailInfo.getBirthday(), "yyyy-MM");
         tvBirthday.setText(birthday);
 
-        String classifyType = TextUtils.isEmpty(TalentDetailInfo.getInstance().getClassifyNames()) ?
-                getString(R.string.app_un_fill) :
-                TalentDetailInfo.getInstance().getClassifyNames();
-        tvAbilityType.setText(classifyType);
+        //tvAbilityType.setText(classifyType);
+        edtSubsidiaryOrgan.setText(talentDetailInfo.getAgency());
+        tvGraduateInstitu.setText(talentDetailInfo.getSchool());
+        if (!TextUtils.isEmpty(talentDetailInfo.getRegionId())) {
+            CitySelectUtil.getCity(talentDetailInfo.getRegionId(), new CitySelectUtil.CityDataRequestListener() {
+                @Override
+                public void onSuccess(String s) {
+                    tvLiveCity.setText(s);
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            });
+        }
+        edtStature.setText(talentDetailInfo.getHeight());
+        edtWeight.setText(talentDetailInfo.getWeight());
+        edtConnectMethod.setText(talentDetailInfo.getLinkTel());
     }
 
     /**
@@ -134,9 +158,14 @@ public class ResumeBaseActivity extends BaseActivity {
      */
     @OnClick(R.id.tv_subtitle)
     public void commitInfo() {
+        final String name = edtUserName.getText().toString().trim();
+        if (TextUtils.isEmpty(name)) {
+            showToast(getString(R.string.tip_resume_name_input));
+            return;
+        }
         String birthday = tvBirthday.getText().toString().toString();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
-        long birthdayTime = 0;
+
         try {
             Date date = simpleDateFormat.parse(birthday);
             birthdayTime = date.getTime();
@@ -155,9 +184,9 @@ public class ResumeBaseActivity extends BaseActivity {
         for (int i = 0; i < classifyTypeAdded.size(); i++) {
             jsonArray.put(String.valueOf(classifyTypeAdded.get(i).getId()));
         }
-        String classifyIds = jsonArray.toString();
-        String schrool = tvGraduateInstitu.getText().toString().trim();
-        String agency = edtSubsidiaryOrgan.getText().toString().trim();
+        final String classifyIds = jsonArray.toString();
+        final String schrool = tvGraduateInstitu.getText().toString().trim();
+        final String agency = edtSubsidiaryOrgan.getText().toString().trim();
         if (TextUtils.isEmpty(agency)) {
             Toast.makeText(this, getString(R.string.tip_resume_agency_input), Toast.LENGTH_SHORT).show();
             return;
@@ -166,23 +195,26 @@ public class ResumeBaseActivity extends BaseActivity {
             Toast.makeText(this, getString(R.string.tip_resume_region_city), Toast.LENGTH_SHORT).show();
             return;
         }
-        String weight = edtWeight.getText().toString().trim();
-        String heigth = edtStature.getText().toString().trim();
-        String linkTel = edtConnectMethod.getText().toString().trim();
+        final String regionId = String.valueOf(mRegionId);
+        final String weight = edtWeight.getText().toString().trim();
+        final String heigth = edtStature.getText().toString().trim();
+        final String linkTel = edtConnectMethod.getText().toString().trim();
         if (TextUtils.isEmpty(linkTel)) {
             Toast.makeText(this, getString(R.string.tip_resume_linktel_input), Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", TalentDetailInfo.getInstance().getId());
+        if (!TextUtils.isEmpty(talentDetailInfo.getId())) {
+            params.put("id", talentDetailInfo.getId());
+        }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("name", LocalUserInfo.getInstance().getName());
+        params.put("name", name);
         params.put("birthday", String.valueOf(birthdayTime));
         params.put("classifyIds", classifyIds);
         params.put("school", schrool);
         params.put("agency", agency);
-        params.put("regionId", String.valueOf(mRegionId));
+        params.put("regionId", regionId);
         params.put("height", heigth);
         params.put("weight", weight);
         params.put("linkTel", linkTel);
@@ -196,6 +228,34 @@ public class ResumeBaseActivity extends BaseActivity {
                 LogUtil.i(TAG, obj);
                 if (showProgressDialog.isShowing()) {
                     showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        showToast(getString(R.string.tip_theatre_info_commit_success));
+                        //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String theatreId = jsonObject.getString("id");
+                        talentDetailInfo.setId(theatreId);
+                        talentDetailInfo.setName(name);
+                        talentDetailInfo.setBirthday(String.valueOf(birthdayTime));
+
+                        List<Integer> added = new ArrayList<Integer>();
+                        for (int i = 0; i < classifyTypeAdded.size(); i++) {
+                            added.add(classifyTypeAdded.get(i).getId());
+                        }
+                        talentDetailInfo.setClassifyIds(added);
+                        talentDetailInfo.setSchool(schrool);
+                        talentDetailInfo.setAgency(agency);
+                        talentDetailInfo.setRegionId(regionId);
+                        talentDetailInfo.setWeight(weight);
+                        talentDetailInfo.setHeight(heigth);
+                        talentDetailInfo.setLinkTel(linkTel);
+                        EventBus.getDefault().post(new TalentInfoChangeEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
                 }
             }
 
