@@ -1,1 +1,1 @@
-include ':app', ':ucrop', ':picture_library',':wheelpicker'
+include ':app', ':ucrop', ':picture_library', ':wheelpicker', ':xrichtext_library'
