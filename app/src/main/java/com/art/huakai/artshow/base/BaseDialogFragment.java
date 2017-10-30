@@ -12,15 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by lidongliang on 2017/10/1.
  */
 
 public abstract class BaseDialogFragment extends DialogFragment {
+    public String TAG = BaseDialogFragment.class.getSimpleName();
     private OnDismissListener mOnDismissListener;
+    protected Unbinder mUnBinder;
+    private Toast mToast;
 
     /**
      * Dialog消失监听
@@ -50,6 +57,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mUnBinder = ButterKnife.bind(this, view);
         initView(view);
         setView();
     }
@@ -80,6 +88,28 @@ public abstract class BaseDialogFragment extends DialogFragment {
         if (mOnDismissListener != null) {
             mOnDismissListener.onDismiss();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mUnBinder != null)
+            mUnBinder.unbind();
+
+    }
+
+    /**
+     * 显示Toast
+     *
+     * @param toastStr
+     */
+    public void showToast(String toastStr) {
+        if (mToast == null) {
+            mToast = Toast.makeText(getContext(), toastStr, Toast.LENGTH_SHORT);
+        } else {
+            mToast.setText(toastStr);
+        }
+        mToast.show();
     }
 
     /**

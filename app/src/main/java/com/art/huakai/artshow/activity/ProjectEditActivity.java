@@ -213,7 +213,7 @@ public class ProjectEditActivity extends BaseActivity {
 
         String dataBase = TextUtils.isEmpty(projectDetailInfo.getTitle()) ?
                 getResources().getString(R.string.app_un_fill) :
-                projectDetailInfo.getTitle();
+                getResources().getString(R.string.app_has_filled);
         dataItemBase.setDesText(dataBase);
 
         String dataProjectDes = TextUtils.isEmpty(projectDetailInfo.getDescription()) ?

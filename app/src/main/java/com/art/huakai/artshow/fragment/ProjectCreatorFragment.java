@@ -13,6 +13,7 @@ import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.dialog.MemberAddDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.Staff;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 
 import java.util.ArrayList;
@@ -31,9 +32,9 @@ public class ProjectCreatorFragment extends BaseFragment {
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
 
-    private Unbinder unbinder;
     private ShowProgressDialog showProgressDialog;
-    private String mDescription;
+    private ArrayList<Staff> mStaffs;
+    private MemberAddDialog memberAddDialog;
 
     public ProjectCreatorFragment() {
     }
@@ -46,7 +47,7 @@ public class ProjectCreatorFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mDescription = TalentDetailInfo.getInstance().getDescription();
+        mStaffs = new ArrayList<>();
     }
 
     @Override
@@ -56,7 +57,6 @@ public class ProjectCreatorFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
-        unbinder = ButterKnife.bind(this, rootView);
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.project_creator_intro);
         tvSubtitle.setVisibility(View.VISIBLE);
@@ -64,19 +64,30 @@ public class ProjectCreatorFragment extends BaseFragment {
 
     @Override
     public void setView() {
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("");
-        strings.add("");
-        strings.add("");
-        CreatorIntorAdapter creatorIntorAdapter = new CreatorIntorAdapter(strings);
+
+        CreatorIntorAdapter creatorIntorAdapter = new CreatorIntorAdapter(mStaffs);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(creatorIntorAdapter);
         creatorIntorAdapter.setOnItemClickListener(new OnItemClickListener() {
+
             @Override
             public void onItemClickListener(int position) {
-                MemberAddDialog memberAddDialog = MemberAddDialog.newInstence();
+                if (memberAddDialog == null) {
+                    memberAddDialog = MemberAddDialog.newInstence();
+                    memberAddDialog.setCommitCallBack(new MemberAddDialog.CommitCallBack() {
+                        @Override
+                        public void createNewStaff(Staff staff) {
+
+                        }
+
+                        @Override
+                        public void updateStaff(int position, Staff staff) {
+
+                        }
+                    });
+                }
                 memberAddDialog.show(getChildFragmentManager(), "MEMBERADD.DIALOG");
             }
         });
@@ -92,11 +103,5 @@ public class ProjectCreatorFragment extends BaseFragment {
      */
     @OnClick(R.id.tv_subtitle)
     public void confirmInfo() {
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

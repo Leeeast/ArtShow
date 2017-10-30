@@ -346,6 +346,7 @@
     <string name="project_show_price">项目报价：</string>
     <string name="project_able_show_time">可演出日期</string>
     <string name="project_intro_input_tip">在此输入项目介绍</string>
+    <string name="project_creater_input_tip">在此输入主创介绍</string>
     <string name="project_introduce">项目介绍</string>
     <string name="project_show_introduce">演出介绍</string>
     <string name="project_show_intro_input_tip">在此输入演出介绍</string>
@@ -384,6 +385,10 @@
     <string name="tip_project_award_input_suc">项目获奖记录提交成功</string>
     <string name="tip_project_tech_input">请输入项目技术要求</string>
     <string name="tip_project_tech_input_suc">项目技术要求提交成功</string>
+    <string name="tip_project_staff_photo">请选择主创头像</string>
+    <string name="tip_project_staff_name">请输入主创姓名</string>
+    <string name="tip_project_staff_title">请输入主创头像</string>
+    <string name="tip_project_staff_desc">请输入主创介绍</string>
     <!--人才相关-->
     <string name="talent_title_my">我的人才</string>
     <string name="talent_upload_new">上传新简历</string>
