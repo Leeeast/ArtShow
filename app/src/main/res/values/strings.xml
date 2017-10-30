@@ -160,6 +160,7 @@
     <string name="enroll_apply_number">演员人数</string>
     <string name="enroll_first_show_time">首演时间</string>
     <string name="enroll_produce_add">+&#160;&#160;添加新项目</string>
+    <string name="enroll_produce_adopt">入围戏剧项目</string>
 
 
     <!--我的页面相关-->
@@ -396,6 +397,9 @@
     <string name="talent_age">年龄&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     <string name="talent_logo_upload_suc">简历头像上传成功</string>
     <string name="talent_logo_upload_fail">简历头像上传失败</string>
+
+    <!--合作招募-->
+    <string name="instruction">机构</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

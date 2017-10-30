@@ -1,14 +1,10 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +18,7 @@ import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.EnrollInfo;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -29,13 +26,14 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.droidlover.xrichtext.XRichText;
+import cn.qqtheme.framework.util.ScreenUtils;
 import okhttp3.Call;
 
 public class EnrollDetailActivity extends BaseActivity {
@@ -47,8 +45,8 @@ public class EnrollDetailActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.iv_right_img)
     ImageView ivRightImg;
-    @BindView(R.id.tv_enroll_detail_content)
-    TextView tvEnrollDetailContent;
+    @BindView(R.id.xrhtxt_enroll_detail_content)
+    XRichText txrhtxtEnrollDetailContent;
     @BindView(R.id.tv_enroll_main_title)
     TextView tvEnrollMainTitle;
     @BindView(R.id.tv_enroll_anchor)
@@ -143,49 +141,41 @@ public class EnrollDetailActivity extends BaseActivity {
     public void fillData() {
         tvEnrollMainTitle.setText(mEnrollDetailInfo.enroll.title);
         tvEnrollAnchor.setText(mEnrollDetailInfo.enroll.authName);
-        tvEnrollTime.setText(String.valueOf(mEnrollDetailInfo.enroll.createTime));
+        tvEnrollTime.setText(DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.createTime), "yyyy年MM月dd"));
         tvEnrollEndTime.setText(
                 String.format(getString(R.string.cooperate_end_time),
-                        String.valueOf(mEnrollDetailInfo.enroll.endTime)));
+                        DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.endTime), "yyyy年MM月dd")));
         tvEnrollViewTimes.setText(
                 String.format(getString(R.string.enroll_detail_read),
                         mEnrollDetailInfo.enroll.viewTimes)
         );
-        Spanned spanned = Html.fromHtml(mEnrollDetailInfo.enroll.content);
-        tvEnrollDetailContent.setText(spanned);
-        //Spanned spanned = Html.fromHtml(mEnrollDetailInfo.content);
-        new Thread() {
+        txrhtxtEnrollDetailContent.callback(new XRichText.BaseClickCallback() {
             @Override
-            public void run() {
-                final Spanned spanned = Html.fromHtml(mEnrollDetailInfo.enroll.content, imgGetter, null);
-                tvEnrollDetailContent.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        tvEnrollDetailContent.setText(spanned);
-                        tvEnrollDetailContent.setMovementMethod(LinkMovementMethod.getInstance());
-                    }
-                });
-            }
-        }.start();
+            public void onImageClick(List<String> urlList, int position) {
 
+            }
+
+            @Override
+            public boolean onLinkClick(String url) {
+                return true;
+            }
+
+            @Override
+            public void onFix(XRichText.ImageHolder holder, Bitmap bitmap) {
+                super.onFix(holder, bitmap);
+                holder.setStyle(XRichText.Style.CENTER);
+                int bitmapWidth = bitmap.getWidth();
+                int bitmapHeight = bitmap.getHeight();
+                //设置宽高
+                int screenWidth = ScreenUtils.widthPixels(getApplicationContext());
+                int maxWidth = screenWidth - getResources().getDimensionPixelSize(R.dimen.DIMEN_30PX);
+                int maxHidth = (maxWidth * bitmapHeight) / bitmapWidth;
+                holder.setWidth(maxWidth);
+                holder.setHeight(maxHidth);
+
+            }
+        }).text(mEnrollDetailInfo.enroll.content);
     }
-
-    Html.ImageGetter imgGetter = new Html.ImageGetter() {
-        public Drawable getDrawable(final String source) {
-            Drawable drawable = null;
-
-            try {
-                URL url = new URL(source);
-                drawable = Drawable.createFromStream(url.openStream(), "");  //获取网路图片
-            } catch (Exception e) {
-                return null;
-            }
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable
-                    .getIntrinsicHeight());
-            return drawable;
-        }
-    };
-
 
     //获取招募详情
     public void getEnrollDetail() {
