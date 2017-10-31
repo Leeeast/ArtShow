@@ -1,5 +1,9 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
@@ -7,6 +11,8 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.InfoBaseResp;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.fragment.AccountTypeSelectFragment;
@@ -19,18 +25,33 @@ import com.art.huakai.artshow.fragment.RegisterSucFragment;
 import com.art.huakai.artshow.fragment.RetrievePwdFragment;
 import com.art.huakai.artshow.fragment.SetPwdFragment;
 import com.art.huakai.artshow.fragment.SetPwdSucFragment;
+import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.art.huakai.artshow.wxapi.WXEntryActivity;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+import okhttp3.Call;
 
 public class LoginActivity extends BaseActivity {
 
     //再次点击退出使用
     private long touchTime = 0;
     private int mCodeAction;
+    private IWXAPI wxapi;
+    private ShowProgressDialog showProgressDialog;
 
     @Override
     public void immerseStatusBar() {
@@ -44,6 +65,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        showProgressDialog = new ShowProgressDialog(this);
         EventBus.getDefault().register(this);
         LoginRegFragment mLoginRegFragment = LoginRegFragment.newInstance();
         initFragment(mLoginRegFragment);
@@ -54,6 +76,15 @@ public class LoginActivity extends BaseActivity {
                 EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_ACCOUNT_TYPE_AFFIRM));
             }
         }
+        regToWx();
+    }
+
+    /**
+     * 微信相关初始化
+     */
+    private void regToWx() {
+        wxapi = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APPID, true);
+        wxapi.registerApp(Constant.WEIXIN_APPID);
     }
 
     @Override
@@ -102,8 +133,19 @@ public class LoginActivity extends BaseActivity {
                 initFragment(registerSucFragment);
                 break;
             case LoginEvent.CODE_ACTION_BIND_PHONE:
-                BindPhoneFragment bindPhoneFragment = BindPhoneFragment.newInstance();
-                initFragmentAddback(bindPhoneFragment);
+                showProgressDialog.show();
+                if (wxapi.isWXAppInstalled()) {
+                    reigstWeixinLoginRiciver();
+                    SendAuth.Req req = new SendAuth.Req();
+                    req.scope = "snsapi_userinfo";
+                    req.state = "wechat_sdk_demo_test";
+                    wxapi.sendReq(req);
+                } else {
+                    if (showProgressDialog.isShowing()) {
+                        showProgressDialog.dismiss();
+                    }
+                    showToast(getString(R.string.weixin_no));
+                }
                 break;
             case LoginEvent.CODE_ACTION_WECHAT_SET_PWD:
                 SetPwdFragment setPwdFragment =
@@ -155,4 +197,74 @@ public class LoginActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+
+    /**
+     * 用来接收从WXEntryActivity传入的微信回调的广播接收器
+     */
+    private void reigstWeixinLoginRiciver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WXEntryActivity.ACTION_WECHAT_AUTH_MESSAGE);
+        filter.setPriority(Integer.MAX_VALUE);
+        registerReceiver(wxReceiver, filter);
+    }
+
+    private BroadcastReceiver wxReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getSerializableExtra("onResp") != null) {
+                onResp((InfoBaseResp) intent.getSerializableExtra("onResp"));
+            }
+        }
+    };
+
+    public void onResp(InfoBaseResp arg0) {
+        final String authCode = arg0.getCode();
+        String state = arg0.getState();
+        int errCode = arg0.getErrCode();
+        if (errCode == 0) {// 用户同意授权
+            if (authCode != null && !(authCode.equals(""))) {
+                showToast("授权成功");
+                Map<String, String> params = new TreeMap<>();
+                params.put("code", authCode);
+                String sign = SignUtil.getSign(params);
+                params.put("sign", sign);
+                RequestUtil.request(true, Constant.URL_USER_WXLOGIN, params, 91, new RequestUtil.RequestListener() {
+                    @Override
+                    public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                        LogUtil.i(TAG, obj);
+                        if (showProgressDialog.isShowing()) {
+                            showProgressDialog.dismiss();
+                        }
+                        if (isSuccess) {
+                            try {
+                                showToast("登陆成功");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            if (code == ResponseCodeCheck.CODE_4012) {
+                                Toast.makeText(LoginActivity.this, getString(R.string.wechat_login_suc_tip), Toast.LENGTH_SHORT).show();
+                                LocalUserInfo.getInstance().setWxAuthCode(authCode);
+                                BindPhoneFragment bindPhoneFragment = BindPhoneFragment.newInstance();
+                                initFragmentAddback(bindPhoneFragment);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(Call call, Exception e, int id) {
+                        LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                        showToast(getString(R.string.wechat_login_fail));
+                        if (showProgressDialog.isShowing()) {
+                            showProgressDialog.dismiss();
+                        }
+                    }
+                });
+            }
+        } else {
+        }
+        unregisterReceiver(wxReceiver);
+    }
+
 }

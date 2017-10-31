@@ -17,6 +17,10 @@
     <string name="app_edit_data">编辑资料</string>
     <!--三方登录、分享-->
     <string name="third_wechat">微信</string>
+    <string name="weixin_no">请先下载安装微信客户端</string>
+    <string name="wechat_login_fail">微信登陆失败</string>
+    <string name="wechat_login_suc">微信授权成功</string>
+    <string name="wechat_login_suc_tip">微信授权成功,绑定手机后才能正常使用演圈</string>
     <!--登录注册-->
     <string name="login_app_introduce">中国最大的演出资料信息\n共享平台</string>
     <string name="login_weixin">微&#160;&#160;信&#160;&#160;登&#160;&#160;录</string>

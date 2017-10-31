@@ -25,7 +25,11 @@
 #-renamesourcefileattribute SourceFile
 
 
-
+#--------wechat start--------------
+-keep class com.tencent.mm.opensdk.** {*;}
+-keep class com.tencent.wxop.** {*;}
+-keep class com.tencent.mm.sdk.** {*;}
+#--------wechat end--------------
 #--------EventBus start----------
 -keepattributes *Annotation*
 -keepclassmembers class ** {

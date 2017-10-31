@@ -32,8 +32,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
                 android:imeOptions="actionNext"
-                android:maxLength="11"
                 android:inputType="phone"
+                android:maxLength="11"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/DIMEN_15PX"
                 android:textColorHint="@color/login_light"
@@ -56,6 +56,7 @@
                     android:id="@+id/edt_verify_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="0123456789"
                     android:hint="@string/app_verify_code"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
@@ -68,6 +69,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <FrameLayout
+                android:id="@+id/fly_send_verify"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right">

@@ -49,6 +49,16 @@ public class LocalUserInfo {
     private int talentCount;
     private int theterCount;
 
+    //微信授权code
+    private String wxAuthCode;
+    public String getWxAuthCode() {
+        return wxAuthCode;
+    }
+
+    public void setWxAuthCode(String wxAuthCode) {
+        this.wxAuthCode = wxAuthCode;
+    }
+
     //是否记录密码
     private boolean isKeepPwd;
 

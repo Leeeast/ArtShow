@@ -5,6 +5,8 @@ package com.art.huakai.artshow.constant;
  */
 
 public class Constant {
+    //微信appid
+    public static final String WEIXIN_APPID = "wxcb35ca4b49a33ec0";
     //主页再次按返回按钮，退出程序，时间间隔
     public static final int EXIT_APP_TIME_OFFSET = 2000;
     //SplashActivity显示时间
@@ -135,7 +137,10 @@ public class Constant {
     public static final String URL_REPERTORY_EDIT_TAFFS = BASE_URL + "/repertory/edit/staffs";
     //用户信息预览
     public static final String URL_USER_PREVIEW = BASE_URL + "/user/preview";
-
+    //微信登陆
+    public static final String URL_USER_WXBIND = BASE_URL + "/user/wxbind";
+    //微信登陆
+    public static final String URL_USER_WXLOGIN = BASE_URL + "/user/wxlogin";
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型
