@@ -168,6 +168,7 @@
     <string name="enroll_adopt">入围戏剧项目</string>
     <string name="enroll_all">参与报名戏剧项目（%1$d）</string>
     <string name="tip_enroll_disjoin">只有机构用户才能报名</string>
+    <string name="tip_enroll_limit">只能参与%1$d个项目</string>
 
     <!--我的页面相关-->
     <string name="me_unlogin_des">推荐项目</string>

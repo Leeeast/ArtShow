@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
@@ -38,7 +39,7 @@ import okhttp3.Call;
 public class CooperateFragment extends BaseFragment implements SmartRecyclerview.LoadingListener {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = CooperateFragment.class.getSimpleName();
-    private EditText edtSearch;
+    private TextView tvSearch;
     private SmartRecyclerview recyclerView;
     private int mPage = 1;
     private List<EnrollInfo> mEnrollInfos;
@@ -71,8 +72,8 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
                 getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX)
                         + getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX),
                 getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX));
-        edtSearch = (EditText) rootView.findViewById(R.id.edt_search);
-        edtSearch.setCompoundDrawables(drawableLeft, null, null, null);
+        tvSearch = (TextView) rootView.findViewById(R.id.tv_search);
+        tvSearch.setCompoundDrawables(drawableLeft, null, null, null);
 
         recyclerView = (SmartRecyclerview) rootView.findViewById(R.id.recyvleview_coll);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

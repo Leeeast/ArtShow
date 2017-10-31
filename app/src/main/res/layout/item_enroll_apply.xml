@@ -93,12 +93,24 @@
         android:id="@+id/chk_enroll_apply"
         android:layout_width="@dimen/DIMEN_19PX"
         android:layout_height="@dimen/DIMEN_19PX"
-        android:enabled="false"
-        android:clickable="false"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/DIMEN_23PX"
         android:background="@drawable/account_type_selector"
-        android:button="@null" />
+        android:button="@null"
+        android:clickable="false"
+        android:enabled="false" />
+
+    <TextView
+        android:id="@+id/tv_project_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:text="@string/unsend_status"
+        android:textColor="@color/enroll_sub_title"
+        android:textSize="13sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

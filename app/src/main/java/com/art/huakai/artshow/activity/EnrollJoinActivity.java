@@ -59,7 +59,7 @@ public class EnrollJoinActivity extends BaseActivity {
         strings.add("132");
         strings.add("132");
         strings.add("132");
-        EnrollJoinAdapter enrollJoinAdapter = new EnrollJoinAdapter(strings);
+        EnrollJoinAdapter enrollJoinAdapter = new EnrollJoinAdapter(null);
         enrollJoinAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {

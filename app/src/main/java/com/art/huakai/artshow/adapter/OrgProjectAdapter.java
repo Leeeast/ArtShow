@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
-import com.art.huakai.artshow.adapter.holder.OrgTheatreHolder;
 import com.art.huakai.artshow.entity.RepertorysBean;
-import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.text.SimpleDateFormat;

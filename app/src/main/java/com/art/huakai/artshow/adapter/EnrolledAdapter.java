@@ -9,6 +9,8 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.EnrollJoinHolder;
 import com.art.huakai.artshow.adapter.holder.EnrolledHolder;
+import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.text.SimpleDateFormat;
@@ -22,10 +24,10 @@ import java.util.List;
 public class EnrolledAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_NORMAL = 12;
-    private List<String> mlist;
+    private List<RepertorysBean> mlist;
     private OnItemClickListener onItemClickListener;
 
-    public EnrolledAdapter(List<String> list) {
+    public EnrolledAdapter(List<RepertorysBean> list) {
         this.mlist = list;
     }
 
@@ -58,6 +60,7 @@ public class EnrolledAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_NORMAL:
                 EnrolledHolder evrollJoinHolder = (EnrolledHolder) holder;
+                RepertorysBean repertorysBean = mlist.get(position);
                 evrollJoinHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -72,7 +75,8 @@ public class EnrolledAdapter extends RecyclerView.Adapter {
                     layoutParams.topMargin = evrollJoinHolder.rLyRootTheatre.
                             getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
                 }
-
+                evrollJoinHolder.tvProjectTitle.setText(repertorysBean.getTitle());
+                evrollJoinHolder.tvOrgName.setText(repertorysBean.getAgency());
                 break;
         }
     }

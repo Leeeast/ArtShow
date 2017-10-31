@@ -5,10 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EnrollApplyAddHolder;
 import com.art.huakai.artshow.adapter.holder.EnrollApplyHolder;
+import com.art.huakai.artshow.entity.EnrollDetailInfo;
+import com.art.huakai.artshow.entity.RepertorysBean;
 
 import java.util.List;
 
@@ -19,14 +22,16 @@ import java.util.List;
 public class EnrollApplyAdapter extends RecyclerView.Adapter {
     public static final int TYPE_NORMAL = 11;
     public static final int TYPE_ADD = 12;
-    private List<String> mlist;
+    private List<RepertorysBean> mRepertorys;
+    private List<RepertorysBean> mRepertorysAdded;
     private OnItemClickListener mOnItemClickListener;
     //控制单选项
-    private int selectPosition;
+    private EnrollDetailInfo mEnrollDetailInfo;
 
-    public EnrollApplyAdapter(List<String> list) {
-        this.mlist = list;
-        selectPosition = 0;
+    public EnrollApplyAdapter(List<RepertorysBean> list, List<RepertorysBean> repertorysAdded, EnrollDetailInfo enrollDetailInfo) {
+        this.mRepertorys = list;
+        this.mRepertorysAdded = repertorysAdded;
+        this.mEnrollDetailInfo = enrollDetailInfo;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -62,29 +67,51 @@ public class EnrollApplyAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_NORMAL:
                 final EnrollApplyHolder enrollApplyHolder = (EnrollApplyHolder) holder;
+                final RepertorysBean repertorysBean = mRepertorys.get(position);
                 enrollApplyHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mOnItemClickListener != null) {
-                            mOnItemClickListener.onItemClickListener(position);
-                        }
-                        if (enrollApplyHolder.chkEnrollApply.isChecked()) {
-                            selectPosition = -1;
-                            notifyDataSetChanged();
+
+                        if (mRepertorysAdded.contains(repertorysBean)) {
+                            mRepertorysAdded.remove(repertorysBean);
                         } else {
-                            selectPosition = position;
-                            notifyDataSetChanged();
+                            if (mEnrollDetailInfo.enroll.numberLimit == 1) {
+                                mRepertorysAdded.clear();
+                                mRepertorysAdded.add(repertorysBean);
+                            } else {
+                                if (mRepertorysAdded.size() < mEnrollDetailInfo.enroll.numberLimit) {
+                                    mRepertorysAdded.add(repertorysBean);
+                                } else {
+                                    String limitTip = String.format(enrollApplyHolder.itemView.getContext().getString(R.string.tip_enroll_limit),
+                                            mEnrollDetailInfo.enroll.numberLimit);
+                                    Toast.makeText(
+                                            enrollApplyHolder.itemView.getContext(), limitTip, Toast.LENGTH_SHORT
+                                    ).show();
+                                }
+
+                            }
+
                         }
+                        notifyDataSetChanged();
                     }
                 });
-                if (selectPosition == position) {
+                if (mRepertorysAdded.contains(repertorysBean)) {
                     enrollApplyHolder.chkEnrollApply.setChecked(true);
                     enrollApplyHolder.rLyRootTheatre.setSelected(true);
                 } else {
                     enrollApplyHolder.chkEnrollApply.setChecked(false);
                     enrollApplyHolder.rLyRootTheatre.setSelected(false);
                 }
-                enrollApplyHolder.sdvTheatre.setImageURI(Uri.parse("asset:///test.png"));
+                if (repertorysBean.getStatus() == 1) {
+                    enrollApplyHolder.rLyRootTheatre.setEnabled(true);
+                    enrollApplyHolder.tvProjectStatus.setVisibility(View.GONE);
+                    enrollApplyHolder.chkEnrollApply.setVisibility(View.VISIBLE);
+                } else {
+                    enrollApplyHolder.rLyRootTheatre.setEnabled(false);
+                    enrollApplyHolder.tvProjectStatus.setVisibility(View.VISIBLE);
+                    enrollApplyHolder.chkEnrollApply.setVisibility(View.GONE);
+                }
+                enrollApplyHolder.sdvTheatre.setImageURI(repertorysBean.getLogo());
                 break;
         }
     }
@@ -92,12 +119,12 @@ public class EnrollApplyAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         //多了一个添加选项，所以+1
-        return mlist.size() + 1;
+        return mRepertorys.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mlist == null || mlist.size() == 0 || position == mlist.size()) {
+        if (mRepertorys == null || mRepertorys.size() == 0 || position == mRepertorys.size()) {
             return TYPE_ADD;
         } else {
             return TYPE_NORMAL;

@@ -16,7 +16,7 @@ import com.art.huakai.artshow.widget.ChinaShowImageView;
 public class EnrollApplyHolder extends RecyclerView.ViewHolder {
 
     public ChinaShowImageView sdvTheatre;
-    public TextView tvTheatreName, tvSeatCount, tvFirstShowTime;
+    public TextView tvTheatreName, tvSeatCount, tvFirstShowTime, tvProjectStatus;
     public CheckBox chkEnrollApply;
     public RelativeLayout rLyRootTheatre;
 
@@ -27,6 +27,7 @@ public class EnrollApplyHolder extends RecyclerView.ViewHolder {
         tvSeatCount = (TextView) itemView.findViewById(R.id.tv_actors_number);
         tvFirstShowTime = (TextView) itemView.findViewById(R.id.tv_first_show_time);
         chkEnrollApply = (CheckBox) itemView.findViewById(R.id.chk_enroll_apply);
+        tvProjectStatus = (TextView) itemView.findViewById(R.id.tv_project_status);
         rLyRootTheatre = (RelativeLayout) itemView.findViewById(R.id.rly_root_theatre);
     }
 }

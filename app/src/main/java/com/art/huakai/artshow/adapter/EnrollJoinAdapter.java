@@ -10,6 +10,7 @@ import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.EnrollJoinHolder;
 import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
 import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.text.SimpleDateFormat;
@@ -23,12 +24,12 @@ import java.util.List;
 public class EnrollJoinAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_NORMAL = 12;
-    private List<String> mlist;
+    private List<RepertorysBean> mlist;
     private OnItemClickListener onItemClickListener;
     private Date mEndDate;
     private SimpleDateFormat mSimpleDateFormat;
 
-    public EnrollJoinAdapter(List<String> list) {
+    public EnrollJoinAdapter(List<RepertorysBean> list) {
         this.mlist = list;
         mEndDate = new Date();
         mSimpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
@@ -63,6 +64,7 @@ public class EnrollJoinAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_NORMAL:
                 EnrollJoinHolder evrollJoinHolder = (EnrollJoinHolder) holder;
+                RepertorysBean repertorysBean = mlist.get(position);
                 evrollJoinHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -77,7 +79,10 @@ public class EnrollJoinAdapter extends RecyclerView.Adapter {
                     layoutParams.topMargin = evrollJoinHolder.rLyRootTheatre.
                             getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
                 }
-
+                evrollJoinHolder.sdvEnrollJoin.setImageURI(repertorysBean.getLogo());
+                evrollJoinHolder.tvProjectTitle.setText(repertorysBean.getTitle());
+                evrollJoinHolder.tvOrgName.setText(repertorysBean.getAgency());
+                evrollJoinHolder.tvFirstShowTime.setText(DateUtil.transTime(String.valueOf(repertorysBean.getPremiereTime())));
                 break;
         }
     }

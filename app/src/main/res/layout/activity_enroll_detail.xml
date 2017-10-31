@@ -22,14 +22,14 @@
         android:layout_height="match_parent"
         android:layout_below="@id/view_line"
         android:background="@color/whiteff"
-        android:overScrollMode="never"
-        android:paddingBottom="@dimen/DIMEN_52PX">
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/whiteff"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/DIMEN_52PX">
 
             <TextView
                 android:id="@+id/tv_enroll_main_title"

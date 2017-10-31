@@ -1,9 +1,11 @@
 package com.art.huakai.artshow.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by lining on 2017/10/18.
  */
-public class RepertorysBean {
+public class RepertorysBean implements Serializable{
 
     /**
      * id : 8a999cce5d3237f0015d327125cf0001

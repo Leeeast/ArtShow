@@ -7,8 +7,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +76,8 @@ public class EnrollDetailActivity extends BaseActivity {
     RecyclerView recyclerViewAll;
     @BindView(R.id.include_enroll_all)
     View checkAdoptAll;
+    @BindView(R.id.rly_enroll_apply)
+    RelativeLayout rLyEnrollApply;
 
     private EnrollInfo mEnrollInfo;
     private EnrollDetailInfo mEnrollDetailInfo;
@@ -92,7 +99,6 @@ public class EnrollDetailActivity extends BaseActivity {
     @Override
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
-
     }
 
     @Override
@@ -146,11 +152,13 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.rly_enroll_apply)
     public void enrollApply() {
-        if (LocalUserInfo.getInstance().getUserType() == 3) {
+        if (mEnrollDetailInfo.enroll.orgOnly == 1 && LocalUserInfo.getInstance().getUserType() == 3) {
             showToast(getString(R.string.tip_enroll_disjoin));
             return;
         }
-        invokActivity(this, EnrollApplyActivity.class, null, JumpCode.FLAG_REQ_ENROLL_APPLY);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EnrollApplyActivity.PARAMS_ENROLL_DETAIL, mEnrollDetailInfo);
+        invokActivity(this, EnrollApplyActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_APPLY);
     }
 
     /**
@@ -173,6 +181,11 @@ public class EnrollDetailActivity extends BaseActivity {
      * 填充数据
      */
     public void fillData() {
+        if (mEnrollDetailInfo.enroll.enrollReceiving) {
+            rLyEnrollApply.setVisibility(View.VISIBLE);
+        } else {
+            rLyEnrollApply.setVisibility(View.GONE);
+        }
         tvEnrollMainTitle.setText(mEnrollDetailInfo.enroll.title);
         tvEnrollAnchor.setText(mEnrollDetailInfo.enroll.authName);
         tvEnrollTime.setText(DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.createTime), "yyyy年MM月dd"));
@@ -215,31 +228,31 @@ public class EnrollDetailActivity extends BaseActivity {
     }
 
     private void initEnrollAdopt() {
-        //若果为空直接设置城 checkAdoptAdopt.setVisibility(View.GONE);return;
+        //若果为空直接设置城
+        if (mEnrollDetailInfo.enrolledAdopt == null || mEnrollDetailInfo.enrolledAdopt.size() <= 0) {
+            checkAdoptAdopt.setVisibility(View.GONE);
+            return;
+        }
         checkAdoptAdopt.setVisibility(View.VISIBLE);
-        ArrayList<String> enrollSAdopt = new ArrayList<>();
-        enrollSAdopt.add("");
-        enrollSAdopt.add("");
-        enrollSAdopt.add("");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewAdopt.setLayoutManager(linearLayoutManager);
-        EnrollJoinAdapter enrollJoinAdapter = new EnrollJoinAdapter(enrollSAdopt);
+        EnrollJoinAdapter enrollJoinAdapter = new EnrollJoinAdapter(mEnrollDetailInfo.enrolledAdopt);
         recyclerViewAdopt.setAdapter(enrollJoinAdapter);
         recyclerViewAdopt.setNestedScrollingEnabled(false);
     }
 
     private void initEnrollAll() {
-        //若果为空直接设置城 checkAdoptAll.setVisibility(View.GONE);return;
+        //若果为空直接设置城
+        if (mEnrollDetailInfo.enrolledAll == null || mEnrollDetailInfo.enrolledAll.size() <= 0) {
+            checkAdoptAdopt.setVisibility(View.GONE);
+            return;
+        }
         checkAdoptAll.setVisibility(View.VISIBLE);
-        ArrayList<String> enrollSAdopt = new ArrayList<>();
-        enrollSAdopt.add("");
-        enrollSAdopt.add("");
-        enrollSAdopt.add("");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewAll.setLayoutManager(linearLayoutManager);
-        EnrolledAdapter enrollJoinAdapter = new EnrolledAdapter(enrollSAdopt);
+        EnrolledAdapter enrollJoinAdapter = new EnrolledAdapter(mEnrollDetailInfo.enrolledAll);
         recyclerViewAll.setAdapter(enrollJoinAdapter);
         recyclerViewAll.setNestedScrollingEnabled(false);
     }
