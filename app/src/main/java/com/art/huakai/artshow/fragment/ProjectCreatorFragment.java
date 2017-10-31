@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -45,7 +46,7 @@ public class ProjectCreatorFragment extends BaseFragment {
     RecyclerView recyclerView;
 
     private ShowProgressDialog showProgressDialog;
-    private ArrayList<Staff> mStaffs;
+    private List<Staff> mStaffs;
 
     public ProjectCreatorFragment() {
     }
@@ -58,7 +59,11 @@ public class ProjectCreatorFragment extends BaseFragment {
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getContext());
-        mStaffs = new ArrayList<>();
+        if (ProjectDetailInfo.getInstance().getStaffs() != null) {
+            mStaffs = ProjectDetailInfo.getInstance().getStaffs();
+        } else {
+            mStaffs = new ArrayList<>();
+        }
     }
 
     @Override
@@ -144,7 +149,7 @@ public class ProjectCreatorFragment extends BaseFragment {
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         JSONArray jsonArray = new JSONArray();
         for (Staff staff : mStaffs) {
-            jsonArray.put(staff.toString());
+            jsonArray.put(staff.getJsonObj());
         }
         String jsongStaffs = jsonArray.toString();
         params.put("staffs", jsongStaffs);

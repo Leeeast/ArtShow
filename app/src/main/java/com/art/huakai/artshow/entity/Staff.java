@@ -15,9 +15,7 @@ public class Staff implements Serializable {
     private String roleName;
     private String descpt;
     private String photo;
-
-    @Override
-    public String toString() {
+    public JSONObject getJsonObj() {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id", getId());
@@ -25,10 +23,10 @@ public class Staff implements Serializable {
             jsonObject.put("roleName", getRoleName());
             jsonObject.put("descpt", getDescpt());
             jsonObject.put("photo", getPhoto());
-            return jsonObject.toString();
+            return jsonObject;
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return null;
         }
     }
 
