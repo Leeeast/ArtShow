@@ -43,7 +43,7 @@ public class LocalUserInfo {
     //0 默认，注册成功未选择账户类型 ，1 已经选择账户类型，未填写个人资料，2 资料完善，未认证，3，已认证
     private int status;
     private long createTime;
-
+    //0-未申请认证，1-审核中， 2-审核驳回，3-审核通过
     private int authenStatus;
     private int repertoryCount;
     private int talentCount;
@@ -51,6 +51,7 @@ public class LocalUserInfo {
 
     //微信授权code
     private String wxAuthCode;
+
     public String getWxAuthCode() {
         return wxAuthCode;
     }
