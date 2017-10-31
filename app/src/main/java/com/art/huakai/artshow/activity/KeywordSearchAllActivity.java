@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.SearchAllBean;
+import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -53,6 +55,24 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     LinearLayout llyBack;
     @BindView(R.id.edt_search)
     EditText edtSearch;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.iv_right_img)
+    ImageView ivRightImg;
+    @BindView(R.id.fly_right_img)
+    FrameLayout flyRightImg;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.tv_account)
+    TextView tvAccount;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
+    @BindView(R.id.iv_loading)
+    ImageView ivLoading;
+    @BindView(R.id.iv_no_content)
+    ImageView ivNoContent;
     private String keyword = "剧场";
     private SearchAllBean searchAllBean;
 
@@ -77,20 +97,32 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     @Override
     public void initView() {
         llyBack.setOnClickListener(this);
-        Drawable drawableLeft = getResources().getDrawable(R.mipmap.search_gray);
-        drawableLeft.setBounds(
-                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX),
-                0,
-                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX)
-                        + getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX),
-                getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX));
-        edtSearch.setCompoundDrawables(drawableLeft, null, null, null);
+//        Drawable drawableLeft = getResources().getDrawable(R.mipmap.search_gray);
+//        drawableLeft.setBounds(
+//                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX),
+//                0,
+//                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX)
+//                        + getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX),
+//                getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX));
+//        edtSearch.setCompoundDrawables(drawableLeft, null, null, null);
+
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+
     }
 
 
     @Override
     public void setView() {
-
+        AnimUtils.rotate(ivLoading);
+        ivNoContent.setVisibility(View.GONE);
+        llContent.setVisibility(View.GONE);
     }
 
     private Handler uiHandler = new Handler() {
@@ -98,6 +130,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 setData();
+                ivLoading.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.GONE);
+                llContent.setVisibility(View.VISIBLE);
             }
         }
     };
@@ -309,13 +344,10 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: 1111111111111obj222=" + obj);
                         Gson gson = new Gson();
-                        Log.e(TAG, "onSuccess: 1234567");
-                        searchAllBean = gson.fromJson(obj, SearchAllBean.class);
-                        Log.e(TAG, "onSuccess: 456789");
-                        if (searchAllBean == null) {
-                            Log.e(TAG, "onSuccess: nullnull");
-                        } else {
-                            Log.e(TAG, "onSuccess: notnullnull");
+                        try{
+                            searchAllBean = gson.fromJson(obj, SearchAllBean.class);
+                        }catch (Exception e){
+
                         }
                         uiHandler.sendEmptyMessage(0);
                     }
