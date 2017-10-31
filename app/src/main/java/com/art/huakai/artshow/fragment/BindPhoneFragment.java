@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.MyCountTimer;
@@ -39,6 +40,7 @@ public class BindPhoneFragment extends BaseFragment {
     EditText edtVerifyCode;
     @BindView(R.id.tv_send_verify)
     TextView tvSendVerify;
+    private ShowProgressDialog showProgressDialog;
 
     public BindPhoneFragment() {
         // Required empty public constructor
@@ -53,7 +55,7 @@ public class BindPhoneFragment extends BaseFragment {
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-
+        showProgressDialog = new ShowProgressDialog(getContext());
     }
 
     @Override
@@ -94,15 +96,28 @@ public class BindPhoneFragment extends BaseFragment {
         params.put("verifyCode", verifyCode);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        showProgressDialog.show();
         RequestUtil.request(true, Constant.URL_USER_WXBIND, params, 20, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
 
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
-
+                LogUtil.e(TAG, e.getMessage() + "-id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
             }
         });
 
