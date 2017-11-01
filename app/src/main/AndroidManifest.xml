@@ -170,7 +170,7 @@
             android:name=".widget.calendar.CalendarSelectorActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.EnrollJoinActivity"
+            android:name="com.art.huakai.artshow.activity.EnrollJoinActivity"
             android:screenOrientation="portrait" />
 
     </application>
