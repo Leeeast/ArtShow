@@ -274,7 +274,7 @@ public class EnrollDetailActivity extends BaseActivity {
             @Override
             public void onItemClickListener(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString(WorksDetailMessageActivity.PARAMS_ID, mEnrollDetailInfo.enrolledAdopt.get(position).getId());
+                bundle.putString(WorksDetailMessageActivity.PARAMS_ID, mEnrollDetailInfo.enrolledAll.get(position).getId());
                 invokActivity(EnrollDetailActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
             }
         });
