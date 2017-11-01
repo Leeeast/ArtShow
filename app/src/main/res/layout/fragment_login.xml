@@ -166,6 +166,7 @@
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
                 android:background="@drawable/shape_bg_green"
+                android:drawablePadding="-20dp"
                 android:gravity="center"
                 android:text="@string/login_weixin"
                 android:textColor="@color/whiteff"

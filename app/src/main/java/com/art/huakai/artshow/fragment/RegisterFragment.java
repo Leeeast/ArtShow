@@ -22,6 +22,7 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.RegUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.MyCountTimer;
 import com.art.huakai.artshow.utils.PhoneUtils;
@@ -151,7 +152,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                     if (isSuccess) {
                         requestVerifyCode();
                     } else {
-                        SmartToast.makeToast(getContext(),getString(R.string.tip_mobile_registered), null, Toast.LENGTH_SHORT).show();
+                        SmartToast.makeToast(getContext(), getString(R.string.tip_mobile_registered), null, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -205,6 +206,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         params.put("mobile", phoneNum);
         params.put("password", pwd);
         params.put("verifyCode", verifyCode);
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params :" + params);
         showProgressDialog.show();
         RequestUtil.request(true, Constant.URL_USER_REGISTER, params, 10, new RequestUtil.RequestListener() {
             @Override
@@ -215,20 +219,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 }
                 if (isSuccess) {
                     try {
-                        RegUserInfo userInfo = mGson.fromJson(obj, RegUserInfo.class);
-                        LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
-                        localUserInfo.setExpire(userInfo.expire);
-                        localUserInfo.setAccessToken(userInfo.accessToken);
-                        localUserInfo.setId(userInfo.user.id);
-                        localUserInfo.setName(userInfo.user.name);
-                        localUserInfo.setMobile(userInfo.user.mobile);
-                        localUserInfo.setEmail(userInfo.user.email);
-                        localUserInfo.setWechatOpenid(userInfo.user.wechatOpenid);
-                        localUserInfo.setDp(userInfo.user.dp);
-                        localUserInfo.setPassword(userInfo.user.password);
-                        localUserInfo.setUserType(userInfo.user.userType);
-                        localUserInfo.setStatus(userInfo.user.status);
-                        localUserInfo.setCreateTime(userInfo.user.createTime);
+                        LoginUtil.initLocalUserInfo(obj);
                         EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
                     } catch (Exception e) {
                         e.printStackTrace();

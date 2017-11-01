@@ -196,21 +196,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                         SharePreUtil.getInstance().setUserPwd(edtPassword.getText().toString());
                     }
                     try {
-                        RegUserInfo userInfo = mGson.fromJson(obj, RegUserInfo.class);
-                        LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
-                        localUserInfo.setExpire(userInfo.expire);
-                        localUserInfo.setAccessToken(userInfo.accessToken);
-                        localUserInfo.setId(userInfo.user.id);
-                        localUserInfo.setName(userInfo.user.name);
-                        localUserInfo.setMobile(userInfo.user.mobile);
-                        localUserInfo.setEmail(userInfo.user.email);
-                        localUserInfo.setWechatOpenid(userInfo.user.wechatOpenid);
-                        localUserInfo.setDp(userInfo.user.dp);
-                        localUserInfo.setPassword(userInfo.user.password);
-                        localUserInfo.setUserType(userInfo.user.userType);
-                        localUserInfo.setStatus(userInfo.user.status);
-                        localUserInfo.setCreateTime(userInfo.user.createTime);
-                        SharePreUtil.getInstance().storeUserInfo(localUserInfo);
+                        LoginUtil.initLocalUserInfo(obj);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

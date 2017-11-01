@@ -8,4 +8,11 @@ public class RegUserInfo {
     public int expire;
     public String accessToken;
     public User user;
+    public UserResources userResources;
+
+    public class UserResources {
+        public int repertoryCount;
+        public int theaterCount;
+        public int talentCount;
+    }
 }

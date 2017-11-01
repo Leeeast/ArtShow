@@ -33,6 +33,7 @@ public class ResponseCodeCheck {
     public static final int CODE_4016 = 4016;//资源信息不完整
     public static final int CODE_4017 = 4017;//帐号审核中
     public static final int CODE_4018 = 4018;//帐号审核未通过
+    public static final int CODE_4019 = 4019;//手机号已绑定其他微信帐号
 
     /**
      * 检测状态码

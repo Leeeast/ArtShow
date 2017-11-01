@@ -36,6 +36,8 @@ public class LocalUserInfo {
     private String mobile;
     private String email;
     private String wechatOpenid;
+
+    private String wechatUnionid;
     private String dp;
     private String password;
     //注册类型；3：个人账户，1：机构
@@ -69,6 +71,17 @@ public class LocalUserInfo {
 
     public void setKeepPwd(boolean keepPwd) {
         isKeepPwd = keepPwd;
+    }
+
+    //验证码
+    private String verifyCode;
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 
     public int getExpire() {
@@ -164,7 +177,6 @@ public class LocalUserInfo {
     }
 
     public void setCreateTime(long createTime) {
-
         this.createTime = createTime;
     }
 
@@ -198,5 +210,13 @@ public class LocalUserInfo {
 
     public void setTheterCount(int theterCount) {
         this.theterCount = theterCount;
+    }
+
+    public String getWechatUnionid() {
+        return wechatUnionid;
+    }
+
+    public void setWechatUnionid(String wechatUnionid) {
+        this.wechatUnionid = wechatUnionid;
     }
 }

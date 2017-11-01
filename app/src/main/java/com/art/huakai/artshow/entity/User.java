@@ -10,6 +10,7 @@ public class User {
     public String mobile;
     public String email;
     public String wechatOpenid;
+    public String wechatUnionid;
     public String dp;
     public String password;
     public int userType;

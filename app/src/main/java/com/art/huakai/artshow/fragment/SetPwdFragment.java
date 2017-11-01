@@ -19,8 +19,11 @@ import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.RegUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
+import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.MD5;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -41,6 +44,8 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
     private static final String PARAMS_PHONE = "PARAMS_PHONE";
     private static final String PARAMS_VERIFY_CODE = "PARAMS_VERIFY_CODE";
     private static final String PARAMS_IS_RESET_PWD = "PARAMS_IS_RESET_PWD";
+    private static final String PARAMS_IS_WEIXIN_SETPWD = "PARAMS_IS_WEIXIN_SETPWD";
+
     private String mPhoneNum;
     private String mVerifyCode;
     private EditText edtPassword, edtPwdAffirm;
@@ -49,6 +54,7 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
     private boolean mIsResetPwd;
     private Button btnRegister;
     private TextView mTvProtocol;
+    private String URL_SET_PWD;
 
     public SetPwdFragment() {
         // Required empty public constructor
@@ -72,6 +78,11 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
             mPhoneNum = bundle.getString(PARAMS_PHONE);
             mVerifyCode = bundle.getString(PARAMS_VERIFY_CODE);
             mIsResetPwd = bundle.getBoolean(PARAMS_IS_RESET_PWD, true);
+        }
+        if (mIsResetPwd) {
+            URL_SET_PWD = Constant.URL_EDIT_PWD;
+        } else {
+            URL_SET_PWD = Constant.URL_USER_REGISTER;
         }
         showProgressDialog = new ShowProgressDialog(getContext());
     }
@@ -161,6 +172,9 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
         }
         String MD5Pwd = MD5.getMD5(pwd.getBytes());
         Map<String, String> params = new TreeMap<>();
+        if (!mIsResetPwd) {
+            params.put("wxcode", LocalUserInfo.getInstance().getWxAuthCode());
+        }
         params.put("mobile", mPhoneNum);
         params.put("verifyCode", mVerifyCode);
         params.put("password", MD5Pwd);
@@ -168,19 +182,29 @@ public class SetPwdFragment extends BaseFragment implements View.OnClickListener
         params.put("sign", sign);
         LogUtil.i(TAG, "parmas:" + params);
         showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_EDIT_PWD, params, 13, new RequestUtil.RequestListener() {
+        RequestUtil.request(true, URL_SET_PWD, params, 13, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (showProgressDialog.isShowing()) {
-                    showProgressDialog.dismiss();
-                }
-                if (isSuccess) {
-                    showToast(getString(R.string.tip_set_pwd_success));
-                    LocalUserInfo.getInstance().setMobile(mPhoneNum);
-                    EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS, mPhoneNum, pwd));
-                } else {
-                    ResponseCodeCheck.showErrorMsg(code);
+                try {
+                    if (showProgressDialog.isShowing()) {
+                        showProgressDialog.dismiss();
+                    }
+                    if (isSuccess) {
+                        if (mIsResetPwd) {
+                            showToast(getString(R.string.tip_set_pwd_success));
+                            LocalUserInfo.getInstance().setMobile(mPhoneNum);
+                            EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_RESET_PWD_SUCCESS, mPhoneNum, pwd));
+                        } else {
+                            showToast(getString(R.string.wechat_login_success));
+                            LoginUtil.initLocalUserInfo(obj);
+                            EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_REGISTER_SUC));
+                        }
+                    } else {
+                        ResponseCodeCheck.showErrorMsg(code);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
