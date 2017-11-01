@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.EnrollApplyAdapter;
 import com.art.huakai.artshow.adapter.EnrollJoinAdapter;
 import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -25,7 +23,6 @@ import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +41,7 @@ public class EnrollJoinActivity extends BaseActivity implements SmartRecyclervie
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.recycle_production)
+    @BindView(R.id.recycle_join)
     SmartRecyclerview recyclerview;
 
     private List<RepertorysBean> mRepertorys;
