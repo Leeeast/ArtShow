@@ -26,11 +26,11 @@ public class DateUtil {
     }
 
     //转成yyyy-MM-dd这种日期格式
-    public static String transTime(String time, String format) {
+    public static String transTime(String time, String yyMMdd) {
         try {
             if (TextUtils.isEmpty(time) || time.equals("-28800000"))
                 return "";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(yyMMdd);
             Date date = new Date();
             date.setTime(Long.parseLong(time));
             return simpleDateFormat.format(date);

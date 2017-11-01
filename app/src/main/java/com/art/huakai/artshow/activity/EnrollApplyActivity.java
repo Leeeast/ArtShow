@@ -5,18 +5,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.EnrollApplyAdapter;
 import com.art.huakai.artshow.adapter.OnItemClickListener;
-import com.art.huakai.artshow.adapter.OrgProjectAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -25,6 +23,8 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +51,8 @@ public class EnrollApplyActivity extends BaseActivity implements SmartRecyclervi
     private List<RepertorysBean> mRepertorysAdded;
     private EnrollApplyAdapter enrollApplyAdapter;
     private int mPage = 1;
+    private Map<Object, Object> params;
+    private ShowProgressDialog showProgressDialog;
 
     @Override
     public void immerseStatusBar() {
@@ -64,6 +66,7 @@ public class EnrollApplyActivity extends BaseActivity implements SmartRecyclervi
 
     @Override
     public void initData() {
+        showProgressDialog = new ShowProgressDialog(this);
         mRepertorys = new ArrayList<>();
         mRepertorysAdded = new ArrayList<>();
         Intent intent = getIntent();
@@ -92,7 +95,9 @@ public class EnrollApplyActivity extends BaseActivity implements SmartRecyclervi
         enrollApplyAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
-                Toast.makeText(EnrollApplyActivity.this, "position = " + position, Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, true);
+                invokActivity(EnrollApplyActivity.this, ProjectEditActivity.class, bundle, JumpCode.FLAG_REQ_CREATE_PROJECT_IN_ENROLL);
             }
         });
         recyclerview.setAdapter(enrollApplyAdapter);
@@ -164,7 +169,48 @@ public class EnrollApplyActivity extends BaseActivity implements SmartRecyclervi
     }
 
     @OnClick(R.id.tv_subtitle)
-    public void changeAccountName() {
+    public void commitEnroll() {
+        if (mRepertorysAdded.size() == 0) {
+            showToast(getString(R.string.tip_enroll_select));
+            return;
+        }
+        JSONArray jsonArray = new JSONArray();
+        for (RepertorysBean repertory : mRepertorysAdded) {
+            jsonArray.put(repertory.getId());
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("id", mEnrollDetailInfo.enroll.id);
+        params.put("entityIds", jsonArray.toString());
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params =" + params);
+        showProgressDialog.show();
+        RequestUtil.request(true, Constant.URL_ENROLL_ENROLL, params, 33, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    showToast(getString(R.string.tip_enroll_commit_suc));
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -182,5 +228,15 @@ public class EnrollApplyActivity extends BaseActivity implements SmartRecyclervi
     public void onLoadMore() {
         ++mPage;
         loadProjectData(mPage);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == JumpCode.FLAG_REQ_CREATE_PROJECT_IN_ENROLL) {
+            if (recyclerview != null) {
+                recyclerview.refresh();
+            }
+        }
     }
 }

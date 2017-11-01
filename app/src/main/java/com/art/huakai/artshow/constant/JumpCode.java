@@ -37,6 +37,7 @@ public class JumpCode {
     public static final int FLAG_REQ_TALENT_MY = FLAG_REQ + 23;
     public static final int FLAG_REQ_TALENT_EDIT = FLAG_REQ + 24;
     public static final int FLAG_REQ_DETAIL_PERSONAL = FLAG_REQ + 25;
+    public static final int FLAG_REQ_CREATE_PROJECT_IN_ENROLL = FLAG_REQ + 26;
 
 
     // 返回码,往下加1

@@ -78,6 +78,8 @@ public class EnrollDetailActivity extends BaseActivity {
     View checkAdoptAll;
     @BindView(R.id.rly_enroll_apply)
     RelativeLayout rLyEnrollApply;
+    @BindView(R.id.tv_enroll_all_count)
+    RelativeLayout tvEnrollAllCount;
 
     private EnrollInfo mEnrollInfo;
     private EnrollDetailInfo mEnrollDetailInfo;

@@ -12,9 +12,10 @@
         android:paddingRight="@dimen/DIMEN_15PX">
 
         <TextView
+            android:id="@+id/tv_enroll_all_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enroll_all"
+            android:text="@string/enroll_all_without_count"
             android:textColor="@color/account_type_name"
             android:textSize="19sp" />
 

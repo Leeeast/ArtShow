@@ -12,6 +12,7 @@ import com.art.huakai.artshow.adapter.holder.EnrollApplyAddHolder;
 import com.art.huakai.artshow.adapter.holder.EnrollApplyHolder;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.utils.DateUtil;
 
 import java.util.List;
 
@@ -112,6 +113,9 @@ public class EnrollApplyAdapter extends RecyclerView.Adapter {
                     enrollApplyHolder.chkEnrollApply.setVisibility(View.GONE);
                 }
                 enrollApplyHolder.sdvTheatre.setImageURI(repertorysBean.getLogo());
+                enrollApplyHolder.tvTheatreName.setText(repertorysBean.getTitle());
+                enrollApplyHolder.tvSeatCount.setText(String.valueOf(repertorysBean.getPeopleNum()));
+                enrollApplyHolder.tvFirstShowTime.setText(DateUtil.transTime(String.valueOf(repertorysBean.getPremiereTime()), "yy.MM.dd"));
                 break;
         }
     }
