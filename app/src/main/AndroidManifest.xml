@@ -169,6 +169,9 @@
         <activity
             android:name=".widget.calendar.CalendarSelectorActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EnrollJoinActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

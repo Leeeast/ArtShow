@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.EnrollJoinAdapter;
 import com.art.huakai.artshow.adapter.EnrolledAdapter;
+import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
@@ -79,7 +80,7 @@ public class EnrollDetailActivity extends BaseActivity {
     @BindView(R.id.rly_enroll_apply)
     RelativeLayout rLyEnrollApply;
     @BindView(R.id.tv_enroll_all_count)
-    RelativeLayout tvEnrollAllCount;
+    TextView tvEnrollAllCount;
 
     private EnrollInfo mEnrollInfo;
     private EnrollDetailInfo mEnrollDetailInfo;
@@ -168,7 +169,10 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.tv_see_all)
     public void checkAll() {
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EnrollJoinActivity.PARAMS_ENROLL, mEnrollDetailInfo);
+        bundle.putInt(EnrollJoinActivity.PARAMS_TYPE, EnrollJoinActivity.TYPE_ENROLL_ENROLLED);
+        invokActivity(this, EnrollJoinActivity.class, bundle, JumpCode.FLAG_REQ_CHECK_ENROLL);
     }
 
     /**
@@ -176,7 +180,10 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.tv_enroll_all)
     public void checkEnrollAll() {
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EnrollJoinActivity.PARAMS_ENROLL, mEnrollDetailInfo);
+        bundle.putInt(EnrollJoinActivity.PARAMS_TYPE, EnrollJoinActivity.TYPE_ENROLL_ALL);
+        invokActivity(this, EnrollJoinActivity.class, bundle, JumpCode.FLAG_REQ_CHECK_ENROLL);
     }
 
     /**
@@ -240,6 +247,14 @@ public class EnrollDetailActivity extends BaseActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewAdopt.setLayoutManager(linearLayoutManager);
         EnrollJoinAdapter enrollJoinAdapter = new EnrollJoinAdapter(mEnrollDetailInfo.enrolledAdopt);
+        enrollJoinAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString(WorksDetailMessageActivity.PARAMS_ID, mEnrollDetailInfo.enrolledAdopt.get(position).getId());
+                invokActivity(EnrollDetailActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
+            }
+        });
         recyclerViewAdopt.setAdapter(enrollJoinAdapter);
         recyclerViewAdopt.setNestedScrollingEnabled(false);
     }
@@ -254,8 +269,16 @@ public class EnrollDetailActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewAll.setLayoutManager(linearLayoutManager);
-        EnrolledAdapter enrollJoinAdapter = new EnrolledAdapter(mEnrollDetailInfo.enrolledAll);
-        recyclerViewAll.setAdapter(enrollJoinAdapter);
+        EnrolledAdapter enrolledAdapter = new EnrolledAdapter(mEnrollDetailInfo.enrolledAll);
+        enrolledAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString(WorksDetailMessageActivity.PARAMS_ID, mEnrollDetailInfo.enrolledAdopt.get(position).getId());
+                invokActivity(EnrollDetailActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
+            }
+        });
+        recyclerViewAll.setAdapter(enrolledAdapter);
         recyclerViewAll.setNestedScrollingEnabled(false);
     }
 
