@@ -420,5 +420,9 @@
 
     <string name="year">年</string>
     <string name="month">月</string>
+    <!--分享-->
+    <string name="tip_share_copy_suc">复制成功，可以发给朋友们了。</string>
+    <string name="tip_share_url_err">分享数据异常，请稍候重试</string>
+    <string name="tip_share_url_des">演出中国，国内领先的演出资源信息服务平台</string>
 
 </resources>

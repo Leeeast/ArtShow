@@ -144,10 +144,12 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.fly_right_img)
     public void shareEnrollDetail() {
-        if (shareDialog == null) {
-            shareDialog = ShareDialog.newInstence();
+        if (mEnrollDetailInfo != null) {
+            if (shareDialog == null) {
+                shareDialog = ShareDialog.newInstence(mEnrollDetailInfo.enroll.title, mEnrollDetailInfo.enroll.shareLink);
+            }
+            shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
         }
-        shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
 
     /**

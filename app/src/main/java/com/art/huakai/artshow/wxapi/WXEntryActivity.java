@@ -58,7 +58,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp arg0) {
         LogUtil.i(TAG, "zc onResp调用,errCode:" + arg0.errCode + "===arg0"
                 + arg0.getClass());// -4
-
         Intent intent = new Intent();
         InfoBaseResp info = new InfoBaseResp(arg0);
         if (arg0 instanceof SendAuth.Resp) {
