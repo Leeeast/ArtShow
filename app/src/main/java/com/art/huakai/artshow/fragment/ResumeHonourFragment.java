@@ -117,7 +117,7 @@ public class ResumeHonourFragment extends BaseFragment {
         }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("worksDescpt", mAwardsDescpt);
+        params.put("awardsDescpt", mAwardsDescpt);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);

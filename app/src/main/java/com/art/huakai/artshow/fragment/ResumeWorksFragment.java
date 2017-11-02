@@ -120,7 +120,7 @@ public class ResumeWorksFragment extends BaseFragment {
         }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("awardsDescpt", mTalentDescpt);
+        params.put("worksDescpt", mTalentDescpt);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
