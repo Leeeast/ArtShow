@@ -108,4 +108,21 @@
         <item name="android:windowEnterAnimation">@anim/popup_in</item>
         <item name="android:windowExitAnimation">@anim/popup_out</item>
     </style>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="mystyleforred" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/center_dialog_enterforred</item>
+        <!-- 进入时的动画 -->
+        <item name="@android:windowExitAnimation">@anim/center_dialog_exitforred</item>
+        <!-- 退出时的动画 -->
+    </style>
 </resources>
