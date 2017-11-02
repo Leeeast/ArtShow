@@ -1,12 +1,13 @@
 package com.art.huakai.artshow.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lining on 2017/10/27.
  */
-public class TalentDetailBean {
+public class TalentDetailBean implements Serializable {
     /**
      * id : 40288aba5f5d8e38015f5d8e59ac000c
      * logo : https://www.showonline.com.cn/image/2017/08/18/bc8ac1d4ee3d410ebb0a6051c76d4120.image
@@ -101,6 +102,16 @@ public class TalentDetailBean {
     private ArrayList<PicturesBean> pictures;
     private List<Integer> classifyIds;
     private List<String> classifyNames;
+
+    private String shareLink;
+
+    public String getShareLink() {
+        return shareLink;
+    }
+
+    public void setShareLink(String shareLink) {
+        this.shareLink = shareLink;
+    }
 
     public String getId() {
         return id;

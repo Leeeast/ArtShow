@@ -26,14 +26,14 @@ import java.util.List;
 
 public class StaggerFragment extends HeaderViewPagerFragment {
 
-    private String TAG="StaggerFragment";
+    private String TAG = "StaggerFragment";
     private RecyclerView mRecyclerView;
-    private ArrayList<PicturesBean>lists=new ArrayList<PicturesBean>();
+    private ArrayList<PicturesBean> lists = new ArrayList<PicturesBean>();
     private StaggerAdapter adpter;
     private int itemWidth;
     private SpacesItemDecoration decoration;
-    Handler handler=new Handler();
-    private ArrayList<String>picList=new ArrayList<String>();
+    Handler handler = new Handler();
+    private ArrayList<String> picList = new ArrayList<String>();
 
 
     public static StaggerFragment newInstance() {
@@ -51,7 +51,7 @@ public class StaggerFragment extends HeaderViewPagerFragment {
         View view = inflater.inflate(R.layout.activity_stagger_show_pic, container, false);
         DisplayMetrics metric = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metric);
-        itemWidth=(metric.widthPixels-(int) getResources().getDimension(R.dimen.DIMEN_20PX)*2)/2;
+        itemWidth = (metric.widthPixels - (int) getResources().getDimension(R.dimen.DIMEN_20PX) * 2) / 2;
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         initData();
         return view;
@@ -62,21 +62,21 @@ public class StaggerFragment extends HeaderViewPagerFragment {
         return mRecyclerView;
     }
 
-    private void initData(){
+    private void initData() {
 
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        adpter  = new StaggerAdapter(lists,getContext(),itemWidth);
-        decoration=new SpacesItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_20PX));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        adpter = new StaggerAdapter(lists, getContext(), itemWidth);
+        decoration = new SpacesItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_20PX));
         mRecyclerView.addItemDecoration(decoration);
         adpter.setOnItemClickListener(new StaggerAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
 
-                Intent intent=new Intent();
+                Intent intent = new Intent();
                 intent.setClass(getContext(), BroswerPicActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putStringArrayList("list",picList);
-                bundle.putInt("position",position);
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("list", picList);
+                bundle.putInt("position", position);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -96,14 +96,13 @@ public class StaggerFragment extends HeaderViewPagerFragment {
 //        },300);
 
 
-        for(int i=0;i<lists.size();i++){
+        for (int i = 0; i < lists.size(); i++) {
 
             picList.add(lists.get(i).getMasterUrl());
 
         }
 
     }
-
 
 
 }

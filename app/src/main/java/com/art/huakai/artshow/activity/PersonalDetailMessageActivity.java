@@ -123,7 +123,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
         mTabArray = getResources().getStringArray(R.array.talent_detail_tab);
         mFragments = new ArrayList<>();
-        PersonalDetailworksFragment personalDetailworksFragment = PersonalDetailworksFragment.newInstance();
+        PersonalDetailworksFragment personalDetailworksFragment = PersonalDetailworksFragment.newInstance(talentDetailBean);
         mFragments.add(personalDetailworksFragment);
         if (talentDetailBean.getPictures() != null && talentDetailBean.getPictures().size() > 0) {
             StaggerFragment staggerFragment = StaggerFragment.newInstance();
@@ -133,7 +133,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             ErrorFragment errorFragment = ErrorFragment.newInstance();
             mFragments.add(errorFragment);
         }
-        PersonalDetailAwarsFragment personalDetailAwarsFragment = PersonalDetailAwarsFragment.newInstance();
+        PersonalDetailAwarsFragment personalDetailAwarsFragment = PersonalDetailAwarsFragment.newInstance(talentDetailBean);
         mFragments.add(personalDetailAwarsFragment);
         TalentDetailFragmentAdapter disPagerAdapter = new TalentDetailFragmentAdapter(getSupportFragmentManager(), mFragments, mTabArray);
 
@@ -256,13 +256,13 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        Log.e(TAG, "getRepertoryClassify: " + params.toString());
+        Log.i(TAG, "getRepertoryClassify: " + params.toString());
         RequestUtil.request(true, URL_TALENT_DETAL, params, 120, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
-                        Log.e(TAG, "onSuccess: obj1111=" + obj);
+                        Log.i(TAG, "objj=" + obj);
                         Gson gson = new Gson();
                         try {
                             talentDetailBean = gson.fromJson(obj, TalentDetailBean.class);

@@ -16,10 +16,7 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.ProjectDetailInfo;
-import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
-import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
 import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -424,14 +421,15 @@ public class ResumeEditActivity extends BaseActivity {
     private void changeTalentLogo(final String talentLogoUrl) {
 
         Map<String, String> params = new TreeMap<>();
-        if (ProjectDetailInfo.getInstance().getId() != null) {
-            params.put("id", ProjectDetailInfo.getInstance().getId());
+        if (TalentDetailInfo.getInstance().getId() != null) {
+            params.put("id", TalentDetailInfo.getInstance().getId());
         }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
         params.put("logo", talentLogoUrl);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
+        LogUtil.i(TAG, "params :" + params);
         showProgressDialog.show();
         RequestUtil.request(true, Constant.URL_TALENT_EDIT_LOGO, params, 67, new RequestUtil.RequestListener() {
             @Override
