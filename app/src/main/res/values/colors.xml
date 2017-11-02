@@ -172,4 +172,10 @@
 
     <color name="banner_blue">#ffea003d</color>
 
+    <color name="permission_request_bg">#ffd83dff</color>
+    <color name="permission_request_title">#ff333333</color>
+    <color name="permission_request_des">#ff666666</color>
+    <color name="permission_request_line">#ffdddddd</color>
+    <color name="permission_request_cancel">#ff999999</color>
+
 </resources>
