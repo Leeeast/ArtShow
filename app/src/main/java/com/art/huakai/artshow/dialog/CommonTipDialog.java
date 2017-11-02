@@ -1,11 +1,11 @@
 package com.art.huakai.artshow.dialog;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -22,8 +22,8 @@ import com.art.huakai.artshow.R;
 /**
  * Created by lidongliang on 2017/4/18.
  */
-public class PermissionDenyDialog extends DialogFragment implements View.OnClickListener {
-    private static final String TAG = PermissionDenyDialog.class.getSimpleName();
+public class CommonTipDialog extends DialogFragment implements View.OnClickListener {
+    private static final String TAG = CommonTipDialog.class.getSimpleName();
     private static final String PARAMS_CONTENT = "PARAMS_CONTENT";
     private static final String PARAMS_CANCEL_TEXT = "PARAMS_CANCEL_TEXT";
     private static final String PARAMS_AFFIRM_TEXT = "PARAMS_AFFIRM_TEXT";
@@ -34,12 +34,12 @@ public class PermissionDenyDialog extends DialogFragment implements View.OnClick
     private String mCancel;
     private String mAffirm;
 
-    public static PermissionDenyDialog getInstance(String content, String cancel, String affirm) {
-        PermissionDenyDialog permissionRequestDialog = new PermissionDenyDialog();
+    public static CommonTipDialog getInstance(String content, String cancel, String affirm) {
+        CommonTipDialog permissionRequestDialog = new CommonTipDialog();
         Bundle bundle = new Bundle();
         bundle.putString(PARAMS_CONTENT, content);
-        bundle.putString(PARAMS_CONTENT, cancel);
-        bundle.putString(PARAMS_CONTENT, affirm);
+        bundle.putString(PARAMS_CANCEL_TEXT, cancel);
+        bundle.putString(PARAMS_AFFIRM_TEXT, affirm);
         permissionRequestDialog.setArguments(bundle);
         return permissionRequestDialog;
     }
@@ -64,16 +64,11 @@ public class PermissionDenyDialog extends DialogFragment implements View.OnClick
         }
     }
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new Dialog(getActivity(), R.style.Dialog);
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                return true;
-            }
-        });
         dialog.setCanceledOnTouchOutside(false);
         Window dialogWindow = dialog.getWindow();
         dialogWindow.getAttributes().windowAnimations = R.style.mystyleforred;
@@ -104,10 +99,10 @@ public class PermissionDenyDialog extends DialogFragment implements View.OnClick
             tvContent.setText(mConstent);
         }
         if (!TextUtils.isEmpty(mCancel)) {
-            btnCancel.setText(mConstent);
+            btnCancel.setText(mCancel);
         }
         if (!TextUtils.isEmpty(mAffirm)) {
-            btnSure.setText(mConstent);
+            btnSure.setText(mAffirm);
         }
     }
 

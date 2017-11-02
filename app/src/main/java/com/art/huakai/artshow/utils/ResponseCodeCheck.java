@@ -34,6 +34,8 @@ public class ResponseCodeCheck {
     public static final int CODE_4017 = 4017;//帐号审核中
     public static final int CODE_4018 = 4018;//帐号审核未通过
     public static final int CODE_4019 = 4019;//手机号已绑定其他微信帐号
+    public static final int CODE_4020 = 4020;//微信已经绑定其手机号
+    private static Toast toast;
 
     /**
      * 检测状态码
@@ -65,6 +67,8 @@ public class ResponseCodeCheck {
             case CODE_4016:
             case CODE_4017:
             case CODE_4018:
+            case CODE_4019:
+            case CODE_4020:
                 return false;
             default:
                 return false;
@@ -136,6 +140,12 @@ public class ResponseCodeCheck {
             case CODE_4018:
                 showToast(ShowApplication.getAppContext().getString(R.string.response_code_4018));
                 break;
+            case CODE_4019:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4019));
+                break;
+            case CODE_4020:
+                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4020));
+                break;
             default:
                 showToast(ShowApplication.getAppContext().getString(R.string.response_code_other));
                 break;
@@ -143,6 +153,11 @@ public class ResponseCodeCheck {
     }
 
     private static void showToast(String toastStr) {
-        Toast.makeText(ShowApplication.getAppContext(), toastStr, Toast.LENGTH_SHORT).show();
+        if (toast == null) {
+            toast = Toast.makeText(ShowApplication.getAppContext(), toastStr, Toast.LENGTH_SHORT);
+        } else {
+            toast.setText(toastStr);
+        }
+        toast.show();
     }
 }

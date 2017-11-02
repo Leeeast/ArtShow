@@ -23,6 +23,12 @@
     <string name="wechat_login_suc_tip">微信授权成功,绑定手机后才能正常使用演圈</string>
     <string name="wechat_error_4019">手机号已绑定其他微信帐号,请切换手机号码</string>
     <string name="wechat_login_success">微信登录成功</string>
+    <string name="wechat_unbind_success">微信解绑成功</string>
+    <string name="wechat_unbind_fail">微信解绑失败</string>
+    <string name="wechat_bind_success">微信绑定成功</string>
+    <string name="wechat_bind_fail">微信绑定失败</string>
+    <string name="wechat_unbind_tip">解除微信绑定之后，您将不能用微信登录%1$s</string>
+    <string name="wechat_unbind">解除绑定</string>
     <!--登录注册-->
     <string name="login_app_introduce">中国最大的演出资料信息\n共享平台</string>
     <string name="login_weixin">微&#160;&#160;信&#160;&#160;登&#160;&#160;录</string>
@@ -148,6 +154,8 @@
     <string name="response_code_4016">资源信息不完整</string>
     <string name="response_code_4017">帐号审核中</string>
     <string name="response_code_4018">帐号审核未通过</string>
+    <string name="response_code_4019">手机号已绑定其他微信帐号</string>
+    <string name="response_code_4020">微信已经绑定其手机号</string>
     <string name="response_code_other">未知错误</string>
 
     <string name="loading">加载中</string>

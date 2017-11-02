@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.entity;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Created by lining on 2017/10/28.
  */
-public class WorksDetailBean {
+public class WorksDetailBean implements Serializable {
     /**
      * id : 8a999cce5e4ccfa8015e5691aeeb009b
      * logo : https://www.showonline.com.cn/image/2017/09/06/84826db9521144628d10b0095b765cad@thumb.jpeg
@@ -23,16 +24,16 @@ public class WorksDetailBean {
      * rounds : 0
      * showLast : 90
      * description :     关注社会问题，取材自当代家庭生活聚焦社会父子关系，通过多重魔幻相互建构的戏剧手段来解构超高速的现实科技生活与失落的亲情，从困境到囧境再到佳境的亲情治愈过程，最终帮助父子实现“心灵的成长与丰富”。
-     此剧融观赏性、教育性、娱乐性为一体,让小朋友在娱乐中受到人生启发，启迪童年快乐成长！业内前辈指出，这会是一部大人看着不瞌睡、欢笑中让你内心更加柔软的治愈性儿童音乐剧。
-     首创性地将编创内容与未来教学相结合，将演员的针对性训练和幕间内容转化为单元课件，为教学备书，切实实现舞台实践与艺能培养的“双丰收”，这对于参演演员来说，也是一次不可多得的成长机会。
-
+     * 此剧融观赏性、教育性、娱乐性为一体,让小朋友在娱乐中受到人生启发，启迪童年快乐成长！业内前辈指出，这会是一部大人看着不瞌睡、欢笑中让你内心更加柔软的治愈性儿童音乐剧。
+     * 首创性地将编创内容与未来教学相结合，将演员的针对性训练和幕间内容转化为单元课件，为教学备书，切实实现舞台实践与艺能培养的“双丰收”，这对于参演演员来说，也是一次不可多得的成长机会。
+     * <p>
      * plot :     赖特宁和赖罗庚原本就是一对关系紧张的父子。每当两人争吵时家里的牙刷、pad、狗狗、日记本就都成为了两人战争的无辜受害者，终于pad打算用神奇闹钟带着小伙伴们群起反抗！
-
-     这一次故事发生在闪电妈妈出差后，父子两人因为各种生活矛盾起了争执，赖特宁梦想参加梦想之歌大赛遭到赖罗庚极力反对，伤心又气愤的赖特宁对pad发出了希望爸爸消失的愿望!在pad的帮忙召唤下时间精灵真的将赖罗庚送回了过去。
-
-     正当小伙伴们和赖特宁开心狂欢时，班主任打来的电话敲碎了大家的美梦，此次梦想之歌大赛是家庭赛事，赖罗庚必须参加，否则赖特宁就没有参赛资格。赖特宁由于狂欢过度身体不适和参赛需要爸爸，意识到爸爸的重要性，想让伙伴们帮助自己回到过去找到赖罗庚。小伙伴们受够了赖罗庚的折磨不想让他回来，于是pad不情愿的召唤了时间精灵送走了赖特宁。在赖特宁走后，小伙伴们对赖特宁的爱与担心最终超越了对赖罗庚的厌恶，一起回到了过去。
-
-     穿越回过去的赖特宁奇妙的变成了自己的爷爷赖卫国，上演了一场和赖罗庚的父子反转。赖罗庚重新经历了小学时光，并在此与同学冲突，被老师请来了变成赖卫国的赖特宁。父子反转后的见面，两人矛盾百出，关系依然恶劣。小伙伴们为了帮助父子俩真正和解，让赖特宁恢复了之前的记忆发现了爸爸的登台梦想，并慢慢的开始理解爸爸。最后借助时间精灵魔法使父子俩穿越到了梦想之歌的舞台。虽然最后父子俩依然没有赶上比赛，完成自己的梦想，但是两人却因这次奇妙旅程收获了比比赛更加宝贵的爱和理解。<img class='plot_img' src='https://www.showonline.com.cn/image/2017/09/06/fa159b46fe4c4c619cd1877c28956af9.jpg'></img>
+     * <p>
+     * 这一次故事发生在闪电妈妈出差后，父子两人因为各种生活矛盾起了争执，赖特宁梦想参加梦想之歌大赛遭到赖罗庚极力反对，伤心又气愤的赖特宁对pad发出了希望爸爸消失的愿望!在pad的帮忙召唤下时间精灵真的将赖罗庚送回了过去。
+     * <p>
+     * 正当小伙伴们和赖特宁开心狂欢时，班主任打来的电话敲碎了大家的美梦，此次梦想之歌大赛是家庭赛事，赖罗庚必须参加，否则赖特宁就没有参赛资格。赖特宁由于狂欢过度身体不适和参赛需要爸爸，意识到爸爸的重要性，想让伙伴们帮助自己回到过去找到赖罗庚。小伙伴们受够了赖罗庚的折磨不想让他回来，于是pad不情愿的召唤了时间精灵送走了赖特宁。在赖特宁走后，小伙伴们对赖特宁的爱与担心最终超越了对赖罗庚的厌恶，一起回到了过去。
+     * <p>
+     * 穿越回过去的赖特宁奇妙的变成了自己的爷爷赖卫国，上演了一场和赖罗庚的父子反转。赖罗庚重新经历了小学时光，并在此与同学冲突，被老师请来了变成赖卫国的赖特宁。父子反转后的见面，两人矛盾百出，关系依然恶劣。小伙伴们为了帮助父子俩真正和解，让赖特宁恢复了之前的记忆发现了爸爸的登台梦想，并慢慢的开始理解爸爸。最后借助时间精灵魔法使父子俩穿越到了梦想之歌的舞台。虽然最后父子俩依然没有赶上比赛，完成自己的梦想，但是两人却因这次奇妙旅程收获了比比赛更加宝贵的爱和理解。<img class='plot_img' src='https://www.showonline.com.cn/image/2017/09/06/fa159b46fe4c4c619cd1877c28956af9.jpg'></img>
      * awardsDescpt : <p></p>
      * requirements : <p><table class='requirements_tb'></table></p>
      * status : 1
@@ -78,6 +79,16 @@ public class WorksDetailBean {
     private int viewTimes;
     private ArrayList<PicturesBean> pictures;
     private List<StaffsBean> staffs;
+    private String shareLink;
+
+    public String getShareLink() {
+        return shareLink;
+    }
+
+    public void setShareLink(String shareLink) {
+        this.shareLink = shareLink;
+    }
+
 
     public String getId() {
         return id;
@@ -310,7 +321,6 @@ public class WorksDetailBean {
     public void setStaffs(List<StaffsBean> staffs) {
         this.staffs = staffs;
     }
-
 
 
     public static class StaffsBean {

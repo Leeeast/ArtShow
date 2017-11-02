@@ -11,21 +11,21 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
-import com.art.huakai.artshow.entity.TalentDetailBean;
-import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.entity.WorksDetailBean;
 
 
-public class PersonalDetailAwarsFragment extends HeaderViewPagerFragment {
-    private static final String PARAMS_TALENT = "PARAMS_TALENT";
+public class ProjectDetailPoltFragment extends HeaderViewPagerFragment {
+    private static final String PARAMS_PROJECT = "PARAMS_PROJECT";
+
     private View scrollView;
-    private TalentDetailBean mTalentDetailBean;
+    private WorksDetailBean mWorksDatailBean;
     private ImageView ivPageEmpty;
-    private TextView tvTalentWorks;
+    private TextView tvContent;
 
-    public static PersonalDetailAwarsFragment newInstance(TalentDetailBean talentDetailBean) {
-        PersonalDetailAwarsFragment fragment = new PersonalDetailAwarsFragment();
+    public static ProjectDetailPoltFragment newInstance(WorksDetailBean worksDetailBean) {
+        ProjectDetailPoltFragment fragment = new ProjectDetailPoltFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(PARAMS_TALENT, talentDetailBean);
+        bundle.putSerializable(PARAMS_PROJECT, worksDetailBean);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -34,14 +34,14 @@ public class PersonalDetailAwarsFragment extends HeaderViewPagerFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTalentDetailBean = (TalentDetailBean) getArguments().getSerializable(PARAMS_TALENT);
+            mWorksDatailBean = (WorksDetailBean) getArguments().getSerializable(PARAMS_PROJECT);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        scrollView = inflater.inflate(R.layout.fragment_scrollview, container, false);
+        scrollView = inflater.inflate(R.layout.fragment_project_detail_polt, container, false);
         return scrollView;
     }
 
@@ -49,14 +49,14 @@ public class PersonalDetailAwarsFragment extends HeaderViewPagerFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ivPageEmpty = (ImageView) view.findViewById(R.id.iv_page_empty);
-        tvTalentWorks = (TextView) view.findViewById(R.id.tv_talent_works);
-        if (mTalentDetailBean != null && !TextUtils.isEmpty(mTalentDetailBean.getAwardsDescpt())) {
+        tvContent = (TextView) view.findViewById(R.id.tv_content);
+        if (mWorksDatailBean != null && !TextUtils.isEmpty(mWorksDatailBean.getPlot())) {
             ivPageEmpty.setVisibility(View.GONE);
-            tvTalentWorks.setVisibility(View.VISIBLE);
-            tvTalentWorks.setText(mTalentDetailBean.getAwardsDescpt());
+            tvContent.setVisibility(View.VISIBLE);
+            tvContent.setText(mWorksDatailBean.getPlot());
         } else {
             ivPageEmpty.setVisibility(View.VISIBLE);
-            tvTalentWorks.setVisibility(View.GONE);
+            tvContent.setVisibility(View.GONE);
         }
     }
 

@@ -26,8 +26,8 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
-import com.art.huakai.artshow.fragment.WorksDetailShowFragment;
-import com.art.huakai.artshow.fragment.WorksDetailSkillFragment;
+import com.art.huakai.artshow.fragment.ProjectDetailPoltFragment;
+import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -44,7 +44,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
@@ -126,7 +125,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
         mTabArray = getResources().getStringArray(R.array.work_detail_tab);
         mFragments = new ArrayList<>();
-        WorksDetailShowFragment worksDetailShowFragment = WorksDetailShowFragment.newInstance();
+        ProjectDetailPoltFragment worksDetailShowFragment = ProjectDetailPoltFragment.newInstance(worksDetailBean);
         mFragments.add(worksDetailShowFragment);
         if (worksDetailBean.getPictures() != null && worksDetailBean.getPictures().size() > 0) {
             StaggerFragment staggerFragment = StaggerFragment.newInstance();
@@ -137,7 +136,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             mFragments.add(errorFragment);
         }
 
-        WorksDetailSkillFragment worksDetailSkillFragment = WorksDetailSkillFragment.newInstance();
+        ProjectDetailRequireFragment worksDetailSkillFragment = ProjectDetailRequireFragment.newInstance(worksDetailBean);
         mFragments.add(worksDetailSkillFragment);
         TalentDetailFragmentAdapter disPagerAdapter = new TalentDetailFragmentAdapter(getSupportFragmentManager(), mFragments, mTabArray);
 
@@ -251,13 +250,13 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        Log.e(TAG, "getRepertoryClassify: " + params.toString());
+        Log.i(TAG, "getRepertoryClassify: " + params.toString());
         RequestUtil.request(true, URL_TALENT_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
-                        Log.e(TAG, "onSuccess: obj1111=" + obj);
+                        Log.i(TAG, "onSuccess: obj=" + obj);
                         Gson gson = new Gson();
                         try {
                             worksDetailBean = gson.fromJson(obj, WorksDetailBean.class);

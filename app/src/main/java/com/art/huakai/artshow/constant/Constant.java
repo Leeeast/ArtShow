@@ -137,10 +137,12 @@ public class Constant {
     public static final String URL_REPERTORY_EDIT_TAFFS = BASE_URL + "/repertory/edit/staffs";
     //用户信息预览
     public static final String URL_USER_PREVIEW = BASE_URL + "/user/preview";
-    //微信登陆
+    //微信绑定
     public static final String URL_USER_WXBIND = BASE_URL + "/user/wxbind";
     //微信登陆
     public static final String URL_USER_WXLOGIN = BASE_URL + "/user/wxlogin";
+    //解绑微信
+    public static final String URL_USER_WXUNBIND = BASE_URL + "/user/wxunbind";
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型
