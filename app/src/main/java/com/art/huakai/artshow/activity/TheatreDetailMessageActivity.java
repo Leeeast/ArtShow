@@ -26,8 +26,8 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
-import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailDesFragment;
+import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -273,7 +273,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     @OnClick(R.id.fly_right_img)
     public void shareProject() {
         if (shareDialog == null) {
-            shareDialog = ShareDialog.newInstence();
+            String title = theatreDetailBean == null ? getString(R.string.app_name) : theatreDetailBean.getName();
+            String shareLink = theatreDetailBean == null ? getString(R.string.share_main_url) : theatreDetailBean.getShareLink();
+            shareDialog = ShareDialog.newInstence(title, shareLink);
         }
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }

@@ -212,7 +212,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private BroadcastReceiver wxReceiver = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getSerializableExtra("onResp") != null) {

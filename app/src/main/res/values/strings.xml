@@ -29,6 +29,10 @@
     <string name="wechat_bind_fail">微信绑定失败</string>
     <string name="wechat_unbind_tip">解除微信绑定之后，您将不能用微信登录%1$s</string>
     <string name="wechat_unbind">解除绑定</string>
+    <string name="share_success">分享成功</string>
+    <string name="share_cancel">分享取消</string>
+    <string name="share_fail">分享失败</string>
+    <string name="share_main_url">https://www.showonline.com.cn</string>
     <!--登录注册-->
     <string name="login_app_introduce">中国最大的演出资料信息\n共享平台</string>
     <string name="login_weixin">微&#160;&#160;信&#160;&#160;登&#160;&#160;录</string>

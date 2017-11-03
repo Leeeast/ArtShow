@@ -41,3 +41,5 @@
     <init>(java.lang.Throwable);
 }
 #--------EventBus end----------
+
+-keep class com.sina.weibo.sdk.** { *; }

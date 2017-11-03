@@ -1,30 +1,40 @@
 package com.art.huakai.artshow.dialog;
 
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseDialogFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.entity.InfoBaseResp;
 import com.art.huakai.artshow.utils.Util;
+import com.art.huakai.artshow.wxapi.WXEntryActivity;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.utils.SocializeUtils;
 
 import butterknife.OnClick;
 
@@ -39,6 +49,7 @@ public class ShareDialog extends BaseDialogFragment {
     private String mTitle;
     private String mUrl;
     private IWXAPI wxapi;
+    private ShowProgressDialog showProgressDialog;
 
     public static ShareDialog newInstence(String title, String url) {
         ShareDialog typeConfirmDialog = new ShareDialog();
@@ -48,19 +59,13 @@ public class ShareDialog extends BaseDialogFragment {
         typeConfirmDialog.setArguments(bundle);
         return typeConfirmDialog;
     }
-
-    public static ShareDialog newInstence() {
-        ShareDialog typeConfirmDialog = new ShareDialog();
-
-        return typeConfirmDialog;
-    }
-
     @Override
     public void initData(@Nullable Bundle bundle) {
         if (bundle != null) {
             mTitle = bundle.getString(PARAMS_TITLE);
             mUrl = bundle.getString(PARAMS_URL);
         }
+        showProgressDialog = new ShowProgressDialog(getContext());
         regToWx();
     }
 
@@ -126,21 +131,68 @@ public class ShareDialog extends BaseDialogFragment {
 
     @OnClick(R.id.fly_share_wechat)
     public void shareWechat() {
-        WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = mUrl;
-        WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = TextUtils.isEmpty(mTitle) ? getString(R.string.app_name) : mTitle;
-        msg.description = getContext().getString(R.string.tip_share_url_des);
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
-        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
-        bmp.recycle();
-        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+        showProgressDialog.show();
+        if (wxapi.isWXAppInstalled()) {
+            reigstWeixinLoginRiciver();
+            WXWebpageObject webpage = new WXWebpageObject();
+            webpage.webpageUrl = mUrl;
+            WXMediaMessage msg = new WXMediaMessage(webpage);
+            msg.title = TextUtils.isEmpty(mTitle) ? getString(R.string.app_name) : mTitle;
+            msg.description = getContext().getString(R.string.tip_share_url_des);
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
+            Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+            bmp.recycle();
+            msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+            SendMessageToWX.Req req = new SendMessageToWX.Req();
+            req.transaction = buildTransaction("webpage");
+            req.message = msg;
+            req.scene = SendMessageToWX.Req.WXSceneSession;
+            wxapi.sendReq(req);
+        } else {
+            if (showProgressDialog.isShowing()) {
+                showProgressDialog.dismiss();
+            }
+            showToast(getString(R.string.weixin_no));
+        }
+    }
 
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = buildTransaction("webpage");
-        req.message = msg;
-        req.scene = SendMessageToWX.Req.WXSceneSession;
-        wxapi.sendReq(req);
+    /**
+     * 用来接收从WXEntryActivity传入的微信回调的广播接收器
+     */
+    private void reigstWeixinLoginRiciver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WXEntryActivity.ACTION_WECHAT_SEND_MESSAGE);
+        filter.setPriority(Integer.MAX_VALUE);
+        getActivity().registerReceiver(wxReceiver, filter);
+    }
+
+    private BroadcastReceiver wxReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getSerializableExtra("onResp") != null) {
+                onResp((InfoBaseResp) intent.getSerializableExtra("onResp"));
+            }
+        }
+    };
+
+    public void onResp(InfoBaseResp baseResp) {
+        String authCode = baseResp.getCode();
+        String state = baseResp.getState();
+        int errCode = baseResp.getErrCode();
+        switch (baseResp.getErrCode()) {
+            case BaseResp.ErrCode.ERR_OK:
+                showToast(getString(R.string.share_success));
+                break;
+            case BaseResp.ErrCode.ERR_USER_CANCEL:
+                showToast(getString(R.string.share_cancel));
+                break;
+            case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                showToast(getString(R.string.share_fail));
+                break;
+            default:
+                break;
+        }
+        getActivity().unregisterReceiver(wxReceiver);
     }
 
     private String buildTransaction(final String type) {
@@ -149,7 +201,29 @@ public class ShareDialog extends BaseDialogFragment {
 
     @OnClick(R.id.fly_share_wechat_momnet)
     public void shareWechatMoment() {
-
+        showProgressDialog.show();
+        if (wxapi.isWXAppInstalled()) {
+            reigstWeixinLoginRiciver();
+            WXWebpageObject webpage = new WXWebpageObject();
+            webpage.webpageUrl = mUrl;
+            WXMediaMessage msg = new WXMediaMessage(webpage);
+            msg.title = TextUtils.isEmpty(mTitle) ? getString(R.string.app_name) : mTitle;
+            msg.description = getContext().getString(R.string.tip_share_url_des);
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
+            Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+            bmp.recycle();
+            msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+            SendMessageToWX.Req req = new SendMessageToWX.Req();
+            req.transaction = buildTransaction("webpage");
+            req.message = msg;
+            req.scene = SendMessageToWX.Req.WXSceneTimeline;
+            wxapi.sendReq(req);
+        } else {
+            if (showProgressDialog.isShowing()) {
+                showProgressDialog.dismiss();
+            }
+            showToast(getString(R.string.weixin_no));
+        }
     }
 
     @OnClick(R.id.fly_share_qq)
@@ -159,12 +233,81 @@ public class ShareDialog extends BaseDialogFragment {
 
     @OnClick(R.id.fly_share_sina_weibo)
     public void shareSinaWeibo() {
-
+        FragmentActivity activity = getActivity();
+        UMWeb web = new UMWeb("http://www.baidu.com");
+        web.setTitle("This is web title");
+        web.setThumb(new UMImage(activity, R.mipmap.icon_share_img));
+        web.setDescription("my description");
+        new ShareAction(activity).withText("欢迎使用【、友盟+】社会化组件U-Share，SDK包最小，集成成本最低，助力您的产品开发、运营与推广")
+                .withMedia(web)
+                .setPlatform(SHARE_MEDIA.SINA)
+                .setCallback(shareListener).share();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        showToast("fuck");
+        if (showProgressDialog != null && showProgressDialog.isShowing()) {
+            showProgressDialog.dismiss();
+        }
+    }
+
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            SocializeUtils.safeShowDialog(showProgressDialog);
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(getContext(), "成功了", Toast.LENGTH_LONG).show();
+            SocializeUtils.safeCloseDialog(showProgressDialog);
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            SocializeUtils.safeCloseDialog(showProgressDialog);
+            Toast.makeText(getContext(), "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            SocializeUtils.safeCloseDialog(showProgressDialog);
+            Toast.makeText(getContext(), "取消了", Toast.LENGTH_LONG).show();
+
+        }
+    };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            getActivity().unregisterReceiver(wxReceiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

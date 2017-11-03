@@ -44,7 +44,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
@@ -304,7 +303,9 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     @OnClick(R.id.fly_right_img)
     public void shareProject() {
         if (shareDialog == null) {
-            shareDialog = ShareDialog.newInstence();
+            String title = talentDetailBean == null ? getString(R.string.app_name) : talentDetailBean.getName();
+            String shareLink = talentDetailBean == null ? getString(R.string.share_main_url) : talentDetailBean.getShareLink();
+            shareDialog = ShareDialog.newInstence(title, shareLink);
         }
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }

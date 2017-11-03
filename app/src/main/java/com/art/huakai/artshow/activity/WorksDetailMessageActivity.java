@@ -25,9 +25,9 @@ import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
-import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailPoltFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
+import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -291,7 +291,9 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     @OnClick(R.id.fly_right_img)
     public void shareProject() {
         if (shareDialog == null) {
-            shareDialog = ShareDialog.newInstence();
+            String title = worksDetailBean == null ? getString(R.string.app_name) : worksDetailBean.getTitle();
+            String shareLink = worksDetailBean == null ? getString(R.string.share_main_url) : worksDetailBean.getShareLink();
+            shareDialog = ShareDialog.newInstence(title, shareLink);
         }
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
