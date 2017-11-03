@@ -656,6 +656,9 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
                 if (talentLists.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    ivLoading.setVisibility(View.GONE);
+                    llContent.setVisibility(View.GONE);
+                    ivNoContent.setVisibility(View.VISIBLE);
                 } else {
                     if (page == 1) {
                         recyclerView.refreshComplete();
