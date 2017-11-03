@@ -219,6 +219,13 @@
         <activity
             android:name="com.art.huakai.artshow.activity.KeywordSearchTheatresResultShowActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.art.huakai.artshow.activity.MapShowActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.art.huakai.artshow.activity.PioSearchActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
