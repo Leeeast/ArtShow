@@ -114,13 +114,15 @@ public class BroswerPicActivity extends BaseActivity {
 
         for(int i=0;i<lists.size();i++){
             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(25,25);
-            layoutParams.leftMargin=15;
+            if(i!=0){
+                layoutParams.leftMargin=15;
+            }
             View viewone=new View(BroswerPicActivity.this);
             viewone.setLayoutParams(layoutParams);
             if(lastPosition==i){
-                viewone.setBackgroundColor(0xffff0000);
+                viewone.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
             }else{
-                viewone.setBackgroundColor(0xff0000ff);
+                viewone.setBackgroundResource(R.drawable.shape_bg_grey_circle);
             }
             ll.addView(viewone);
         }
@@ -136,10 +138,10 @@ public class BroswerPicActivity extends BaseActivity {
 
                 if(lastPosition!=-1){
                     View view=ll.getChildAt(lastPosition);
-                    view.setBackgroundColor(0xff0000ff);
+                    view.setBackgroundResource(R.drawable.shape_bg_grey_circle);
                 }
                 View view=ll.getChildAt(position);
-                view.setBackgroundColor(0xffff0000);
+                view.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
                 lastPosition=position;
             }
 
@@ -150,9 +152,12 @@ public class BroswerPicActivity extends BaseActivity {
         });
 
         viewPager.setAdapter(new DraweePagerAdapter());
-        viewPager.setCurrentItem(0);
+        if(lastPosition>0){
+            viewPager.setCurrentItem(lastPosition);
+        }else{
+            viewPager.setCurrentItem(0);
+        }
 
     }
-
 
 }

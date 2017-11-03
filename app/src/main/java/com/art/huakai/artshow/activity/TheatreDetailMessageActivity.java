@@ -242,7 +242,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 finish();
                 break;
             case R.id.ll_check_map_area:
-
+                Intent intent=new Intent();
+                intent.setClass(TheatreDetailMessageActivity.this,MapShowActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_check_ticket_area:
 
