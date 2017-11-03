@@ -27,7 +27,7 @@ import com.art.huakai.artshow.entity.TheatreDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
-import com.art.huakai.artshow.fragment.TheatreDetailTheatreFragment;
+import com.art.huakai.artshow.fragment.TheatreDetailDesFragment;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -115,7 +115,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
         mTabArray = getResources().getStringArray(R.array.theatre_detail_tab);
         mFragments = new ArrayList<HeaderViewPagerFragment>();
-        TheatreDetailTheatreFragment theatreDetailTheatreFragment = TheatreDetailTheatreFragment.newInstance();
+        TheatreDetailDesFragment theatreDetailTheatreFragment = TheatreDetailDesFragment.newInstance(theatreDetailBean);
         mFragments.add(theatreDetailTheatreFragment);
         if (theatreDetailBean.getPictures() != null && theatreDetailBean.getPictures().size() > 0) {
             StaggerFragment staggerFragment = StaggerFragment.newInstance();
@@ -126,7 +126,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             mFragments.add(errorFragment);
         }
 
-        TheatreDetailParamsFragment theatreDetailParamsFragment = TheatreDetailParamsFragment.newInstance();
+        TheatreDetailParamsFragment theatreDetailParamsFragment = TheatreDetailParamsFragment.newInstance(theatreDetailBean);
         mFragments.add(theatreDetailParamsFragment);
 
         TheatreDetailFragmentAdapter disPagerAdapter = new TheatreDetailFragmentAdapter(getSupportFragmentManager(), mFragments, mTabArray);
@@ -232,13 +232,13 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        Log.e(TAG, "getRepertoryClassify: " + params.toString());
+        Log.i(TAG, "getRepertoryClassify: " + params.toString());
         RequestUtil.request(true, URL_THEATRE_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
-                        Log.e(TAG, "onSuccess: obj1111=" + obj);
+                        Log.i(TAG, "onSuccess: obj=" + obj);
                         Gson gson = new Gson();
                         try {
                             theatreDetailBean = gson.fromJson(obj, TheatreDetailBean.class);

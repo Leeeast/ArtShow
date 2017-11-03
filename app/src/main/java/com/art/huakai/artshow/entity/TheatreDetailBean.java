@@ -1,12 +1,13 @@
 package com.art.huakai.artshow.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lining on 2017/10/28.
  */
-public class TheatreDetailBean {
+public class TheatreDetailBean implements Serializable{
 
 
     /**
@@ -100,6 +101,16 @@ public class TheatreDetailBean {
     private int viewTimes;
     private ArrayList<PicturesBean> pictures;
     private List<DisabledDatesBean> disabledDates;
+
+    private String shareLink;
+
+    public String getShareLink() {
+        return shareLink;
+    }
+
+    public void setShareLink(String shareLink) {
+        this.shareLink = shareLink;
+    }
 
     public String getId() {
         return id;

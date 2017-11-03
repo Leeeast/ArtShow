@@ -37,6 +37,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 剧场技术参数fragment
+ * crate by lidongliang
+ */
 public class TheatreTechParamFragment extends BaseFragment {
 
     @BindView(R.id.tv_title)

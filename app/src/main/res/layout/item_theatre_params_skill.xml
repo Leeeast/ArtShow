@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rly_root_theatre"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/DIMEN_40PX"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="舞台深度"
+        android:textColor="@color/login_light"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/DIMEN_18PX"
+        android:layout_toRightOf="@id/tv_name"
+        android:text="10m"
+        android:textColor="@color/black00"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/me_personal_line" />
+
+</RelativeLayout>

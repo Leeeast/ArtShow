@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.ShowApplication;
+import com.art.huakai.artshow.entity.TechParamsBean;
+import com.art.huakai.artshow.entity.TheatreDetailBean;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 
 import java.util.List;
@@ -47,41 +49,77 @@ public class TheatreTechParamsUtil {
 
     public static void getTheatreTechParamsAddedList(List<String> added) {
         String[] stringArray = ShowApplication.getAppContext().getResources().getStringArray(R.array.theatre_tech_param);
-        if (TheatreDetailInfo.getInstance().getStageLights().equals("1")) {
+        TheatreDetailInfo theatre = TheatreDetailInfo.getInstance();
+        if (!TextUtils.isEmpty(theatre.getStageLights()) &&
+                theatre.getStageLights().equals("1")) {
             added.add(stringArray[0]);//灯光
         }
-        if (TheatreDetailInfo.getInstance().getStereoEquipment().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getStereoEquipment()) &&
+                theatre.getStereoEquipment().equals("1")) {
             added.add(stringArray[1]);//音响
         }
-        if (TheatreDetailInfo.getInstance().getBroadcastSystem().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getBroadcastSystem()) &&
+                theatre.getBroadcastSystem().equals("1")) {
             added.add(stringArray[2]);//播音系统
         }
-        if (TheatreDetailInfo.getInstance().getSteeve().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getSteeve()) &&
+                theatre.getSteeve().equals("1")) {
             added.add(stringArray[3]);//吊杆
         }
-        if (TheatreDetailInfo.getInstance().getMusicStage().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getMusicStage()) &&
+                theatre.getMusicStage().equals("1")) {
             added.add(stringArray[4]);//演奏台
         }
-        if (TheatreDetailInfo.getInstance().getChorusPlatform().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getChorusPlatform()) &&
+                theatre.getChorusPlatform().equals("1")) {
             added.add(stringArray[5]);//合唱台
         }
-        if (TheatreDetailInfo.getInstance().getOrchestraPit().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getOrchestraPit()) &&
+                theatre.getOrchestraPit().equals("1")) {
             added.add(stringArray[6]);//乐池
         }
-        if (TheatreDetailInfo.getInstance().getAcousticShroud().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getAcousticShroud()) &&
+                theatre.getAcousticShroud().equals("1")) {
             added.add(stringArray[7]);//音罩
         }
-        if (TheatreDetailInfo.getInstance().getBandPlatform().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getBandPlatform()) &&
+                theatre.getBandPlatform().equals("1")) {
             added.add(stringArray[8]);//乐队平台
         }
-        if (TheatreDetailInfo.getInstance().getCurtainSystem().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getCurtainSystem()) &&
+                theatre.getCurtainSystem().equals("1")) {
             added.add(stringArray[9]);//幕布系统
         }
-        if (TheatreDetailInfo.getInstance().getSpecialEquipment().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getSpecialEquipment()) &&
+                theatre.getSpecialEquipment().equals("1")) {
             added.add(stringArray[10]);//特殊机具
         }
-        if (TheatreDetailInfo.getInstance().getProjector().equals("1")) {
+        if (!TextUtils.isEmpty(theatre.getProjector()) &&
+                theatre.getProjector().equals("1")) {
             added.add(stringArray[11]);//投影仪
         }
+    }
+
+    public static List<TechParamsBean> getTheatreTechParamsAddedList(List<TechParamsBean> added, TheatreDetailBean theatre) {
+        if (!TextUtils.isEmpty(theatre.getStageHeight())) {
+            added.add(new TechParamsBean("舞台高度", theatre.getStageHeight() + "米"));
+        }
+        if (!TextUtils.isEmpty(theatre.getStageWidth())) {
+            added.add(new TechParamsBean("舞台宽度", theatre.getStageWidth() + "米"));
+        }
+        if (!TextUtils.isEmpty(theatre.getStageDepth())) {
+            added.add(new TechParamsBean("舞台深度", theatre.getStageDepth() + "米"));
+        }
+        if (!TextUtils.isEmpty(theatre.getCurtainWidth())) {
+            added.add(new TechParamsBean("幕布宽度", theatre.getCurtainWidth() + "米"));
+        }
+        if (!TextUtils.isEmpty(theatre.getCurtainHeight())) {
+            added.add(new TechParamsBean("幕布高度", theatre.getCurtainHeight() + "米"));
+        }
+        added.add(new TechParamsBean("化妆间数量", theatre.getDressingRoomNum() + "个"));
+        added.add(new TechParamsBean("排练室数量", theatre.getRehearsalRoomNum() + "个"));
+        added.add(new TechParamsBean("道具间数量", theatre.getPropRoomNum() + "个"));
+        added.add(new TechParamsBean("服装间数量", theatre.getCostumeRoomNum() + "个"));
+        return added;
     }
 }
