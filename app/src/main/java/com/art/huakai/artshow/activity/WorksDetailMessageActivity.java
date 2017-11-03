@@ -22,6 +22,7 @@ import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
+import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
@@ -119,6 +120,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         }
     };
     private ShareDialog shareDialog;
+    private TakePhoneDialog takePhoneDialog;
 
 
     private void setData() {
@@ -228,8 +230,10 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         ivRightImg.setImageResource(R.mipmap.icon_share_gray);
         if (mIsFromOrgan) {
             btnEdit.setVisibility(View.VISIBLE);
+            llMakeTelephone.setVisibility(View.GONE);
         } else {
             btnEdit.setVisibility(View.GONE);
+            llMakeTelephone.setVisibility(View.VISIBLE);
         }
     }
 
@@ -311,5 +315,20 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     @OnClick(R.id.lly_back)
     public void back() {
         finish();
+    }
+
+    /**
+     * 打电话
+     */
+    @OnClick(R.id.ll_make_telephone)
+    public void callPhone() {
+        if (TextUtils.isEmpty(worksDetailBean.getLinkTel())) {
+            showToast(getString(R.string.tip_linkdata_error));
+            return;
+        }
+        if (takePhoneDialog == null) {
+            takePhoneDialog = TakePhoneDialog.newInstence(worksDetailBean.getLinkman(), worksDetailBean.getLinkTel());
+        }
+        takePhoneDialog.show(getSupportFragmentManager(), "TAKEPHONE.DIALOG");
     }
 }

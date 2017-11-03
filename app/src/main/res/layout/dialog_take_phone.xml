@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/lly_type_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/DIMEN_15PX"
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:background="@drawable/shape_bg_gray"
+        android:orientation="vertical"
+        android:padding="@dimen/DIMEN_15PX">
+
+        <TextView
+            android:id="@+id/tv_linkman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:text="刘德华"
+            android:textColor="@color/check_photo_album"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_linkphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:text="15357118217"
+            android:textColor="@color/text_cancel"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_cancle"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_50PX"
+        android:layout_below="@id/lly_type_select"
+        android:layout_margin="@dimen/DIMEN_15PX"
+        android:background="@drawable/shape_bg_white"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textColor="@color/check_photo_album"
+        android:textSize="20sp" />
+</RelativeLayout>
