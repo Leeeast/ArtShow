@@ -32,7 +32,7 @@ public class EquipAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_classify_type_small, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        layoutParams.height=view.getContext().getResources().getDimensionPixelSize(R.dimen.DIMEN_100PX);
+        layoutParams.height = view.getContext().getResources().getDimensionPixelSize(R.dimen.DIMEN_30PX);
         return new ClassifyTypeSmallHolder(view);
     }
 
