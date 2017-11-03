@@ -31,6 +31,7 @@ import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.ToastUtils;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.google.gson.Gson;
 
@@ -45,7 +46,6 @@ import okhttp3.Call;
  * Created by lining on 2017/10/22.
  */
 public class KeywordSearchAllActivity extends BaseActivity implements View.OnClickListener {
-
 
     @BindView(R.id.ll_whole)
     LinearLayout llWhole;
@@ -67,13 +67,12 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     ImageView ivDelete;
     @BindView(R.id.tv_account)
     TextView tvAccount;
-    @BindView(R.id.ll_content)
-    LinearLayout llContent;
     @BindView(R.id.iv_loading)
     ImageView ivLoading;
     @BindView(R.id.iv_no_content)
     ImageView ivNoContent;
-    private String keyword = "剧场";
+
+    private String keyword = "*";
     private SearchAllBean searchAllBean;
 
     @Override
@@ -88,33 +87,14 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void initData() {
-
         getKeywordSearchAllMessage();
-
     }
-
 
     @Override
     public void initView() {
         llyBack.setOnClickListener(this);
-//        Drawable drawableLeft = getResources().getDrawable(R.mipmap.search_gray);
-//        drawableLeft.setBounds(
-//                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX),
-//                0,
-//                getResources().getDimensionPixelSize(R.dimen.DIMEN_16PX)
-//                        + getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX),
-//                getResources().getDimensionPixelSize(R.dimen.DIMEN_18PX));
-//        edtSearch.setCompoundDrawables(drawableLeft, null, null, null);
-
-        tvSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-
-
+        ivDelete.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
     }
 
 
@@ -122,7 +102,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     public void setView() {
         AnimUtils.rotate(ivLoading);
         ivNoContent.setVisibility(View.GONE);
-        llContent.setVisibility(View.GONE);
+        scrollView.setVisibility(View.GONE);
     }
 
     private Handler uiHandler = new Handler() {
@@ -132,7 +112,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 setData();
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.GONE);
-                llContent.setVisibility(View.VISIBLE);
+                scrollView.setVisibility(View.VISIBLE);
             }
         }
     };
@@ -143,9 +123,19 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
             case R.id.lly_back:
                 finish();
                 break;
+            case R.id.iv_delete:
+                edtSearch.setText("");
+                break;
+            case R.id.tv_search:
+                keyword = edtSearch.getText().toString();
+                if (!TextUtils.isEmpty(keyword)) {
+                    getKeywordSearchAllMessage();
+                } else {
+                    ToastUtils.showToast(KeywordSearchAllActivity.this, 20, "请输入内容");
+                }
+                break;
         }
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,16 +144,8 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
         ButterKnife.bind(this);
     }
 
-
     private void setData() {
-
         if (searchAllBean != null) {
-
-            Log.e(TAG, "setData:getNews().size== " + searchAllBean.getNews().size());
-            Log.e(TAG, "setData:getTheaters().size== " + searchAllBean.getTheaters().size());
-            Log.e(TAG, "setData: getTalents().size==" + searchAllBean.getTalents().size());
-            Log.e(TAG, "setData: getRepertorys().size()==" + searchAllBean.getRepertorys().size());
-
             if (searchAllBean.getEnrolls() != null && searchAllBean.getEnrolls().size() > 0) {
                 Log.e(TAG, "setData: 1111111");
                 View view = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
@@ -174,12 +156,10 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchResultShowActivity.class);
+                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchEnrollsResultShowActivity.class);
                         intent.putExtra("searchType", "enrolls");
                         intent.putExtra("keyword", keyword);
                         startActivity(intent);
-
                     }
                 });
                 KeywordSearchCooperateAdapter keywordSearchCooperateAdapter = new KeywordSearchCooperateAdapter(searchAllBean.getEnrolls());
@@ -206,7 +186,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchResultShowActivity.class);
+                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchNewsResultShowActivity.class);
                         intent.putExtra("searchType", "news");
                         intent.putExtra("keyword", keyword);
                         startActivity(intent);
@@ -226,7 +206,6 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 recyclerView.setLayoutManager(industryNewsLayoutManager);
                 recyclerView.setAdapter(keywordSearchNewsAdapter);
                 llWhole.addView(view);
-
             }
             if (searchAllBean.getRepertorys() != null && searchAllBean.getRepertorys().size() > 0) {
                 Log.e(TAG, "setData: 333333");
@@ -238,8 +217,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchResultShowActivity.class);
+                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchRepertorysResultShowActivity.class);
                         intent.putExtra("searchType", "repertorys");
                         intent.putExtra("keyword", keyword);
                         startActivity(intent);
@@ -271,7 +249,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchResultShowActivity.class);
+                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchTalentsResultShowActivity.class);
                         intent.putExtra("searchType", "talents");
                         intent.putExtra("keyword", keyword);
                         startActivity(intent);
@@ -302,7 +280,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchResultShowActivity.class);
+                        Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchTheatresResultShowActivity.class);
                         intent.putExtra("searchType", "theatres");
                         intent.putExtra("keyword", keyword);
                         startActivity(intent);
@@ -333,9 +311,6 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH==" + Constant.URL_KEYWORD_SEARCH);
         params.put("keyword", keyword);
-//        String sign = SignUtil.getSign(params);
-//        params.put("sign", sign);
-//        Log.e(TAG, "getList: sign==" + sign);
         Log.e(TAG, "getRepertoryClassify: " + params.toString());
         RequestUtil.request(true, Constant.URL_KEYWORD_SEARCH, params, 111, new RequestUtil.RequestListener() {
             @Override
@@ -344,21 +319,35 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: 1111111111111obj222=" + obj);
                         Gson gson = new Gson();
-                        try{
+                        searchAllBean = null;
+                        try {
                             searchAllBean = gson.fromJson(obj, SearchAllBean.class);
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
-                        uiHandler.sendEmptyMessage(0);
+                        if (searchAllBean != null) {
+                            if ((searchAllBean.getRepertorys() != null && searchAllBean.getRepertorys().size() > 0) || (searchAllBean.getTalents() != null && searchAllBean.getTalents().size() > 0) || (searchAllBean.getTheaters() != null && searchAllBean.getTheaters().size() > 0) || (searchAllBean.getEnrolls() != null && searchAllBean.getEnrolls().size() > 0) || (searchAllBean.getNews() != null && searchAllBean.getNews().size() > 0)) {
+                                uiHandler.sendEmptyMessage(0);
+                                return;
+                            }
+                        }
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                ivLoading.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
+                scrollView.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+
+                ivLoading.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
+                scrollView.setVisibility(View.GONE);
+
             }
         });
     }

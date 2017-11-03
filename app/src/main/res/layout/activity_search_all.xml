@@ -1,39 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff5fafc">
-
-    <ImageView
-        android:id="@+id/iv_loading"
-        android:layout_centerInParent="true"
-        android:layout_width="@dimen/DIMEN_100PX"
-        android:layout_height="@dimen/DIMEN_100PX"
-        android:scaleType="fitXY"
-        android:src="@mipmap/loading_gray"
-        android:visibility="visible"
-        />
-
-
-    <ImageView
-        android:id="@+id/iv_no_content"
-        android:layout_width="@dimen/DIMEN_120PX"
-        android:layout_height="@dimen/DIMEN_120PX"
-        android:src="@mipmap/loading_fail"
-        android:scaleType="fitXY"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
-
-
-
-    <LinearLayout
-        android:id="@+id/ll_content"
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:background="#fff5fafc"
         >
     <include
         android:id="@+id/include_title"
@@ -61,11 +32,10 @@
           android:id="@+id/rly_coll_head"
           android:layout_width="match_parent"
           android:layout_height="@dimen/DIMEN_48PX"
-          android:layout_marginLeft="@dimen/DIMEN_14PX"
+          android:layout_marginLeft="@dimen/DIMEN_15PX"
           android:background="@drawable/shape_bg_white_radius_1"
           android:layout_toLeftOf="@+id/tv_search"
           android:orientation="horizontal"
-
           >
 
           <ImageView
@@ -75,7 +45,6 @@
               android:layout_marginLeft="@dimen/DIMEN_17PX"
               android:layout_gravity="center_vertical"
               />
-          
 
           <EditText
               android:id="@+id/edt_search"
@@ -93,7 +62,6 @@
              android:background="@null"
               />
 
-
           <ImageView
               android:id="@+id/iv_delete"
               android:layout_width="@dimen/DIMEN_20PX"
@@ -103,12 +71,35 @@
               android:layout_marginRight="@dimen/DIMEN_14PX"
               android:src="@mipmap/icon_accout"
               />
-          
       </LinearLayout>
-      
   </RelativeLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/iv_loading"
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/DIMEN_100PX"
+            android:layout_height="@dimen/DIMEN_100PX"
+            android:scaleType="fitXY"
+            android:src="@mipmap/loading_gray"
+            android:visibility="visible"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_no_content"
+            android:layout_width="@dimen/DIMEN_120PX"
+            android:layout_height="@dimen/DIMEN_120PX"
+            android:src="@mipmap/loading_fail"
+            android:scaleType="fitXY"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
 
 
     <ScrollView
@@ -116,9 +107,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/DIMEN_14PX"
+        android:visibility="gone"
         >
-
-
 
         <LinearLayout
             android:id="@+id/ll_whole"
@@ -134,20 +124,16 @@
                 android:text="条数"
                 android:textSize="@dimen/DIMEN_14PX"
                 android:textColor="#ffc0c6d1"
-                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
                 />
-
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_25PX"/>
-
-
 
         </LinearLayout>
 
     </ScrollView>
 
-    </LinearLayout>
+  </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

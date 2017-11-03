@@ -28,13 +28,13 @@
         android:layout_marginTop="@dimen/DIMEN_20PX"
         android:text="项目" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.art.huakai.artshow.widget.SmartRecyclerview
         android:id="@+id/rcv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/DIMEN_5PX">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.art.huakai.artshow.widget.SmartRecyclerview>
 
 
 </LinearLayout>

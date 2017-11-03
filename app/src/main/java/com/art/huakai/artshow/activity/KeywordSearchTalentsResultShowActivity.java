@@ -47,7 +47,7 @@ import okhttp3.Call;
 /**
  * Created by lining on 2017/10/22.
  */
-public class KeywordSearchResultShowActivity extends BaseActivity implements View.OnClickListener {
+public class KeywordSearchTalentsResultShowActivity extends BaseActivity implements View.OnClickListener {
 
 
     private static final String NEWS = "news";

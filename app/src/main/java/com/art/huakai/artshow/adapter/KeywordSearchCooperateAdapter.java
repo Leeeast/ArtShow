@@ -11,10 +11,12 @@ import com.art.huakai.artshow.adapter.holder.CooperateHolder;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.entity.EnrollInfo;
+import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +80,13 @@ public class KeywordSearchCooperateAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return list.size() == 0 ? 1 : list.size();
+    }
+
+    public void add(ArrayList<EnrollInfo> theatres){
+        int lastIndex = this.list.size();
+        if (this.list.addAll(theatres)) {
+            notifyItemRangeInserted(lastIndex, list.size());
+        }
     }
 
 

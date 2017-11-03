@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,12 +111,12 @@ public class KeywordSearchNewsAdapter extends  RecyclerView.Adapter{
         void onItemClickListener(int position);
     }
 
-//    public void add(ArrayList<Theatre> theatres){
-//        int lastIndex = this.list.size();
-//        if (this.list.addAll(theatres)) {
-//            notifyItemRangeInserted(lastIndex, list.size());
-//        }
-//    }
+    public void add(ArrayList<NewsesBean> theatres){
+        int lastIndex = this.list.size();
+        if (this.list.addAll(theatres)) {
+            notifyItemRangeInserted(lastIndex, list.size());
+        }
+    }
 //
     public void notifyDataSetChange(List<NewsesBean> theatres){
         list.clear();
