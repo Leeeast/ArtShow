@@ -100,6 +100,46 @@ public class TheatreTechParamsUtil {
         }
     }
 
+    public static void getTheatreEquipAddedList(List<String> added, TheatreDetailBean theatre) {
+        String[] stringArray = ShowApplication.getAppContext().getResources().getStringArray(R.array.theatre_tech_param);
+        if (theatre.getStageLights() == 1) {
+            added.add(stringArray[0]);//灯光
+        }
+        if (theatre.getStereoEquipment() == 1) {
+            added.add(stringArray[1]);//音响
+        }
+        if (theatre.getBroadcastSystem() == 1) {
+            added.add(stringArray[2]);//播音系统
+        }
+        if (theatre.getSteeve() == 1) {
+            added.add(stringArray[3]);//吊杆
+        }
+        if (theatre.getMusicStage() == 1) {
+            added.add(stringArray[4]);//演奏台
+        }
+        if (theatre.getChorusPlatform() == 1) {
+            added.add(stringArray[5]);//合唱台
+        }
+        if (theatre.getOrchestraPit() == 1) {
+            added.add(stringArray[6]);//乐池
+        }
+        if (theatre.getAcousticShroud() == 1) {
+            added.add(stringArray[7]);//音罩
+        }
+        if (theatre.getBandPlatform() == 1) {
+            added.add(stringArray[8]);//乐队平台
+        }
+        if (theatre.getCurtainSystem() == 1) {
+            added.add(stringArray[9]);//幕布系统
+        }
+        if (theatre.getSpecialEquipment() == 1) {
+            added.add(stringArray[10]);//特殊机具
+        }
+        if (theatre.getProjector() == 1) {
+            added.add(stringArray[11]);//投影仪
+        }
+    }
+
     public static List<TechParamsBean> getTheatreTechParamsAddedList(List<TechParamsBean> added, TheatreDetailBean theatre) {
         if (!TextUtils.isEmpty(theatre.getStageHeight())) {
             added.add(new TechParamsBean("舞台高度", theatre.getStageHeight() + "米"));

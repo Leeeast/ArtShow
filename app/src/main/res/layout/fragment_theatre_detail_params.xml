@@ -18,8 +18,8 @@
             android:id="@+id/tv_skill_params"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="技术参数"
-            android:textColor="#ff5a4b41"
+            android:text="@string/theatre_technical_parameters"
+            android:textColor="@color/app_title"
             android:textSize="15sp" />
 
         <android.support.v7.widget.RecyclerView
@@ -28,6 +28,19 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_20PX"
+            android:text="@string/theatre_provide_equip"
+            android:textColor="@color/app_title"
+            android:textSize="15sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_equip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
 
     </LinearLayout>
 

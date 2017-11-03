@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.EquipAdapter;
 import com.art.huakai.artshow.adapter.SkillParamsAdapter;
 import com.art.huakai.artshow.adapter.holder.SkillParamsHolder;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
@@ -20,6 +21,7 @@ import com.art.huakai.artshow.entity.TheatreDetailBean;
 import com.art.huakai.artshow.utils.TheatreTechParamsUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -58,10 +60,10 @@ public class TheatreDetailParamsFragment extends HeaderViewPagerFragment {
         super.onViewCreated(view, savedInstanceState);
         tvSkillParams = (TextView) view.findViewById(R.id.tv_skill_params);
         recyclerViewParams = (RecyclerView) view.findViewById(R.id.recycle_params);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerViewParams.setLayoutManager(gridLayoutManager);
-
         GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(
                 2,
                 GridLayoutManager.VERTICAL,
@@ -73,6 +75,27 @@ public class TheatreDetailParamsFragment extends HeaderViewPagerFragment {
         TheatreTechParamsUtil.getTheatreTechParamsAddedList(techParamsBeans, mTheatreDetailBean);
         SkillParamsAdapter skillParamsAdapter = new SkillParamsAdapter(techParamsBeans);
         recyclerViewParams.setAdapter(skillParamsAdapter);
+
+        ArrayList<String> techParams = new ArrayList<>();
+        ArrayList<String> techParamsAdded = new ArrayList<>();
+        TheatreTechParamsUtil.getTheatreEquipAddedList(techParamsAdded, mTheatreDetailBean);
+        String[] stringArray = getResources().getStringArray(R.array.theatre_tech_param);
+        techParams.addAll(Arrays.asList(stringArray));
+
+        RecyclerView recyclerViewEquip = (RecyclerView) view.findViewById(R.id.recycle_equip);
+        GridLayoutManager gridLayoutEquip = new GridLayoutManager(getContext(), 4);
+        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        recyclerViewParams.setLayoutManager(gridLayoutManager);
+        GridLayoutItemDecoration gridLayoutItemDecoration = new GridLayoutItemDecoration(
+                4,
+                GridLayoutManager.VERTICAL,
+                getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX),
+                getResources().getDimensionPixelSize(R.dimen.DIMEN_10PX));
+        recyclerViewParams.addItemDecoration(gridLayoutItemDecorationone);
+        recyclerViewEquip.setLayoutManager(gridLayoutEquip);
+        recyclerViewEquip.addItemDecoration(gridLayoutItemDecoration);
+        EquipAdapter equipAdapter = new EquipAdapter(techParams, techParamsAdded);
+        recyclerViewEquip.setAdapter(equipAdapter);
 
     }
 

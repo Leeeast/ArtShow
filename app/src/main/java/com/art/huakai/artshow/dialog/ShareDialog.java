@@ -28,13 +28,6 @@ import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.media.UMWeb;
-import com.umeng.socialize.utils.SocializeUtils;
 
 import butterknife.OnClick;
 
@@ -59,6 +52,7 @@ public class ShareDialog extends BaseDialogFragment {
         typeConfirmDialog.setArguments(bundle);
         return typeConfirmDialog;
     }
+
     @Override
     public void initData(@Nullable Bundle bundle) {
         if (bundle != null) {
@@ -234,14 +228,6 @@ public class ShareDialog extends BaseDialogFragment {
     @OnClick(R.id.fly_share_sina_weibo)
     public void shareSinaWeibo() {
         FragmentActivity activity = getActivity();
-        UMWeb web = new UMWeb("http://www.baidu.com");
-        web.setTitle("This is web title");
-        web.setThumb(new UMImage(activity, R.mipmap.icon_share_img));
-        web.setDescription("my description");
-        new ShareAction(activity).withText("欢迎使用【、友盟+】社会化组件U-Share，SDK包最小，集成成本最低，助力您的产品开发、运营与推广")
-                .withMedia(web)
-                .setPlatform(SHARE_MEDIA.SINA)
-                .setCallback(shareListener).share();
     }
 
     @Override
@@ -252,48 +238,6 @@ public class ShareDialog extends BaseDialogFragment {
         }
     }
 
-    private UMShareListener shareListener = new UMShareListener() {
-        /**
-         * @descrption 分享开始的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
-            SocializeUtils.safeShowDialog(showProgressDialog);
-        }
-
-        /**
-         * @descrption 分享成功的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(getContext(), "成功了", Toast.LENGTH_LONG).show();
-            SocializeUtils.safeCloseDialog(showProgressDialog);
-        }
-
-        /**
-         * @descrption 分享失败的回调
-         * @param platform 平台类型
-         * @param t 错误原因
-         */
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            SocializeUtils.safeCloseDialog(showProgressDialog);
-            Toast.makeText(getContext(), "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        /**
-         * @descrption 分享取消的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            SocializeUtils.safeCloseDialog(showProgressDialog);
-            Toast.makeText(getContext(), "取消了", Toast.LENGTH_LONG).show();
-
-        }
-    };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
