@@ -15,7 +15,7 @@
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@mipmap/loading_gray"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 
     <ImageView
@@ -32,7 +32,7 @@
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
             android:id="@+id/scrollableLayout"

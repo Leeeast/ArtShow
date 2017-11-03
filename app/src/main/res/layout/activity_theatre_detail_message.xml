@@ -15,7 +15,7 @@
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@mipmap/loading_gray"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 
     <ImageView
@@ -31,7 +31,7 @@
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
             android:id="@+id/scrollableLayout"
@@ -147,13 +147,13 @@
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:src="@mipmap/seat" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/DIMEN_5PX"
+                            android:layout_marginLeft="@dimen/DIMEN_12PX"
                             android:text="座位数"
                             android:textColor="#ff5a4b41"
                             android:textSize="@dimen/DIMEN_14PX"
@@ -183,12 +183,11 @@
                         android:orientation="horizontal">
 
                         <TextView
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/DIMEN_5PX"
                             android:text="查看票区图"
-                            android:textColor="#ff4990e2"
+                            android:textColor="#ff666666"
                             android:textSize="@dimen/DIMEN_14PX"
 
                             />
@@ -210,20 +209,139 @@
                     android:layout_marginTop="@dimen/DIMEN_6PX"
                     android:background="#fff5f3f1" />
 
-
-                <TextView
-
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_100PX"
-                    android:gravity="center"
-                    android:text="百度地图" />
+                    android:layout_height="@dimen/DIMEN_40PX"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:layout_marginTop="@dimen/DIMEN_6PX">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_address" />
+
+
+
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/DIMEN_12PX"
+                            android:text="北京市东城区东棉花胡同35号"
+                            android:textColor="#ff000000"
+                            android:textSize="@dimen/DIMEN_14PX"
+                            android:maxLength="18"
+
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_check_map_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical|right"
+                        android:orientation="horizontal">
+
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/DIMEN_3PX"
+                            android:src="@mipmap/arrow_right" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:layout_marginTop="@dimen/DIMEN_6PX"
+                    android:background="#fff5f3f1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_40PX"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:layout_marginTop="@dimen/DIMEN_6PX">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_date" />
+
+
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/DIMEN_12PX"
+                            android:text="剧场档期"
+                            android:textColor="#ff000000"
+                            android:textSize="@dimen/DIMEN_14PX"
+
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_check_schedule_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical|right"
+                        android:orientation="horizontal">
+
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/DIMEN_3PX"
+                            android:src="@mipmap/arrow_right" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:layout_marginTop="@dimen/DIMEN_6PX"
+                    android:background="#fff5f3f1" />
+
+
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_25PX"
+                    android:layout_marginTop="@dimen/DIMEN_30PX"
                     android:text="剧场简介"
                     android:textColor="#ff5a4b41"
                     android:textSize="@dimen/DIMEN_20PX" />

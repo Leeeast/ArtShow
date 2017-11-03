@@ -48,6 +48,17 @@ public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder
     public void onBindViewHolder(final MyHolder holder, final int position) {
 
         if(!TextUtils.isEmpty(datas.get(position).getMasterUrl())){
+            try {
+                RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(itemWidth, (int) (datas.get(position).getHeight()/datas.get(position).getWidth()*itemWidth));
+                holder.chinaShowImageView.setLayoutParams(lp);
+                holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
+                return;
+            }catch (Exception e){
+
+            }
+
+//            holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
+
             holder.chinaShowImageView.setImage(Uri.parse(datas.get(position).getMasterUrl()),context, new ChinaShowImageView.ImgScaleResultListener() {
                 @Override
                 public void imgSize(int width, int height) {

@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.widget.calendar;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
@@ -17,6 +16,8 @@ import com.art.huakai.artshow.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -26,22 +27,24 @@ import java.util.Calendar;
  */
 public class CalendarSelectorActivity extends Activity {
 
-	/**
-	 * 可选天数
-	 */
-	public static final String DAYS_OF_SELECT = "days_of_select";
-	/**
-	 * 上次预订日
-	 */
-	public static final String ORDER_DAY = "order_day";
+    /**
+     * 可选天数
+     */
+    public static final String DAYS_OF_SELECT = "days_of_select";
+    /**
+     * 上次预订日
+     */
+    public static final String ORDER_DAY = "order_day";
+    @BindView(R.id.lly_back)
+    LinearLayout llyBack;
 
-	private int daysOfSelect;
-	private String orderDay;
-	private RecyclerView rcv;
-	LinearLayoutManager linearLayoutManager;
-	private Myadapter myadapter;
-	private RecyclerView.RecycledViewPool recycledViewPool;
-	private ArrayList<String> orderDays=new ArrayList<String>();
+    private int daysOfSelect;
+    private String orderDay;
+    private RecyclerView rcv;
+    LinearLayoutManager linearLayoutManager;
+    private Myadapter myadapter;
+    private RecyclerView.RecycledViewPool recycledViewPool;
+    private ArrayList<String> orderDays = new ArrayList<String>();
 
 
 //吊起日历选择界面
@@ -54,119 +57,111 @@ public class CalendarSelectorActivity extends Activity {
 //	i.putExtra(yinhe.calendarproject.lib.CalendarSelectorActivity.ORDER_DAY, order);
 //	startActivityForResult(i, 1);
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mycalendar_selector);
-		orderDays.add("2017111");
-		orderDays.add("2017118");
-		orderDays.add("20171119");
-		daysOfSelect = getIntent().getIntExtra(DAYS_OF_SELECT, 30);
-		orderDay = getIntent().getStringExtra(ORDER_DAY);
-		rcv= (RecyclerView) findViewById(R.id.rcv);
-		linearLayoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-		recycledViewPool=rcv.getRecycledViewPool();
-		myadapter=new Myadapter();
-		rcv.setLayoutManager(linearLayoutManager);
-		rcv.setAdapter(myadapter);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.mycalendar_selector);
+        ButterKnife.bind(this);
+        orderDays.add("2017111");
+        orderDays.add("2017118");
+        orderDays.add("20171119");
+        daysOfSelect = getIntent().getIntExtra(DAYS_OF_SELECT, 30);
+        orderDay = getIntent().getStringExtra(ORDER_DAY);
+        rcv = (RecyclerView) findViewById(R.id.rcv);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recycledViewPool = rcv.getRecycledViewPool();
+        myadapter = new Myadapter();
+        rcv.setLayoutManager(linearLayoutManager);
+        rcv.setAdapter(myadapter);
+
+        llyBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    class Myadapter extends RecyclerView.Adapter {
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            View view = LayoutInflater.from(CalendarSelectorActivity.this).inflate(R.layout.calendar, null);
+            MyViewholder myViewholder = new MyViewholder(view);
 
 
-//		CalendarListAdapter adapter = new CalendarListAdapter(this, daysOfSelect, orderDay);
-//		listView.setAdapter(adapter);
-//
-//		adapter.setOnCalendarOrderListener(new OnCalendarOrderListener() {
-//
-//			@Override
-//			public void onOrder(String orderInfo) {
-//				Intent result = new Intent();
-//				result.putExtra(ORDER_DAY, orderInfo);
-//				setResult(RESULT_OK, result);
-//				finish();
-//			}
-//		});
-	}
+            return myViewholder;
+        }
 
-	class Myadapter extends RecyclerView.Adapter{
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            MyViewholder myViewholder = (MyViewholder) holder;
+            final Calendar c = Calendar.getInstance();
+            c.add(Calendar.MONTH, position);
+            myViewholder.yearAndMonth.setText(c.get(Calendar.YEAR) + CalendarSelectorActivity.this.getString(R.string.year)
+                    + (c.get(Calendar.MONTH) + 1) + CalendarSelectorActivity.this.getString(R.string.month));
+            myViewholder.calendarGrid.setRecycledViewPool(recycledViewPool);
+            String str = c.get(Calendar.YEAR) + "" + (c.get(Calendar.MONTH) + 1);
+            if (position == 0) {
+                CalendarGridAdapter myGridAdapter = new CalendarGridAdapter(CalendarSelectorActivity.this, c, daysOfSelect, orderDays, str);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(CalendarSelectorActivity.this, 7);
+                myViewholder.calendarGrid.setLayoutManager(gridLayoutManager);
+                myGridAdapter.setOnItemClickListener(new CalendarGridAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(String str) {
 
-		@Override
-		public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                    }
+                });
+                myViewholder.calendarGrid.setAdapter(myGridAdapter);
+            } else {
+                int d = daysOfSelect - CalendarUtils.currentMonthRemainDays() - CalendarUtils.getFlowMonthDays(position - 1);
+                CalendarGridAdapter myGridAdapter = new CalendarGridAdapter(CalendarSelectorActivity.this, c, d, orderDays, str);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(CalendarSelectorActivity.this, 7);
+                myViewholder.calendarGrid.setLayoutManager(gridLayoutManager);
+                myGridAdapter.setOnItemClickListener(new CalendarGridAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(String str) {
 
-			View view = LayoutInflater.from(CalendarSelectorActivity.this).inflate(R.layout.calendar,null);
-			MyViewholder myViewholder=new MyViewholder(view);
-
-
-			return myViewholder;
-		}
-
-		@Override
-		public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-			MyViewholder myViewholder= (MyViewholder) holder;
-			final Calendar c = Calendar.getInstance();
-			c.add(Calendar.MONTH, position);
-			myViewholder.yearAndMonth.setText(c.get(Calendar.YEAR) + CalendarSelectorActivity.this.getString(R.string.year)
-					+ (c.get(Calendar.MONTH) + 1) + CalendarSelectorActivity.this.getString(R.string.month));
-			myViewholder.calendarGrid.setRecycledViewPool(recycledViewPool);
-			String str=c.get(Calendar.YEAR)+""+(c.get(Calendar.MONTH) + 1);
-			if(position==0){
-				CalendarGridAdapter myGridAdapter= new CalendarGridAdapter(CalendarSelectorActivity.this, c, daysOfSelect, orderDays,str);
-				GridLayoutManager gridLayoutManager =new GridLayoutManager(CalendarSelectorActivity.this,7);
-				myViewholder.calendarGrid.setLayoutManager(gridLayoutManager);
-				myGridAdapter.setOnItemClickListener(new CalendarGridAdapter.OnItemClickListener() {
-					@Override
-					public void onItemClickListener(String str) {
-
-					}
-				});
-				myViewholder.calendarGrid.setAdapter(myGridAdapter);
-			}else{
-				int d = daysOfSelect - CalendarUtils.currentMonthRemainDays() - CalendarUtils.getFlowMonthDays(position - 1);
-				CalendarGridAdapter myGridAdapter= new CalendarGridAdapter(CalendarSelectorActivity.this, c, d, orderDays,str);
-				GridLayoutManager gridLayoutManager =new GridLayoutManager(CalendarSelectorActivity.this,7);
-				myViewholder.calendarGrid.setLayoutManager(gridLayoutManager);
-				myGridAdapter.setOnItemClickListener(new CalendarGridAdapter.OnItemClickListener() {
-					@Override
-					public void onItemClickListener(String str) {
-
-					}
-				});
-				myViewholder.calendarGrid.setAdapter(myGridAdapter);
-			}
+                    }
+                });
+                myViewholder.calendarGrid.setAdapter(myGridAdapter);
+            }
 
 
-		}
+        }
 
-		@Override
-		public int getItemCount() {
-			return CalendarUtils.throughMonth(Calendar.getInstance(), daysOfSelect) + 1;
-		}
+        @Override
+        public int getItemCount() {
+            return CalendarUtils.throughMonth(Calendar.getInstance(), daysOfSelect) + 1;
+        }
 
-	}
-
-
+    }
 
 
-	class MyViewholder extends RecyclerView.ViewHolder {
+    class MyViewholder extends RecyclerView.ViewHolder {
 
-		TextView yearAndMonth;
-		RecyclerView calendarGrid;
-//        NoScrollGridView calendarGrid;
-		public MyViewholder(View itemView) {
-			super(itemView);
-			yearAndMonth = (TextView) itemView.findViewById(R.id.tv_year_month);
-			calendarGrid = (RecyclerView) itemView.findViewById(R.id.recy);
+        TextView yearAndMonth;
+        RecyclerView calendarGrid;
 
-		}
-	}
+        //        NoScrollGridView calendarGrid;
+        public MyViewholder(View itemView) {
+            super(itemView);
+            yearAndMonth = (TextView) itemView.findViewById(R.id.tv_year_month);
+            calendarGrid = (RecyclerView) itemView.findViewById(R.id.recy);
 
-	public void setOnCalendarOrderListener(OnCalendarOrderListener listener) {
-		listener = listener;
-	}
+        }
+    }
+
+    public void setOnCalendarOrderListener(OnCalendarOrderListener listener) {
+        listener = listener;
+    }
 
 
-	public interface OnCalendarOrderListener {
-		void onOrder(String orderInfo);
-	}
-
+    public interface OnCalendarOrderListener {
+        void onOrder(String orderInfo);
+    }
 
 
 }

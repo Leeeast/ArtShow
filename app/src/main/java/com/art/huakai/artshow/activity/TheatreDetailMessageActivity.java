@@ -36,6 +36,7 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
+import com.art.huakai.artshow.widget.calendar.CalendarSelectorActivity;
 import com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
@@ -88,6 +89,14 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     ImageView ivNoContent;
     @BindView(R.id.rl_content)
     RelativeLayout rlContent;
+    @BindView(R.id.lly_back)
+    LinearLayout llyBack;
+    @BindView(R.id.tv_location)
+    TextView tvLocation;
+    @BindView(R.id.ll_check_map_area)
+    LinearLayout llCheckMapArea;
+    @BindView(R.id.ll_check_schedule_area)
+    LinearLayout llCheckScheduleArea;
 
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
@@ -170,6 +179,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 //        tvUniversity.setText(talentDetailBean.getSchool());
 //        tvOrganize.setText(talentDetailBean.getAgency());
         tvIntroduce.setText(theatreDetailBean.getDescription());
+        tvLocation.setText(theatreDetailBean.getRegionName());
 
 
     }
@@ -213,6 +223,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         AnimUtils.rotate(ivLoading);
         ivNoContent.setVisibility(View.GONE);
         rlContent.setVisibility(View.GONE);
+        llCheckMapArea.setOnClickListener(this);
+        llCheckScheduleArea.setOnClickListener(this);
+        llCheckTicketArea.setOnClickListener(this);
     }
 
     @Override
@@ -223,6 +236,27 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
     @Override
     public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.lly_back:
+                finish();
+                break;
+            case R.id.ll_check_map_area:
+
+                break;
+            case R.id.ll_check_ticket_area:
+
+                break;
+            case R.id.ll_check_schedule_area:
+                Intent i = new Intent(TheatreDetailMessageActivity.this, CalendarSelectorActivity.class);
+                i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 1000);
+                i.putExtra(CalendarSelectorActivity.ORDER_DAY, "");
+                startActivity(i);
+
+                break;
+
+        }
+
 
     }
 
