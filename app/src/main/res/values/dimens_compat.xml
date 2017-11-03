@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <dimen name="DIMEN_1PX">1dp</dimen>
     <dimen name="DIMEN_2PX">2dp</dimen>
     <dimen name="DIMEN_3PX">3dp</dimen>

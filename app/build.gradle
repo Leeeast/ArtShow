@@ -4,8 +4,8 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        // applicationId "com.art.huakai.artshow"
-        applicationId "com.umeng.soexample"
+         applicationId "com.art.huakai.artshow"
+//        applicationId "com.umeng.soexample"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
@@ -63,4 +63,7 @@ dependencies {
     compile files('libs/umeng_social_tool.jar')
     compile files('libs/SocialSDK_Sina_Full.jar')
     compile files('libs/weiboSDKCore.jar')
+    compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
 }

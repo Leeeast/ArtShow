@@ -216,6 +216,7 @@
             android:name="com.art.huakai.artshow.activity.KeywordSearchTheatresResultShowActivity"
             android:screenOrientation="portrait" />
 
+
     </application>
 
 </manifest>
