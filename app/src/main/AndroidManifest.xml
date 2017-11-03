@@ -31,6 +31,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="52b1f89886dbdef550c0050d70c54f73">
+            //开发者申请的key
+        </meta-data>
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -215,7 +219,6 @@
         <activity
             android:name="com.art.huakai.artshow.activity.KeywordSearchTheatresResultShowActivity"
             android:screenOrientation="portrait" />
-
 
     </application>
 
