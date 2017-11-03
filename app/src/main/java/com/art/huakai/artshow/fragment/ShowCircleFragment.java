@@ -435,6 +435,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onClick(int position) {
                 Toast.makeText(getContext(), "position==" + position, Toast.LENGTH_SHORT).show();
+
+
             }
         });
         if (homePageDetails.getBanners().size() > 1) {

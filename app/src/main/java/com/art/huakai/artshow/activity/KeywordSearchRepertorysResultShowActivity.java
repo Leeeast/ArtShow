@@ -19,6 +19,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchWorksAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.entity.TalentBean;
@@ -90,7 +91,9 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
             keywordSearchWorksAdapter.setOnItemClickListener(new KeywordSearchWorksAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString(PersonalDetailMessageActivity.PARAMS_ID, workLists.get(position).getId());
+                    invokActivity(KeywordSearchRepertorysResultShowActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PERSONAL);
                 }
             });
         }

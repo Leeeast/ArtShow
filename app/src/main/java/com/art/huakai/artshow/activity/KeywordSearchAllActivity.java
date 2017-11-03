@@ -26,6 +26,7 @@ import com.art.huakai.artshow.adapter.KeywordSearchWorksAdapter;
 import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.SearchAllBean;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -228,7 +229,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 keywordSearchWorksAdapter.setOnItemClickListener(new KeywordSearchWorksAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClickListener(int position) {
-
+                        Bundle bundle = new Bundle();
+                        bundle.putString(WorksDetailMessageActivity.PARAMS_ID, searchAllBean.getRepertorys().get(position).getId());
+                        invokActivity(KeywordSearchAllActivity.this, WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
                     }
                 });
 //              实现屏蔽recyclerview的滑动效果
@@ -260,7 +263,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 keywordSearchProfessionalAdapter.setOnItemClickListener(new KeywordSearchProfessionalAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClickListener(int position) {
-
+                        Bundle bundle = new Bundle();
+                        bundle.putString(PersonalDetailMessageActivity.PARAMS_ID, searchAllBean.getTalents().get(position).getId());
+                        invokActivity(KeywordSearchAllActivity.this, PersonalDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PERSONAL);
                     }
                 });
 //              实现屏蔽recyclerview的滑动效果
@@ -292,7 +297,10 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 keywordSearchTheatreAdapter.setOnItemClickListener(new KeywordSearchTheatreAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClickListener(int position) {
-
+                        Bundle bundle = new Bundle();
+                        bundle.putString(TheatreDetailMessageActivity.PARAMS_ID, searchAllBean.getTheaters().get(position).getId());
+                        bundle.putBoolean(TheatreDetailMessageActivity.PARAMS_ORG, false);
+                        invokActivity(KeywordSearchAllActivity.this, TheatreDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_THEATRE);
                     }
                 });
 //              实现屏蔽recyclerview的滑动效果

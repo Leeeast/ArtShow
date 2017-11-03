@@ -19,6 +19,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchTheatreAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.entity.TalentBean;
@@ -88,7 +89,10 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
             KeywordSearchTheatreAdapter.setOnItemClickListener(new KeywordSearchTheatreAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString(TheatreDetailMessageActivity.PARAMS_ID, theatreList.get(position).getId());
+                    bundle.putBoolean(TheatreDetailMessageActivity.PARAMS_ORG, false);
+                    invokActivity(KeywordSearchTheatresResultShowActivity.this, TheatreDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_THEATRE);
                 }
             });
         }
