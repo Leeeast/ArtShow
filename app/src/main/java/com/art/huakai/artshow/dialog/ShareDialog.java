@@ -261,6 +261,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
         weiboMessage.textObject = getTextObj();
         weiboMessage.mediaObject = getWebpageObj();
         weiboMessage.imageObject = getImageObj();
+        showProgressDialog.show();
         mShareHandler.shareMessage(weiboMessage, false);
     }
 
@@ -330,6 +331,14 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (showProgressDialog.isShowing()) {
+            showProgressDialog.dismiss();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         try {
@@ -341,16 +350,25 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
 
     @Override
     public void onWbShareSuccess() {
-        showToast("分享成功");
+        showToast(getString(R.string.share_success));
+        if (showProgressDialog.isShowing()) {
+            showProgressDialog.dismiss();
+        }
     }
 
     @Override
     public void onWbShareCancel() {
-        showToast("分享取消");
+        showToast(getString(R.string.share_cancel));
+        if (showProgressDialog.isShowing()) {
+            showProgressDialog.dismiss();
+        }
     }
 
     @Override
     public void onWbShareFail() {
-        showToast("分享失败");
+        showToast(getString(R.string.share_fail));
+        if (showProgressDialog.isShowing()) {
+            showProgressDialog.dismiss();
+        }
     }
 }
