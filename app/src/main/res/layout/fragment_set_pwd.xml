@@ -54,7 +54,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/pwd_affirm"
-                android:imeActionId="@+id/register"
                 android:imeActionLabel="@string/app_register_title"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"

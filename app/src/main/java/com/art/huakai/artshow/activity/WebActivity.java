@@ -1,7 +1,11 @@
 package com.art.huakai.artshow.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -14,14 +18,39 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.RequestUtil;
+import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
+import org.json.JSONObject;
+
+import okhttp3.Call;
+
 public class WebActivity extends BaseActivity implements View.OnClickListener {
+    public static final String PARAMS_TYPE = "PARAMS_TYPE";
+    public static final String KEY_ABLOUT = "about";
+    public static final String KEY_SECRET = "secret";
+    public static final String KEY_LINKUS = "linkus";
 
     private TextView tvTitle;
     private ProgressBar pbWebLoading;
     private WebView mWebView;
     private String url;
+    public String mKey;
+    private ShowProgressDialog showProgressDialog;
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mWebView.loadUrl(url);
+        }
+    };
 
     @Override
     public void immerseStatusBar() {
@@ -35,10 +64,12 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initData() {
-        url = getIntent().getStringExtra("url");
-        if (url == null || url.isEmpty()) {
-            url = "http://139.224.47.213:8080/showonline_api/swagger-ui.html#!/2015425165316162138230456208512550921475/offlineUsingPOST_15";
+        showProgressDialog = new ShowProgressDialog(this);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mKey = extras.getString(PARAMS_TYPE);
         }
+        getLinks();
     }
 
     @Override
@@ -116,7 +147,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
                 super.onPageStarted(view, url, favicon);
             }
         });
-        mWebView.loadUrl(url);
     }
 
     @Override
@@ -126,5 +156,41 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
                 finish();
                 break;
         }
+    }
+
+    /**
+     * 获取响应的url
+     */
+    public void getLinks() {
+        showProgressDialog.show();
+        RequestUtil.request(false, Constant.URL_INDEX_LINKS, null, 10, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(obj);
+                        url = jsonObject.getString(mKey);
+                        mHandler.sendEmptyMessage(0);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                showToast(getString(R.string.tip_theatre_offline_fail));
+            }
+        });
     }
 }

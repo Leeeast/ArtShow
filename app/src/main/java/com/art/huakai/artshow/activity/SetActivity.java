@@ -124,7 +124,9 @@ public class SetActivity extends BaseActivity {
      */
     @OnClick(R.id.item_about_us)
     public void jumpAboutUs() {
-        Toast.makeText(this, "关于我们", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString(WebActivity.PARAMS_TYPE, WebActivity.KEY_ABLOUT);
+        invokActivity(this, WebActivity.class, bundle, JumpCode.FLAG_REQ_LINK);
     }
 
     /**
@@ -132,7 +134,9 @@ public class SetActivity extends BaseActivity {
      */
     @OnClick(R.id.item_connect_us)
     public void jumpConnectUs() {
-        Toast.makeText(this, "联系我们", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString(WebActivity.PARAMS_TYPE, WebActivity.KEY_LINKUS);
+        invokActivity(this, WebActivity.class, bundle, JumpCode.FLAG_REQ_LINK);
     }
 
     /**

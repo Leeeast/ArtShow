@@ -146,6 +146,8 @@ public class Constant {
     public static final String URL_USER_WXLOGIN = BASE_URL + "/user/wxlogin";
     //解绑微信
     public static final String URL_USER_WXUNBIND = BASE_URL + "/user/wxunbind";
+    //获取关于我们，等连接
+    public static final String URL_INDEX_LINKS = BASE_URL + "/index/links";
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型

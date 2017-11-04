@@ -17,6 +17,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WebActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.RegUserInfo;
@@ -113,7 +114,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 verifyMobile();
                 break;
             case R.id.tv_protocol:
-                startActivity(new Intent(getContext(), WebActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putString(WebActivity.PARAMS_TYPE, WebActivity.KEY_SECRET);
+                invokActivity(getContext(), WebActivity.class, bundle, JumpCode.FLAG_REQ_LINK);
                 break;
             case R.id.btn_register:
                 //应该注册成功后，走接下来的完善信息流程
