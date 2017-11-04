@@ -39,6 +39,7 @@ import com.art.huakai.artshow.widget.ChinaShowImageView;
 import com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.sina.weibo.sdk.share.WbShareHandler;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -121,6 +122,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     };
     private ShareDialog shareDialog;
     private TakePhoneDialog takePhoneDialog;
+    private WbShareHandler mShareHandler;
 
 
     private void setData() {
@@ -215,6 +217,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             URL_TALENT_DETAL = Constant.URL_REPERTORY_DETAIL;
         }
         getWorkDetail();
+        mShareHandler = ShareDialog.regToWeibo(this);
     }
 
     @Override
@@ -298,6 +301,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             String title = worksDetailBean == null ? getString(R.string.app_name) : worksDetailBean.getTitle();
             String shareLink = worksDetailBean == null ? getString(R.string.share_main_url) : worksDetailBean.getShareLink();
             shareDialog = ShareDialog.newInstence(title, shareLink);
+            shareDialog.setShareHandler(mShareHandler);
         }
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
@@ -330,5 +334,13 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             takePhoneDialog = TakePhoneDialog.newInstence(worksDetailBean.getLinkman(), worksDetailBean.getLinkTel());
         }
         takePhoneDialog.show(getSupportFragmentManager(), "TAKEPHONE.DIALOG");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (shareDialog != null) {
+            mShareHandler.doResultIntent(intent, shareDialog);
+        }
     }
 }

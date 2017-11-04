@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.dialog;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -11,10 +12,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseDialogFragment;
@@ -22,12 +21,23 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.InfoBaseResp;
 import com.art.huakai.artshow.utils.Util;
 import com.art.huakai.artshow.wxapi.WXEntryActivity;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.WebpageObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.share.WbShareCallback;
+import com.sina.weibo.sdk.share.WbShareHandler;
+import com.sina.weibo.sdk.utils.Utility;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import java.net.URL;
 
 import butterknife.OnClick;
 
@@ -36,13 +46,14 @@ import butterknife.OnClick;
  * Created by lidongliang on 2017/10/1.
  */
 
-public class ShareDialog extends BaseDialogFragment {
+public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
     public static final String PARAMS_TITLE = "PARAMS_TITLE";
     public static final String PARAMS_URL = "PARAMS_URL";
     private String mTitle;
     private String mUrl;
     private IWXAPI wxapi;
     private ShowProgressDialog showProgressDialog;
+    private WbShareHandler mShareHandler;
 
     public static ShareDialog newInstence(String title, String url) {
         ShareDialog typeConfirmDialog = new ShareDialog();
@@ -51,6 +62,23 @@ public class ShareDialog extends BaseDialogFragment {
         bundle.putString(PARAMS_URL, url);
         typeConfirmDialog.setArguments(bundle);
         return typeConfirmDialog;
+    }
+
+    /**
+     * 主创微博相关
+     *
+     * @param activity
+     * @return
+     */
+    public static WbShareHandler regToWeibo(Activity activity) {
+        WbSdk.install(activity, new AuthInfo(activity, Constant.WB_APP_KEY, Constant.WB_REDIRECT_URL, null));
+        WbShareHandler mShareHandler = new WbShareHandler(activity);
+        mShareHandler.registerApp();
+        return mShareHandler;
+    }
+
+    public void setShareHandler(WbShareHandler wbShareHandler) {
+        this.mShareHandler = wbShareHandler;
     }
 
     @Override
@@ -62,7 +90,6 @@ public class ShareDialog extends BaseDialogFragment {
         showProgressDialog = new ShowProgressDialog(getContext());
         regToWx();
     }
-
 
     /**
      * 微信相关初始化
@@ -227,7 +254,64 @@ public class ShareDialog extends BaseDialogFragment {
 
     @OnClick(R.id.fly_share_sina_weibo)
     public void shareSinaWeibo() {
-        FragmentActivity activity = getActivity();
+        if (mShareHandler == null) {
+            return;
+        }
+        WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+        weiboMessage.textObject = getTextObj();
+        weiboMessage.mediaObject = getWebpageObj();
+        weiboMessage.imageObject = getImageObj();
+        mShareHandler.shareMessage(weiboMessage, false);
+    }
+
+    /**
+     * 创建文本消息对象。
+     *
+     * @return 文本消息对象。
+     */
+    private TextObject getTextObj() {
+        TextObject textObject = new TextObject();
+        textObject.text = mTitle + "#" + mUrl;
+        textObject.title = mTitle;
+        textObject.actionUrl = mUrl;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
+        // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
+//        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+//        bitmap.recycle();
+        textObject.setThumbImage(bitmap);
+        return textObject;
+    }
+
+    /**
+     * 创建图片消息对象。
+     *
+     * @return 图片消息对象。
+     */
+    private ImageObject getImageObj() {
+        ImageObject imageObject = new ImageObject();
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
+        imageObject.setImageObject(bitmap);
+        return imageObject;
+    }
+
+    /**
+     * 创建多媒体（网页）消息对象。
+     *
+     * @return 多媒体（网页）消息对象。
+     */
+    private WebpageObject getWebpageObj() {
+        WebpageObject mediaObject = new WebpageObject();
+        mediaObject.identify = Utility.generateGUID();
+        mediaObject.title = mTitle;
+        mediaObject.description = getContext().getString(R.string.tip_share_url_des);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
+        // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+        bitmap.recycle();
+        mediaObject.setThumbImage(thumbBmp);
+        mediaObject.actionUrl = mUrl;
+        mediaObject.defaultText = getContext().getString(R.string.tip_share_url_des);
+        return mediaObject;
     }
 
     @Override
@@ -253,5 +337,20 @@ public class ShareDialog extends BaseDialogFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onWbShareSuccess() {
+        showToast("分享成功");
+    }
+
+    @Override
+    public void onWbShareCancel() {
+        showToast("分享取消");
+    }
+
+    @Override
+    public void onWbShareFail() {
+        showToast("分享失败");
     }
 }

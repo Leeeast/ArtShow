@@ -119,11 +119,11 @@ public class BroswerPicActivity extends BaseActivity {
             }
             View viewone=new View(BroswerPicActivity.this);
             viewone.setLayoutParams(layoutParams);
-            if(lastPosition==i){
-                viewone.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
-            }else{
-                viewone.setBackgroundResource(R.drawable.shape_bg_grey_circle);
-            }
+//            if(lastPosition==i){
+//                viewone.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
+//            }else{
+//                viewone.setBackgroundResource(R.drawable.shape_bg_grey_circle);
+//            }
             ll.addView(viewone);
         }
 
@@ -138,10 +138,10 @@ public class BroswerPicActivity extends BaseActivity {
 
                 if(lastPosition!=-1){
                     View view=ll.getChildAt(lastPosition);
-                    view.setBackgroundResource(R.drawable.shape_bg_grey_circle);
+                    //view.setBackgroundResource(R.drawable.shape_bg_grey_circle);
                 }
                 View view=ll.getChildAt(position);
-                view.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
+                //view.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
                 lastPosition=position;
             }
 

@@ -39,6 +39,7 @@ import com.art.huakai.artshow.widget.ChinaShowImageView;
 import com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.sina.weibo.sdk.share.WbShareHandler;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -104,7 +105,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     private boolean mIsFromOrgan;
     private ShareDialog shareDialog;
     private String URL_TALENT_DETAL;
-
+    private WbShareHandler mShareHandler;
 
     private Handler uiHandler = new Handler() {
         @Override
@@ -213,6 +214,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             URL_TALENT_DETAL = Constant.URL_TALENT_DETAIL;
         }
         getTalentDetail();
+        mShareHandler = ShareDialog.regToWeibo(this);
     }
 
     @Override
@@ -310,6 +312,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             String title = talentDetailBean == null ? getString(R.string.app_name) : talentDetailBean.getName();
             String shareLink = talentDetailBean == null ? getString(R.string.share_main_url) : talentDetailBean.getShareLink();
             shareDialog = ShareDialog.newInstence(title, shareLink);
+            shareDialog.setShareHandler(mShareHandler);
         }
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
@@ -332,5 +335,13 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             takePhoneDialog = TakePhoneDialog.newInstence(talentDetailBean.getLinkman(), talentDetailBean.getLinkTel());
         }
         takePhoneDialog.show(getSupportFragmentManager(), "TAKEPHONE.DIALOG");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (shareDialog != null) {
+            mShareHandler.doResultIntent(intent, shareDialog);
+        }
     }
 }

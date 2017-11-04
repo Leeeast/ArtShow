@@ -32,6 +32,7 @@ import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.sina.weibo.sdk.share.WbShareHandler;
 
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,7 @@ public class EnrollDetailActivity extends BaseActivity {
         }
     };
     private ShareDialog shareDialog;
+    private WbShareHandler mShareHandler;
 
     @Override
     public void immerseStatusBar() {
@@ -113,6 +115,7 @@ public class EnrollDetailActivity extends BaseActivity {
             mEnrollInfo = (EnrollInfo) extras.getSerializable(PARAMS_ENROLL_DETAIL);
         }
         getEnrollDetail();
+        mShareHandler = ShareDialog.regToWeibo(this);
     }
 
     @Override
@@ -141,7 +144,10 @@ public class EnrollDetailActivity extends BaseActivity {
     public void shareEnrollDetail() {
         if (mEnrollDetailInfo != null) {
             if (shareDialog == null) {
-                shareDialog = ShareDialog.newInstence(mEnrollDetailInfo.enroll.title, mEnrollDetailInfo.enroll.shareLink);
+                String title = mEnrollDetailInfo == null ? getString(R.string.app_name) : mEnrollDetailInfo.enroll.title;
+                String shareLink = mEnrollDetailInfo == null ? getString(R.string.share_main_url) : mEnrollDetailInfo.enroll.shareLink;
+                shareDialog = ShareDialog.newInstence(title, shareLink);
+                shareDialog.setShareHandler(mShareHandler);
             }
             shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
         }
@@ -324,5 +330,13 @@ public class EnrollDetailActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (shareDialog != null) {
+            mShareHandler.doResultIntent(intent, shareDialog);
+        }
     }
 }

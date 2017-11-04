@@ -25,6 +25,9 @@ public class Constant {
     public static final String CLASSIFY_CACHE = "CLASSIFY_CACHE";
     //为了获取剧场、人才或项目ID默认描述
     public static final String DESCRIPTION_DEFAULT = "******";
+    //微博app_id
+    public static final String WB_APP_KEY = "35068881";
+    public static final String WB_REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
 
     private static boolean isTestEnv = true;
     public static final String TEST_HOST = "http://139.224.47.213:8080";

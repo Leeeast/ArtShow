@@ -40,6 +40,7 @@ import com.art.huakai.artshow.widget.calendar.CalendarSelectorActivity;
 import com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.sina.weibo.sdk.share.WbShareHandler;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -106,7 +107,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     private ShareDialog shareDialog;
     private boolean mIsFromOrgan;
     private String URL_THEATRE_DETAL;
-
+    private TakePhoneDialog takePhoneDialog;
+    private WbShareHandler mShareHandler;
 
     private Handler uiHandler = new Handler() {
         @Override
@@ -120,10 +122,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             }
         }
     };
-    private TakePhoneDialog takePhoneDialog;
 
     private void setData() {
-
         mTabArray = getResources().getStringArray(R.array.theatre_detail_tab);
         mFragments = new ArrayList<HeaderViewPagerFragment>();
         TheatreDetailDesFragment theatreDetailTheatreFragment = TheatreDetailDesFragment.newInstance(theatreDetailBean);
@@ -208,6 +208,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             URL_THEATRE_DETAL = Constant.URL_THEATER_DETAIL;
         }
         getTheatreDetail();
+        mShareHandler = ShareDialog.regToWeibo(this);
     }
 
     @Override
@@ -242,8 +243,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 finish();
                 break;
             case R.id.ll_check_map_area:
-                Intent intent=new Intent();
-                intent.setClass(TheatreDetailMessageActivity.this,MapShowActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(TheatreDetailMessageActivity.this, MapShowActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_check_ticket_area:
@@ -316,9 +317,11 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             String title = theatreDetailBean == null ? getString(R.string.app_name) : theatreDetailBean.getName();
             String shareLink = theatreDetailBean == null ? getString(R.string.share_main_url) : theatreDetailBean.getShareLink();
             shareDialog = ShareDialog.newInstence(title, shareLink);
+            shareDialog.setShareHandler(mShareHandler);
         }
         shareDialog.show(getSupportFragmentManager(), "SHARE.DIALOG");
     }
+
 
     @OnClick(R.id.btn_edit)
     public void jump2TheatreActivity() {
@@ -355,5 +358,13 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             takePhoneDialog = TakePhoneDialog.newInstence(theatreDetailBean.getLinkman(), theatreDetailBean.getLinkTel());
         }
         takePhoneDialog.show(getSupportFragmentManager(), "TAKEPHONE.DIALOG");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (shareDialog != null) {
+            mShareHandler.doResultIntent(intent, shareDialog);
+        }
     }
 }
