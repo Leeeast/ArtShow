@@ -101,7 +101,7 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="@color/text_cancel"
+                    android:textColor="#ff007aff"
                     android:textSize="@dimen/DIMEN_15PX" />
 
             </RelativeLayout>
@@ -122,7 +122,7 @@
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_26PX"
-                android:background="#ff555555" />
+                android:background="#ffeeeeee" />
 
             <RelativeLayout
                 android:id="@+id/rl_two"
@@ -152,7 +152,7 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="@color/text_cancel"
+                    android:textColor="#ff007aff"
                     android:textSize="@dimen/DIMEN_15PX" />
 
             </RelativeLayout>
@@ -174,7 +174,7 @@
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_26PX"
-                android:background="#ff555555" />
+                android:background="#ffeeeeee" />
 
             <RelativeLayout
                 android:id="@+id/rl_three"
@@ -204,7 +204,7 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="@color/text_cancel"
+                    android:textColor="#ff007aff"
                     android:textSize="@dimen/DIMEN_15PX" />
 
             </RelativeLayout>
@@ -225,7 +225,7 @@
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_26PX"
-                android:background="#ff555555" />
+                android:background="#ffeeeeee" />
 
 
             <RelativeLayout
@@ -256,7 +256,7 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="@color/text_cancel"
+                    android:textColor="#ff007aff"
                     android:textSize="@dimen/DIMEN_15PX" />
 
             </RelativeLayout>
@@ -276,7 +276,7 @@
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_26PX"
-                android:background="#ff555555" />
+                android:background="#ffeeeeee" />
 
             <RelativeLayout
                 android:id="@+id/rl_five"
@@ -324,7 +324,7 @@
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_26PX"
-                android:background="#ff555555" />
+                android:background="#ffeeeeee" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -337,10 +337,13 @@
                 <com.art.huakai.artshow.widget.ChinaShowImageView
                     android:id="@+id/csiv"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/DIMEN_100PX"
+                    android:layout_height="@dimen/DIMEN_155PX"
                     fresco:actualImageScaleType="fitXY"
                     fresco:placeholderImageScaleType="fitXY"
-                    fresco:roundedCornerRadius="@dimen/DIMEN_4PX" />
+                    fresco:roundedCornerRadius="@dimen/DIMEN_4PX"
+                    android:clickable="true"
+                    android:focusable="true"
+                    />
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -350,6 +353,7 @@
                     android:layout_marginTop="@dimen/DIMEN_35PX"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:visibility="gone"
                     android:text="大型原创音乐儿童剧"
                     android:textColor="#ffffffff"
                     android:textSize="@dimen/DIMEN_17PX" />
@@ -363,6 +367,7 @@
                     android:layout_marginTop="@dimen/DIMEN_15PX"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:visibility="gone"
                     android:text="MOKEY THE KING"
                     android:textColor="#ffffffff"
                     android:textSize="@dimen/DIMEN_17PX" />
@@ -378,7 +383,9 @@
                     android:maxLines="1"
                     android:text="《猴王前传》"
                     android:textColor="#ffffffff"
-                    android:textSize="@dimen/DIMEN_14PX" />
+                    android:textSize="@dimen/DIMEN_14PX"
+                    android:visibility="gone"
+                    />
 
             </RelativeLayout>
 

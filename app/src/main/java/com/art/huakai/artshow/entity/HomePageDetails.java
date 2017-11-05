@@ -22,7 +22,7 @@ public class HomePageDetails {
     private List<TheatersBean> theaters;
     private List<EnrollInfo> enrolls;
     private List<RepertorysBean> repertorys;
-    private List<BannersBean> banners;
+    private List<AdvertBean> banners;
     private List<NewsesBean> newses;
     private List<TalentsBean> talents;
 
@@ -58,11 +58,11 @@ public class HomePageDetails {
         this.repertorys = repertorys;
     }
 
-    public List<BannersBean> getBanners() {
+    public List<AdvertBean> getBanners() {
         return banners;
     }
 
-    public void setBanners(List<BannersBean> banners) {
+    public void setBanners(List<AdvertBean> banners) {
         this.banners = banners;
     }
 

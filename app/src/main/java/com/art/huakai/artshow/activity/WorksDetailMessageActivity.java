@@ -110,7 +110,6 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);

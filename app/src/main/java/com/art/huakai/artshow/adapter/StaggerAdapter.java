@@ -76,6 +76,7 @@ public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder
         holder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e(TAG, "onItemClickListener: position=="+position );
                 if(onItemClickListener!=null){
                     onItemClickListener.onItemClickListener(position);
                 }

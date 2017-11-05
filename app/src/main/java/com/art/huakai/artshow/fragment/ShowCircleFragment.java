@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.EnrollDetailActivity;
 import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
 import com.art.huakai.artshow.activity.KeywordSearchNewsAllResultShowActivity;
 import com.art.huakai.artshow.activity.KeywordSearchNewsResultShowActivity;
@@ -35,11 +36,13 @@ import com.art.huakai.artshow.adapter.ExcellentWorksAdapter;
 import com.art.huakai.artshow.adapter.IndustryNewsAdapter;
 import com.art.huakai.artshow.adapter.ProfessionalPersonAdapter;
 import com.art.huakai.artshow.adapter.RecommendTheaterAdapter;
+import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.entity.HomePageDetails;
+import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -241,6 +244,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         AnimUtils.rotate(ivLoading);
         ivNoContent.setVisibility(View.GONE);
         scrollView.setVisibility(View.GONE);
+        chinaShowImageView.setOnClickListener(this);
     }
 
     private void initData() {
@@ -329,6 +333,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position==" + position);
+                    if(homePageDetails.getNewses()!=null&&homePageDetails.getNewses().size()>position&&homePageDetails.getNewses().get(position)!=null){
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("PARAMS_ENROLL_ID", homePageDetails.getNewses().get(position).getId());
+                        invokActivity(getContext(), EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
+                    }
                 }
             });
             rcvCooperation.addItemDecoration(cooperationItemDecoration);
@@ -421,7 +430,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             rlProfessional.setVisibility(View.GONE);
             talentsDivider.setVisibility(View.GONE);
         }
-        chinaShowImageView.setImageURI(Uri.parse("asset:///test.png"));
+        if(homePageDetails.getAdvert()!=null&&!TextUtils.isEmpty(homePageDetails.getAdvert().getLogo())){
+            chinaShowImageView.setImageURI(Uri.parse(homePageDetails.getAdvert().getLogo()));
+        }
+
 //      chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
 //      实现不在除此加载界面的时候显示recyclerview的第一个item
         scrollView.smoothScrollTo(0, 0);
@@ -440,8 +452,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onClick(int position) {
                 Toast.makeText(getContext(), "position==" + position, Toast.LENGTH_SHORT).show();
-
-
+                if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>position&&homePageDetails.getBanners().get(position)!=null){
+                    AdvertJumpUtil.invoke((BaseActivity) getActivity(),getContext(),homePageDetails.getBanners().get(position));
+                }
             }
         });
         if (homePageDetails.getBanners().size() > 1) {
@@ -490,6 +503,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         } else if (v.getId() == R.id.iv_search) {
             Intent intent = new Intent(getContext(), KeywordSearchAllActivity.class);
             startActivity(intent);
+        }else if(v.getId()==R.id.csiv){
+            if(homePageDetails!=null&&homePageDetails.getAdvert()!=null){
+                AdvertJumpUtil.invoke((BaseActivity) getActivity(),getContext(),homePageDetails.getAdvert());
+            }
         }
     }
 

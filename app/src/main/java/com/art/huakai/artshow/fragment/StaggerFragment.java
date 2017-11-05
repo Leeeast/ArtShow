@@ -71,7 +71,7 @@ public class StaggerFragment extends HeaderViewPagerFragment {
         adpter.setOnItemClickListener(new StaggerAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
-
+                Log.e(TAG, "onItemClickListener: position=="+position );
                 Intent intent = new Intent();
                 intent.setClass(getContext(), BroswerPicActivity.class);
                 Bundle bundle = new Bundle();

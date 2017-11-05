@@ -94,6 +94,7 @@ public class NewsDetailActivity extends BaseActivity {
                 case CODE_FILL_AD:
                     fillADData();
                     break;
+
             }
         }
     };
