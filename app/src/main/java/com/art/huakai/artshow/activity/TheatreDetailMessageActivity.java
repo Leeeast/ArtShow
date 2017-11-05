@@ -34,6 +34,7 @@ import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailDesFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -58,7 +59,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener ,AMapLocationListener {
+public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
     @BindView(R.id.tv_title)
@@ -121,8 +122,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     public AMapLocationClientOption mLocationOption = null;
 
 
-
-
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -135,8 +134,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             }
         }
     };
+    private RequestCall requestCall;
 
-    private void initPosition(){
+    private void initPosition() {
         mlocationClient = new AMapLocationClient(this);
 //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
@@ -274,19 +274,19 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 break;
             case R.id.ll_check_map_area:
                 Intent intent = new Intent();
-                String coordinate=theatreDetailBean.getCoordinate();
-                String[]lists={};
-                if(!TextUtils.isEmpty(coordinate)){
-                    lists=coordinate.split(",");
+                String coordinate = theatreDetailBean.getCoordinate();
+                String[] lists = {};
+                if (!TextUtils.isEmpty(coordinate)) {
+                    lists = coordinate.split(",");
                 }
-                intent.putExtra("toLatitude","");
-                intent.putExtra("toLongitude","");
-                if(lists!=null&&lists.length==2){
-                    intent.putExtra("toLatitude",lists[0]);
-                    intent.putExtra("toLongitude",lists[1]);
+                intent.putExtra("toLatitude", "");
+                intent.putExtra("toLongitude", "");
+                if (lists != null && lists.length == 2) {
+                    intent.putExtra("toLatitude", lists[0]);
+                    intent.putExtra("toLongitude", lists[1]);
                 }
-                intent.putExtra("theatreName",theatreDetailBean.getName());
-                intent.putExtra("theatreLocation",theatreDetailBean.getAddress());
+                intent.putExtra("theatreName", theatreDetailBean.getName());
+                intent.putExtra("theatreLocation", theatreDetailBean.getAddress());
                 intent.setClass(TheatreDetailMessageActivity.this, NavigationActivity.class);
                 startActivity(intent);
                 break;
@@ -317,7 +317,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.i(TAG, "getRepertoryClassify: " + params.toString());
-        RequestUtil.request(true, URL_THEATRE_DETAL, params, 130, new RequestUtil.RequestListener() {
+        requestCall = RequestUtil.request(true, URL_THEATRE_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
@@ -426,15 +426,15 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(amapLocation.getTime());
                 df.format(date);//定位时间
-                Toast.makeText(TheatreDetailMessageActivity.this,amapLocation.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(TheatreDetailMessageActivity.this, amapLocation.toString(), Toast.LENGTH_SHORT).show();
                 mlocationClient.stopLocation();
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-                Log.e("AmapError","location Error, ErrCode:"
+                Log.e("AmapError", "location Error, ErrCode:"
                         + amapLocation.getErrorCode() + ", errInfo:"
                         + amapLocation.getErrorInfo());
 
-                Toast.makeText(TheatreDetailMessageActivity.this,amapLocation.getErrorInfo(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(TheatreDetailMessageActivity.this, amapLocation.getErrorInfo(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -448,6 +448,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             mlocationClient.onDestroy();
         }
         mlocationClient = null;
-
+        if (requestCall != null) {
+            requestCall.cancel();
+            requestCall = null;
+        }
     }
 }

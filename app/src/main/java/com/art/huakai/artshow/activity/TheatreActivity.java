@@ -15,6 +15,7 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -49,6 +50,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     private OrgTheatreAdapter mOrgTheatreAdapter;
     private int mPage = 1;
     private ShowProgressDialog showProgressDialog;
+    private RequestCall requestCall;
 
     @Override
     public void immerseStatusBar() {
@@ -80,7 +82,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
-        RequestUtil.request(true, Constant.URL_USER_THEATER, params, 60, new RequestUtil.RequestListener() {
+        requestCall = RequestUtil.request(true, Constant.URL_USER_THEATER, params, 60, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -181,5 +183,14 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     public void onLoadMore() {
         ++mPage;
         loadTheatreData(mPage);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (requestCall != null) {
+            requestCall.cancel();
+            requestCall = null;
+        }
     }
 }

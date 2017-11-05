@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.NewsDetail;
 import com.art.huakai.artshow.entity.NewsesBean;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.DeviceUtils;
@@ -98,6 +100,8 @@ public class NewsDetailActivity extends BaseActivity {
             }
         }
     };
+    private RequestCall requestCall2;
+    private RequestCall requestCall1;
 
     @Override
     public void immerseStatusBar() {
@@ -221,7 +225,7 @@ public class NewsDetailActivity extends BaseActivity {
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_GET_NEWS_DETAIL, params, 31, new RequestUtil.RequestListener() {
+        requestCall1 = RequestUtil.request(true, Constant.URL_GET_NEWS_DETAIL, params, 31, new RequestUtil.RequestListener() {
 
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
@@ -254,7 +258,7 @@ public class NewsDetailActivity extends BaseActivity {
 
     //获取随机广告
     public void getAD() {
-        RequestUtil.request(true, Constant.URL_ADVERT, null, 13, new RequestUtil.RequestListener() {
+        requestCall2 = RequestUtil.request(true, Constant.URL_ADVERT, null, 13, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -289,6 +293,19 @@ public class NewsDetailActivity extends BaseActivity {
         super.onNewIntent(intent);
         if (shareDialog != null) {
             mShareHandler.doResultIntent(intent, shareDialog);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (requestCall1 != null) {
+            requestCall1.cancel();
+            requestCall1 = null;
+        }
+        if (requestCall2 != null) {
+            requestCall2.cancel();
+            requestCall2 = null;
         }
     }
 }

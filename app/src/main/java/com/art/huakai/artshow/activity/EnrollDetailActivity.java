@@ -26,6 +26,7 @@ import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
@@ -105,6 +106,8 @@ public class EnrollDetailActivity extends BaseActivity {
     };
     private ShareDialog shareDialog;
     private WbShareHandler mShareHandler;
+    private RequestCall requestCallD;
+    private RequestCall requestCallAD;
 
     @Override
     public void immerseStatusBar() {
@@ -311,7 +314,7 @@ public class EnrollDetailActivity extends BaseActivity {
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         showProgressDialog.show();
-        RequestUtil.request(true, Constant.URL_ENROLL_DETAIL, params, 31, new RequestUtil.RequestListener() {
+        requestCallD = RequestUtil.request(true, Constant.URL_ENROLL_DETAIL, params, 31, new RequestUtil.RequestListener() {
 
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
@@ -357,7 +360,7 @@ public class EnrollDetailActivity extends BaseActivity {
 
     //获取随机广告
     public void getAD() {
-        RequestUtil.request(true, Constant.URL_ADVERT, null, 13, new RequestUtil.RequestListener() {
+        requestCallAD = RequestUtil.request(true, Constant.URL_ADVERT, null, 13, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -393,5 +396,18 @@ public class EnrollDetailActivity extends BaseActivity {
     @OnClick(R.id.sdv_ad)
     public void jumpAD() {
         AdvertJumpUtil.invoke(this, this, mAdvert);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (requestCallD != null) {
+            requestCallD.cancel();
+            requestCallD = null;
+        }
+        if (requestCallAD != null) {
+            requestCallAD.cancel();
+            requestCallAD = null;
+        }
     }
 }

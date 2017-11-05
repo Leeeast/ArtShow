@@ -18,6 +18,7 @@ import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -53,6 +54,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     private ShowProgressDialog showProgressDialog;
     private List<TalentBean> mTalentBeans;
     private OrgTalentAdapter mOrgTalentAdapter;
+    private RequestCall requestCall;
 
     @Override
     public void immerseStatusBar() {
@@ -84,7 +86,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
-        RequestUtil.request(true, Constant.URL_USER_TALENT, params, 60, new RequestUtil.RequestListener() {
+        requestCall = RequestUtil.request(true, Constant.URL_USER_TALENT, params, 60, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -182,5 +184,14 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     public void onLoadMore() {
         ++mPage;
         loadTalentData(mPage);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (requestCall != null) {
+            requestCall.cancel();
+            requestCall = null;
+        }
     }
 }

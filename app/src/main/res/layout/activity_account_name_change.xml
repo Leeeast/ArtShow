@@ -77,7 +77,8 @@
                 android:layout_marginTop="@dimen/DIMEN_14PX"
                 android:text="@string/data_upload"
                 android:textColor="@color/login_btn"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_data_upload_des"
@@ -88,7 +89,8 @@
                 android:layout_marginTop="@dimen/DIMEN_8PX"
                 android:text="@string/data_commit_des"
                 android:textColor="@color/login_light"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sdv_data"
@@ -96,7 +98,8 @@
                 android:layout_height="@dimen/DIMEN_86PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginTop="@dimen/DIMEN_15PX"
-                android:background="@mipmap/upload_data" />
+                android:background="@mipmap/upload_data"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_commit_data"

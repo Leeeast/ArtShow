@@ -8,6 +8,7 @@ import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.okhttp.callback.StringCallback;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,11 +53,11 @@ public class RequestUtil {
      * @param requestId 请求ID
      * @param listener  请求回调
      */
-    public static void request(boolean isPost, String url, Map<String, String> params, int requestId, RequestListener listener) {
+    public static RequestCall request(boolean isPost, String url, Map<String, String> params, int requestId, RequestListener listener) {
         if (isPost) {
-            postRequest(url, params, requestId, listener);
+            return postRequest(url, params, requestId, listener);
         } else {
-            getRequest(url, params, requestId, listener);
+            return getRequest(url, params, requestId, listener);
         }
     }
 
@@ -68,41 +69,42 @@ public class RequestUtil {
      * @param requestId 请求ID
      * @param listener  请求回调
      */
-    public static void postRequest(String url, Map<String, String> params, int requestId, final RequestListener listener) {
-        OkHttpUtils
+    public static RequestCall postRequest(String url, Map<String, String> params, int requestId, final RequestListener listener) {
+        RequestCall build = OkHttpUtils
                 .post()
                 .url(url)
                 .params(params)
                 .id(requestId)
-                .build()
-                .execute(new StringCallback() {
+                .build();
+        build.execute(new StringCallback() {
 
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        listener.onFailed(call, e, id);
-                    }
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.onFailed(call, e, id);
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        if (!TextUtils.isEmpty(response)) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                int code = jsonObject.getInt("code");
-                                String msg = jsonObject.getString("msg");
-                                String data = jsonObject.getString("data");
-                                if (ResponseCodeCheck.checkResponseCode(code)) {
-                                    listener.onSuccess(true, data, code, id);
-                                } else {
-                                    listener.onSuccess(false, msg, code, id);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+            @Override
+            public void onResponse(String response, int id) {
+                if (!TextUtils.isEmpty(response)) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("code");
+                        String msg = jsonObject.getString("msg");
+                        String data = jsonObject.getString("data");
+                        if (ResponseCodeCheck.checkResponseCode(code)) {
+                            listener.onSuccess(true, data, code, id);
                         } else {
-
+                            listener.onSuccess(false, msg, code, id);
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
+                } else {
+
+                }
+            }
+        });
+        return build;
     }
 
     /**
@@ -113,40 +115,41 @@ public class RequestUtil {
      * @param requestId 请求ID
      * @param listener  请求回调
      */
-    public static void getRequest(String url, Map<String, String> params, final int requestId, final RequestListener listener) {
-        OkHttpUtils
+    public static RequestCall getRequest(String url, Map<String, String> params, final int requestId, final RequestListener listener) {
+        RequestCall build = OkHttpUtils
                 .get()
                 .url(url)
                 .params(params)
                 .id(requestId)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        LogUtil.e(TAG, e.getMessage() + "-" + id);
-                        listener.onFailed(call, e, id);
-                    }
+                .build();
+        build.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "-" + id);
+                listener.onFailed(call, e, id);
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        LogUtil.i(TAG, response + ":id = " + id);
-                        if (!TextUtils.isEmpty(response)) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                int code = jsonObject.getInt("code");
-                                String msg = jsonObject.getString("msg");
-                                String data = jsonObject.getString("data");
-                                if (ResponseCodeCheck.checkResponseCode(code)) {
-                                    listener.onSuccess(true, data, code, id);
-                                } else {
-                                    listener.onSuccess(false, msg, code, id);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i(TAG, response + ":id = " + id);
+                if (!TextUtils.isEmpty(response)) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("code");
+                        String msg = jsonObject.getString("msg");
+                        String data = jsonObject.getString("data");
+                        if (ResponseCodeCheck.checkResponseCode(code)) {
+                            listener.onSuccess(true, data, code, id);
+                        } else {
+                            listener.onSuccess(false, msg, code, id);
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
+                }
+            }
+        });
+        return build;
     }
 
     /**
@@ -158,11 +161,11 @@ public class RequestUtil {
      * @param requestId 请求ID
      * @param listener  请求回调
      */
-    public static void requestList(boolean isPost, String url, Map<String, String> params, int requestId, RequestListListener listener) {
+    public static RequestCall requestList(boolean isPost, String url, Map<String, String> params, int requestId, RequestListListener listener) {
         if (isPost) {
-            postRequestList(url, params, requestId, listener);
+            return postRequestList(url, params, requestId, listener);
         } else {
-            getRequestList(url, params, requestId, listener);
+            return getRequestList(url, params, requestId, listener);
         }
     }
 
@@ -174,24 +177,25 @@ public class RequestUtil {
      * @param requestId 请求ID
      * @param listener  请求回调
      */
-    public static void postRequestList(String url, Map<String, String> params, int requestId, final RequestListListener listener) {
-        OkHttpUtils
+    public static RequestCall postRequestList(String url, Map<String, String> params, int requestId, final RequestListListener listener) {
+        RequestCall build = OkHttpUtils
                 .post()
                 .url(url)
                 .params(params)
                 .id(requestId)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        listener.onFailed(call, e, id);
-                    }
+                .build();
+        build.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.onFailed(call, e, id);
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        listener.onSuccess(response, id);
-                    }
-                });
+            @Override
+            public void onResponse(String response, int id) {
+                listener.onSuccess(response, id);
+            }
+        });
+        return build;
     }
 
     /**
@@ -202,69 +206,70 @@ public class RequestUtil {
      * @param requestId 请求ID
      * @param listener  请求回调
      */
-    public static void getRequestList(String url, Map<String, String> params, final int requestId, final RequestListListener listener) {
-        OkHttpUtils
+    public static RequestCall getRequestList(String url, Map<String, String> params, final int requestId, final RequestListListener listener) {
+        RequestCall build = OkHttpUtils
                 .get()
                 .url(url)
                 .params(params)
                 .id(requestId)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        LogUtil.e(TAG, e.getMessage() + "-" + id);
-                        listener.onFailed(call, e, id);
-                    }
+                .build();
+        build.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "-" + id);
+                listener.onFailed(call, e, id);
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        LogUtil.i(TAG, response + ":id = " + id);
-                        listener.onSuccess(response, id);
-                    }
-                });
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i(TAG, response + ":id = " + id);
+                listener.onSuccess(response, id);
+            }
+        });
+        return build;
     }
 
 
-    public static void uploadLoadFile(String url, String filePath, final RequestListener listener) {
+    public static RequestCall uploadLoadFile(String url, String filePath, final RequestListener listener) {
 
         File file = new File(filePath);
         if (!file.exists()) {
             Toast.makeText(ShowApplication.getAppContext(), ShowApplication.getAppContext().getString(R.string.tip_file_path_unexists), Toast.LENGTH_SHORT).show();
-            return;
+            return null;
         }
-        OkHttpUtils
+        RequestCall build = OkHttpUtils
                 .post()
                 .addHeader("Content_Type", "multipart/form-data")
                 .url(url)
                 .addFile("file", "Screenshot_2017-10-08-17-51-24.png", file)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        listener.onFailed(call, e, id);
-                    }
+                .build();
+        build.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.onFailed(call, e, id);
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        if (!TextUtils.isEmpty(response)) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                int code = jsonObject.getInt("code");
-                                String msg = jsonObject.getString("msg");
-                                String data = jsonObject.getString("data");
-                                if (ResponseCodeCheck.checkResponseCode(code)) {
-                                    listener.onSuccess(true, data, code, id);
-                                } else {
-                                    listener.onSuccess(false, msg, code, id);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+            @Override
+            public void onResponse(String response, int id) {
+                if (!TextUtils.isEmpty(response)) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("code");
+                        String msg = jsonObject.getString("msg");
+                        String data = jsonObject.getString("data");
+                        if (ResponseCodeCheck.checkResponseCode(code)) {
+                            listener.onSuccess(true, data, code, id);
                         } else {
-
+                            listener.onSuccess(false, msg, code, id);
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
+                } else {
 
+                }
+            }
+        });
+        return build;
     }
 }

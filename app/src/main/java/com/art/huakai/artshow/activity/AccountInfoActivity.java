@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,9 +16,12 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SharePreUtil;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -35,6 +39,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,6 +65,8 @@ public class AccountInfoActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private String mAvatarUrl;
     private LocalUserInfo userInfo;
+    private RequestCall requestCallUploadPic;
+    private RequestCall requestCallCommit;
 
     @Override
     public void immerseStatusBar() {
@@ -96,6 +104,8 @@ public class AccountInfoActivity extends BaseActivity {
                 .setControllerListener(baseControllerListener)
                 .setUri(userInfo.getDp()).build();
         sdvAvatar.setController(controller);
+
+        tvAccountName.setText(userInfo.getName());
     }
 
     /**
@@ -158,6 +168,12 @@ public class AccountInfoActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if (requestCallUploadPic != null) {
+            requestCallUploadPic.cancel();
+        }
+        if (requestCallCommit != null) {
+            requestCallCommit.cancel();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -215,7 +231,7 @@ public class AccountInfoActivity extends BaseActivity {
         sdvAvatar.setBackground(null);
         sdvAvatar.setImageURI("file:///" + path);
         showProgressDialog.show();
-        RequestUtil.uploadLoadFile(Constant.URL_UPLOAD_FILE, path, new RequestUtil.RequestListener() {
+        requestCallUploadPic = RequestUtil.uploadLoadFile(Constant.URL_UPLOAD_FILE, path, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -226,9 +242,61 @@ public class AccountInfoActivity extends BaseActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(obj);
                         mAvatarUrl = jsonObject.getString("url");
-                        userInfo.setDp(mAvatarUrl);
+                        changeUserInfo(mAvatarUrl);
                     } catch (Exception e) {
                         e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    /**
+     * 修改用户信息
+     *
+     * @param url
+     */
+    public void changeUserInfo(String url) {
+        if (TextUtils.isEmpty(userInfo.getId())) {
+            showToast(getString(R.string.tip_data_error));
+            return;
+        }
+        Map<String, String> params = new TreeMap<>();
+        params.put("userId", userInfo.getId());
+        params.put("accessToken", userInfo.getAccessToken());
+        params.put("name", userInfo.getName());
+        params.put("dp", url);
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        showProgressDialog.show();
+        LogUtil.i(TAG, "params=" + params);
+        requestCallCommit = RequestUtil.request(true, Constant.URL_USER_EDITINFO, params, 15, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(obj);
+                        String dp = jsonObject.getString("dp");
+                        userInfo.setDp(dp);
+                        SharePreUtil.getInstance().storeUserInfo(userInfo);
+                        showToast(getString(R.string.change_avatar_suc));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showToast(getString(R.string.tip_data_parsing_failure));
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);

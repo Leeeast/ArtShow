@@ -29,6 +29,7 @@ import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailPoltFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -120,6 +121,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     private ShareDialog shareDialog;
     private TakePhoneDialog takePhoneDialog;
     private WbShareHandler mShareHandler;
+    private RequestCall requestCall;
 
 
     private void setData() {
@@ -255,7 +257,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.i(TAG, "getRepertoryClassify: " + params.toString());
-        RequestUtil.request(true, URL_TALENT_DETAL, params, 130, new RequestUtil.RequestListener() {
+        requestCall = RequestUtil.request(true, URL_TALENT_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
@@ -338,6 +340,15 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         super.onNewIntent(intent);
         if (shareDialog != null) {
             mShareHandler.doResultIntent(intent, shareDialog);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (requestCall != null) {
+            requestCall.cancel();
+            requestCall = null;
         }
     }
 }

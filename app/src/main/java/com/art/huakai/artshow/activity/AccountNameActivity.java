@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
@@ -51,6 +52,8 @@ public class AccountNameActivity extends BaseActivity {
 
         tvSubTitle.setVisibility(View.VISIBLE);
         tvSubTitle.setText(R.string.account_name_change);
+
+        tvAccountName.setText(LocalUserInfo.getInstance().getName());
     }
 
     @Override

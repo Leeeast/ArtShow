@@ -213,6 +213,8 @@
     <string name="institution_upload_talent">上传人才简历</string>
     <string name="institution_upload_project">上传项目信息</string>
     <string name="jump_auth">跳过</string>
+    <string name="change_name_suc">姓名修改成功</string>
+    <string name="change_avatar_suc">头像上传成功</string>
 
     <!--设置相关-->
     <string name="setting_item_account">账户信息</string>

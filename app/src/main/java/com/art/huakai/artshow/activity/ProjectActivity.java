@@ -17,6 +17,7 @@ import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -52,6 +53,7 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
     private ShowProgressDialog showProgressDialog;
     private List<RepertorysBean> mRepertorys;
     private OrgProjectAdapter mOrgProjectAdapter;
+    private RequestCall requestCall;
 
     @Override
     public void immerseStatusBar() {
@@ -83,7 +85,7 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
-        RequestUtil.request(true, Constant.URL_USER_REPERTORY, params, 60, new RequestUtil.RequestListener() {
+        requestCall = RequestUtil.request(true, Constant.URL_USER_REPERTORY, params, 60, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
@@ -182,5 +184,14 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
     public void onLoadMore() {
         ++mPage;
         loadProjectData(mPage);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (requestCall != null) {
+            requestCall.cancel();
+            requestCall = null;
+        }
     }
 }
