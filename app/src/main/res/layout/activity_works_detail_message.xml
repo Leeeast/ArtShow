@@ -16,7 +16,7 @@
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@mipmap/loading_gray"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 
     <ImageView
@@ -32,7 +32,7 @@
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
             android:id="@+id/scrollableLayout"
@@ -120,7 +120,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_marginLeft="@dimen/DIMEN_4PX"
-                                android:text="元/天"
+                                android:text="场"
                                 android:textColor="#ff9b9b9b"
                                 android:textSize="@dimen/DIMEN_14PX" />
 
@@ -143,7 +143,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/DIMEN_50PX"
+                    android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
                     android:layout_marginTop="@dimen/DIMEN_10PX">
@@ -176,16 +177,15 @@
                     android:layout_height="@dimen/DIMEN_1PX"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_5PX"
                     android:background="#fff5f3f1" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/DIMEN_50PX"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_10PX"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -218,7 +218,8 @@
 
                     <View
                         android:layout_width="@dimen/DIMEN_14PX"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                      />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -256,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_5PX"
+
                     android:orientation="horizontal">
 
                     <View
@@ -280,10 +281,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/DIMEN_50PX"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_10PX"
+                  android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -354,7 +355,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_5PX"
+
                     android:orientation="horizontal">
 
                     <View
@@ -378,10 +379,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/DIMEN_50PX"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_10PX"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -452,7 +453,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_5PX"
+
                     android:orientation="horizontal">
 
                     <View
@@ -472,6 +473,46 @@
                         android:background="#fff5f3f1" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_50PX"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="可演出日期"
+                        android:textColor="#ffaaa6a2"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+
+                    <TextView
+                        android:id="@+id/tv_show_useful_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/DIMEN_14PX"
+                        android:text="2017.10.25～2017.10.31"
+                        android:textColor="#ff000000"
+                        android:textSize="@dimen/DIMEN_14PX" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/DIMEN_1PX"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:background="#fff5f3f1" />
+
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -508,7 +549,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_5PX"></android.support.v7.widget.RecyclerView>
+                    android:layout_marginTop="@dimen/DIMEN_5PX">
+
+
+
+                </android.support.v7.widget.RecyclerView>
 
 
             </LinearLayout>
