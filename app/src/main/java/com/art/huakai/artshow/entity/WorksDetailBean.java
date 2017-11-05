@@ -323,7 +323,7 @@ public class WorksDetailBean implements Serializable {
     }
 
 
-    public static class StaffsBean {
+    public static class StaffsBean implements Serializable{
         /**
          * id : 402894115f2f3d8f015f2f3e11540175
          * photo : https://www.showonline.com.cn/image/2017/09/06/61225808c4f24984aab545aa9ce42d46.jpg

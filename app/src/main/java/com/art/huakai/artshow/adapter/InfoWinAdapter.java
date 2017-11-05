@@ -1,6 +1,8 @@
 package com.art.huakai.artshow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +20,15 @@ import com.art.huakai.artshow.R;
  * 地图上自定义的infowindow的适配器
  */
 public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListener {
-    private LatLng latLng;
-    private String agentName;
-    private String snippet;
+
+    private String fromLatitude;
+    private String fromLongitude;
+    private String theatreName;
+    private String toLatitude;
+    private String toLongitude;
+
+
+
     private Context mContext;
     ImageView imageView;
 
@@ -48,12 +56,13 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
     @NonNull
     private View initView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_infowindow, null);
+
+
         imageView= (ImageView) view.findViewById(R.id.iv);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(mContext,"哈哈哈",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -65,20 +74,26 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
     public void onClick(View v) {
 
 
-
-//        int id = v.getId();
-//        switch (id){
-//            case R.id.navigation_LL:  //点击导航
-//                NavigationUtils.Navigation(latLng);
-//                break;
-//
-//            case R.id.call_LL:  //点击打电话
-//                PhoneCallUtils.call("028-"); //TODO 处理电话号码
-//                break;
-//        }
-
-
-
     }
+
+
+    private void navigation(){
+        if(true){
+            Intent i1 = new Intent();
+            // 驾车路线规划
+            i1.setData(Uri.parse("baidumap://map/direction?destination=name:对外经贸大学|latlng:39.98871,116.43234&mode=driving"));
+            mContext.startActivity(i1);
+        }else{
+            Intent i1 = new Intent();
+            // 驾车路线规划
+            i1.setData(Uri.parse("http://uri.amap.com/navigation?from=116.478346,39.997361,西直门&to=116.3246,39.966577,北京大学&mode=car"));
+            mContext.startActivity(i1);
+        }
+    }
+
+
+
+
+
 
 }

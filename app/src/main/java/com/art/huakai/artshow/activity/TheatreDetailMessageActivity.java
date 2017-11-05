@@ -14,7 +14,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.TheatreDetailFragmentAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -42,7 +47,9 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.sina.weibo.sdk.share.WbShareHandler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -51,7 +58,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener {
+public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener ,AMapLocationListener {
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
     @BindView(R.id.tv_title)
@@ -110,6 +117,13 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     private TakePhoneDialog takePhoneDialog;
     private WbShareHandler mShareHandler;
 
+    public AMapLocationClient mlocationClient;
+    //声明mLocationOption对象
+    public AMapLocationClientOption mLocationOption = null;
+
+
+
+
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -122,6 +136,22 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             }
         }
     };
+
+    private void initPosition(){
+        mlocationClient = new AMapLocationClient(this);
+//初始化定位参数
+        mLocationOption = new AMapLocationClientOption();
+//设置定位监听
+        mlocationClient.setLocationListener(this);
+//设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+//设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(2000);
+        mLocationOption.setOnceLocation(true);
+//设置定位参数
+        mlocationClient.setLocationOption(mLocationOption);
+        mlocationClient.startLocation();
+    }
 
     private void setData() {
         mTabArray = getResources().getStringArray(R.array.theatre_detail_tab);
@@ -366,5 +396,45 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         if (shareDialog != null) {
             mShareHandler.doResultIntent(intent, shareDialog);
         }
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == 0) {
+                //定位成功回调信息，设置相关消息
+                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                amapLocation.getLatitude();//获取纬度
+                amapLocation.getLongitude();//获取经度
+                amapLocation.getAccuracy();//获取精度信息
+
+                amapLocation.getDistrict();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(amapLocation.getTime());
+                df.format(date);//定位时间
+                Toast.makeText(TheatreDetailMessageActivity.this,amapLocation.toString(),Toast.LENGTH_SHORT).show();
+                mlocationClient.stopLocation();
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError","location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo());
+
+                Toast.makeText(TheatreDetailMessageActivity.this,amapLocation.getErrorInfo(),Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mlocationClient != null) {
+            mlocationClient.stopLocation();
+            mlocationClient.onDestroy();
+        }
+        mlocationClient = null;
+
     }
 }

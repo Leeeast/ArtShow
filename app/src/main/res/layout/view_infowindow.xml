@@ -2,34 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="127dp"
-    android:background="#0000"
+    android:layout_height="wrap_content"
+
     >
-    <LinearLayout
-        android:layout_width="209dp"
-        android:layout_height="127dp"
-        android:orientation="vertical"
+    <RelativeLayout
+        android:layout_width="@dimen/DIMEN_210PX"
+        android:layout_height="@dimen/DIMEN_80PX"
+        android:background="@mipmap/navigation_bg"
         >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:layout_marginLeft="@dimen/DIMEN_14PX"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            >
+
+            <TextView
+                android:id="@+id/tv_theatre_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="朝阳剧场"
+                android:textColor="#ff5a4b41"
+                android:textSize="@dimen/DIMEN_14PX"
+                />
+
+            <TextView
+                android:id="@+id/tv_theatre_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="朝阳区东三环"
+                android:textColor="#ff909097"
+                android:textSize="@dimen/DIMEN_11PX"
+                android:layout_marginTop="@dimen/DIMEN_7PX"
+                android:maxLength="17"
+                android:ellipsize="end"
+                />
+
+        </LinearLayout>
+
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="朝阳剧场"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_navigation"
+            android:layout_width="@dimen/DIMEN_42PX"
+            android:layout_height="@dimen/DIMEN_27PX"
+            android:text="导航"
+            android:textColor="#ff4990e2"
+            android:textSize="@dimen/DIMEN_11PX"
+            android:layout_marginTop="@dimen/DIMEN_19PX"
+            android:maxLength="17"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/DIMEN_10PX"
             />
 
 
-        <ImageView
-            android:id="@+id/iv"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#fe8b00"
-            android:clickable="true"
-            />
-        
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     
 

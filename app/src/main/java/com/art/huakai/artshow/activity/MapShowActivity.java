@@ -19,9 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.amap.api.fence.PoiItem;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.MapsInitializer;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
@@ -34,12 +39,14 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.InfoWinAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MapShowActivity extends Activity {
+public class MapShowActivity extends Activity implements AMapLocationListener {
 
 
     MapView mMapView = null;
@@ -48,6 +55,9 @@ public class MapShowActivity extends Activity {
     LatLng latLng = new LatLng(39.906901,116.397972);
     AMap aMap;
     Handler handler=new Handler();
+    public AMapLocationClient mlocationClient;
+    //声明mLocationOption对象
+    public AMapLocationClientOption mLocationOption = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +70,27 @@ public class MapShowActivity extends Activity {
 //初始化地图控制器对象
         aMap = mMapView.getMap();
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
-
         addMarker();
-
         aMap.setInfoWindowAdapter(new InfoWinAdapter(this));
 
+        initPosition();
 
+    }
+
+    private void initPosition(){
+        mlocationClient = new AMapLocationClient(this);
+//初始化定位参数
+        mLocationOption = new AMapLocationClientOption();
+//设置定位监听
+        mlocationClient.setLocationListener(this);
+//设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+//设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(2000);
+        mLocationOption.setOnceLocation(true);
+//设置定位参数
+        mlocationClient.setLocationOption(mLocationOption);
+        mlocationClient.startLocation();
     }
 
     private void addMarker(){
@@ -93,13 +118,6 @@ public class MapShowActivity extends Activity {
 
 
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
-        mMapView.onDestroy();
-    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -120,11 +138,44 @@ public class MapShowActivity extends Activity {
     }
 
 
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == 0) {
+                //定位成功回调信息，设置相关消息
+                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                amapLocation.getLatitude();//获取纬度
+                amapLocation.getLongitude();//获取经度
+                amapLocation.getAccuracy();//获取精度信息
+
+                amapLocation.getDistrict();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(amapLocation.getTime());
+                df.format(date);//定位时间
+                Toast.makeText(MapShowActivity.this,amapLocation.toString(),Toast.LENGTH_SHORT).show();
+                mlocationClient.stopLocation();
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError","location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo());
+
+                Toast.makeText(MapShowActivity.this,amapLocation.getErrorInfo(),Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+        if (mlocationClient != null) {
+            mlocationClient.stopLocation();
+            mlocationClient.onDestroy();
+        }
+        mlocationClient = null;
 
-
-
-
-
+    }
 }
