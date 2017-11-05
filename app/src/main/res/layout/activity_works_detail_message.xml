@@ -99,12 +99,11 @@
                             android:layout_marginTop="@dimen/DIMEN_20PX">
 
 
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="￥"
                                 android:layout_gravity="bottom"
+                                android:text="￥"
                                 android:textColor="#ff5a4b41"
                                 android:textSize="@dimen/DIMEN_14PX" />
 
@@ -149,10 +148,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/DIMEN_50PX"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_10PX">
+                    android:layout_marginTop="@dimen/DIMEN_10PX"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -223,8 +222,7 @@
 
                     <View
                         android:layout_width="@dimen/DIMEN_14PX"
-                        android:layout_height="match_parent"
-                      />
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -289,7 +287,7 @@
                     android:layout_height="@dimen/DIMEN_50PX"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                  android:gravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -482,10 +480,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/DIMEN_50PX"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    >
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -518,7 +515,6 @@
                     android:background="#fff5f3f1" />
 
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -535,11 +531,10 @@
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
                     android:layout_marginTop="@dimen/DIMEN_6PX"
+                    android:paddingBottom="@dimen/DIMEN_25PX"
                     android:text="Occupying floors 51-59, this spacious suite enjoys beautiful views of Bangkok City and Chao Phraya River. It includes an LCD TV, free soft drinks from the minibar and Nespresso coffee machine. A bathroom has a separate bathtub and luxurious bath toiletries."
                     android:textColor="#ff928470"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:paddingBottom="@dimen/DIMEN_25PX"
-                    />
+                    android:textSize="@dimen/DIMEN_14PX" />
 
                 <TextView
                     android:id="@+id/tv_actor_detail"
@@ -547,9 +542,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:text="主创介绍"
-                    android:visibility="gone"
                     android:textColor="#ff5a4b41"
-                    android:textSize="@dimen/DIMEN_20PX" />
+                    android:textSize="@dimen/DIMEN_20PX"
+                    android:visibility="gone" />
 
 
                 <android.support.v7.widget.RecyclerView
@@ -559,8 +554,7 @@
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginTop="@dimen/DIMEN_5PX"
                     android:paddingBottom="@dimen/DIMEN_25PX"
-                    android:visibility="gone"
-                    >
+                    android:visibility="gone">
 
                 </android.support.v7.widget.RecyclerView>
 
@@ -594,7 +588,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_50PX"
             android:layout_alignParentBottom="true"
-            android:background="#ffdddddd"
+            android:background="@color/detail_connect_bg"
             android:gravity="center"
             android:orientation="horizontal">
 

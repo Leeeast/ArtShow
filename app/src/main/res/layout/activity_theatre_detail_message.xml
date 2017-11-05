@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffffff">
@@ -99,12 +99,11 @@
                             android:layout_marginTop="@dimen/DIMEN_20PX">
 
 
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="￥"
                                 android:layout_gravity="bottom"
+                                android:text="￥"
                                 android:textColor="#ff5a4b41"
                                 android:textSize="@dimen/DIMEN_14PX" />
 
@@ -234,16 +233,15 @@
                             android:src="@mipmap/icon_address" />
 
 
-
                         <TextView
                             android:id="@+id/tv_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/DIMEN_14PX"
+                            android:maxLength="18"
                             android:text="北京市东城区东棉花胡同35号"
                             android:textColor="#ff000000"
                             android:textSize="@dimen/DIMEN_14PX"
-                            android:maxLength="18"
 
                             />
 
@@ -257,7 +255,6 @@
                         android:layout_alignParentRight="true"
                         android:gravity="center_vertical|right"
                         android:orientation="horizontal">
-
 
 
                         <ImageView
@@ -303,8 +300,7 @@
                             android:layout_marginLeft="@dimen/DIMEN_12PX"
                             android:text="剧场档期"
                             android:textColor="#ff000000"
-                            android:textSize="@dimen/DIMEN_14PX"
-                            />
+                            android:textSize="@dimen/DIMEN_14PX" />
 
                     </LinearLayout>
 
@@ -315,7 +311,6 @@
                         android:layout_alignParentRight="true"
                         android:gravity="center_vertical|right"
                         android:orientation="horizontal">
-
 
 
                         <ImageView
@@ -334,8 +329,7 @@
                     android:layout_marginRight="@dimen/DIMEN_14PX"
                     android:layout_marginTop="@dimen/DIMEN_6PX"
                     android:background="#fff5f3f1"
-                    android:paddingBottom="@dimen/DIMEN_30PX"
-                    />
+                    android:paddingBottom="@dimen/DIMEN_30PX" />
 
 
                 <TextView
@@ -354,11 +348,10 @@
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
                     android:layout_marginTop="@dimen/DIMEN_13PX"
+                    android:paddingBottom="@dimen/DIMEN_30PX"
                     android:text="Occupying floors 51-59, this spacious suite enjoys beautiful views of Bangkok City and Chao Phraya River. It includes an LCD TV, free soft drinks from the minibar and Nespresso coffee machine. A bathroom has a separate bathtub and luxurious bath toiletries."
                     android:textColor="#ff928470"
-                    android:textSize="@dimen/DIMEN_14PX"
-                    android:paddingBottom="@dimen/DIMEN_30PX"
-                    />
+                    android:textSize="@dimen/DIMEN_14PX" />
 
             </LinearLayout>
 
@@ -391,7 +384,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_50PX"
             android:layout_alignParentBottom="true"
-            android:background="#ffdddddd"
+            android:background="@color/detail_connect_bg"
             android:gravity="center"
             android:orientation="horizontal">
 

@@ -42,17 +42,6 @@ public class EquipAdapter extends RecyclerView.Adapter {
             ClassifyTypeSmallHolder classifyTypeSmallHolder = (ClassifyTypeSmallHolder) holder;
             final String techParam = mlist.get(position);
             classifyTypeSmallHolder.chkClassifyType.setText(techParam);
-            classifyTypeSmallHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mTechParamAdded.contains(techParam)) {
-                        mTechParamAdded.remove(techParam);
-                    } else {
-                        mTechParamAdded.add(techParam);
-                    }
-                    notifyDataSetChanged();
-                }
-            });
             if (mTechParamAdded.contains(techParam)) {
                 classifyTypeSmallHolder.chkClassifyType.setChecked(true);
             } else {
