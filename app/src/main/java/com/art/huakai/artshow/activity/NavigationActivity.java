@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,6 +73,13 @@ public class NavigationActivity extends BaseActivity {
                if(TextUtils.isEmpty(toLatitude)||TextUtils.isEmpty(toLongitude)){
                    navigation();
                }else{
+                   Intent intent = new Intent();
+                   intent.putExtra("toLatitude",toLatitude);
+                   intent.putExtra("toLongitude",toLongitude);
+                   intent.putExtra("theatreName",theatreName);
+                   intent.putExtra("theatreLocation",theatreLocation);
+                   intent.setClass(NavigationActivity.this, MapShowActivity.class);
+                   startActivity(intent);
 
                }
             }
@@ -107,8 +115,12 @@ public class NavigationActivity extends BaseActivity {
         Intent intent=getIntent();
         toLatitude=intent.getStringExtra("toLatitude");
         toLongitude=intent.getStringExtra("toLongitude");
+        Log.e(TAG, "onCreate: toLatitude=="+toLatitude+"toLongitude=="+toLongitude );
         theatreName=intent.getStringExtra("theatreName");
         theatreLocation=intent.getStringExtra("theatreLocation");
+        toLatitude="39.98871";
+        toLongitude="116.43234";
+
 
     }
 

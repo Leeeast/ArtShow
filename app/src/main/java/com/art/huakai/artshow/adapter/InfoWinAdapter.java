@@ -46,6 +46,7 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
      this.toLatitude=toLatitude;
      this.toLongitude=toLongitude;
      this.theatreLocation=theatreLocation;
+
     }
 
 
@@ -82,6 +83,8 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
                 navigation();
             }
         });
+
+
         return view;
     }
 
@@ -89,23 +92,7 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
     @Override
     public void onClick(View v) {
 
-
     }
-
-
-//    private void navigation(){
-//        if(true){
-//            Intent i1 = new Intent();
-//            // 驾车路线规划
-//            i1.setData(Uri.parse("baidumap://map/direction?destination=name:对外经贸大学|latlng:39.98871,116.43234&mode=driving"));
-//            mContext.startActivity(i1);
-//        }else{
-//            Intent i1 = new Intent();
-//            // 驾车路线规划
-//            i1.setData(Uri.parse("http://uri.amap.com/navigation?from=116.478346,39.997361,西直门&to=116.3246,39.966577,北京大学&mode=car"));
-//            mContext.startActivity(i1);
-//        }
-//    }
 
 
     private void navigation(){
@@ -154,7 +141,5 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
         //判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
         return packageNames.contains(packageName);
     }
-
-
 
 }

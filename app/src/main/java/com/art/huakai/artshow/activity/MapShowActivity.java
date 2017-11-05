@@ -105,7 +105,7 @@ public class MapShowActivity extends Activity implements AMapLocationListener {
 //        markerOption.title("西安市").snippet("西安市：34.341568, 108.940174");
             markerOption.draggable(true);//设置Marker可拖动
             markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                    .decodeResource(getResources(),R.mipmap.icon_address)));
+                    .decodeResource(getResources(),R.mipmap.theatre_location)));
             // 将Marker设置为贴地显示，可以双指下拉地图查看效果
 //        markerOption.setFlat(true);//设置marker平贴地图效果
             marker = aMap.addMarker(markerOption);
