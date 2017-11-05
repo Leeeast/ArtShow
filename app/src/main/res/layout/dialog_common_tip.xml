@@ -13,6 +13,18 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="15dp"
+            android:text="@string/tip_dialog_title"
+            android:textColor="@color/permission_request_des"
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

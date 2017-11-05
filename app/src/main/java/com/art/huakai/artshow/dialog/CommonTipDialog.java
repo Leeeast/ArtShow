@@ -69,7 +69,7 @@ public class CommonTipDialog extends DialogFragment implements View.OnClickListe
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new Dialog(getActivity(), R.style.Dialog);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         Window dialogWindow = dialog.getWindow();
         dialogWindow.getAttributes().windowAnimations = R.style.mystyleforred;
         dialogWindow.getAttributes().width = getResources().getDisplayMetrics().widthPixels;

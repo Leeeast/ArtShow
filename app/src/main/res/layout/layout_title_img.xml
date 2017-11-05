@@ -8,8 +8,8 @@
         android:id="@+id/lly_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:clickable="true"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
@@ -34,11 +34,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
+        android:ellipsize="end"
+        android:maxLength="15"
+        android:minLines="1"
         android:textColor="@color/app_title"
         android:textSize="15sp"
-        android:maxLength="15"
-        android:ellipsize="end"
         android:visibility="gone" />
 
     <FrameLayout
@@ -53,7 +53,6 @@
             android:id="@+id/iv_right_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_more_horiz" />
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>

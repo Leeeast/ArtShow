@@ -3,9 +3,8 @@
     xmlns:banner="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#fff5fafc"
-    >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/include_title"
@@ -14,9 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_48PX"
-        android:layout_marginTop="@dimen/DIMEN_10PX"
-        >
-
+        android:layout_marginTop="@dimen/DIMEN_10PX">
 
 
         <LinearLayout
@@ -25,55 +22,45 @@
             android:layout_height="@dimen/DIMEN_48PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
             android:layout_marginRight="@dimen/DIMEN_15PX"
-            android:background="@drawable/shape_bg_white_radius_1"
             android:layout_toLeftOf="@+id/tv_search"
-            android:orientation="horizontal"
-            >
+            android:background="@drawable/shape_bg_white_radius_1"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/DIMEN_22PX"
                 android:layout_height="@dimen/DIMEN_22PX"
-                android:src="@mipmap/search_gray"
-                android:layout_marginLeft="@dimen/DIMEN_17PX"
                 android:layout_gravity="center_vertical"
-                />
+                android:layout_marginLeft="@dimen/DIMEN_17PX"
+                android:src="@mipmap/search_gray" />
 
             <EditText
                 android:id="@+id/edt_search"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/DIMEN_48PX"
                 android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/DIMEN_10PX"
+                android:layout_weight="1"
+                android:background="@null"
                 android:drawablePadding="@dimen/DIMEN_25PX"
                 android:gravity="center_vertical"
                 android:hint="@string/cooperate_search"
                 android:maxLines="1"
                 android:textColorHint="@color/cooperate_search_hint"
-                android:textSize="@dimen/DIMEN_15PX"
-                android:layout_marginLeft="@dimen/DIMEN_10PX"
-                android:layout_weight="1"
-                android:background="@null"
-                />
+                android:textSize="@dimen/DIMEN_15PX" />
 
 
         </LinearLayout>
     </RelativeLayout>
 
 
-
-
-
     <com.art.huakai.artshow.widget.SmartRecyclerview
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/DIMEN_10PX"
-        android:layout_height="match_parent">
-
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/DIMEN_10PX">
 
 
     </com.art.huakai.artshow.widget.SmartRecyclerview>
-
-
 
 
 </LinearLayout>

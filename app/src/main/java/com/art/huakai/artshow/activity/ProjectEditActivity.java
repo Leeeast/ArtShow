@@ -254,8 +254,6 @@ public class ProjectEditActivity extends BaseActivity {
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.project_edit);
-
-
     }
 
     @Override

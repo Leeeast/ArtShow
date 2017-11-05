@@ -66,14 +66,14 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_infowindow, null);
 
 
-        imageView= (ImageView) view.findViewById(R.id.iv);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
+//        imageView= (ImageView) view.findViewById(R.id.iv);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//            }
+//        });
         return view;
     }
 

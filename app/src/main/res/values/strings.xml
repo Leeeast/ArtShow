@@ -115,6 +115,9 @@
     <string name="login_set_pwd">设置密码</string>
     <string name="login_set_pwd_tip">*请设置一个不少于8位的密码</string>
     <string name="please_input_correct_phone">手机格式错误，请确认</string>
+    <string name="tip_dialog_title">提示</string>
+    <string name="tip_dialog_login_title">登录提示</string>
+    <string name="tip_dialog_login">您还没有登录，请先登录</string>
 
     <string name="tip_input_phone">请输入手机号码</string>
     <string name="tip_input_verify_code">请输入验证码</string>
@@ -344,6 +347,7 @@
     <string name="tip_theatre_release_suc">剧场发布成功</string>
     <string name="tip_theatre_offline_suc">剧场下线成功</string>
     <string name="tip_theatre_offline_fail">剧场下线失败</string>
+    <string name="tip_theatre_select_address">请选择剧场位置</string>
     <string name="send_status">已发布</string>
     <string name="unsend_status">未发布</string>
     <!--项目相关-->

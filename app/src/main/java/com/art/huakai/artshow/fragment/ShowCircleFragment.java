@@ -299,7 +299,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(NewsDetailActivity.PARAMS_NEWS_ID, homePageDetails.getNewses().get(position).getId());
+                    bundle.putString(NewsDetailActivity.PARAMS_NEWS_ID, homePageDetails.getNewses().get(position).getId());
                     invokActivity(getContext(), NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
                 }
             });

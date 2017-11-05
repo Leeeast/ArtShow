@@ -1,8 +1,15 @@
 package com.art.huakai.artshow.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
+import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.LoginActivity;
+import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.CommonTipDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.RegUserInfo;
 
@@ -19,10 +26,29 @@ public class LoginUtil {
      * @param isShowDialog 是否显示登录提示Dialog
      * @return
      */
-    public static boolean checkUserLogin(Context context, boolean isShowDialog) {
+    public static boolean checkUserLogin(final Context context, boolean isShowDialog) {
         if (!TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken()) &&
                 !TextUtils.isEmpty(LocalUserInfo.getInstance().getMobile())) {
             return true;
+        }
+        if (isShowDialog) {
+            CommonTipDialog Dialog = CommonTipDialog.getInstance(
+                    context.getString(R.string.tip_dialog_login),
+                    context.getString(R.string.cancel),
+                    context.getString(R.string.app_login_bold));
+            Dialog.setOnDismissListener(new CommonTipDialog.OnDismissListener() {
+                @Override
+                public void cancel() {
+
+                }
+
+                @Override
+                public void sure() {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    ((FragmentActivity) context).startActivityForResult(intent, JumpCode.FLAG_REQ_MAIN_LOGIN);
+                }
+            });
+            Dialog.show(((FragmentActivity) context).getSupportFragmentManager(), "COMMONTIP.DIALOG");
         }
         return false;
     }

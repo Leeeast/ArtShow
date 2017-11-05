@@ -132,7 +132,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
             case R.id.iv_setting:
-                startActivity(new Intent(getContext(), SetActivity.class));
+                if (LoginUtil.checkUserLogin(getContext(), true)) {
+                    startActivity(new Intent(getContext(), SetActivity.class));
+                }
                 break;
         }
     }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
@@ -41,6 +42,10 @@ import okhttp3.Call;
 
 public class TheatreBaseActivity extends BaseActivity {
 
+    public static final String RESULT_ADDRESS_NAME = "RESULT_ADDRESS_NAME";
+    public static final String RESULT_ADDRESS_LATITUDE = "RESULT_ADDRESS_LATITUDE";
+    public static final String RESULT_ADDRESS_LONGITUDE = "RESULT_ADDRESS_LONGITUDE";
+
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
@@ -65,6 +70,9 @@ public class TheatreBaseActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private TheatreDetailInfo theatreInstance;
     private int mRegionId = -1;
+    private String mAddressName;
+    private String mAddressLatitude;
+    private String mAddressLongitude;
 
     @Override
     public void immerseStatusBar() {
@@ -133,19 +141,20 @@ public class TheatreBaseActivity extends BaseActivity {
 
     @OnClick(R.id.rly_live_city)
     public void selectCity() {
-        showProgressDialog.show();
-        CitySelectUtil.getCityJson(new CitySelectUtil.CityDataRequestListener() {
-            @Override
-            public void onSuccess(String s) {
-                showProgressDialog.dismiss();
-                showAddressSelect(s);
-            }
-
-            @Override
-            public void onFail() {
-                showProgressDialog.dismiss();
-            }
-        });
+        invokActivity(this, PioSearchActivity.class, null, JumpCode.FLAG_REQ_ADDRESS_SELECT);
+//        showProgressDialog.show();
+//        CitySelectUtil.getCityJson(new CitySelectUtil.CityDataRequestListener() {
+//            @Override
+//            public void onSuccess(String s) {
+//                showProgressDialog.dismiss();
+//                showAddressSelect(s);
+//            }
+//
+//            @Override
+//            public void onFail() {
+//                showProgressDialog.dismiss();
+//            }
+//        });
     }
 
     /**
@@ -265,7 +274,7 @@ public class TheatreBaseActivity extends BaseActivity {
                         theatreInstance.setExpense(theatreColoPrice);
                         theatreInstance.setLinkman(theatreConnectName);
                         theatreInstance.setLinkTel(theatreConnectPhone);
-
+                        
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
                     } catch (Exception e) {
                         e.printStackTrace();

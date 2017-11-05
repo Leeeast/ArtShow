@@ -47,13 +47,13 @@ public class AdvertJumpUtil {
             String target = mAdvert.getTarget();
             String id = target.split("//")[1];
             Bundle bundle = new Bundle();
-            bundle.putSerializable(EnrollDetailActivity.PARAMS_ENROLL_ID, id);
+            bundle.putString(EnrollDetailActivity.PARAMS_ENROLL_ID, id);
             baseActivity.invokActivity(context, EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
         } else if (mAdvert.getTarget().startsWith(Constant.AD_TYPE_NEWS)) {
             String target = mAdvert.getTarget();
             String newsId = target.split("//")[1];
             Bundle bundle = new Bundle();
-            bundle.putSerializable(NewsDetailActivity.PARAMS_NEWS_ID, newsId);
+            bundle.putString(NewsDetailActivity.PARAMS_NEWS_ID, newsId);
             baseActivity.invokActivity(context, NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
         } else if (mAdvert.getTarget().startsWith(Constant.AD_TYPE_HTTP)) {
             Bundle bundle = new Bundle();

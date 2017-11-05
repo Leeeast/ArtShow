@@ -1,6 +1,8 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.TextView;
@@ -11,11 +13,15 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -52,6 +58,7 @@ public class AccountInfoActivity extends BaseActivity {
     private List<LocalMedia> selectList = new ArrayList<>();
     private ShowProgressDialog showProgressDialog;
     private String mAvatarUrl;
+    private LocalUserInfo userInfo;
 
     @Override
     public void immerseStatusBar() {
@@ -67,19 +74,28 @@ public class AccountInfoActivity extends BaseActivity {
     public void initData() {
         EventBus.getDefault().register(this);
         showProgressDialog = new ShowProgressDialog(this);
+        userInfo = LocalUserInfo.getInstance();
     }
 
     @Override
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.set_account_info);
-
-
     }
 
     @Override
     public void setView() {
-
+        BaseControllerListener baseControllerListener = new BaseControllerListener() {
+            @Override
+            public void onFinalImageSet(String id, @Nullable Object imageInfo, @Nullable Animatable animatable) {
+                super.onFinalImageSet(id, imageInfo, animatable);
+                sdvAvatar.setBackground(null);
+            }
+        };
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setControllerListener(baseControllerListener)
+                .setUri(userInfo.getDp()).build();
+        sdvAvatar.setController(controller);
     }
 
     /**
@@ -210,6 +226,7 @@ public class AccountInfoActivity extends BaseActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(obj);
                         mAvatarUrl = jsonObject.getString("url");
+                        userInfo.setDp(mAvatarUrl);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -42,12 +42,13 @@ public class JumpCode {
     public static final int FLAG_REQ_LINK = FLAG_REQ + 28;
     public static final int FLAG_REQ_NEWS_DETAIL = FLAG_REQ + 29;
     public static final int FLAG_REQ_NEWS_WEBSITE = FLAG_REQ + 30;
+    public static final int FLAG_REQ_ADDRESS_SELECT = FLAG_REQ + 31;
 
 
     // 返回码,往下加1
-
     public static final int FLAG_RES_EXIT_APP = FLAG_RES_RETURN + 1;
     public static final int FLAG_RES_DATA_AUTH = FLAG_RES_RETURN + 2;
     public static final int FLAG_RES_CLASSIFY_TYPE_CONFIRM = FLAG_RES_RETURN + 3;
+    public static final int FLAG_RES_ADDRESS_RESULT = FLAG_RES_RETURN + 4;
 
 }
