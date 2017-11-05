@@ -197,12 +197,6 @@
             android:exported="false" />
 
         <activity
-            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <activity
             android:name="com.art.huakai.artshow.activity.KeywordSearchEnrollsResultShowActivity"
             android:screenOrientation="portrait" />
 
@@ -242,8 +236,6 @@
         <activity
             android:name="com.art.huakai.artshow.activity.KeywordSearchNewsActivity"
             android:screenOrientation="portrait" />
-
-
 
     </application>
 

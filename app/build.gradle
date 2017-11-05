@@ -4,13 +4,12 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-         applicationId "com.art.huakai.artshow"
-//        applicationId "com.umeng.soexample"
+        applicationId "com.art.huakai.artshow"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     //配置keystore签名
     signingConfigs {
@@ -44,12 +43,13 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile(name:'core-4.1.0-openDefaultRelease', ext:'aar')
+    compile(name: 'core-4.1.0-openDefaultRelease', ext: 'aar')
     compile project(':picture_library')
     compile project(':wheelpicker')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.flyco.banner:FlycoBanner_Lib:2.0.2@aar'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.facebook.fresco:fresco:1.5.0'
