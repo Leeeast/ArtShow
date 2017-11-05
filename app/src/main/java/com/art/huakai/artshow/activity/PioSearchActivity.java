@@ -119,7 +119,7 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
 
         if (TextUtils.isEmpty(location)) return;
         query = new PoiSearch.Query(location, "", "北京");// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
-        query.setPageSize(20);// 设置每页最多返回多少条poiitem
+        query.setPageSize(50);// 设置每页最多返回多少条poiitem
         query.setPageNum(currentPage);// 设置查第一页
         query.setCityLimit(true);
         poiSearch = new PoiSearch(this, query);
@@ -131,6 +131,8 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
     public void initView() {
 
         recyclerView.setLoadingListener(this);
+        recyclerView.setLoadingMoreEnabled(false);
+        recyclerView.setPullRefreshEnabled(false);
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -162,6 +164,7 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
     public void onPoiSearched(PoiResult result, int rCode) {
         Toast.makeText(PioSearchActivity.this, rCode + "", Toast.LENGTH_SHORT).show();
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
+            poiResult=result;
             if (result != null && result.getQuery() != null) {// 搜索poi的结果
                 if (result.getQuery().equals(query)) {// 是否是同一条
 

@@ -70,6 +70,15 @@ public class NavigationActivity extends BaseActivity {
         ivGotoAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                if(true){
+//                    Intent intent=new Intent();
+//                    intent.setClass(NavigationActivity.this,PioSearchActivity.class);
+//                    startActivity(intent);
+//                    return;
+//                }
+
+
                 Log.e(TAG, "onClick: toLatitude=="+toLatitude+"--toLongitude=="+toLongitude );
                if(TextUtils.isEmpty(toLatitude)||TextUtils.isEmpty(toLongitude)){
                    navigation();

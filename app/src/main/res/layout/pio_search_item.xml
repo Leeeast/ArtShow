@@ -9,7 +9,7 @@
         android:layout_height="@dimen/DIMEN_36PX"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
         android:layout_marginRight="@dimen/DIMEN_15PX"
-        android:background="@drawable/shape_theatre_item"
+        android:background="#ffffffff"
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical">
@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_35PX"
             android:textColor="#ff62534a"
+            android:gravity="center_vertical"
             android:textSize="@dimen/DIMEN_13PX" />
 
         <View
