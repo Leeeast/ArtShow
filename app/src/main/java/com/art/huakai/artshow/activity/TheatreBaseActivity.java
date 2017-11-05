@@ -1,11 +1,13 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.amap.api.services.core.PoiItem;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
@@ -43,10 +45,7 @@ import okhttp3.Call;
 
 public class TheatreBaseActivity extends BaseActivity {
 
-    public static final String RESULT_ADDRESS_NAME = "RESULT_ADDRESS_NAME";
-    public static final String RESULT_ADDRESS_LATITUDE = "RESULT_ADDRESS_LATITUDE";
-    public static final String RESULT_ADDRESS_LONGITUDE = "RESULT_ADDRESS_LONGITUDE";
-
+    public static final String RESULT_ADDRESS = "RESULT_ADDRESS";
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
@@ -71,9 +70,10 @@ public class TheatreBaseActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private TheatreDetailInfo theatreInstance;
     private int mRegionId = -1;
-    private String mAddressName;
+    private String mAddressDetailName;
     private String mAddressLatitude;
     private String mAddressLongitude;
+    private PoiItem mPoiItem;
 
     @Override
     public void immerseStatusBar() {
@@ -203,7 +203,7 @@ public class TheatreBaseActivity extends BaseActivity {
             showToast(getString(R.string.tip_theatre_input_price));
             return;
         }
-        if (TextUtils.isEmpty(mAddressLatitude) || TextUtils.isEmpty(mAddressLongitude)) {
+        if (mPoiItem == null) {
             showToast(getString(R.string.tip_resume_region_city));
             return;
         }
@@ -231,9 +231,11 @@ public class TheatreBaseActivity extends BaseActivity {
         params.put("name", theatreName);
         params.put("roomName", theatreHallName);
         params.put("seating", theatreSeatCount);
-        //params.put("regionId", String.valueOf(mRegionId));
         params.put("coordinate", mAddressLongitude + "," + mAddressLatitude);
         params.put("address", theatreDetailAddress);
+        params.put("pcode", mPoiItem.getProvinceCode());
+        params.put("citycode", mPoiItem.getCityCode());
+        params.put("adcode", mPoiItem.getAdCode());
         params.put("expense", theatreColoPrice);
         params.put("linkman", theatreConnectName);
         params.put("linkTel", theatreConnectPhone);
@@ -290,11 +292,14 @@ public class TheatreBaseActivity extends BaseActivity {
             if (data == null) {
                 return;
             }
-            mAddressName = data.getStringExtra(RESULT_ADDRESS_NAME);
-            mAddressLatitude = data.getStringExtra(RESULT_ADDRESS_LATITUDE);
-            mAddressLongitude = data.getStringExtra(RESULT_ADDRESS_LONGITUDE);
+            mPoiItem = data.getParcelableExtra(RESULT_ADDRESS);
+            mAddressDetailName = mPoiItem.getTitle();
+            mAddressLatitude = mPoiItem.getLatLonPoint().getLatitude() + "";
+            mAddressLongitude = mPoiItem.getLatLonPoint().getLongitude() + "";
 
-            edtTheatreDetailAddress.setText(mAddressName);
+            String address = mPoiItem.getProvinceName() + "    " + mPoiItem.getCityName();
+            tvLiveCity.setText(address);
+            edtTheatreDetailAddress.setText(mAddressDetailName);
         }
     }
 }

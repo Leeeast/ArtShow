@@ -78,13 +78,8 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
         pioSearchAdapter.setOnItemClickListener(new PioSearchAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
-                String title = poiItems.get(position).getTitle();
-                double latitude = poiItems.get(position).getLatLonPoint().getLatitude();
-                double longitude = poiItems.get(position).getLatLonPoint().getLongitude();
                 Intent intent = new Intent();
-                intent.putExtra(TheatreBaseActivity.RESULT_ADDRESS_NAME, title);
-                intent.putExtra(TheatreBaseActivity.RESULT_ADDRESS_LATITUDE, String.valueOf(latitude));
-                intent.putExtra(TheatreBaseActivity.RESULT_ADDRESS_LONGITUDE, String.valueOf(longitude));
+                intent.putExtra(TheatreBaseActivity.RESULT_ADDRESS, poiItems.get(position));
                 setResult(JumpCode.FLAG_RES_ADDRESS_RESULT, intent);
                 finish();
             }
