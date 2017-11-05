@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:background="@color/whiteff"
             android:orientation="vertical"
-            app:hvp_topOffset="@dimen/DIMEN_40PX">
+            app:hvp_topOffset="@dimen/DIMEN_5PX">
 
             <LinearLayout
                 android:layout_width="match_parent"
