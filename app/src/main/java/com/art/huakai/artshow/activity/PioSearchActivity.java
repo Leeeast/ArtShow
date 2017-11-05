@@ -86,7 +86,7 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
                 intent.putExtra(TheatreBaseActivity.RESULT_ADDRESS_LATITUDE, String.valueOf(latitude));
                 intent.putExtra(TheatreBaseActivity.RESULT_ADDRESS_LONGITUDE, String.valueOf(longitude));
                 setResult(JumpCode.FLAG_RES_ADDRESS_RESULT, intent);
-
+                finish();
             }
         });
     }
@@ -158,13 +158,19 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
     public void setView() {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.tip_theatre_select_address);
+        llyBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
     public void onPoiSearched(PoiResult result, int rCode) {
         Toast.makeText(PioSearchActivity.this, rCode + "", Toast.LENGTH_SHORT).show();
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
-            poiResult=result;
+            poiResult = result;
             if (result != null && result.getQuery() != null) {// 搜索poi的结果
                 if (result.getQuery().equals(query)) {// 是否是同一条
 
