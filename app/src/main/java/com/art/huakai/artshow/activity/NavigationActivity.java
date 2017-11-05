@@ -118,8 +118,8 @@ public class NavigationActivity extends BaseActivity {
         Log.e(TAG, "onCreate: toLatitude=="+toLatitude+"toLongitude=="+toLongitude );
         theatreName=intent.getStringExtra("theatreName");
         theatreLocation=intent.getStringExtra("theatreLocation");
-        toLatitude="39.98871";
-        toLongitude="116.43234";
+//        toLatitude="39.98871";
+//        toLongitude="116.43234";
 
 
     }

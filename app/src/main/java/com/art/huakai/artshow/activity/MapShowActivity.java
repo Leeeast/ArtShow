@@ -35,6 +35,7 @@ import java.util.Date;
 
 public class MapShowActivity extends Activity implements AMapLocationListener {
 
+    private String TAG="MapShowActivity";
     MapView mMapView = null;
     Marker marker;
     MarkerOptions markerOption;
@@ -102,7 +103,7 @@ public class MapShowActivity extends Activity implements AMapLocationListener {
             latLng = new LatLng(Double.parseDouble(toLatitude),Double.parseDouble(toLongitude));
             markerOption = new MarkerOptions();
             markerOption.position(latLng);
-//        markerOption.title("西安市").snippet("西安市：34.341568, 108.940174");
+             markerOption.title("西安市").snippet("西安市：34.341568, 108.940174");
             markerOption.draggable(true);//设置Marker可拖动
             markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                     .decodeResource(getResources(),R.mipmap.theatre_location)));
@@ -113,13 +114,13 @@ public class MapShowActivity extends Activity implements AMapLocationListener {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
+                    Log.e(TAG, "run: showInfoWindow" );
                     marker.showInfoWindow();
 
                 }
             },500);
         }catch (Exception e){
-
+            Log.e(TAG, "addMarker: " );
         }
 
 

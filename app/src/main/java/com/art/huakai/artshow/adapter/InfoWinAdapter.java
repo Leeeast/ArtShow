@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,8 +35,9 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
     private String toLatitude;
     private String toLongitude;
     private String theatreLocation;
-
-
+    private String TAG="InfoWinAdapter";
+    private TextView tv_theatre_name;
+    private TextView tv_theatre_location;
 
     private Context mContext;
     TextView imageView;
@@ -52,17 +54,18 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
 
     public InfoWinAdapter(Context mContext) {
         this.mContext = mContext;
-
     }
 
     @Override
     public View getInfoWindow(Marker marker) {
         initData();
         View view = initView();
+        Log.e(TAG, "getInfoWindow: toLatitude=="+toLatitude );
         return view;
     }
     @Override
     public View getInfoContents(Marker marker) {
+
         return null;
     }
 
@@ -75,6 +78,10 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
     @NonNull
     private View initView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_infowindow, null);
+        tv_theatre_name= (TextView) view.findViewById(R.id.tv_theatre_name);
+        tv_theatre_name.setText(theatreName);
+        tv_theatre_location= (TextView) view.findViewById(R.id.tv_theatre_location);
+        tv_theatre_location.setText(theatreLocation);
 
         imageView= (TextView) view.findViewById(R.id.tv_navigation);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +90,6 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
                 navigation();
             }
         });
-
 
         return view;
     }
