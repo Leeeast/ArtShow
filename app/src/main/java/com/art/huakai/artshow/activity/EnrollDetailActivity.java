@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
@@ -90,6 +92,7 @@ public class EnrollDetailActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private AdvertBean mAdvert;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -172,17 +175,19 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.rly_enroll_apply)
     public void enrollApply() {
-        if (mEnrollDetailInfo == null) {
-            showToast(getString(R.string.tip_data_error));
-            return;
+        if (LoginUtil.checkUserLogin(this, true)) {
+            if (mEnrollDetailInfo == null) {
+                showToast(getString(R.string.tip_data_error));
+                return;
+            }
+            if (mEnrollDetailInfo.enroll.orgOnly == 1 && LocalUserInfo.getInstance().getUserType() == 3) {
+                showToast(getString(R.string.tip_enroll_disjoin));
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(EnrollApplyActivity.PARAMS_ENROLL_DETAIL, mEnrollDetailInfo);
+            invokActivity(this, EnrollApplyActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_APPLY);
         }
-        if (mEnrollDetailInfo.enroll.orgOnly == 1 && LocalUserInfo.getInstance().getUserType() == 3) {
-            showToast(getString(R.string.tip_enroll_disjoin));
-            return;
-        }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(EnrollApplyActivity.PARAMS_ENROLL_DETAIL, mEnrollDetailInfo);
-        invokActivity(this, EnrollApplyActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_APPLY);
     }
 
     /**
