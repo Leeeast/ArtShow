@@ -64,8 +64,6 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     TextView tvTheatreName;
     @BindView(R.id.tv_theatre_kind)
     TextView tvTheatreKind;
-    @BindView(R.id.iv_authentication)
-    ImageView ivAuthentication;
     @BindView(R.id.tv_fee)
     TextView tvFee;
     @BindView(R.id.tv_producers)

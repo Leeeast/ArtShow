@@ -97,11 +97,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/DIMEN_20PX">
 
-                            <ImageView
-                                android:id="@+id/iv_authentication"
-                                android:layout_width="@dimen/DIMEN_25PX"
-                                android:layout_height="@dimen/DIMEN_25PX"
-                                android:src="@mipmap/authentication" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥"
+                                android:layout_gravity="bottom"
+                                android:textColor="#ff5a4b41"
+                                android:textSize="@dimen/DIMEN_14PX" />
 
                             <TextView
                                 android:id="@+id/tv_fee"
