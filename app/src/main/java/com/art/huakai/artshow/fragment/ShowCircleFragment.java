@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
 import com.art.huakai.artshow.activity.MainActivity;
+import com.art.huakai.artshow.activity.NewsDetailActivity;
 import com.art.huakai.artshow.activity.NewsShowActivity;
 import com.art.huakai.artshow.activity.PersonalDetailMessageActivity;
 import com.art.huakai.artshow.activity.TheatreDetailMessageActivity;
@@ -295,7 +296,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             industryNewsAdapter.setOnItemClickListener(new IndustryNewsAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
-                    Log.e(TAG, "onItemClickListener: position==" + position);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(NewsDetailActivity.PARAMS_NEWS_ID, homePageDetails.getNewses().get(position).getId());
+                    invokActivity(getContext(), NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
                 }
             });
 //              实现屏蔽recyclerview的滑动效果

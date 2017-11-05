@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -31,9 +31,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="52b1f89886dbdef550c0050d70c54f73">
-            //开发者申请的key
-        </meta-data>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="52b1f89886dbdef550c0050d70c54f73">
+            //开发者申请的key</meta-data>
 
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -194,6 +195,7 @@
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" />
+
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -225,6 +227,12 @@
 
         <activity
             android:name="com.art.huakai.artshow.activity.PioSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ADWebActivity"
             android:screenOrientation="portrait" />
 
     </application>

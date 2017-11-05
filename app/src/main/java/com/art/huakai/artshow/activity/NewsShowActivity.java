@@ -16,6 +16,7 @@ import com.art.huakai.artshow.adapter.KeywordSearchNewsAdapter;
 import com.art.huakai.artshow.adapter.NewsShowAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -55,20 +56,18 @@ public class NewsShowActivity extends BaseActivity implements View.OnClickListen
 
 
     private void setData() {
-
-
-            keywordSearchNewsAdapter = new NewsShowAdapter(this, newsesBeanList);
-            linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearlayoutManager);
-            recyclerView.setAdapter(keywordSearchNewsAdapter);
-            keywordSearchNewsAdapter.setOnItemClickListener(new NewsShowAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClickListener(int position) {
-
-                }
-            });
-
-
+        keywordSearchNewsAdapter = new NewsShowAdapter(this, newsesBeanList);
+        linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearlayoutManager);
+        recyclerView.setAdapter(keywordSearchNewsAdapter);
+        keywordSearchNewsAdapter.setOnItemClickListener(new NewsShowAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(NewsDetailActivity.PARAMS_NEWS_ID, newsesBeanList.get(position).getId());
+                invokActivity(NewsShowActivity.this, NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
+            }
+        });
     }
 
 
@@ -132,90 +131,90 @@ public class NewsShowActivity extends BaseActivity implements View.OnClickListen
     private void getList() {
 
         Map<String, String> params = new TreeMap<>();
-        params.put("page", page+"");
+        params.put("page", page + "");
         String sign = SignUtil.getSign(params);
-        Log.e(TAG, "getList: URL_GET_NEWS=="+Constant.URL_GET_NEWS );
+        Log.e(TAG, "getList: URL_GET_NEWS==" + Constant.URL_GET_NEWS);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
-        Log.e(TAG, "getList: params=="+params.toString() );
+        Log.e(TAG, "getList: params==" + params.toString());
         RequestUtil.request(true, Constant.URL_GET_NEWS, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (isSuccess){
-                    if(!TextUtils.isEmpty(obj)){
-                        Log.e(TAG, "onSuccess: obj=="+obj );
+                if (isSuccess) {
+                    if (!TextUtils.isEmpty(obj)) {
+                        Log.e(TAG, "onSuccess: obj==" + obj);
                         Gson gson = new Gson();
-                        ArrayList<NewsesBean> tempTheatres=new ArrayList<NewsesBean>();
+                        ArrayList<NewsesBean> tempTheatres = new ArrayList<NewsesBean>();
 //                        theatres.clear();
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<NewsesBean>>() {
                         }.getType());
-                        if(tempTheatres!=null&&tempTheatres.size()>0){
-                            Log.e(TAG, "onSuccess: 111111" );
-                            if(newsesBeanList.size()==0){
-                                Log.e(TAG, "onSuccess: 22222" );
-                                if(newsesBeanList.addAll(tempTheatres)){
+                        if (tempTheatres != null && tempTheatres.size() > 0) {
+                            Log.e(TAG, "onSuccess: 111111");
+                            if (newsesBeanList.size() == 0) {
+                                Log.e(TAG, "onSuccess: 22222");
+                                if (newsesBeanList.addAll(tempTheatres)) {
                                     uiHandler.sendEmptyMessage(0);
                                 }
                                 page++;
-                                Log.e(TAG, "onSuccess: page=="+page);
-                            }else{
-                                if(page==1){
-                                    Log.e(TAG, "onSuccess: 33333" );
+                                Log.e(TAG, "onSuccess: page==" + page);
+                            } else {
+                                if (page == 1) {
+                                    Log.e(TAG, "onSuccess: 33333");
                                     recyclerView.refreshComplete();
                                     newsesBeanList.clear();
-                                    if(newsesBeanList.addAll(tempTheatres)){
+                                    if (newsesBeanList.addAll(tempTheatres)) {
                                         uiHandler.sendEmptyMessage(0);
                                     }
-                                }else{
-                                    Log.e(TAG, "onSuccess: 444444" );
+                                } else {
+                                    Log.e(TAG, "onSuccess: 444444");
                                     recyclerView.loadMoreComplete();
                                     newsesBeanList.addAll(tempTheatres);
-                                    if(keywordSearchNewsAdapter!=null){
+                                    if (keywordSearchNewsAdapter != null) {
                                         keywordSearchNewsAdapter.add(tempTheatres);
                                     }
                                 }
                                 page++;
                             }
-                        }else{
-                            Log.e(TAG, "onSuccess: 55555" );
-                            if(newsesBeanList.size()==0){
-                                Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                            }else{
-                                if(page==1){
-                                    Log.e(TAG, "onSuccess: 刷新数据失败" );
+                        } else {
+                            Log.e(TAG, "onSuccess: 55555");
+                            if (newsesBeanList.size() == 0) {
+                                Log.e(TAG, "onSuccess: 首次加载数据失败");
+                            } else {
+                                if (page == 1) {
+                                    Log.e(TAG, "onSuccess: 刷新数据失败");
                                     recyclerView.refreshComplete();
-                                }else{
+                                } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
                         }
                         Log.e(TAG, "onSuccess: theatres.size==" + newsesBeanList.size());
-                    }else{
-                        Log.e(TAG, "onSuccess: 666666" );
-                        if(newsesBeanList.size()==0){
-                            Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                        }else{
-                            if(page==1){
+                    } else {
+                        Log.e(TAG, "onSuccess: 666666");
+                        if (newsesBeanList.size() == 0) {
+                            Log.e(TAG, "onSuccess: 首次加载数据失败");
+                        } else {
+                            if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败" );
-                            }else{
+                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                            } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                                Log.e(TAG, "onSuccess: 加载更多数据失败");
                             }
                         }
                     }
                 } else {
-                    if(newsesBeanList.size()==0){
-                        Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                    }else{
-                        if(page==1){
+                    if (newsesBeanList.size() == 0) {
+                        Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    } else {
+                        if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败" );
-                        }else{
+                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                        } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                            Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -225,15 +224,15 @@ public class NewsShowActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(newsesBeanList.size()==0){
-                    Log.e(TAG, "onSuccess: 首次加载数据失败" );
-                }else{
-                    if(page==1){
+                if (newsesBeanList.size() == 0) {
+                    Log.e(TAG, "onSuccess: 首次加载数据失败");
+                } else {
+                    if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败" );
-                    }else{
+                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                    } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败" );
+                        Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
 

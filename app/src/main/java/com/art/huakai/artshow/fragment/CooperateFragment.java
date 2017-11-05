@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.EnrollDetailActivity;
@@ -150,7 +148,7 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
             public void onItemClickListener(int position) {
                 if (mEnrollInfos.size() > 1) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(EnrollDetailActivity.PARAMS_ENROLL_DETAIL, mEnrollInfos.get(position));
+                    bundle.putSerializable(EnrollDetailActivity.PARAMS_ENROLL_ID, mEnrollInfos.get(position).id);
                     invokActivity(getContext(), EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
                 }
             }

@@ -1,9 +1,11 @@
 package com.art.huakai.artshow.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by lining on 2017/10/18.
  */
-public class NewsesBean {
+public class NewsesBean implements Serializable {
 
     /**
      * id : 8a999cce5e14535b015e18bb74e5001a

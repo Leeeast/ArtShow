@@ -22,9 +22,11 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -32,6 +34,7 @@ import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.sina.weibo.sdk.share.WbShareHandler;
 
 import java.util.List;
@@ -46,8 +49,9 @@ import okhttp3.Call;
 
 public class EnrollDetailActivity extends BaseActivity {
 
-    public static final String PARAMS_ENROLL_DETAIL = "PARAMS_ENROLL_DETAIL";
+    public static final String PARAMS_ENROLL_ID = "PARAMS_ENROLL_ID";
     public final int CODE_FILL_DATA = 10;
+    public final int CODE_FILL_AD = 11;
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -77,10 +81,13 @@ public class EnrollDetailActivity extends BaseActivity {
     RelativeLayout rLyEnrollApply;
     @BindView(R.id.tv_enroll_all_count)
     TextView tvEnrollAllCount;
+    @BindView(R.id.sdv_ad)
+    SimpleDraweeView sdvAD;
 
-    private EnrollInfo mEnrollInfo;
+    private String mEnrollId;
     private EnrollDetailInfo mEnrollDetailInfo;
     private ShowProgressDialog showProgressDialog;
+    private AdvertBean mAdvert;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -89,6 +96,9 @@ public class EnrollDetailActivity extends BaseActivity {
             switch (msg.what) {
                 case CODE_FILL_DATA:
                     fillData();
+                    break;
+                case CODE_FILL_AD:
+                    fillADData();
                     break;
             }
         }
@@ -112,9 +122,10 @@ public class EnrollDetailActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
-            mEnrollInfo = (EnrollInfo) extras.getSerializable(PARAMS_ENROLL_DETAIL);
+            mEnrollId = extras.getString(PARAMS_ENROLL_ID);
         }
         getEnrollDetail();
+        getAD();
         mShareHandler = ShareDialog.regToWeibo(this);
     }
 
@@ -158,6 +169,10 @@ public class EnrollDetailActivity extends BaseActivity {
      */
     @OnClick(R.id.rly_enroll_apply)
     public void enrollApply() {
+        if (mEnrollDetailInfo == null) {
+            showToast(getString(R.string.tip_data_error));
+            return;
+        }
         if (mEnrollDetailInfo.enroll.orgOnly == 1 && LocalUserInfo.getInstance().getUserType() == 3) {
             showToast(getString(R.string.tip_enroll_disjoin));
             return;
@@ -287,12 +302,12 @@ public class EnrollDetailActivity extends BaseActivity {
 
     //获取招募详情
     public void getEnrollDetail() {
-        if (mEnrollInfo == null) {
+        if (mEnrollId == null) {
             Toast.makeText(this, getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", mEnrollInfo.id);
+        params.put("id", mEnrollId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         showProgressDialog.show();
@@ -338,5 +353,45 @@ public class EnrollDetailActivity extends BaseActivity {
         if (shareDialog != null) {
             mShareHandler.doResultIntent(intent, shareDialog);
         }
+    }
+
+    //获取随机广告
+    public void getAD() {
+        RequestUtil.request(true, Constant.URL_ADVERT, null, 13, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    try {
+                        mAdvert = GsonTools.parseData(obj, AdvertBean.class);
+                        mHandler.sendEmptyMessage(CODE_FILL_AD);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+            }
+        });
+    }
+
+    /**
+     * 填充广告
+     */
+    private void fillADData() {
+        sdvAD.setImageURI(mAdvert.getLogo());
+    }
+
+    /**
+     * 跳转广告相应的内容
+     */
+    @OnClick(R.id.sdv_ad)
+    public void jumpAD() {
+        AdvertJumpUtil.invoke(this, this, mAdvert);
     }
 }

@@ -29,6 +29,15 @@ public class Constant {
     public static final String WB_APP_KEY = "35068881";
     public static final String WB_REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
 
+    public static final String AD_TYPE_THEATER = "theater";
+    public static final String AD_TYPE_TALENT = "talent";
+    public static final String AD_TYPE_REPERTORY = "repertory";
+    public static final String AD_TYPE_ENROLL = "enroll";
+    public static final String AD_TYPE_NEWS = "news";
+    public static final String AD_TYPE_HTTP = "http";
+    /**
+     * ==========================================================
+     */
     private static boolean isTestEnv = true;
     public static final String TEST_HOST = "http://139.224.47.213:8080";
     public static final String PRODUCE_HOST = "";
@@ -148,6 +157,8 @@ public class Constant {
     public static final String URL_USER_WXUNBIND = BASE_URL + "/user/wxunbind";
     //获取关于我们，等连接
     public static final String URL_INDEX_LINKS = BASE_URL + "/index/links";
+    //随机广告
+    public static final String URL_ADVERT = BASE_URL + "/advert";
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型
@@ -158,6 +169,8 @@ public class Constant {
     public static final String URL_GET_WORKS = BASE_URL + "/repertory/page";
     public static final String URL_GET_TALENTS = BASE_URL + "/talent/page";
     public static final String URL_GET_NEWS = BASE_URL + "/news/page";
+    //咨询详情
+    public static final String URL_GET_NEWS_DETAIL = BASE_URL + "/news/detail";
 
     public static final String URL_KEYWORD_SEARCH = BASE_URL + "/search";
     public static final String URL_KEYWORD_SEARCH_NEWS = BASE_URL + "/search/news";

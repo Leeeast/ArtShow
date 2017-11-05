@@ -40,6 +40,8 @@ public class JumpCode {
     public static final int FLAG_REQ_CREATE_PROJECT_IN_ENROLL = FLAG_REQ + 26;
     public static final int FLAG_REQ_CHECK_ENROLL = FLAG_REQ + 27;
     public static final int FLAG_REQ_LINK = FLAG_REQ + 28;
+    public static final int FLAG_REQ_NEWS_DETAIL = FLAG_REQ + 29;
+    public static final int FLAG_REQ_NEWS_WEBSITE = FLAG_REQ + 30;
 
 
     // 返回码,往下加1

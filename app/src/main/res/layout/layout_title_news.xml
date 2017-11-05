@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/DIMEN_50PX"
-    android:background="@color/whiteff">
+    android:layout_height="@dimen/DIMEN_50PX">
 
     <LinearLayout
         android:id="@+id/lly_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:clickable="true"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -25,7 +25,8 @@
             android:layout_marginLeft="@dimen/DIMEN_5PX"
             android:text="@string/common_back"
             android:textColor="@color/app_common_red"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <TextView
@@ -33,22 +34,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp"
-        android:maxLines="1"
-        android:text=""
+
+        android:ellipsize="end"
+        android:maxLength="15"
         android:textColor="@color/app_title"
         android:textSize="15sp"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tv_subtitle"
+    <FrameLayout
+        android:id="@+id/fly_right_img"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical|right"
-        android:layout_marginRight="@dimen/DIMEN_14PX"
-        android:text="@string/affirm_info"
-        android:textColor="@color/app_subtitle"
-        android:textSize="15sp"
-        android:visibility="gone" />
+        android:layout_marginRight="@dimen/DIMEN_15PX"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_right_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_more_horiz" />
+    </FrameLayout>
 </FrameLayout>
