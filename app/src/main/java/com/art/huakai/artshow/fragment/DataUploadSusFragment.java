@@ -42,7 +42,7 @@ public class DataUploadSusFragment extends BaseFragment implements View.OnClickL
     public void initView(View rootView) {
         TextView tvDataCommit = (TextView) rootView.findViewById(R.id.tv_data_commit);
         TextView tvDataCommitDes = (TextView) rootView.findViewById(R.id.tv_data_commit_des);
-        if (mUserStatus == LocalUserInfo.USER_STATUS_IDENTIFY_SUC) {
+        if (mUserStatus == LocalUserInfo.USER_AUTH_PASS) {
             tvDataCommit.setText(R.string.data_check_success);
             tvDataCommitDes.setText(R.string.data_check_success_des);
         } else {

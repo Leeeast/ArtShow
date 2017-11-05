@@ -12,6 +12,11 @@ public class LocalUserInfo {
             USER_STATUS_UNFILL_DATA = 1,
             USER_STATUS_UNIDENTIFY = 2,
             USER_STATUS_IDENTIFY_SUC = 3;
+    public static final int
+            USER_UNAUTH = 0,
+            USER_AUTHING = 1,
+            USER_AUTH_FAIL = 2,
+            USER_AUTH_PASS = 3;
     //用户类型
     public static final int
             USER_TYPE_PERSONAL = 3,

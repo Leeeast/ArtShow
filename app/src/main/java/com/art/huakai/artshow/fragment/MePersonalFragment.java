@@ -4,12 +4,16 @@ package com.art.huakai.artshow.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.DataUploadActivity;
 import com.art.huakai.artshow.activity.ResumeEditActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.utils.AuthStatusUtil;
+
+import butterknife.BindView;
 
 
 /**
@@ -17,6 +21,9 @@ import com.art.huakai.artshow.constant.JumpCode;
  * Created by lidongliang on 2017/9/27.
  */
 public class MePersonalFragment extends BaseFragment implements View.OnClickListener {
+
+    @BindView(R.id.tv_auth)
+    TextView tvAuth;
 
     public MePersonalFragment() {
         // Required empty public constructor
@@ -45,7 +52,8 @@ public class MePersonalFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void setView() {
-
+        String authDes = AuthStatusUtil.getAuthDes();
+        tvAuth.setText(authDes);
     }
 
     @Override

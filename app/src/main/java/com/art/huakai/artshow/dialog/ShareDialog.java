@@ -249,7 +249,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
 
     @OnClick(R.id.fly_share_qq)
     public void shareQQ() {
-
+        showToast("攻城狮正在努力开发中");
     }
 
     @OnClick(R.id.fly_share_sina_weibo)

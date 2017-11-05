@@ -45,14 +45,15 @@ public class DataUploadActivity extends BaseActivity {
             Bundle extras = intent.getExtras();
             mFrom = extras.getString(PARAMS_FROM, DataUploadFragment.FROM_LOGIN);
         }
-        mUserStatus = LocalUserInfo.getInstance().getStatus();
-        mUserStatus = LocalUserInfo.USER_STATUS_UNIDENTIFY;
+        mUserStatus = LocalUserInfo.getInstance().getAuthenStatus();
         switch (mUserStatus) {
-            case LocalUserInfo.USER_STATUS_UNIDENTIFY:
+            case LocalUserInfo.USER_UNAUTH:
+            case LocalUserInfo.USER_AUTH_FAIL:
                 DataUploadFragment dataUploadFragment = DataUploadFragment.newInstance(mFrom);
                 initFragment(dataUploadFragment);
                 break;
-            case LocalUserInfo.USER_STATUS_IDENTIFY_SUC:
+            case LocalUserInfo.USER_AUTHING:
+            case LocalUserInfo.USER_AUTH_PASS:
                 DataUploadSusFragment dataUploadSusFragment = DataUploadSusFragment.newInstance();
                 initFragment(dataUploadSusFragment);
                 break;

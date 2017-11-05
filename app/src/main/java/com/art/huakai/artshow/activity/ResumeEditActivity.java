@@ -16,8 +16,10 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
+import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
@@ -74,6 +76,7 @@ public class ResumeEditActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private TalentDetailInfo talentInfo;
     private boolean mIsNewCreate;
+    private RequestCall requestCallList;
 
     @Override
     public void immerseStatusBar() {
@@ -91,14 +94,66 @@ public class ResumeEditActivity extends BaseActivity {
         showProgressDialog = new ShowProgressDialog(this);
         talentInfo = TalentDetailInfo.getInstance();
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            mIsNewCreate = extras.getBoolean(PARAMS_NEW, true);
-        }
-        if (mIsNewCreate) {
-            initTalentDetailInfo();
+        if (LocalUserInfo.getInstance().getUserType() == LocalUserInfo.USER_TYPE_PERSONAL) {
+            loadTalentData();
         } else {
-            getTalentDetailInfo(TalentDetailInfo.getInstance().getId());
+            if (extras != null) {
+                mIsNewCreate = extras.getBoolean(PARAMS_NEW, true);
+            }
+            if (mIsNewCreate) {
+                initTalentDetailInfo();
+            } else {
+                getTalentDetailInfo(TalentDetailInfo.getInstance().getId());
+            }
         }
+    }
+
+    /**
+     * 加人才简历列表数据
+     */
+    private void loadTalentData() {
+        Map<String, String> params = new TreeMap<>();
+        params.put("userId", LocalUserInfo.getInstance().getId());
+        params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
+        params.put("page", "1");
+        params.put("size", String.valueOf(Constant.COUNT_PER_PAGE));
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        LogUtil.i(TAG, "params = " + params);
+        showProgressDialog.show();
+        requestCallList = RequestUtil.request(true, Constant.URL_USER_TALENT, params, 60, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+                if (isSuccess) {
+                    try {
+                        List<TalentBean> talents = GsonTools.parseDatas(obj, TalentBean.class);
+                        LogUtil.i(TAG, "talents.size = " + talents.size());
+                        if (talents.size() > 0) {
+                            String talentId = talents.get(0).getId();
+                            getTalentDetailInfo(talentId);
+                        } else {
+                            initTalentDetailInfo();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if (showProgressDialog.isShowing()) {
+                    showProgressDialog.dismiss();
+                }
+            }
+        });
     }
 
     @Override
@@ -558,5 +613,8 @@ public class ResumeEditActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if (requestCallList != null) {
+            requestCallList.cancel();
+        }
     }
 }

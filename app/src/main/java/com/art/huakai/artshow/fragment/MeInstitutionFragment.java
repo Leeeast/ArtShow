@@ -13,6 +13,7 @@ import com.art.huakai.artshow.activity.TheatreActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.utils.AuthStatusUtil;
 import com.art.huakai.artshow.widget.SettingItem;
 
 
@@ -76,13 +77,15 @@ public class MeInstitutionFragment extends BaseFragment implements View.OnClickL
                 getString(R.string.institution_upload_project) :
                 String.valueOf(localUserInfo.getRepertoryCount());
         itemMyProject.setDesText(projectDes);
+
+        String authDes = AuthStatusUtil.getAuthDes();
+        itemAuth.setDesText(authDes);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_institution_auth:
-                //if(LocalUserInfo.getInstance().getAuthenStatus()==)
                 Bundle bundle = new Bundle();
                 bundle.putString(DataUploadActivity.PARAMS_FROM, DataUploadFragment.FROM_ME);
                 invokActivity(getContext(), DataUploadActivity.class, bundle, JumpCode.FLAG_REQ_DATA_UPLOAD);

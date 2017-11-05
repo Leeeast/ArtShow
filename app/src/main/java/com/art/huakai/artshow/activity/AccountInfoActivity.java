@@ -2,6 +2,7 @@ package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Animatable;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
@@ -16,7 +17,9 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
+import com.art.huakai.artshow.fragment.DataUploadFragment;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
+import com.art.huakai.artshow.utils.AuthStatusUtil;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -59,6 +62,10 @@ public class AccountInfoActivity extends BaseActivity {
     TextView tvAccountName;
     @BindView(R.id.sdv_avatar)
     SimpleDraweeView sdvAvatar;
+    @BindView(R.id.tv_account_type)
+    TextView tvAccountType;
+    @BindView(R.id.tv_auth_status)
+    TextView tvAuthStatus;
 
     private TakePhotoDialog takePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -89,6 +96,13 @@ public class AccountInfoActivity extends BaseActivity {
     public void initView() {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.set_account_info);
+        if (LocalUserInfo.getInstance().getUserType() == LocalUserInfo.USER_TYPE_PERSONAL) {
+            tvAccountType.setText(R.string.account_type_personal);
+        } else {
+            tvAccountType.setText(R.string.account_type_institution);
+        }
+        String authDes = AuthStatusUtil.getAuthDes();
+        tvAuthStatus.setText(authDes);
     }
 
     @Override
@@ -129,7 +143,9 @@ public class AccountInfoActivity extends BaseActivity {
      */
     @OnClick(R.id.rly_account_auth)
     public void accountAuth() {
-        invokActivity(this, DataUploadActivity.class, null, JumpCode.FLAG_REQ_DATA_UPLOAD);
+        Bundle bundle = new Bundle();
+        bundle.putString(DataUploadActivity.PARAMS_FROM, DataUploadFragment.FROM_ME);
+        invokActivity(this, DataUploadActivity.class, bundle, JumpCode.FLAG_REQ_DATA_UPLOAD);
     }
 
     /**

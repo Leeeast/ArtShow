@@ -73,7 +73,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     }
 
     /**
-     * 加载剧场数据
+     * 加人才简历列表数据
      *
      * @param page
      */

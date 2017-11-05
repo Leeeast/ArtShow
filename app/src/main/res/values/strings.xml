@@ -237,8 +237,10 @@
     <string name="account_data_commit_check">提&#160;交&#160;去&#160;审&#160;核</string>
     <string name="account_bind_wachat">微信绑定</string>
     <string name="cache_clear_suc">缓存清除成功</string>
-    <string name="account_authed">已认证</string>
+    <string name="account_authed">审核通过</string>
     <string name="account_unauth">未认证</string>
+    <string name="account_authing">认证中</string>
+    <string name="account_auth_fail">审核驳回</string>
     <string name="account_change_pwd">修改密码</string>
     <string name="account_change_account_pwd">修改帐号密码</string>
     <string name="account_change_confirm">确&#160;认&#160;修&#160;改</string>
