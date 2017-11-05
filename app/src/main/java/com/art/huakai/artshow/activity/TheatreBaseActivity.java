@@ -294,7 +294,7 @@ public class TheatreBaseActivity extends BaseActivity {
             mAddressLatitude = data.getStringExtra(RESULT_ADDRESS_LATITUDE);
             mAddressLongitude = data.getStringExtra(RESULT_ADDRESS_LONGITUDE);
 
-            edtTheatreDetailAddress.setText(mAddressLatitude);
+            edtTheatreDetailAddress.setText(mAddressName);
         }
     }
 }

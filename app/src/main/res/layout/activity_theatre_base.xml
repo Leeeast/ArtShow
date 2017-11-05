@@ -217,7 +217,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_arrow_city"
-                    android:hint="@string/theatre_data_unfill"
                     android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
                     android:textSize="17sp" />
