@@ -26,11 +26,19 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
     private String theatreName;
     private String toLatitude;
     private String toLongitude;
+    private String theatreLocation;
 
 
 
     private Context mContext;
     ImageView imageView;
+
+
+    private void setParams(String fromLatitude,String fromLongitude){
+
+
+    }
+
 
     public InfoWinAdapter(Context mContext) {
         this.mContext = mContext;
