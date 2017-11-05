@@ -21,9 +21,9 @@ import java.util.List;
 /**
  * Created by lining on 2017/10/10.
  */
-public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder>  {
+public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder> {
 
-    private static final String TAG="StaggerAdapter";
+    private static final String TAG = "StaggerAdapter";
     private List<PicturesBean> datas;
     private Context context;
     private int itemWidth;
@@ -33,13 +33,13 @@ public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder
     public StaggerAdapter(List<PicturesBean> data, Context context, int itemWidth) {
         this.datas = data;
         this.context = context;
-        this.itemWidth=itemWidth;
+        this.itemWidth = itemWidth;
     }
 
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.stagger_item,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.stagger_item, null);
         MyHolder myHolder = new MyHolder(view);
         return myHolder;
     }
@@ -47,42 +47,37 @@ public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder
     @Override
     public void onBindViewHolder(final MyHolder holder, final int position) {
 
-        if(!TextUtils.isEmpty(datas.get(position).getMasterUrl())){
+        if (!TextUtils.isEmpty(datas.get(position).getMasterUrl())) {
             try {
-                RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(itemWidth, (int) (datas.get(position).getHeight()/datas.get(position).getWidth()*itemWidth));
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (datas.get(position).getHeight() / datas.get(position).getWidth() * itemWidth));
                 holder.chinaShowImageView.setLayoutParams(lp);
                 holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
-                return;
-            }catch (Exception e){
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
 //            holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
-
-            holder.chinaShowImageView.setImage(Uri.parse(datas.get(position).getMasterUrl()),context, new ChinaShowImageView.ImgScaleResultListener() {
+            holder.chinaShowImageView.setImage(Uri.parse(datas.get(position).getMasterUrl()), context, new ChinaShowImageView.ImgScaleResultListener() {
                 @Override
                 public void imgSize(int width, int height) {
-                    float a=height;
-                    Log.e(TAG, "imgSize: width=="+width+"--height=="+height );
-                    Log.e(TAG, "imgSize:cutWidth== "+itemWidth +"--cutHeigth=="+a/width*itemWidth);
+                    float a = height;
+                    Log.e(TAG, "imgSize: width==" + width + "--height==" + height);
+                    Log.e(TAG, "imgSize:cutWidth== " + itemWidth + "--cutHeigth==" + a / width * itemWidth);
 
-                    RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(itemWidth, (int) (a/width*itemWidth));
+                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (a / width * itemWidth));
                     holder.chinaShowImageView.setLayoutParams(lp);
                 }
-            },holder.chinaShowImageView);
+            }, holder.chinaShowImageView);
         }
-
-
         holder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG, "onItemClickListener: position=="+position );
-                if(onItemClickListener!=null){
+                Log.e(TAG, "onItemClickListener: position==" + position);
+                if (onItemClickListener != null) {
                     onItemClickListener.onItemClickListener(position);
                 }
             }
         });
-}
+    }
 
     @Override
     public int getItemCount() {
@@ -92,17 +87,18 @@ public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder
 
     public class MyHolder extends RecyclerView.ViewHolder {
         private ChinaShowImageView chinaShowImageView;
+
         public MyHolder(View view) {
             super(view);
             chinaShowImageView = (ChinaShowImageView) view.findViewById(R.id.csiv);
         }
     }
 
-    public  void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener=onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
-    public interface  OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClickListener(int position);
     }
 

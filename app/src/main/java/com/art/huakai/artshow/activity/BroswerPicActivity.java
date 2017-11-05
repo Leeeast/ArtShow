@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
@@ -19,7 +20,9 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.imagepipeline.image.ImageInfo;
+
 import java.util.ArrayList;
+
 import butterknife.BindView;
 
 public class BroswerPicActivity extends BaseActivity {
@@ -34,6 +37,7 @@ public class BroswerPicActivity extends BaseActivity {
 
     @Override
     public void immerseStatusBar() {
+        ImmerseStatusBar.myStatusBar(this);
         ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
     }
 
@@ -59,28 +63,32 @@ public class BroswerPicActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent=getIntent();
-        lists= intent.getStringArrayListExtra("list");
-        lastPosition=intent.getIntExtra("position",0);
-        Log.e(TAG, "onCreate: size=="+lists.size()+"--position=="+lastPosition );
+        Intent intent = getIntent();
+        lists = intent.getStringArrayListExtra("list");
+        lastPosition = intent.getIntExtra("position", 0);
+        Log.e(TAG, "onCreate: size==" + lists.size() + "--position==" + lastPosition);
         setData();
     }
 
     public class DraweePagerAdapter extends PagerAdapter {
 
-        @Override public int getCount() {
+        @Override
+        public int getCount() {
             return lists.size();
         }
 
-        @Override public boolean isViewFromObject(View view, Object object) {
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
             return view == object;
         }
 
-        @Override public void destroyItem(ViewGroup container, int position, Object object) {
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
 
-        @Override public Object instantiateItem(final ViewGroup viewGroup, int position) {
+        @Override
+        public Object instantiateItem(final ViewGroup viewGroup, int position) {
             final PhotoDraweeView photoDraweeView = new PhotoDraweeView(viewGroup.getContext());
             PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
             controller.setUri(Uri.parse(lists.get(position)));
@@ -92,7 +100,7 @@ public class BroswerPicActivity extends BaseActivity {
                     if (imageInfo == null) {
                         return;
                     }
-                    Log.e(TAG, "onFinalImageSet: getWidth==" +imageInfo.getWidth()+"--getHeight=="+imageInfo.getHeight());
+                    Log.e(TAG, "onFinalImageSet: getWidth==" + imageInfo.getWidth() + "--getHeight==" + imageInfo.getHeight());
                     photoDraweeView.update(imageInfo.getWidth(), imageInfo.getHeight());
                 }
             });
@@ -109,19 +117,19 @@ public class BroswerPicActivity extends BaseActivity {
     }
 
 
-    private void setData(){
+    private void setData() {
 
 
-        for(int i=0;i<lists.size();i++){
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(25,25);
-            if(i!=0){
-                layoutParams.leftMargin=15;
+        for (int i = 0; i < lists.size(); i++) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(25, 25);
+            if (i != 0) {
+                layoutParams.leftMargin = 15;
             }
-            View viewone=new View(BroswerPicActivity.this);
+            View viewone = new View(BroswerPicActivity.this);
             viewone.setLayoutParams(layoutParams);
-            if(lastPosition==i){
+            if (lastPosition == i) {
                 viewone.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
-            }else{
+            } else {
                 viewone.setBackgroundResource(R.drawable.shape_bg_grey_circle);
             }
             ll.addView(viewone);
@@ -133,17 +141,18 @@ public class BroswerPicActivity extends BaseActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
 
-                if(lastPosition!=-1){
-                    View view=ll.getChildAt(lastPosition);
+                if (lastPosition != -1) {
+                    View view = ll.getChildAt(lastPosition);
                     view.setBackgroundResource(R.drawable.shape_bg_grey_circle);
                 }
 
-                View view=ll.getChildAt(position);
+                View view = ll.getChildAt(position);
                 view.setBackgroundResource(R.drawable.shape_bg_yellow_circle);
-                lastPosition=position;
+                lastPosition = position;
             }
 
             @Override
@@ -153,9 +162,9 @@ public class BroswerPicActivity extends BaseActivity {
         });
 
         viewPager.setAdapter(new DraweePagerAdapter());
-        if(lastPosition>0){
+        if (lastPosition > 0) {
             viewPager.setCurrentItem(lastPosition);
-        }else{
+        } else {
             viewPager.setCurrentItem(0);
         }
 

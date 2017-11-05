@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.BroswerPicActivity;
@@ -58,6 +59,17 @@ public class StaggerFragment extends HeaderViewPagerFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.btn_click).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "sdfasdfasfasdf", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
     public View getScrollableView() {
         return mRecyclerView;
     }
@@ -68,6 +80,14 @@ public class StaggerFragment extends HeaderViewPagerFragment {
         adpter = new StaggerAdapter(lists, getContext(), itemWidth);
         decoration = new SpacesItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_20PX));
         mRecyclerView.addItemDecoration(decoration);
+        mRecyclerView.requestFocus();
+        mRecyclerView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getContext(), "sdfasdfasdfasdf", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
         adpter.setOnItemClickListener(new StaggerAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
