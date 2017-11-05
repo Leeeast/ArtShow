@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.fragment;
 
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.EnrollDetailActivity;
+import com.art.huakai.artshow.activity.KeywordSearchNewsActivity;
 import com.art.huakai.artshow.adapter.CooperateAdapter;
 import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
@@ -165,5 +168,13 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
     public void onLoadMore() {
         ++mPage;
         loadEnrollData(mPage);
+    }
+
+    @OnClick(R.id.tv_search)
+    public void enrollSearch() {
+        Intent intent = new Intent(getContext(), KeywordSearchNewsActivity.class);
+        intent.putExtra("searchType", KeywordSearchNewsActivity.ENROLL);
+        intent.putExtra("keyword", "*");
+        startActivity(intent);
     }
 }

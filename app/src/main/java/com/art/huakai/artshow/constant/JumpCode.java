@@ -43,6 +43,7 @@ public class JumpCode {
     public static final int FLAG_REQ_NEWS_DETAIL = FLAG_REQ + 29;
     public static final int FLAG_REQ_NEWS_WEBSITE = FLAG_REQ + 30;
     public static final int FLAG_REQ_ADDRESS_SELECT = FLAG_REQ + 31;
+    public static final int FLAG_REQ_SEARCH = FLAG_REQ + 32;
 
 
     // 返回码,往下加1

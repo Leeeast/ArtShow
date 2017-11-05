@@ -47,6 +47,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
 
 
     private static final String NEWS = "news";
+    public static final String ENROLL = "enroll";
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
     @BindView(R.id.tv_title)
@@ -182,7 +183,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
                 } else {
                     ToastUtils.showToast(KeywordSearchNewsActivity.this, 20, "请输入内容");
                 }
-                newSearch=true;
+                newSearch = true;
                 break;
         }
     }
@@ -221,6 +222,8 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
         if (searchType.equals(NEWS)) {
 //            资讯
             url = Constant.URL_KEYWORD_SEARCH_NEWS;
+        } else if (searchType.equals(ENROLL)) {
+            url = Constant.URL_KEYWORD_SEARCH_ENROLL;
         }
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
@@ -228,10 +231,10 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
 
-               if(newSearch){
-                   newsesBeanList.clear();
-               }
-                newSearch=false;
+                if (newSearch) {
+                    newsesBeanList.clear();
+                }
+                newSearch = false;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -322,7 +325,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(newSearch){
+                if (newSearch) {
                     newsesBeanList.clear();
                 }
                 newSearch = false;
