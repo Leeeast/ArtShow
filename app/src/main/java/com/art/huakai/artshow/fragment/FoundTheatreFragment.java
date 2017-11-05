@@ -30,6 +30,8 @@ import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.utils.AnimUtils;
+import com.art.huakai.artshow.utils.CitySelectUtil;
+import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -49,6 +51,9 @@ import java.util.TreeMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.qqtheme.framework.entity.ProvinceBean;
+import cn.qqtheme.framework.picker.ProvincePicker;
+import cn.qqtheme.framework.widget.WheelView;
 import okhttp3.Call;
 
 public class FoundTheatreFragment extends BaseFragment implements View.OnClickListener, SmartRecyclerview.LoadingListener {
@@ -97,6 +102,8 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private ArrayList <String> months=new ArrayList<String>();
     private ArrayList <String>lists=new ArrayList<String>();
     private int monthPosition=-1;
+    private String address;
+    private String mRegionId;
 
     public FoundTheatreFragment() {
         // Required empty public constructor
@@ -178,6 +185,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         mLayoutInflater = inflater;
         unbinder = ButterKnife.bind(this, rootView);
+        showCityDialog();
         return rootView;
     }
 
@@ -201,6 +209,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                 tvFilter.setTextColor(0xff5a4b41);
                 ivFiter.setImageResource(R.mipmap.filter_default);
 
+                showAddressSelect();
                 break;
 
             case R.id.ll_complex_ranking:
@@ -496,6 +505,9 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             String month=months.get(monthPosition);
             params.put("enabledMonth",month.substring(0,4)+"-"+lists.get(monthPosition));
         }
+        if(!TextUtils.isEmpty(mRegionId)){
+            params.put("regionId", mRegionId);
+        }
 
         params.put("page", page + "");
         String sign = SignUtil.getSign(params);
@@ -646,10 +658,60 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             }
             lists.add(""+month);
         }
+    }
 
 
+    private void showCityDialog(){
+
+        CitySelectUtil.getCityJson(new CitySelectUtil.CityDataRequestListener() {
+            @Override
+            public void onSuccess(String s) {
+                address=s;
+//                showAddressSelect(s);
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+
+    }
 
 
+    public void showAddressSelect() {
+        if(TextUtils.isEmpty(address)){
+            showCityDialog();
+            return;
+        }
+        try {
+            List<ProvinceBean> provinceBeen = GsonTools.parseDatas(address, ProvinceBean.class);
+            final ProvincePicker picker = new ProvincePicker(getActivity(), provinceBeen);
+            picker.setDividerRatio(WheelView.DividerConfig.FILL);
+            picker.setCanceledOnTouchOutside(false);
+            picker.setCycleDisable(true);
+            picker.setSelectedIndex(0);
+            picker.setAnimationStyle(R.style.Animation_CustomPopup);
+            picker.setTextSize(23);
+
+            WheelView.DividerConfig dividerConfig = new WheelView.DividerConfig();
+            dividerConfig.setRatio(WheelView.DividerConfig.FILL);
+            dividerConfig.setThick(1);
+            picker.setDividerConfig(dividerConfig);
+            picker.setOnItemPickListener(new ProvincePicker.OnItemProvincePickListener() {
+                @Override
+                public void onPicked(String province, String city, int regionId) {
+//                    tvLiveCity.setText(province + "  " + city);
+                    mRegionId = String.valueOf(regionId);
+                    page = 1;
+                    getList();
+                }
+            });
+            picker.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

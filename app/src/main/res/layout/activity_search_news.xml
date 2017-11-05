@@ -69,7 +69,7 @@
               android:clickable="true"
               android:layout_gravity="center_vertical"
               android:layout_marginRight="@dimen/DIMEN_14PX"
-              android:src="@mipmap/icon_accout"
+              android:src="@mipmap/search_clean"
               />
       </LinearLayout>
   </RelativeLayout>
@@ -117,17 +117,19 @@
                 android:textSize="@dimen/DIMEN_14PX"
                 android:textColor="#ffc0c6d1"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:visibility="invisible"
                 />
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_25PX"/>
+                android:layout_height="@dimen/DIMEN_25PX"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/tv_search_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
-                android:layout_marginTop="@dimen/DIMEN_20PX"
                 android:text="项目" />
 
             <com.art.huakai.artshow.widget.SmartRecyclerview

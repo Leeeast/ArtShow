@@ -287,7 +287,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 }
                 intent.putExtra("theatreName",theatreDetailBean.getName());
                 intent.putExtra("theatreLocation",theatreDetailBean.getAddress());
-                intent.setClass(TheatreDetailMessageActivity.this, MapShowActivity.class);
+                intent.setClass(TheatreDetailMessageActivity.this, NavigationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_check_ticket_area:

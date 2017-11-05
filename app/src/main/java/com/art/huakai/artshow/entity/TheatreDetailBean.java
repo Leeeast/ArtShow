@@ -465,7 +465,7 @@ public class TheatreDetailBean implements Serializable{
     }
 
 
-    public static class DisabledDatesBean {
+    public static class DisabledDatesBean implements Serializable{
         /**
          * theaterId : null
          * date : 1509292800000
