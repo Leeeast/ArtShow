@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
+import com.art.huakai.artshow.activity.KeywordSearchNewsAllResultShowActivity;
+import com.art.huakai.artshow.activity.KeywordSearchNewsResultShowActivity;
 import com.art.huakai.artshow.activity.MainActivity;
 import com.art.huakai.artshow.activity.NewsDetailActivity;
 import com.art.huakai.artshow.activity.NewsShowActivity;
@@ -455,13 +457,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         MainActivity mainActivity = (MainActivity) getActivity();
         if (v.getId() == R.id.tv_one_whole) {
             if (null != mainActivity) {
-//                mainActivity.setWholeItemPosition(1);
-//                mainActivity.setCheckId(R.id.rdobtn_me);
 
-//                Intent intent = new Intent(getContext(), SearchNewsActivity.class);
-//                startActivity(intent);
-
-                Intent intent = new Intent(getContext(), NewsShowActivity.class);
+                Intent intent = new Intent(getContext(), KeywordSearchNewsAllResultShowActivity.class);
+                intent.putExtra("searchType", "news");
+                intent.putExtra("keyword", "*");
                 startActivity(intent);
 
             }

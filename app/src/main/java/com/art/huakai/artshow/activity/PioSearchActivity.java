@@ -1,12 +1,17 @@
 package com.art.huakai.artshow.activity;
 
 
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -17,30 +22,63 @@ import com.amap.api.services.core.SuggestionCity;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.LookingWorksAdapter;
+import com.art.huakai.artshow.adapter.PioSearchAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.widget.SmartRecyclerview;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener {
+public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener ,View.OnClickListener, SmartRecyclerview.LoadingListener{
 
 
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
     @BindView(R.id.edt_search)
     EditText edtSearch;
-    @BindView(R.id.rcv)
-    RecyclerView rcv;
+    @BindView(R.id.recyclerView)
+    SmartRecyclerview recyclerView;
     private PoiSearch poiSearch;
     private PoiItem mPoi;
     PoiSearch.Query query;
     private PoiResult poiResult; // poi返回的结果
     private int currentPage = 0;// 当前页面，从0开始计数
-
     private String location="朝阳";
+    private ArrayList<com.amap.api.services.core.PoiItem>poiItems=new ArrayList<com.amap.api.services.core.PoiItem>();
+    private LinearLayoutManager linearlayoutManager;
+    private PioSearchAdapter pioSearchAdapter;
+    private boolean isLoadingMore=false;
 
+    private Handler uiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+                setData();
+            }
+        }
+    };
+    private Runnable searchRunnable;
+
+
+    private void setData() {
+
+        linearlayoutManager = new LinearLayoutManager(PioSearchActivity.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearlayoutManager);
+        pioSearchAdapter = new PioSearchAdapter(PioSearchActivity.this, poiItems);
+        recyclerView.setAdapter(pioSearchAdapter);
+        pioSearchAdapter.setOnItemClickListener(new PioSearchAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                poiItems.get(position).getTitle();
+                poiItems.get(position).getLatLonPoint().getLatitude();
+                poiItems.get(position).getLatLonPoint().getLongitude();
+            }
+        });
+    }
 
     @Override
     public void immerseStatusBar() {
@@ -55,7 +93,13 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
     @Override
     public void initData() {
 
-        doSearchQuery();
+        searchRunnable=new Runnable() {
+            @Override
+            public void run() {
+                doSearchQuery();;
+            }
+        };
+//        doSearchQuery();
 
     }
 
@@ -73,6 +117,8 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
 
     @Override
     public void initView() {
+
+        recyclerView.setLoadingListener(this);
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -86,9 +132,10 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
 
             @Override
             public void afterTextChanged(Editable s) {
-                currentPage=0;
                 location=edtSearch.getText().toString().trim();
-
+                currentPage=0;
+                uiHandler.removeCallbacks(searchRunnable);
+                uiHandler.postDelayed(searchRunnable,500);
             }
         });
     }
@@ -97,26 +144,49 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
     public void setView() {
 
     }
-
     @Override
     public void onPoiSearched(PoiResult result, int rCode) {
         Toast.makeText(PioSearchActivity.this,rCode+"",Toast.LENGTH_SHORT).show();
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
             if (result != null && result.getQuery() != null) {// 搜索poi的结果
                 if (result.getQuery().equals(query)) {// 是否是同一条
-                    poiResult = result;
-                    // 取得搜索到的poiitems有多少页
-                    List<com.amap.api.services.core.PoiItem> poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从数字0开始
-                    for (int i = 0; i < poiItems.size(); i++) {
 
+                    Log.e(TAG, "onPoiSearched: 是同一条搜索" );
+                    for (int i = 0; i < poiItems.size(); i++) {
                         Log.e(TAG, "onPoiSearched: "+poiItems.get(i).getDirection()+"---"+poiItems.get(i).getAdName()+"--"+poiItems.get(i).getBusinessArea());
                         Log.d(TAG, "onPoiSearched: getAdName==" + poiItems.get(i).toString());
                         Log.e(TAG, "onPoiSearched: " + poiItems.get(i).getLatLonPoint().getLatitude() + "--" + poiItems.get(i).getLatLonPoint().getLongitude());
-
                     }
-                    List<SuggestionCity> suggestionCities = poiResult
-                            .getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
+                    if(poiItems.size()==0){
+                        poiItems=poiResult.getPois();
+                        if(poiItems.size()>0){
+                            uiHandler.sendEmptyMessage(0);
+                            return;
+                        }else{
+                            Log.e(TAG, "onPoiSearched: 初次加载数据失败" );
+                        }
+                    }else{
+                        if(poiResult.getPois().size()>0){
+                            pioSearchAdapter.add(poiResult.getPois());
+                        }else{
+                            Log.e(TAG, "onPoiSearched: 已无更多数据" );
+                        }
+                    }
+                }else{
+                    poiItems.clear();
+                    poiItems=poiResult.getPois();
+                    if(poiItems.size()>0){
+                        uiHandler.sendEmptyMessage(0);
+                        return;
+                    }
+                    Log.e(TAG, "onPoiSearched: 初次加载数据失败" );
                 }
+            }
+        }else{
+            if(isLoadingMore){
+                Log.e(TAG, "onPoiSearched: 加载更多失败" );
+            }else{
+                Log.e(TAG, "onPoiSearched: 初次加载失败" );
             }
         }
     }
@@ -126,11 +196,27 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        currentPage=0;
+        doSearchQuery();
+    }
+
+    @Override
+    public void onLoadMore() {
+        isLoadingMore=true;
+        doSearchQuery();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

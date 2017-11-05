@@ -235,6 +235,16 @@
             android:name=".activity.ADWebActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.art.huakai.artshow.activity.KeywordSearchNewsAllResultShowActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.art.huakai.artshow.activity.KeywordSearchNewsActivity"
+            android:screenOrientation="portrait" />
+
+
+
     </application>
 
 </manifest>
