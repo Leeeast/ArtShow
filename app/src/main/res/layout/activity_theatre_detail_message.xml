@@ -52,6 +52,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/DIMEN_20PX"
                     android:orientation="horizontal">
 
                     <com.art.huakai.artshow.widget.ChinaShowImageView
@@ -337,8 +338,6 @@
                     />
 
 
-
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -354,11 +353,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_14PX"
                     android:layout_marginRight="@dimen/DIMEN_14PX"
-                    android:layout_marginTop="@dimen/DIMEN_6PX"
+                    android:layout_marginTop="@dimen/DIMEN_13PX"
                     android:text="Occupying floors 51-59, this spacious suite enjoys beautiful views of Bangkok City and Chao Phraya River. It includes an LCD TV, free soft drinks from the minibar and Nespresso coffee machine. A bathroom has a separate bathtub and luxurious bath toiletries."
                     android:textColor="#ff928470"
                     android:textSize="@dimen/DIMEN_14PX"
-
+                    android:paddingBottom="@dimen/DIMEN_30PX"
                     />
 
             </LinearLayout>
