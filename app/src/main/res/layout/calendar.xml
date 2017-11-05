@@ -4,16 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_year_month"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_28PX"
+        android:background="#fff2f3f5"
         android:gravity="center"
         android:textColor="#ff202222"
-        android:background="#fff2f3f5"
         android:textSize="@dimen/DIMEN_14PX" />
 
 
@@ -21,9 +20,9 @@
         android:id="@+id/recy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-
-        ></android.support.v7.widget.RecyclerView>
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:visibility="visible" />
 
 
 </LinearLayout>

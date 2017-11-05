@@ -27,6 +27,7 @@ import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.TheatreTechParamsUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.DataItem;
+import com.art.huakai.artshow.widget.calendar.CalendarSelectorActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -339,6 +340,14 @@ public class TheatreEditActivity extends BaseActivity {
             });
         }
         takePhotoDialog.show(getSupportFragmentManager(), "TAKEPHOTO.DIALOG");
+    }
+
+    @OnClick(R.id.dataitem_schedule)
+    public void dataitemSchedule() {
+        Intent i = new Intent(this, CalendarSelectorActivity.class);
+        i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 1000);
+        i.putExtra(CalendarSelectorActivity.ORDER_DAY, "");
+        startActivity(i);
     }
 
     /**

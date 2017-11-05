@@ -80,6 +80,8 @@ public class CalendarSelectorActivity extends Activity {
                 finish();
             }
         });
+        TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvTitle.setText(R.string.theatre_schedule);
 
     }
 
@@ -103,7 +105,7 @@ public class CalendarSelectorActivity extends Activity {
             myViewholder.yearAndMonth.setText(c.get(Calendar.YEAR) + CalendarSelectorActivity.this.getString(R.string.year)
                     + (c.get(Calendar.MONTH) + 1) + CalendarSelectorActivity.this.getString(R.string.month));
             myViewholder.calendarGrid.setRecycledViewPool(recycledViewPool);
-            String str = c.get(Calendar.YEAR) + "" + (c.get(Calendar.MONTH) + 1);
+            String str = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1);
             if (position == 0) {
                 CalendarGridAdapter myGridAdapter = new CalendarGridAdapter(CalendarSelectorActivity.this, c, daysOfSelect, orderDays, str);
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(CalendarSelectorActivity.this, 7);
