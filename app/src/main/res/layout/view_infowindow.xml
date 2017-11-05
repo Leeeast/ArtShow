@@ -36,7 +36,7 @@
                 android:textColor="#ff909097"
                 android:textSize="@dimen/DIMEN_11PX"
                 android:layout_marginTop="@dimen/DIMEN_7PX"
-                android:maxLength="17"
+                android:maxLength="13"
                 android:ellipsize="end"
                 />
 

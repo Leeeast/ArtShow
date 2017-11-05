@@ -70,6 +70,7 @@ public class NavigationActivity extends BaseActivity {
         ivGotoAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e(TAG, "onClick: toLatitude=="+toLatitude+"--toLongitude=="+toLongitude );
                if(TextUtils.isEmpty(toLatitude)||TextUtils.isEmpty(toLongitude)){
                    navigation();
                }else{
@@ -118,6 +119,8 @@ public class NavigationActivity extends BaseActivity {
         Log.e(TAG, "onCreate: toLatitude=="+toLatitude+"toLongitude=="+toLongitude );
         theatreName=intent.getStringExtra("theatreName");
         theatreLocation=intent.getStringExtra("theatreLocation");
+        tvTheatreName.setText(theatreName);
+        tvTheatreLocation.setText(theatreLocation);
 //        toLatitude="39.98871";
 //        toLongitude="116.43234";
 

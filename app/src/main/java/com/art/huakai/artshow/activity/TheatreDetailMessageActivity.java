@@ -282,8 +282,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 intent.putExtra("toLatitude", "");
                 intent.putExtra("toLongitude", "");
                 if (lists != null && lists.length == 2) {
-                    intent.putExtra("toLatitude", lists[0]);
-                    intent.putExtra("toLongitude", lists[1]);
+                    intent.putExtra("toLatitude", lists[1]);
+                    intent.putExtra("toLongitude", lists[0]);
                 }
                 intent.putExtra("theatreName", theatreDetailBean.getName());
                 intent.putExtra("theatreLocation", theatreDetailBean.getAddress());
