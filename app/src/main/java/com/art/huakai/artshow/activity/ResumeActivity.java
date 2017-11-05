@@ -68,7 +68,6 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
         mTalentBeans = new ArrayList<>();
-        loadTalentData(mPage);
     }
 
     /**
@@ -152,6 +151,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
         recyclerViewResume.setLoadingListener(this);
         recyclerViewResume.setPullRefreshEnabled(true);
         recyclerViewResume.setLoadingMoreEnabled(true);
+        recyclerViewResume.refresh();
     }
 
     /**

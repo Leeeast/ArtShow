@@ -154,6 +154,7 @@ public class PioSearchActivity extends BaseActivity implements PoiSearch.OnPoiSe
 
     @Override
     public void setView() {
+        tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.tip_theatre_select_address);
     }
 

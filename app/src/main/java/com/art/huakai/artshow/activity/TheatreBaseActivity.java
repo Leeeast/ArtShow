@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -116,19 +117,6 @@ public class TheatreBaseActivity extends BaseActivity {
         edtConnectName.setText(theatreInstance.getLinkman());
         edtConnectPhone.setText(theatreInstance.getLinkTel());
         edtTheatreDetailAddress.setText(theatreInstance.getAddress());
-        if (theatreInstance.getRegionId() != null) {
-            CitySelectUtil.getCity(theatreInstance.getRegionId(), new CitySelectUtil.CityDataRequestListener() {
-                @Override
-                public void onSuccess(String s) {
-                    tvLiveCity.setText(s);
-                }
-
-                @Override
-                public void onFail() {
-
-                }
-            });
-        }
     }
 
     /**
@@ -215,7 +203,7 @@ public class TheatreBaseActivity extends BaseActivity {
             showToast(getString(R.string.tip_theatre_input_price));
             return;
         }
-        if (mRegionId == -1) {
+        if (TextUtils.isEmpty(mAddressLatitude) || TextUtils.isEmpty(mAddressLongitude)) {
             showToast(getString(R.string.tip_resume_region_city));
             return;
         }
@@ -243,7 +231,8 @@ public class TheatreBaseActivity extends BaseActivity {
         params.put("name", theatreName);
         params.put("roomName", theatreHallName);
         params.put("seating", theatreSeatCount);
-        params.put("regionId", String.valueOf(mRegionId));
+        //params.put("regionId", String.valueOf(mRegionId));
+        params.put("coordinate", mAddressLongitude + "," + mAddressLatitude);
         params.put("address", theatreDetailAddress);
         params.put("expense", theatreColoPrice);
         params.put("linkman", theatreConnectName);
@@ -274,7 +263,7 @@ public class TheatreBaseActivity extends BaseActivity {
                         theatreInstance.setExpense(theatreColoPrice);
                         theatreInstance.setLinkman(theatreConnectName);
                         theatreInstance.setLinkTel(theatreConnectPhone);
-                        
+
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -294,4 +283,18 @@ public class TheatreBaseActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == JumpCode.FLAG_RES_ADDRESS_RESULT) {
+            if (data == null) {
+                return;
+            }
+            mAddressName = data.getStringExtra(RESULT_ADDRESS_NAME);
+            mAddressLatitude = data.getStringExtra(RESULT_ADDRESS_LATITUDE);
+            mAddressLongitude = data.getStringExtra(RESULT_ADDRESS_LONGITUDE);
+
+            edtTheatreDetailAddress.setText(mAddressLatitude);
+        }
+    }
 }

@@ -67,7 +67,6 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
         mRepertorys = new ArrayList<>();
-        loadProjectData(mPage);
     }
 
     /**
@@ -152,6 +151,7 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
         recyclerViewProject.setLoadingListener(this);
         recyclerViewProject.setPullRefreshEnabled(true);
         recyclerViewProject.setLoadingMoreEnabled(true);
+        recyclerViewProject.refresh();
     }
 
     /**

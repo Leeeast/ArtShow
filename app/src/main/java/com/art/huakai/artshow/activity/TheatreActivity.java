@@ -64,7 +64,6 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     public void initData() {
         showProgressDialog = new ShowProgressDialog(this);
         mTheatres = new ArrayList<>();
-        loadTheatreData(mPage);
     }
 
     /**
@@ -151,7 +150,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
         recyclerViewTheatre.setLoadingListener(this);
         recyclerViewTheatre.setPullRefreshEnabled(true);
         recyclerViewTheatre.setLoadingMoreEnabled(true);
-
+        recyclerViewTheatre.refresh();
     }
 
     /**
