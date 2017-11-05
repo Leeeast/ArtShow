@@ -3,19 +3,12 @@ package com.art.huakai.artshow.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+
 import android.widget.Toast;
 
 import com.amap.api.fence.PoiItem;
@@ -26,54 +19,64 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.MapsInitializer;
+
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
-import com.amap.api.services.core.AMapException;
-import com.amap.api.services.core.SuggestionCity;
-import com.amap.api.services.poisearch.PoiResult;
-import com.amap.api.services.poisearch.PoiSearch;
+
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.InfoWinAdapter;
-import com.art.huakai.artshow.base.BaseActivity;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MapShowActivity extends Activity implements AMapLocationListener {
-
 
     MapView mMapView = null;
     Marker marker;
     MarkerOptions markerOption;
-    LatLng latLng = new LatLng(39.906901,116.397972);
+    LatLng latLng;
     AMap aMap;
     Handler handler=new Handler();
     public AMapLocationClient mlocationClient;
     //声明mLocationOption对象
     public AMapLocationClientOption mLocationOption = null;
+    private InfoWinAdapter infoWinAdapter;
+    private String theatreName;
+    private String toLatitude;
+    private String toLongitude;
+    private String theatreLocation;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_show);
-//获取地图控件引用
+        //获取地图控件引用
         mMapView = (MapView) findViewById(R.id.mapview);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
-//初始化地图控制器对象
+
+        Intent intent=getIntent();
+        toLatitude=intent.getStringExtra("toLatitude");
+        toLongitude=intent.getStringExtra("toLongitude");
+        theatreName=intent.getStringExtra("theatreName");
+        theatreLocation=intent.getStringExtra("theatreLocation");
+
+        //初始化地图控制器对象
         aMap = mMapView.getMap();
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
         addMarker();
-        aMap.setInfoWindowAdapter(new InfoWinAdapter(this));
+        infoWinAdapter=new InfoWinAdapter(this);
+        infoWinAdapter.setParams(theatreName,toLatitude,toLongitude,theatreLocation);
+        aMap.setInfoWindowAdapter(infoWinAdapter);
+//        initPosition();
 
-        initPosition();
+
 
     }
 
@@ -94,25 +97,31 @@ public class MapShowActivity extends Activity implements AMapLocationListener {
     }
 
     private void addMarker(){
-        markerOption = new MarkerOptions();
-        markerOption.position(latLng);
-        markerOption.title("西安市").snippet("西安市：34.341568, 108.940174");
 
-        markerOption.draggable(true);//设置Marker可拖动
-        markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(),R.mipmap.icon_address)));
-        // 将Marker设置为贴地显示，可以双指下拉地图查看效果
+        try{
+            latLng = new LatLng(Double.parseDouble(toLatitude),Double.parseDouble(toLongitude));
+            markerOption = new MarkerOptions();
+            markerOption.position(latLng);
+//        markerOption.title("西安市").snippet("西安市：34.341568, 108.940174");
+            markerOption.draggable(true);//设置Marker可拖动
+            markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                    .decodeResource(getResources(),R.mipmap.icon_address)));
+            // 将Marker设置为贴地显示，可以双指下拉地图查看效果
 //        markerOption.setFlat(true);//设置marker平贴地图效果
-        marker = aMap.addMarker(markerOption);
+            marker = aMap.addMarker(markerOption);
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
 
-                marker.showInfoWindow();
+                    marker.showInfoWindow();
 
-            }
-        },500);
+                }
+            },500);
+        }catch (Exception e){
+
+        }
+
 
     }
 
@@ -148,7 +157,7 @@ public class MapShowActivity extends Activity implements AMapLocationListener {
                 amapLocation.getLatitude();//获取纬度
                 amapLocation.getLongitude();//获取经度
                 amapLocation.getAccuracy();//获取精度信息
-
+//                infoWinAdapter.setLocation(amapLocation.getLatitude()+"",amapLocation.getLongitude()+"");
                 amapLocation.getDistrict();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(amapLocation.getTime());

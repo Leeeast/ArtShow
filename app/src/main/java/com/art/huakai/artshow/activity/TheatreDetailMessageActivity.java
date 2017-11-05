@@ -165,6 +165,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         } else {
             ErrorFragment errorFragment = ErrorFragment.newInstance();
             mFragments.add(errorFragment);
+
         }
 
         TheatreDetailParamsFragment theatreDetailParamsFragment = TheatreDetailParamsFragment.newInstance(theatreDetailBean);
@@ -274,6 +275,19 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 break;
             case R.id.ll_check_map_area:
                 Intent intent = new Intent();
+                String coordinate=theatreDetailBean.getCoordinate();
+                String[]lists={};
+                if(!TextUtils.isEmpty(coordinate)){
+                    lists=coordinate.split(",");
+                }
+                intent.putExtra("toLatitude","");
+                intent.putExtra("toLongitude","");
+                if(lists!=null&&lists.length==2){
+                    intent.putExtra("toLatitude",lists[0]);
+                    intent.putExtra("toLongitude",lists[1]);
+                }
+                intent.putExtra("theatreName",theatreDetailBean.getName());
+                intent.putExtra("theatreLocation",theatreDetailBean.getAddress());
                 intent.setClass(TheatreDetailMessageActivity.this, MapShowActivity.class);
                 startActivity(intent);
                 break;

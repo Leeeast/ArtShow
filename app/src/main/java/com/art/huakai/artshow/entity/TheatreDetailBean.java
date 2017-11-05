@@ -168,7 +168,7 @@ public class TheatreDetailBean implements Serializable{
         this.address = address;
     }
 
-    public Object getCoordinate() {
+    public String getCoordinate() {
         return coordinate;
     }
 
