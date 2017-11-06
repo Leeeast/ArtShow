@@ -28,14 +28,16 @@ public class CalendarGridAdapter extends RecyclerView.Adapter {
     private ArrayList<String> orderDays;
     private String currentMoth;
     private OnItemClickListener onItemClickListener;
+    private boolean mSelectEnalbe;
 
     //  注意  orderDays 传递数据格式为2017 9 21  currentMoth传递格式为2017 12
-    public CalendarGridAdapter(Context context, Calendar c, int passDays, ArrayList<String> orderDays, String currentMoth) {
+    public CalendarGridAdapter(Context context, Calendar c, int passDays, ArrayList<String> orderDays, String currentMoth, boolean selectEnable) {
         this.c = c;
         this.context = context;
         this.orderDays = orderDays;
         this.currentMoth = currentMoth;
         this.days = CalendarUtils.getDaysOfMonth(this.c, passDays, "");
+        this.mSelectEnalbe = selectEnable;
     }
 
     @Override
@@ -52,16 +54,18 @@ public class CalendarGridAdapter extends RecyclerView.Adapter {
             viewHolder.rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        if (!TextUtils.isEmpty(days.get(position).getName())) {
-                            String str = currentMoth + "-" + days.get(position).getName();
-                            if (!isOrdered(orderDays, str)) {
-                                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-                                onItemClickListener.onItemClickListener(str);
-                            } else {
-                                Toast.makeText(context, "已经被预定了", Toast.LENGTH_SHORT).show();
-                            }
+                    if (!TextUtils.isEmpty(days.get(position).getName()) && mSelectEnalbe) {
+                        String str = currentMoth + "-" + days.get(position).getName();
+                        if (days.get(position).getType() == Day.DayType.NOT_ENABLE) {
+                            Toast.makeText(context, "不可选", Toast.LENGTH_SHORT).show();
+                            return;
                         }
+                        if (orderDays.contains(str)) {
+                            orderDays.remove(str);
+                        } else {
+                            orderDays.add(str);
+                        }
+                        notifyDataSetChanged();
                     }
                 }
             });
@@ -76,8 +80,8 @@ public class CalendarGridAdapter extends RecyclerView.Adapter {
                 } else if (days.get(position).getType() == Day.DayType.TODAY) {
                     viewHolder.tv_today.setVisibility(View.VISIBLE);
                     viewHolder.tv_data.setTextColor(0xff3b3d33);
-                    String str = currentMoth + days.get(position).getName();
-                    if (isOrdered(orderDays, str)) {
+                    String str = currentMoth + "-" + days.get(position).getName();
+                    if (orderDays.contains(str)) {
                         viewHolder.view_order.setVisibility(View.VISIBLE);
                         viewHolder.rl.setBackgroundColor(0xffcccccc);
                         viewHolder.tv_data.setTextColor(0xffffffff);
@@ -85,8 +89,8 @@ public class CalendarGridAdapter extends RecyclerView.Adapter {
                 } else {
                     viewHolder.tv_today.setVisibility(View.INVISIBLE);
                     viewHolder.tv_data.setTextColor(0xff3b3d33);
-                    String str = currentMoth + days.get(position).getName();
-                    if (isOrdered(orderDays, str)) {
+                    String str = currentMoth + "-" + days.get(position).getName();
+                    if (orderDays.contains(str)) {
                         viewHolder.view_order.setVisibility(View.VISIBLE);
                         viewHolder.rl.setBackgroundColor(0xffcccccc);
                         viewHolder.tv_data.setTextColor(0xffffffff);
@@ -102,16 +106,16 @@ public class CalendarGridAdapter extends RecyclerView.Adapter {
     }
 
 
-    private boolean isOrdered(ArrayList<String> orderDays, String currentDay) {
-        if (orderDays != null && orderDays.size() > 0) {
-            for (int i = 0; i < orderDays.size(); i++) {
-                if (orderDays.get(i).equals(currentDay)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    private boolean isOrdered(ArrayList<String> orderDays, String currentDay) {
+//        if (orderDays != null && orderDays.size() > 0) {
+//            for (int i = 0; i < orderDays.size(); i++) {
+//                if (orderDays.get(i).equals(currentDay)) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     @Override
     public int getItemCount() {

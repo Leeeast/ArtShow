@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.widget.calendar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,11 @@ public class CalendarSelectorActivity extends Activity {
      * 上次预订日
      */
     public static final String ORDER_DAY = "order_day";
+    /**
+     * 能否选择
+     */
+    public static final String SELECT_ENALBE = "SELECT_ENALBE";
+    public static final String SELECT_LIST = "SELECT_LIST";
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
 
@@ -44,7 +50,8 @@ public class CalendarSelectorActivity extends Activity {
     LinearLayoutManager linearLayoutManager;
     private Myadapter myadapter;
     private RecyclerView.RecycledViewPool recycledViewPool;
-    private ArrayList<String> orderDays = new ArrayList<String>();
+    private ArrayList<String> orderDays;
+    private boolean mSelectEnable;
 
 
 //吊起日历选择界面
@@ -61,10 +68,12 @@ public class CalendarSelectorActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mycalendar_selector);
+        orderDays = getIntent().getStringArrayListExtra(SELECT_LIST);
         ButterKnife.bind(this);
-        orderDays.add("2017111");
-        orderDays.add("2017118");
-        orderDays.add("20171119");
+        orderDays.add("2017-11-1");
+        orderDays.add("2017-11-8");
+        orderDays.add("2017-11-19");
+        mSelectEnable = getIntent().getBooleanExtra(SELECT_ENALBE, false);
         daysOfSelect = getIntent().getIntExtra(DAYS_OF_SELECT, 30);
         orderDay = getIntent().getStringExtra(ORDER_DAY);
         rcv = (RecyclerView) findViewById(R.id.rcv);
@@ -107,7 +116,7 @@ public class CalendarSelectorActivity extends Activity {
             myViewholder.calendarGrid.setRecycledViewPool(recycledViewPool);
             String str = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1);
             if (position == 0) {
-                CalendarGridAdapter myGridAdapter = new CalendarGridAdapter(CalendarSelectorActivity.this, c, daysOfSelect, orderDays, str);
+                CalendarGridAdapter myGridAdapter = new CalendarGridAdapter(CalendarSelectorActivity.this, c, daysOfSelect, orderDays, str, mSelectEnable);
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(CalendarSelectorActivity.this, 7);
                 myViewholder.calendarGrid.setLayoutManager(gridLayoutManager);
                 myGridAdapter.setOnItemClickListener(new CalendarGridAdapter.OnItemClickListener() {
@@ -119,7 +128,7 @@ public class CalendarSelectorActivity extends Activity {
                 myViewholder.calendarGrid.setAdapter(myGridAdapter);
             } else {
                 int d = daysOfSelect - CalendarUtils.currentMonthRemainDays() - CalendarUtils.getFlowMonthDays(position - 1);
-                CalendarGridAdapter myGridAdapter = new CalendarGridAdapter(CalendarSelectorActivity.this, c, d, orderDays, str);
+                CalendarGridAdapter myGridAdapter = new CalendarGridAdapter(CalendarSelectorActivity.this, c, d, orderDays, str, mSelectEnable);
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(CalendarSelectorActivity.this, 7);
                 myViewholder.calendarGrid.setLayoutManager(gridLayoutManager);
                 myGridAdapter.setOnItemClickListener(new CalendarGridAdapter.OnItemClickListener() {

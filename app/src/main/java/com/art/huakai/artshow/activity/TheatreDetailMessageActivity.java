@@ -297,6 +297,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 Intent i = new Intent(TheatreDetailMessageActivity.this, CalendarSelectorActivity.class);
                 i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 1000);
                 i.putExtra(CalendarSelectorActivity.ORDER_DAY, "");
+                i.putExtra(CalendarSelectorActivity.SELECT_ENALBE, false);
                 startActivity(i);
 
                 break;

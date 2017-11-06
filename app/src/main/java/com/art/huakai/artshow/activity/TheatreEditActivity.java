@@ -342,12 +342,17 @@ public class TheatreEditActivity extends BaseActivity {
         takePhotoDialog.show(getSupportFragmentManager(), "TAKEPHOTO.DIALOG");
     }
 
+    public ArrayList<String> scheduleAdd = new ArrayList<>();
+
     @OnClick(R.id.dataitem_schedule)
     public void dataitemSchedule() {
         Intent i = new Intent(this, CalendarSelectorActivity.class);
         i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 1000);
         i.putExtra(CalendarSelectorActivity.ORDER_DAY, "");
-        startActivity(i);
+        i.putExtra(CalendarSelectorActivity.SELECT_ENALBE, true);
+        i.putStringArrayListExtra(CalendarSelectorActivity.SELECT_LIST, scheduleAdd);
+        startActivityForResult(i, 10);
+        //startActivity(i);
     }
 
     /**
@@ -612,4 +617,5 @@ public class TheatreEditActivity extends BaseActivity {
             }
         });
     }
+
 }
