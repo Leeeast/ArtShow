@@ -212,7 +212,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 //        tvUniversity.setText(talentDetailBean.getSchool());
 //        tvOrganize.setText(talentDetailBean.getAgency());
         tvIntroduce.setText(theatreDetailBean.getDescription());
-        tvLocation.setText(theatreDetailBean.getRegionName());
+        tvLocation.setText(theatreDetailBean.getAddress());
 
 
     }

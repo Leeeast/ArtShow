@@ -58,6 +58,7 @@
             android:layout_marginRight="@dimen/DIMEN_10PX"
             android:clickable="true"
             android:focusable="true"
+            android:background="@drawable/shape_map_bg"
             />
 
 

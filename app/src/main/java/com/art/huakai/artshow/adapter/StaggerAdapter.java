@@ -54,19 +54,23 @@ public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder
                 holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
             } catch (Exception e) {
                 e.printStackTrace();
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, itemWidth);
+                holder.chinaShowImageView.setLayoutParams(lp);
+                holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
+
             }
 //            holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
-            holder.chinaShowImageView.setImage(Uri.parse(datas.get(position).getMasterUrl()), context, new ChinaShowImageView.ImgScaleResultListener() {
-                @Override
-                public void imgSize(int width, int height) {
-                    float a = height;
-                    Log.e(TAG, "imgSize: width==" + width + "--height==" + height);
-                    Log.e(TAG, "imgSize:cutWidth== " + itemWidth + "--cutHeigth==" + a / width * itemWidth);
-
-                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (a / width * itemWidth));
-                    holder.chinaShowImageView.setLayoutParams(lp);
-                }
-            }, holder.chinaShowImageView);
+//            holder.chinaShowImageView.setImage(Uri.parse(datas.get(position).getMasterUrl()), context, new ChinaShowImageView.ImgScaleResultListener() {
+//                @Override
+//                public void imgSize(int width, int height) {
+//                    float a = height;
+//                    Log.e(TAG, "imgSize: width==" + width + "--height==" + height);
+//                    Log.e(TAG, "imgSize:cutWidth== " + itemWidth + "--cutHeigth==" + a / width * itemWidth);
+//
+//                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (a / width * itemWidth));
+//                    holder.chinaShowImageView.setLayoutParams(lp);
+//                }
+//            }, holder.chinaShowImageView);
         }
         holder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
             @Override
