@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,11 +18,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.StaffIntroduceAdapter;
 import com.art.huakai.artshow.adapter.TalentDetailFragmentAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
@@ -177,9 +180,9 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
         }
         tvTheatreName.setText(worksDetailBean.getTitle());
-        tvFee.setText(worksDetailBean.getExpense());
+        tvFee.setText(worksDetailBean.getExpense()+"");
         tvProducers.setText(worksDetailBean.getLinkman());
-        tvActorNumber.setText(worksDetailBean.getPeopleNum());
+        tvActorNumber.setText(worksDetailBean.getPeopleNum()+"人");
         tvCity.setText(worksDetailBean.getRegionName());
         if (worksDetailBean.getSeatingRequir() <= 400) {
             tvThratreSize.setText("小剧场");
@@ -198,8 +201,18 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         if(worksDetailBean.getStaffs()!=null&&worksDetailBean.getStaffs().size()>0){
             tvActorDetail.setVisibility(View.VISIBLE);
             rcv.setVisibility(View.VISIBLE);
+            LinearLayoutManager linearLayoutManager= new LinearLayoutManager(WorksDetailMessageActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            StaffIntroduceAdapter staffIntroduceAdapter=new StaffIntroduceAdapter(WorksDetailMessageActivity.this,worksDetailBean.getStaffs());
+            LinearItemDecoration linearItemDecoration=new LinearItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_14PX));
+            staffIntroduceAdapter.setOnItemClickListener(new StaffIntroduceAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
 
-
+                }
+            });
+            rcv.addItemDecoration(linearItemDecoration);
+            rcv.setLayoutManager(linearLayoutManager);
+            rcv.setAdapter(staffIntroduceAdapter);
 
         }else{
             tvActorDetail.setVisibility(View.GONE);

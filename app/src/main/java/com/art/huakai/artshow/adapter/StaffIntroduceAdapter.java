@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.entity.TalentsBean;
+import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.List;
@@ -24,14 +24,13 @@ import java.util.List;
 public class StaffIntroduceAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="ProfessionalPersonAdapt";
-
-    private List<TalentsBean> list ;
+    private List<WorksDetailBean.StaffsBean> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public StaffIntroduceAdapter(Context context, List<TalentsBean> list) {
+    public StaffIntroduceAdapter(Context context, List<WorksDetailBean.StaffsBean> list) {
         this.list = list;
         this.mContext = context;
 
@@ -44,7 +43,7 @@ public class StaffIntroduceAdapter extends  RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.type_five_one_item, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.staff_introduce_item, parent, false);
             TypeOneViewHolder typeOneViewHolder = new TypeOneViewHolder(view);
             return typeOneViewHolder;
 
@@ -57,10 +56,11 @@ public class StaffIntroduceAdapter extends  RecyclerView.Adapter{
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
 //            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
             if(list.get(position)!=null){
-                if(!TextUtils.isEmpty(list.get(position).getLogo())){
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getLogo()));
+                if(!TextUtils.isEmpty(list.get(position).getPhoto())){
+                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getPhoto()));
                 }
-                typeOneViewHolder.tv_name.setText(list.get(position).getName());
+                typeOneViewHolder.tv_actor_name.setText(list.get(position).getName());
+                typeOneViewHolder.tv_actor_major.setText(list.get(position).getRoleName());
             }
 
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
@@ -88,12 +88,14 @@ public class StaffIntroduceAdapter extends  RecyclerView.Adapter{
 
 
     public class TypeOneViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_name;
+        private TextView tv_actor_name;
+        private TextView tv_actor_major;
         private ChinaShowImageView chinaShowImageView;
         private LinearLayout ll_whole;
         public TypeOneViewHolder(View itemView) {
             super(itemView);
-            tv_name= (TextView) itemView.findViewById(R.id.tv_name);
+            tv_actor_name= (TextView) itemView.findViewById(R.id.tv_actor_name);
+            tv_actor_major= (TextView) itemView.findViewById(R.id.tv_actor_major);
             chinaShowImageView= (ChinaShowImageView) itemView.findViewById(R.id.sdv);
             ll_whole= (LinearLayout) itemView.findViewById(R.id.ll_whole);
         }
