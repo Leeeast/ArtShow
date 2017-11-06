@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by lining on 2017/10/28.
  */
-public class TheatreDetailBean implements Serializable{
+public class TheatreDetailBean implements Serializable {
 
 
     /**
@@ -462,32 +462,5 @@ public class TheatreDetailBean implements Serializable{
 
     public void setDisabledDates(List<DisabledDatesBean> disabledDates) {
         this.disabledDates = disabledDates;
-    }
-
-
-    public static class DisabledDatesBean implements Serializable{
-        /**
-         * theaterId : null
-         * date : 1509292800000
-         */
-
-        private Object theaterId;
-        private long date;
-
-        public Object getTheaterId() {
-            return theaterId;
-        }
-
-        public void setTheaterId(Object theaterId) {
-            this.theaterId = theaterId;
-        }
-
-        public long getDate() {
-            return date;
-        }
-
-        public void setDate(long date) {
-            this.date = date;
-        }
     }
 }

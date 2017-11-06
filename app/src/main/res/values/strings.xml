@@ -216,6 +216,7 @@
     <string name="change_name_suc">姓名修改成功</string>
     <string name="change_avatar_suc">头像上传成功</string>
     <string name="tip_dangqi_select">请选择可不用的档期</string>
+    <string name="tip_dangqi_commit">档期提交成功</string>
 
     <!--设置相关-->
     <string name="setting_item_account">账户信息</string>

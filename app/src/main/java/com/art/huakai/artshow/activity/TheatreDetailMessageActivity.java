@@ -28,6 +28,7 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
+import com.art.huakai.artshow.entity.DisabledDatesBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
 import com.art.huakai.artshow.fragment.ErrorFragment;
@@ -298,8 +299,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             case R.id.ll_check_schedule_area:
                 ArrayList<String> listAdd = new ArrayList<>();
                 if (theatreDetailBean != null) {
-                    List<TheatreDetailBean.DisabledDatesBean> disabledDates = theatreDetailBean.getDisabledDates();
-                    for (TheatreDetailBean.DisabledDatesBean d : disabledDates) {
+                    List<DisabledDatesBean> disabledDates = theatreDetailBean.getDisabledDates();
+                    for (DisabledDatesBean d : disabledDates) {
                         listAdd.add(DateUtil.transTime(String.valueOf(d.getDate()), "yyyy-MM-dd"));
                     }
                 } else {

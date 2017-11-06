@@ -16,10 +16,12 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
+import com.art.huakai.artshow.entity.DisabledDatesBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -157,10 +159,18 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
                 if (isSuccess) {
                     try {
                         JSONObject jsonObject = new JSONObject(obj);
-                        String projectId = jsonObject.getString("id");
-                        TheatreDetailInfo.getInstance().setId(projectId);
+                        String theatreId = jsonObject.getString("id");
+                        TheatreDetailInfo.getInstance().setId(theatreId);
+                        ArrayList<DisabledDatesBean> disabledDatesBeens = new ArrayList<>();
+                        for (String data : orderDays) {
+                            DisabledDatesBean disabledDatesBean = new DisabledDatesBean();
+                            disabledDatesBean.setTheaterId(theatreId);
+                            disabledDatesBean.setDate(Long.parseLong(DateUtil.transTimestamp(String.valueOf(data))));
+                            disabledDatesBeens.add(disabledDatesBean);
+                        }
+                        TheatreDetailInfo.getInstance().setDisabledDates(disabledDatesBeens);
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
-                        Toast.makeText(CalendarSelectorActivity.this, getString(R.string.tip_theatre_release), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CalendarSelectorActivity.this, getString(R.string.tip_dangqi_commit), Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

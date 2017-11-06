@@ -61,7 +61,7 @@ public class TheatreDetailInfo {
     private String updateTime;
     private String regionName;
     private List<PicturesBean> pictures;
-    private List<String> disabledDates;
+    private List<DisabledDatesBean> disabledDates;
     private String disabledMonths;
     private int viewTimes;
 
@@ -393,11 +393,11 @@ public class TheatreDetailInfo {
         this.pictures = pictures;
     }
 
-    public List<String> getDisabledDates() {
+    public List<DisabledDatesBean> getDisabledDates() {
         return disabledDates;
     }
 
-    public void setDisabledDates(List<String> disabledDates) {
+    public void setDisabledDates(List<DisabledDatesBean> disabledDates) {
         this.disabledDates = disabledDates;
     }
 

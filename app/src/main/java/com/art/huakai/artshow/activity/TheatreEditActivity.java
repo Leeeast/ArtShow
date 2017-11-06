@@ -14,9 +14,11 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.dialog.TakePhotoDialog;
+import com.art.huakai.artshow.entity.DisabledDatesBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -67,6 +69,8 @@ public class TheatreEditActivity extends BaseActivity {
     DataItem dataitemTechParams;
     @BindView(R.id.dataitem_pic)
     DataItem dataitemPic;
+    @BindView(R.id.dataitem_schedule)
+    DataItem dataitemSchedule;
     @BindView(R.id.sdv_avatar)
     SimpleDraweeView sdvAvatar;
     @BindView(R.id.switch_release)
@@ -76,6 +80,8 @@ public class TheatreEditActivity extends BaseActivity {
     private ShowProgressDialog showProgressDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
     private TakePhotoDialog takePhotoDialog;
+    //档期集合
+    public ArrayList<String> scheduleAdd;
 
     @Override
     public void immerseStatusBar() {
@@ -340,17 +346,21 @@ public class TheatreEditActivity extends BaseActivity {
         takePhotoDialog.show(getSupportFragmentManager(), "TAKEPHOTO.DIALOG");
     }
 
-    public ArrayList<String> scheduleAdd = new ArrayList<>();
-
     @OnClick(R.id.dataitem_schedule)
     public void dataitemSchedule() {
+        scheduleAdd = new ArrayList<>();
+        List<DisabledDatesBean> disabledDates = TheatreDetailInfo.getInstance().getDisabledDates();
+        if (disabledDates != null) {
+            for (DisabledDatesBean datesBean : disabledDates) {
+                scheduleAdd.add(DateUtil.transTime(String.valueOf(datesBean.getDate())));
+            }
+        }
         Intent i = new Intent(this, CalendarSelectorActivity.class);
         i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 1000);
         i.putExtra(CalendarSelectorActivity.ORDER_DAY, "");
         i.putExtra(CalendarSelectorActivity.SELECT_ENALBE, true);
         i.putStringArrayListExtra(CalendarSelectorActivity.SELECT_LIST, scheduleAdd);
-        startActivityForResult(i, 10);
-        //startActivity(i);
+        startActivity(i);
     }
 
     /**
@@ -400,6 +410,11 @@ public class TheatreEditActivity extends BaseActivity {
         String theatreTech = TheatreTechParamsUtil.isTechParamsFill() ?
                 getString(R.string.app_has_filled) : getString(R.string.app_un_fill);
         dataitemTechParams.setDesText(theatreTech);
+
+        String theatreDangqi = theaterInstance.getDisabledDates() != null || theaterInstance.getDisabledDates().size() > 0 ?
+                getString(R.string.app_has_filled) : getString(R.string.app_un_fill);
+        dataitemSchedule.setDesText(theatreDangqi);
+
         switchRelease.setChecked(TheatreDetailInfo.getInstance().getStatus() == 1);
     }
 
