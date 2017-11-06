@@ -78,7 +78,7 @@ public class WorksDetailBean implements Serializable {
     private String agency;
     private int viewTimes;
     private ArrayList<PicturesBean> pictures;
-    private List<StaffsBean> staffs;
+    private List<Staff> staffs;
     private String shareLink;
 
     public String getShareLink() {
@@ -314,98 +314,98 @@ public class WorksDetailBean implements Serializable {
         this.pictures = pictures;
     }
 
-    public List<StaffsBean> getStaffs() {
+    public List<Staff> getStaffs() {
         return staffs;
     }
 
-    public void setStaffs(List<StaffsBean> staffs) {
+    public void setStaffs(List<Staff> staffs) {
         this.staffs = staffs;
     }
 
 
-    public static class StaffsBean implements Serializable{
-        /**
-         * id : 402894115f2f3d8f015f2f3e11540175
-         * photo : https://www.showonline.com.cn/image/2017/09/06/61225808c4f24984aab545aa9ce42d46.jpg
-         * name : 刘能一
-         * roleName : 总导演
-         * descpt : 毕业于中央戏剧学院（戏剧·影视）导演专业，师从著名教授钮心慈，哈萨克民族音乐剧《可爱的一朵玫瑰花》总导演，荣获国家精品剧目；江西省艺术节·玉茗花戏剧艺术节赣腔歌舞剧《月缺江湖》总导演；国家艺术基金重点项目音乐剧《黑眼睛》编剧、总导演；天津卫视明星竞演秀《国色天香》艺术总监，魔幻现实主义童话剧《七色花》总编剧。
-         * contentId : null
-         * contentType : null
-         * createTime : null
-         */
-
-        private String id;
-        private String photo;
-        private String name;
-        private String roleName;
-        private String descpt;
-        private Object contentId;
-        private Object contentType;
-        private Object createTime;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getPhoto() {
-            return photo;
-        }
-
-        public void setPhoto(String photo) {
-            this.photo = photo;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getRoleName() {
-            return roleName;
-        }
-
-        public void setRoleName(String roleName) {
-            this.roleName = roleName;
-        }
-
-        public String getDescpt() {
-            return descpt;
-        }
-
-        public void setDescpt(String descpt) {
-            this.descpt = descpt;
-        }
-
-        public Object getContentId() {
-            return contentId;
-        }
-
-        public void setContentId(Object contentId) {
-            this.contentId = contentId;
-        }
-
-        public Object getContentType() {
-            return contentType;
-        }
-
-        public void setContentType(Object contentType) {
-            this.contentType = contentType;
-        }
-
-        public Object getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(Object createTime) {
-            this.createTime = createTime;
-        }
-    }
+//    public static class StaffsBean implements Serializable{
+//        /**
+//         * id : 402894115f2f3d8f015f2f3e11540175
+//         * photo : https://www.showonline.com.cn/image/2017/09/06/61225808c4f24984aab545aa9ce42d46.jpg
+//         * name : 刘能一
+//         * roleName : 总导演
+//         * descpt : 毕业于中央戏剧学院（戏剧·影视）导演专业，师从著名教授钮心慈，哈萨克民族音乐剧《可爱的一朵玫瑰花》总导演，荣获国家精品剧目；江西省艺术节·玉茗花戏剧艺术节赣腔歌舞剧《月缺江湖》总导演；国家艺术基金重点项目音乐剧《黑眼睛》编剧、总导演；天津卫视明星竞演秀《国色天香》艺术总监，魔幻现实主义童话剧《七色花》总编剧。
+//         * contentId : null
+//         * contentType : null
+//         * createTime : null
+//         */
+//
+//        private String id;
+//        private String photo;
+//        private String name;
+//        private String roleName;
+//        private String descpt;
+//        private Object contentId;
+//        private Object contentType;
+//        private Object createTime;
+//
+//        public String getId() {
+//            return id;
+//        }
+//
+//        public void setId(String id) {
+//            this.id = id;
+//        }
+//
+//        public String getPhoto() {
+//            return photo;
+//        }
+//
+//        public void setPhoto(String photo) {
+//            this.photo = photo;
+//        }
+//
+//        public String getName() {
+//            return name;
+//        }
+//
+//        public void setName(String name) {
+//            this.name = name;
+//        }
+//
+//        public String getRoleName() {
+//            return roleName;
+//        }
+//
+//        public void setRoleName(String roleName) {
+//            this.roleName = roleName;
+//        }
+//
+//        public String getDescpt() {
+//            return descpt;
+//        }
+//
+//        public void setDescpt(String descpt) {
+//            this.descpt = descpt;
+//        }
+//
+//        public Object getContentId() {
+//            return contentId;
+//        }
+//
+//        public void setContentId(Object contentId) {
+//            this.contentId = contentId;
+//        }
+//
+//        public Object getContentType() {
+//            return contentType;
+//        }
+//
+//        public void setContentType(Object contentType) {
+//            this.contentType = contentType;
+//        }
+//
+//        public Object getCreateTime() {
+//            return createTime;
+//        }
+//
+//        public void setCreateTime(Object createTime) {
+//            this.createTime = createTime;
+//        }
+//    }
 }

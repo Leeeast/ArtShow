@@ -26,6 +26,7 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
 import com.art.huakai.artshow.dialog.ShareDialog;
+import com.art.huakai.artshow.dialog.StaffIntroduceDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.WorksDetailBean;
@@ -202,11 +203,14 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             tvActorDetail.setVisibility(View.VISIBLE);
             rcv.setVisibility(View.VISIBLE);
             LinearLayoutManager linearLayoutManager= new LinearLayoutManager(WorksDetailMessageActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            StaffIntroduceAdapter staffIntroduceAdapter=new StaffIntroduceAdapter(WorksDetailMessageActivity.this,worksDetailBean.getStaffs());
+            final StaffIntroduceAdapter staffIntroduceAdapter=new StaffIntroduceAdapter(WorksDetailMessageActivity.this,worksDetailBean.getStaffs());
             LinearItemDecoration linearItemDecoration=new LinearItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_14PX));
             staffIntroduceAdapter.setOnItemClickListener(new StaffIntroduceAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
+
+                    StaffIntroduceDialog staffIntroduceDialog = StaffIntroduceDialog.newInstence(worksDetailBean.getStaffs().get(position));
+                    staffIntroduceDialog.show(getSupportFragmentManager(),"");
 
                 }
             });

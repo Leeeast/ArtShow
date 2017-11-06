@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/DIMEN_5PX"
+        android:layout_marginRight="@dimen/DIMEN_5PX"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_50PX"
+            android:background="@drawable/shape_bg_dialog_top">
+
+            <LinearLayout
+                android:id="@+id/lly_close"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/DIMEN_14PX"
+                    android:layout_marginRight="@dimen/DIMEN_14PX"
+                    android:background="@mipmap/icon_close" />
+            </LinearLayout>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/project_creator_intro"
+                android:textColor="@color/app_title"
+                android:textSize="15sp" />
+
+
+        </FrameLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_member"
+            android:layout_width="@dimen/DIMEN_130PX"
+            android:layout_height="@dimen/DIMEN_130PX"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/DIMEN_18PX"
+            android:layout_marginTop="@dimen/DIMEN_38PX"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImageScaleType="centerInside"
+            fresco:roundedCornerRadius="@dimen/DIMEN_13PX" />
+
+        <TextView
+            android:id="@+id/tv_actor_name"
+            android:layout_width="@dimen/DIMEN_130PX"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="谢昱缇"
+            android:textColor="#ff555555"
+            android:textSize="@dimen/DIMEN_24PX" />
+
+
+        <TextView
+            android:id="@+id/tv_actor_role"
+            android:layout_width="@dimen/DIMEN_130PX"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="导演"
+            android:textColor="#ff9b9b9b"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:textSize="@dimen/DIMEN_14PX" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:text="@string/project_member_intro"
+            android:textColor="#ff5a4b41"
+            android:textSize="@dimen/DIMEN_20PX"
+            android:layout_marginTop="@dimen/DIMEN_20PX"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:textColor="#ff928470"
+            android:textSize="@dimen/DIMEN_14PX"
+            android:layout_marginTop="@dimen/DIMEN_8PX"
+            android:paddingBottom="@dimen/DIMEN_20PX"
+            />
+
+
+
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

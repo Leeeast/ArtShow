@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.entity.Staff;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
@@ -24,13 +25,13 @@ import java.util.List;
 public class StaffIntroduceAdapter extends  RecyclerView.Adapter{
 
     private static final String TAG="ProfessionalPersonAdapt";
-    private List<WorksDetailBean.StaffsBean> list ;
+    private List<Staff> list ;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
 
 
-    public StaffIntroduceAdapter(Context context, List<WorksDetailBean.StaffsBean> list) {
+    public StaffIntroduceAdapter(Context context, List<Staff> list) {
         this.list = list;
         this.mContext = context;
 
