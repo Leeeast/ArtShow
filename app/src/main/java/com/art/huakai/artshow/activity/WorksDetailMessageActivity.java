@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -47,6 +48,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
@@ -99,6 +101,10 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     ImageView ivNoContent;
     @BindView(R.id.rl_content)
     RelativeLayout rlContent;
+    @BindView(R.id.tv_show_useful_time)
+    TextView tvShowUsefulTime;
+    @BindView(R.id.tv_actor_detail)
+    TextView tvActorDetail;
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
     private String mProjectId;
@@ -165,6 +171,42 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
         scrollableLayout.setCurrentScrollableContainer(mFragments.get(0));
         viewpager.setCurrentItem(0);
+
+
+        if (!TextUtils.isEmpty(worksDetailBean.getLogo())) {
+            sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
+        }
+        tvTheatreName.setText(worksDetailBean.getTitle());
+        tvFee.setText(worksDetailBean.getExpense());
+        tvProducers.setText(worksDetailBean.getLinkman());
+        tvActorNumber.setText(worksDetailBean.getPeopleNum());
+        tvCity.setText(worksDetailBean.getRegionName());
+        if (worksDetailBean.getSeatingRequir() <= 400) {
+            tvThratreSize.setText("小剧场");
+        } else if (400 < worksDetailBean.getSeatingRequir() && worksDetailBean.getSeatingRequir() <= 800) {
+            tvThratreSize.setText("中剧场");
+        } else if (800 < worksDetailBean.getSeatingRequir() && worksDetailBean.getSeatingRequir() <= 1500) {
+            tvThratreSize.setText("大剧场");
+        } else if (1500 < worksDetailBean.getSeatingRequir()) {
+            tvThratreSize.setText("超大剧场");
+        }
+        tvShowTime.setText(worksDetailBean.getShowLast() + "min");
+        tvAlreadyShowTimes.setText(worksDetailBean.getViewTimes() + "场");
+        tvFirstShowTime.setText(worksDetailBean.getPremiereTime() + "");
+        tvShowUsefulTime.setText(worksDetailBean.getPerformanceBeginDate()+"～"+worksDetailBean.getPerformanceEndDate());
+
+        if(worksDetailBean.getStaffs()!=null&&worksDetailBean.getStaffs().size()>0){
+            tvActorDetail.setVisibility(View.VISIBLE);
+            rcv.setVisibility(View.VISIBLE);
+
+
+
+        }else{
+            tvActorDetail.setVisibility(View.GONE);
+            rcv.setVisibility(View.GONE);
+        }
+
+
 
 //        if (!TextUtils.isEmpty(talentDetailBean.getLogo())) {
 //            talentsPic.setImageURI(Uri.parse(talentDetailBean.getLogo()));
@@ -350,5 +392,12 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             requestCall.cancel();
             requestCall = null;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

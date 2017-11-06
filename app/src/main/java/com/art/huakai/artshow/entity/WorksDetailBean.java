@@ -73,7 +73,7 @@ public class WorksDetailBean implements Serializable {
     private Object updateTime;
     private long performanceBeginDate;
     private Object performanceEndDate;
-    private Object regionName;
+    private String regionName;
     private String classifyName;
     private String agency;
     private int viewTimes;
@@ -274,11 +274,11 @@ public class WorksDetailBean implements Serializable {
         this.performanceEndDate = performanceEndDate;
     }
 
-    public Object getRegionName() {
+    public String getRegionName() {
         return regionName;
     }
 
-    public void setRegionName(Object regionName) {
+    public void setRegionName(String regionName) {
         this.regionName = regionName;
     }
 
