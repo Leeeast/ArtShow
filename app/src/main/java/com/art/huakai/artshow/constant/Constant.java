@@ -115,6 +115,8 @@ public class Constant {
     public static final String URL_THEATER_EDIT_PRICEDIAGRAM = BASE_URL + "/theater/edit/priceDiagram";
     //edit/pictures
     public static final String URL_THEATER_EDIT_PICTURES = BASE_URL + "/theater/edit/pictures";
+    //修改剧场档期，返回创建或修改的剧场id
+    public static final String URL_THEATER_EDIT_DISABLEDDATES = BASE_URL + "/theater/edit/disabledDates";
     //修改演出项目作品剧照，返回创建或修改的演出项目id
     public static final String URL_REPERTORY_EDIT_PICTURES = BASE_URL + "/repertory/edit/pictures";
     //修改剧场封面图，返回创建或修改的剧场id

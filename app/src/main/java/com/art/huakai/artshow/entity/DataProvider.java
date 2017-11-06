@@ -44,8 +44,6 @@ public class DataProvider {
         list.add(R.mipmap.guide1);
         list.add(R.mipmap.guide2);
         list.add(R.mipmap.guide3);
-        list.add(R.mipmap.guide4);
-        list.add(R.mipmap.guide5);
         return list;
     }
 

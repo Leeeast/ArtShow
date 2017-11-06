@@ -36,6 +36,7 @@ import com.art.huakai.artshow.fragment.TheatreDetailDesFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AnimUtils;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -51,6 +52,7 @@ import com.sina.weibo.sdk.share.WbShareHandler;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -294,12 +296,21 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
                 break;
             case R.id.ll_check_schedule_area:
+                ArrayList<String> listAdd = new ArrayList<>();
+                if (theatreDetailBean != null) {
+                    List<TheatreDetailBean.DisabledDatesBean> disabledDates = theatreDetailBean.getDisabledDates();
+                    for (TheatreDetailBean.DisabledDatesBean d : disabledDates) {
+                        listAdd.add(DateUtil.transTime(String.valueOf(d.getDate()), "yyyy-MM-dd"));
+                    }
+                } else {
+                    return;
+                }
                 Intent i = new Intent(TheatreDetailMessageActivity.this, CalendarSelectorActivity.class);
                 i.putExtra(CalendarSelectorActivity.DAYS_OF_SELECT, 1000);
                 i.putExtra(CalendarSelectorActivity.ORDER_DAY, "");
                 i.putExtra(CalendarSelectorActivity.SELECT_ENALBE, false);
+                i.putStringArrayListExtra(CalendarSelectorActivity.SELECT_LIST, listAdd);
                 startActivity(i);
-
                 break;
 
         }
