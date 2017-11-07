@@ -26,60 +26,78 @@
                 android:textColor="@color/login_btn"
                 android:textSize="34sp" />
 
-            <android.support.design.widget.TextInputLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_10PX">
+                android:layout_marginTop="@dimen/DIMEN_15PX">
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/phone_number"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/phone_number"
-                    android:imeOptions="actionNext"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_80PX"
+                    android:background="@null"
+                    android:hint="@string/tip_input_phone"
                     android:inputType="phone"
-                    android:maxLength="11"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/DIMEN_15PX"
+                    android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
-            </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_5PX">
+                android:layout_marginTop="@dimen/DIMEN_7PX">
 
-                <android.support.design.widget.TextInputLayout
+                <TextView
+                    android:id="@+id/tv_verify_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/app_verify_code"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
+
+                <EditText
+                    android:id="@+id/edt_verify_code"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/edt_verify_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789"
-                        android:hint="@string/app_verify_code"
-                        android:imeOptions="actionNext"
-                        android:inputType="phone|number"
-                        android:maxLength="6"
-                        android:maxLines="1"
-                        android:paddingBottom="@dimen/DIMEN_15PX"
-                        android:text="098765"
-                        android:textColorHint="@color/login_light"
-                        android:textSize="15sp" />
-
-                </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_80PX"
+                    android:background="@null"
+                    android:hint="@string/tip_input_verify_code"
+                    android:inputType="phone"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textColorHint="@color/login_light"
+                    android:textSize="17sp" />
 
                 <FrameLayout
                     android:layout_width="@dimen/DIMEN_100PX"
                     android:layout_height="match_parent"
-                    android:layout_gravity="right">
+                    android:layout_alignParentRight="true">
 
                     <View
                         android:layout_width="@dimen/DIMEN_1PX"
@@ -99,50 +117,89 @@
                         android:textColor="@color/register_new"
                         android:textSize="14sp" />
                 </FrameLayout>
-            </FrameLayout>
 
-            <android.support.design.widget.TextInputLayout
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_5PX">
+                android:layout_marginTop="@dimen/DIMEN_7PX">
+
+                <TextView
+                    android:id="@+id/tv_psd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/pwd_account"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/edt_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/pwd_account"
-                    android:imeOptions="actionNext"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_80PX"
+                    android:layout_toLeftOf="@+id/chk_pwd_see"
+                    android:background="@null"
+                    android:hint="@string/tip_input_pwd"
                     android:inputType="textPassword"
-                    android:paddingBottom="@dimen/DIMEN_15PX"
+                    android:maxLines="1"
+                    android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
-            </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_5PX">
+                android:layout_marginTop="@dimen/DIMEN_7PX">
+
+                <TextView
+                    android:id="@+id/tv_pwd_affirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/pwd_affirm"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/edt_pwd_affirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/pwd_affirm"
-                    android:imeActionId="@+id/register"
-                    android:imeActionLabel="@string/app_register_title"
-                    android:imeOptions="actionUnspecified"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_80PX"
+                    android:background="@null"
+                    android:hint="@string/tip_input_entrue_pwd"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/DIMEN_15PX"
+                    android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
-            </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btn_register"

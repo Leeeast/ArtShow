@@ -65,7 +65,7 @@ public class StaggerFragment extends HeaderViewPagerFragment {
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adpter = new StaggerAdapter(lists, getContext(), itemWidth);
-        decoration = new SpacesItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_20PX));
+        decoration = new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_10PX));
         mRecyclerView.addItemDecoration(decoration);
         adpter.setOnItemClickListener(new StaggerAdapter.OnItemClickListener() {
             @Override

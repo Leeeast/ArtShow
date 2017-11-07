@@ -29,90 +29,163 @@
                 android:textColor="@color/login_btn"
                 android:textSize="34sp" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tily_auth_name"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_10PX">
+                android:layout_marginTop="@dimen/DIMEN_15PX">
+
+                <TextView
+                    android:id="@+id/tv_auth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/data_auth_name_personal"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/edt_auth_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/data_auth_name_personal"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_130PX"
+                    android:layout_toLeftOf="@+id/chk_pwd_see"
+                    android:background="@null"
+                    android:hint="@string/tip_name_input_personal"
                     android:imeOptions="actionNext"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/DIMEN_20PX"
+                    android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
-            </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tiLy_identity_number"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
-                android:layout_marginRight="@dimen/DIMEN_30PX">
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_7PX">
+
+                <TextView
+                    android:id="@+id/tv_identity_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/data_auth_identify_personal"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/edt_identity_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/data_auth_identify_personal"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_130PX"
+                    android:layout_toLeftOf="@+id/chk_pwd_see"
+                    android:background="@null"
+                    android:hint="@string/tip_identifyid_input_personal"
                     android:imeOptions="actionNext"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/DIMEN_20PX"
+                    android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
-            </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tiLy_identity_connect_name"
+            <RelativeLayout
+                android:id="@+id/rly_linkman"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_7PX"
                 android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_identity_connect_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/data_auth_connect_name"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/edt_identity_connect_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/data_auth_connect_name"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_130PX"
+                    android:layout_toLeftOf="@+id/chk_pwd_see"
+                    android:background="@null"
+                    android:hint="@string/tip_connect_name_input"
                     android:imeOptions="actionNext"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/DIMEN_20PX"
+                    android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
-            </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tiLy_identity_connect_phone"
+            <RelativeLayout
+                android:id="@+id/rly_linktel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/DIMEN_50PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_7PX"
                 android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_identity_connect_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/data_auth_connect_phone"
+                    android:textColor="@color/enroll_sub_title"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/edt_identity_connect_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/data_auth_connect_phone"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/DIMEN_130PX"
+                    android:layout_toLeftOf="@+id/chk_pwd_see"
+                    android:background="@null"
+                    android:hint="@string/tip_connect_phone_input"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
                     android:maxLength="11"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/DIMEN_20PX"
+                    android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
-            </android.support.design.widget.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/login_line" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_data_upload_tip"

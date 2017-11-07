@@ -25,10 +25,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_18PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
             android:text="@string/register_success"
             android:textColor="@color/login_light"
-            android:textSize="15sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_return_main"
@@ -52,7 +52,7 @@
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_43PX"
-            android:background="@color/login_line" />
+            android:background="@color/me_personal_line" />
 
         <Button
             android:id="@+id/btn_commit_data"

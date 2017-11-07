@@ -41,7 +41,6 @@
             android:lineSpacingExtra="6sp"
             android:text="@string/login_app_introduce"
             android:textColor="@color/blackdd"
-            android:textScaleX="1.1"
             android:textSize="18sp" />
 
         <Button

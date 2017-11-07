@@ -117,7 +117,7 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
                     showToast(getString(R.string.tip_input_verify_code));
                     return;
                 }
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_WECHAT_SET_PWD, phoneNum, verifyCode,mIsResetPwd));
+                EventBus.getDefault().post(new LoginEvent(LoginEvent.CODE_ACTION_WECHAT_SET_PWD, phoneNum, verifyCode, mIsResetPwd));
                 break;
         }
     }

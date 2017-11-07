@@ -31,10 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_14PX"
+                android:layout_marginTop="@dimen/DIMEN_10PX"
                 android:text="@string/account_type_select_tip"
                 android:textColor="@color/login_light"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:id="@+id/lly_publisher"
@@ -181,16 +181,16 @@
                         android:layout_height="wrap_content"
                         android:text="@string/account_type_institution"
                         android:textColor="@drawable/account_type_text_selector"
-                        android:textSize="17sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/chktv_institution_name"
-                        android:layout_marginTop="@dimen/DIMEN_2PX"
+                        android:layout_marginTop="@dimen/DIMEN_5PX"
                         android:text="@string/account_type_institution_des"
                         android:textColor="@color/account_type_des"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
@@ -237,16 +237,16 @@
                         android:layout_height="wrap_content"
                         android:text="@string/account_type_personal"
                         android:textColor="@drawable/account_type_text_selector"
-                        android:textSize="17sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/chktv_personal_name"
-                        android:layout_marginTop="@dimen/DIMEN_2PX"
+                        android:layout_marginTop="@dimen/DIMEN_5PX"
                         android:text="@string/account_type_personal_des"
                         android:textColor="@color/account_type_des"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
 
 
                 </RelativeLayout>

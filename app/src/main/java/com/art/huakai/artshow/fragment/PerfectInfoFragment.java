@@ -48,7 +48,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     private EditText edtName;
     private TextView tvPerfectDes;
     private ShowProgressDialog showProgressDialog;
-    private TextInputLayout tilyName;
+    private TextView tvName;
     private SimpleDraweeView sdvAvatar;
     private TakePhotoDialog mTakePhotoDialog;
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -79,7 +79,7 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
 
         edtName = (EditText) rootView.findViewById(R.id.edt_name);
         tvPerfectDes = (TextView) rootView.findViewById(R.id.tv_perfect_des);
-        tilyName = (TextInputLayout) rootView.findViewById(R.id.tily_name);
+        tvName = (TextView) rootView.findViewById(R.id.tv_name);
         sdvAvatar = (SimpleDraweeView) rootView.findViewById(R.id.sdv_avatar);
 
         rootView.findViewById(R.id.lly_back).setOnClickListener(this);
@@ -91,11 +91,13 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
     public void setView() {
         switch (localUserInfo.getUserType()) {
             case LocalUserInfo.USER_TYPE_PERSONAL:
-                tilyName.setHint(getString(R.string.perfect_type_personal));
+                tvName.setText(getString(R.string.perfect_type_personal));
+                edtName.setHint(R.string.tip_set_name_personal);
                 tvPerfectDes.setText(R.string.perfect_des_other);
                 break;
             case LocalUserInfo.USER_TYPE_INSTITUTION:
-                tilyName.setHint(getString(R.string.perfect_name_institution));
+                tvName.setText(getString(R.string.perfect_name_institution));
+                edtName.setHint(R.string.tip_set_name_org);
                 tvPerfectDes.setText(R.string.perfect_des_institution);
                 break;
         }
@@ -211,7 +213,11 @@ public class PerfectInfoFragment extends BaseFragment implements View.OnClickLis
             return;
         }
         if (TextUtils.isEmpty(userName)) {
-            showToast(getString(R.string.tip_set_name));
+            if (LocalUserInfo.getInstance().getUserType() == LocalUserInfo.USER_TYPE_PERSONAL) {
+                showToast(getString(R.string.tip_set_name_personal));
+            } else {
+                showToast(getString(R.string.tip_set_name_org));
+            }
             return;
         }
         Map<String, String> params = new TreeMap<>();

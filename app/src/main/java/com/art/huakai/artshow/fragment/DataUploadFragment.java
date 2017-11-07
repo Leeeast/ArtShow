@@ -8,7 +8,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,8 +54,8 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
     public static final String FROM_LOGIN = "FROM_LOGIN";
     public static final String FROM_ME = "FROM_ME";
     private int mUserType;
-    private TextInputLayout tiLyAuthName, tiLyIdentityNumber, tiLyIdentityConnectName, tiLyIdentityConnectPhone;
     private EditText edtAuthName, edtIdentityNumber, edtIdentityConnectName, edtIdentityConnectPhone;
+    private TextView tvAuthName, tvIdentityNumber;
     private TextView tvDataUploadTip;
     private String mFrom;
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -61,6 +63,8 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
     private TakePhotoDialog takePhotoDialog;
     private ShowProgressDialog showProgressDialog;
     private String mAvatarUrl = "";
+    private RelativeLayout rLyLinkMan;
+    private RelativeLayout rLyLinkTel;
 
     public DataUploadFragment() {
         // Required empty public constructor
@@ -90,10 +94,10 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void initView(View rootView) {
-        tiLyAuthName = (TextInputLayout) rootView.findViewById(R.id.tily_auth_name);
-        tiLyIdentityNumber = (TextInputLayout) rootView.findViewById(R.id.tiLy_identity_number);
-        tiLyIdentityConnectName = (TextInputLayout) rootView.findViewById(R.id.tiLy_identity_connect_name);
-        tiLyIdentityConnectPhone = (TextInputLayout) rootView.findViewById(R.id.tiLy_identity_connect_phone);
+        rLyLinkMan = (RelativeLayout) rootView.findViewById(R.id.rly_linkman);
+        rLyLinkTel = (RelativeLayout) rootView.findViewById(R.id.rly_linktel);
+        tvAuthName = (TextView) rootView.findViewById(R.id.tv_auth_name);
+        tvIdentityNumber = (TextView) rootView.findViewById(R.id.tv_identity_number);
         edtAuthName = (EditText) rootView.findViewById(R.id.edt_auth_name);
         edtIdentityNumber = (EditText) rootView.findViewById(R.id.edt_identity_number);
         edtIdentityConnectName = (EditText) rootView.findViewById(R.id.edt_identity_connect_name);
@@ -118,23 +122,47 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
     public void setView() {
         String hintName = mUserType == LocalUserInfo.USER_TYPE_PERSONAL ? getString(R.string.data_auth_name_personal) :
                 getString(R.string.data_auth_name_institution);
+        String hintNameTip = mUserType == LocalUserInfo.USER_TYPE_PERSONAL ? getString(R.string.tip_name_input_personal) :
+                getString(R.string.tip_name_input_institution);
         String hintIdentifyID = mUserType == LocalUserInfo.USER_TYPE_PERSONAL ? getString(R.string.data_auth_identify_personal) :
                 getString(R.string.data_auth_identify_institution);
+        String hintIdentifyIDTip = mUserType == LocalUserInfo.USER_TYPE_PERSONAL ? getString(R.string.tip_identifyid_input_personal) :
+                getString(R.string.tip_identifyid_input_institution);
+
         String uploadTip = mUserType == LocalUserInfo.USER_TYPE_PERSONAL ? getString(R.string.data_auth_upload_tip_personal) :
                 getString(R.string.data_auth_upload_tip_institution);
 
-        tiLyAuthName.setHint(hintName);
-        tiLyIdentityNumber.setHint(hintIdentifyID);
-        tiLyIdentityConnectName.setHint(getString(R.string.data_auth_connect_name));
-        tiLyIdentityConnectPhone.setHint(getString(R.string.data_auth_connect_phone));
+        tvAuthName.setText(hintName);
+        edtAuthName.setHint(hintNameTip);
+        tvIdentityNumber.setText(hintIdentifyID);
+        edtIdentityNumber.setHint(hintIdentifyIDTip);
         tvDataUploadTip.setText(uploadTip);
         if (mUserType == LocalUserInfo.USER_TYPE_PERSONAL) {
-            tiLyIdentityConnectName.setVisibility(View.GONE);
-            tiLyIdentityConnectPhone.setVisibility(View.GONE);
+            rLyLinkMan.setVisibility(View.GONE);
+            rLyLinkTel.setVisibility(View.GONE);
         } else {
-            tiLyIdentityConnectName.setVisibility(View.VISIBLE);
-            tiLyIdentityConnectPhone.setVisibility(View.VISIBLE);
+            rLyLinkMan.setVisibility(View.VISIBLE);
+            rLyLinkTel.setVisibility(View.VISIBLE);
         }
+        setMargionLeft();
+    }
+
+    /**
+     * 设置左边距
+     */
+    private void setMargionLeft() {
+        int spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        tvIdentityNumber.measure(spec, spec);
+        int leftMargion = tvIdentityNumber.getMeasuredWidth() + getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
+
+        RelativeLayout.LayoutParams layoutParamsName = (RelativeLayout.LayoutParams) edtAuthName.getLayoutParams();
+        layoutParamsName.leftMargin = leftMargion;
+        RelativeLayout.LayoutParams layoutParamsID = (RelativeLayout.LayoutParams) edtIdentityNumber.getLayoutParams();
+        layoutParamsID.leftMargin = leftMargion;
+        RelativeLayout.LayoutParams layoutParamsLinkman = (RelativeLayout.LayoutParams) edtIdentityConnectName.getLayoutParams();
+        layoutParamsLinkman.leftMargin = leftMargion;
+        RelativeLayout.LayoutParams layoutParamsLinktel = (RelativeLayout.LayoutParams) edtIdentityConnectPhone.getLayoutParams();
+        layoutParamsLinktel.leftMargin = leftMargion;
     }
 
     @Override
@@ -148,7 +176,7 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
                 commitData();
                 break;
             case R.id.tv_subtitle:
-                Toast.makeText(getContext(), "跳过", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
                 break;
             case R.id.sdv_data:
                 if (takePhotoDialog == null) {
