@@ -176,6 +176,7 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
                 commitData();
                 break;
             case R.id.tv_subtitle:
+                getActivity().setResult(JumpCode.FLAG_RES_DATA_AUTH);
                 getActivity().finish();
                 break;
             case R.id.sdv_data:
