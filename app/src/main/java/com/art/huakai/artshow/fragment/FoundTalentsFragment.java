@@ -102,6 +102,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     private int skillChildPosition = -1;
 
     private int page = 1;
+    private boolean newrequest=true;
 
     private List<SkillBean> skillBeanList = new ArrayList<SkillBean>();
 
@@ -199,7 +200,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
             case R.id.ll_city_choose:
 
-                Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
                 tvComplexRanking.setTextColor(0xff5a4b41);
                 ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                 tvSkillChoose.setTextColor(0xffe93c2c);
@@ -220,7 +221,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 tvFilter.setTextColor(0xff5a4b41);
                 ivFilter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(1);
-                Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
 
                 break;
 
@@ -233,7 +234,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 tvFilter.setTextColor(0xffe93c2c);
                 ivFilter.setImageResource(R.mipmap.filter_active);
                 showPopuwindow(3);
-                Toast.makeText(getContext(), "iv_real_choose", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "iv_real_choose", Toast.LENGTH_SHORT).show();
 
                 break;
 
@@ -302,6 +303,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -314,6 +316,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -415,6 +418,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
 
                 }
@@ -427,6 +431,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -471,6 +476,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
 
                 }
@@ -498,6 +504,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                             popupWindow.dismiss();
                         }
                         page = 1;
+                        newrequest=true;
                         getList();
                     }
                 });
@@ -567,6 +574,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        newrequest=false;
                         if(page==1&&talentLists.size() == 0){
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
@@ -607,13 +615,21 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                             }
                         } else {
                             if (talentLists.size() == 0) {
+                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
+                                if(newrequest){
+                                    Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                                    newrequest=false;
+                                    return;
+                                }
                                 if (page == 1) {
+                                    Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
+                                    Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
@@ -621,54 +637,79 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         Log.e(TAG, "onSuccess: theatres.size==" + talentLists.size());
                     } else {
                         if (talentLists.size() == 0) {
+                            Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 首次加载数据失败");
                         } else {
+                            if(newrequest){
+                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                                newrequest=false;
+                                return;
+                            }
                             if (page == 1) {
                                 recyclerView.refreshComplete();
+                                Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 刷新数据失败");
                             } else {
                                 recyclerView.loadMoreComplete();
+                                Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 加载更多数据失败");
                             }
                         }
                     }
                 } else {
                     if (talentLists.size() == 0) {
+                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 首次加载数据失败");
                         ivLoading.setVisibility(View.GONE);
                         llContent.setVisibility(View.GONE);
                         ivNoContent.setVisibility(View.VISIBLE);
                     } else {
+                        if(newrequest){
+                            Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                            newrequest=false;
+                            return;
+                        }
                         if (page == 1) {
                             recyclerView.refreshComplete();
+                            Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 刷新数据失败");
                         } else {
                             recyclerView.loadMoreComplete();
+                            Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                newrequest=false;
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
                 if (talentLists.size() == 0) {
+                    Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);
                     llContent.setVisibility(View.GONE);
                     ivNoContent.setVisibility(View.VISIBLE);
                 } else {
+                    if(newrequest){
+                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                        newrequest=false;
+                        return;
+                    }
                     if (page == 1) {
                         recyclerView.refreshComplete();
+                        Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 刷新数据失败");
                     } else {
                         recyclerView.loadMoreComplete();
+                        Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
-
+                newrequest=false;
             }
         });
     }

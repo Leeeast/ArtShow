@@ -104,6 +104,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private int monthPosition=-1;
     private String address;
     private String mRegionId;
+    private boolean newrequest=true;
 
     public FoundTheatreFragment() {
         // Required empty public constructor
@@ -201,7 +202,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.ll_city_choose:
 
-                Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
                 tvComplexRanking.setTextColor(0xff5a4b41);
                 ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                 tvCityChoose.setTextColor(0xffe93c2c);
@@ -221,7 +222,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                 tvFilter.setTextColor(0xff5a4b41);
                 ivFiter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(1);
-                Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
 
                 break;
 
@@ -234,7 +235,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                 tvFilter.setTextColor(0xffe93c2c);
                 ivFiter.setImageResource(R.mipmap.filter_active);
                 showPopuwindow(3);
-                Toast.makeText(getContext(), "iv_real_choose", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "iv_real_choose", Toast.LENGTH_SHORT).show();
 
                 break;
 
@@ -302,6 +303,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -314,6 +316,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -326,6 +329,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -338,6 +342,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -434,6 +439,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page=1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -445,6 +451,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page=1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -521,6 +528,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        newrequest=false;
                         if(page==1&&theatres.size() == 0){
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
@@ -562,13 +570,21 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                             }
                         } else {
                             if (theatres.size() == 0) {
+                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
+                                if(newrequest){
+                                    Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                                    newrequest=false;
+                                    return;
+                                }
                                 if (page == 1) {
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
+                                    Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
+                                    Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
@@ -576,50 +592,68 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         Log.e(TAG, "onSuccess: theatres.size==" + theatres.size());
                     } else {
                         if (theatres.size() == 0) {
-                            Log.e(TAG, "onSuccess: 首次加载数据失败");
+                            Log.e(TAG, "onSuccess: 首次加载数据失败");Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+
                         } else {
+                            if(newrequest){
+                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                                newrequest=false;
+                                return;
+                            }
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Log.e(TAG, "onSuccess: 刷新数据失败");Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Log.e(TAG, "onSuccess: 加载更多数据失败");Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 } else {
+                    if(newrequest){
+                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                        newrequest=false;
+                        return;
+                    }
                     if (theatres.size() == 0) {
-                        Log.e(TAG, "onSuccess: 首次加载数据失败");
+                        Log.e(TAG, "onSuccess: 首次加载数据失败");Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                     } else {
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                            Log.e(TAG, "onSuccess: 刷新数据失败");Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                         } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败");
+                            Log.e(TAG, "onSuccess: 加载更多数据失败");Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                newrequest=false;
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
                 if (theatres.size() == 0) {
-                    Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    Log.e(TAG, "onSuccess: 首次加载数据失败");Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                     ivLoading.setVisibility(View.GONE);
                     llContent.setVisibility(View.GONE);
                     ivNoContent.setVisibility(View.VISIBLE);
                 } else {
+                    if(newrequest){
+                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                        newrequest=false;
+                        return;
+                    }
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                        Log.e(TAG, "onSuccess: 刷新数据失败");Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                     } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败");
+                        Log.e(TAG, "onSuccess: 加载更多数据失败");Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
                     }
                 }
+                newrequest=false;
             }
         });
     }
@@ -704,6 +738,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 //                    tvLiveCity.setText(province + "  " + city);
                     mRegionId = String.valueOf(regionId);
                     page = 1;
+                    newrequest=true;
                     getList();
                 }
             });
@@ -713,6 +748,5 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             e.printStackTrace();
         }
     }
-
 
 }

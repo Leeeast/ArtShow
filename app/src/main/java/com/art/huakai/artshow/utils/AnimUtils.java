@@ -34,6 +34,7 @@ public class AnimUtils {
         if(view!=null){
             ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotation", 0f, 3600f);
             animator.setDuration(5000);
+
             animator.setRepeatCount(Animation.INFINITE);
             animator.setRepeatMode(Animation.RESTART);
             animator.start();

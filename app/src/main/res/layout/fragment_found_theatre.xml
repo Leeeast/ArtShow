@@ -27,131 +27,141 @@
         />
 
     <LinearLayout
-        android:id="@+id/ll_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:background="#fff5f3f1" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_1PX"
-        android:layout_marginTop="@dimen/DIMEN_5PX"
-        android:background="#fff5f3f1" />
+        <RelativeLayout
 
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_47PX"
-        android:layout_marginLeft="@dimen/DIMEN_15PX"
-        android:layout_marginRight="@dimen/DIMEN_15PX"
-       >
-
-        <LinearLayout
-            android:id="@+id/ll_complex_ranking"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_whole_ranking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="综合排序"
-                android:textColor="#ff5a4b41"
-                android:textSize="@dimen/DIMEN_12PX" />
-
-            <ImageView
-                android:id="@+id/iv_choose_price"
-                android:layout_width="@dimen/DIMEN_14PX"
-                android:layout_height="@dimen/DIMEN_14PX"
-                android:layout_marginLeft="@dimen/DIMEN_1PX"
-                android:clickable="false"
-                android:focusable="false"
-                android:src="@mipmap/arrow_down_icon" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_city_choose"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_toRightOf="@+id/ll_complex_ranking"
-            android:layout_marginLeft="@dimen/DIMEN_28PX"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_city_choose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="城市筛选"
-                android:textColor="#ff5a4b41"
-                android:textSize="@dimen/DIMEN_12PX"
-                android:maxLength="10"
-                android:ellipsize="end"
-                />
-
-            <ImageView
-                android:id="@+id/iv_choose_number"
-                android:layout_width="@dimen/DIMEN_14PX"
-                android:layout_height="@dimen/DIMEN_14PX"
-                android:layout_marginLeft="@dimen/DIMEN_1PX"
-                android:clickable="false"
-                android:focusable="false"
-                android:src="@mipmap/arrow_down_icon" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_47PX"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
             >
 
-            <TextView
-                android:id="@+id/tv_real_filter"
+            <LinearLayout
+                android:id="@+id/ll_complex_ranking"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="筛选"
-                android:textColor="#ff5a4b41"
-                android:textSize="@dimen/DIMEN_12PX" />
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/iv_real_choose"
-                android:layout_width="@dimen/DIMEN_18PX"
-                android:layout_height="@dimen/DIMEN_18PX"
-                android:clickable="false"
-                android:layout_marginLeft="@dimen/DIMEN_1PX"
-                android:focusable="false"
-                android:src="@mipmap/filter_default" />
+                <TextView
+                    android:id="@+id/tv_whole_ranking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="综合排序"
+                    android:textColor="#ff5a4b41"
+                    android:textSize="@dimen/DIMEN_12PX" />
+
+                <ImageView
+                    android:id="@+id/iv_choose_price"
+                    android:layout_width="@dimen/DIMEN_14PX"
+                    android:layout_height="@dimen/DIMEN_14PX"
+                    android:layout_marginLeft="@dimen/DIMEN_1PX"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:src="@mipmap/arrow_down_icon" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_city_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:layout_toRightOf="@+id/ll_complex_ranking"
+                android:layout_marginLeft="@dimen/DIMEN_28PX"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_city_choose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="城市筛选"
+                    android:textColor="#ff5a4b41"
+                    android:textSize="@dimen/DIMEN_12PX"
+                    android:maxLength="10"
+                    android:ellipsize="end"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_choose_number"
+                    android:layout_width="@dimen/DIMEN_14PX"
+                    android:layout_height="@dimen/DIMEN_14PX"
+                    android:layout_marginLeft="@dimen/DIMEN_1PX"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:src="@mipmap/arrow_down_icon" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                >
+
+                <TextView
+                    android:id="@+id/tv_real_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="筛选"
+                    android:textColor="#ff5a4b41"
+                    android:textSize="@dimen/DIMEN_12PX" />
+
+                <ImageView
+                    android:id="@+id/iv_real_choose"
+                    android:layout_width="@dimen/DIMEN_18PX"
+                    android:layout_height="@dimen/DIMEN_18PX"
+                    android:clickable="false"
+                    android:layout_marginLeft="@dimen/DIMEN_1PX"
+                    android:focusable="false"
+                    android:src="@mipmap/filter_default" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#ffb3b3b3"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+
+
+            <com.art.huakai.artshow.widget.SmartRecyclerview
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </com.art.huakai.artshow.widget.SmartRecyclerview>
         </LinearLayout>
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#ffb3b3b3"
-
-        />
-
-    <com.art.huakai.artshow.widget.SmartRecyclerview
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </com.art.huakai.artshow.widget.SmartRecyclerview>
     </LinearLayout>
+
+
+
 
 </RelativeLayout>

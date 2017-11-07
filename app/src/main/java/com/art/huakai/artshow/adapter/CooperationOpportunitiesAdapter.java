@@ -62,7 +62,7 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
                 typeOneViewHolder.tv_detail.setText(list.get(position).description);
                 typeOneViewHolder.tv_update_time.setText(list.get(position).endTime+"");
 
-                typeOneViewHolder.tv_update_time.setText("截止时间："+DateUtil.transTime(list.get(position).endTime+"","yyyy年MM月dd"));
+                typeOneViewHolder.tv_update_time.setText("截止时间："+DateUtil.transTime(list.get(position).endTime+"","yyyy年MM月dd日"));
             }
 
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
