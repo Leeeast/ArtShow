@@ -4,6 +4,7 @@ package com.art.huakai.artshow.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -23,6 +24,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.BindView;
+
 /**
  * 我Fragment
  * Created by lidongliang on 2017/9/27.
@@ -35,6 +38,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public final int CODE_STATUS_INSTITUTION = 1;
     private TextView tvNmae, tvType;
     private SimpleDraweeView sdvAvatar;
+    @BindView(R.id.nestedscrollview)
+    NestedScrollView nestedScrollView;
+
+    private int scrollDistance;
 
     public MeFragment() {
         // Required empty public constructor
@@ -143,6 +150,20 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         setView();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            if (nestedScrollView != null) {
+                nestedScrollView.smoothScrollTo(0, scrollDistance);
+            }
+        } else {
+            if (nestedScrollView != null) {
+                scrollDistance = nestedScrollView.getScrollY();
+            }
+        }
     }
 
     @Override

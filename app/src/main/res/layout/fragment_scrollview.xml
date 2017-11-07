@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/whiteff"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
 
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="@dimen/DIMEN_15PX">
 
@@ -19,11 +19,14 @@
             android:layout_marginTop="@dimen/DIMEN_60PX"
             android:src="@mipmap/page_nothing" />
 
-        <TextView
-            android:id="@+id/tv_talent_works"
+        <WebView
+            android:id="@+id/webview_rich"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_news_title"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:layout_marginTop="@dimen/DIMEN_8PX" />
 
     </RelativeLayout>
 
