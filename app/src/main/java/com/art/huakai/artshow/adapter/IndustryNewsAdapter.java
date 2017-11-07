@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.NewsesBean;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
@@ -74,7 +75,13 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
                     if (!TextUtils.isEmpty(list.get(1).getLogo())) {
                         typeOneViewHolder.chinaShowImageViewTwo.setImageURI(Uri.parse(list.get(1).getLogo()));
                     }
-                    typeOneViewHolder.tv_update_time_two.setText(list.get(1).getCreateTime() + "");
+                    try {
+                        if(0!=list.get(1).getCreateTime()){
+                            typeOneViewHolder.tv_update_time_one.setText(DateUtil.transTime(list.get(1).getCreateTime()+"","yyyy年MM月dd"));
+                        }
+                    }catch (Exception e){
+
+                    }
                     typeOneViewHolder.tv_name_two.setText(list.get(1).getTitle());
                 }
             }
@@ -82,7 +89,13 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
                 if (!TextUtils.isEmpty(list.get(0).getLogo())) {
                     typeOneViewHolder.chinaShowImageViewOne.setImageURI(Uri.parse(list.get(0).getLogo()));
                 }
-                typeOneViewHolder.tv_update_time_one.setText(list.get(0).getCreateTime() + "");
+                try {
+                    if(0!=list.get(0).getCreateTime()){
+                        typeOneViewHolder.tv_update_time_one.setText(DateUtil.transTime(list.get(0).getCreateTime()+"","yyyy年MM月dd"));
+                    }
+                }catch (Exception e){
+
+                }
                 typeOneViewHolder.tv_name_one.setText(list.get(0).getTitle());
             }
 
@@ -113,6 +126,13 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
                 }
                 typeTwoViewHolder.tv_name.setText(list.get(position + 1).getTitle());
                 typeTwoViewHolder.tv_subtitle.setText(list.get(position + 1).getDescription());
+            }
+            try {
+                if(0!=list.get(position + 1).getCreateTime()){
+                    typeTwoViewHolder.tv_update_time.setText(DateUtil.transTime(list.get(position + 1).getCreateTime()+"","yyyy年MM月dd"));
+                }
+            }catch (Exception e){
+
             }
 
             typeTwoViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
