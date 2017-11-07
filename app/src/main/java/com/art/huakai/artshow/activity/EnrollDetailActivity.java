@@ -2,13 +2,17 @@ package com.art.huakai.artshow.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,7 +29,6 @@ import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
-import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
@@ -40,14 +43,16 @@ import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sina.weibo.sdk.share.WbShareHandler;
 
-import java.util.List;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.droidlover.xrichtext.XRichText;
-import cn.qqtheme.framework.util.ScreenUtils;
 import okhttp3.Call;
 
 public class EnrollDetailActivity extends BaseActivity {
@@ -60,8 +65,6 @@ public class EnrollDetailActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.iv_right_img)
     ImageView ivRightImg;
-    @BindView(R.id.xrhtxt_enroll_detail_content)
-    XRichText txrhtxtEnrollDetailContent;
     @BindView(R.id.tv_enroll_main_title)
     TextView tvEnrollMainTitle;
     @BindView(R.id.tv_enroll_anchor)
@@ -86,6 +89,8 @@ public class EnrollDetailActivity extends BaseActivity {
     TextView tvEnrollAllCount;
     @BindView(R.id.sdv_ad)
     SimpleDraweeView sdvAD;
+    @BindView(R.id.webview_rich)
+    WebView webViewRich;
 
     private String mEnrollId;
     private EnrollDetailInfo mEnrollDetailInfo;
@@ -140,10 +145,56 @@ public class EnrollDetailActivity extends BaseActivity {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.enroll_detail_tetle);
         ivRightImg.setImageResource(R.mipmap.icon_share_gray);
+        initWebView();
     }
 
     @Override
     public void setView() {
+    }
+
+    /**
+     * 初始化webview相关
+     */
+    private void initWebView() {
+        WebSettings settings = webViewRich.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
+        //settings.setTextSize(WebSettings.TextSize.NORMAL);
+        webViewRich.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
+        webViewRich.setWebChromeClient(new WebChromeClient());
+        webViewRich.setWebViewClient(new WebViewClient());
+        webViewRich.getSettings().setDefaultTextEncodingName("UTF-8");
+        webViewRich.getSettings().setBlockNetworkImage(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webViewRich.getSettings().setMixedContentMode(webViewRich.getSettings()
+                    .MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
+        }
+    }
+
+    /**
+     * 解析富文本
+     * @param htmltext
+     * @return
+     */
+    private String getNewContent(String htmltext) {
+        Document doc = Jsoup.parse(htmltext);
+        Elements elements = doc.getElementsByTag("img");
+        for (Element element : elements) {
+            element.attr("width", "100%").attr("height", "auto");
+        }
+        return doc.toString();
+    }
+
+    /**
+     * 显示富文本
+     * @param content
+     */
+    public void setRichText(String content) {
+        if (webViewRich == null) {
+            return;
+        }
+        webViewRich.loadDataWithBaseURL(null, getNewContent(content), "text/html", "UTF-8", null);
     }
 
     /**
@@ -223,41 +274,15 @@ public class EnrollDetailActivity extends BaseActivity {
         }
         tvEnrollMainTitle.setText(mEnrollDetailInfo.enroll.title);
         tvEnrollAnchor.setText(mEnrollDetailInfo.enroll.authName);
-        tvEnrollTime.setText(DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.createTime), "yyyy年MM月dd"));
+        tvEnrollTime.setText(DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.createTime), "yyyy年MM月dd日"));
         tvEnrollEndTime.setText(
                 String.format(getString(R.string.cooperate_end_time),
-                        DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.endTime), "yyyy年MM月dd")));
+                        DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.endTime), "yyyy年MM月dd日")));
         tvEnrollViewTimes.setText(
                 String.format(getString(R.string.enroll_detail_read),
                         mEnrollDetailInfo.enroll.viewTimes)
         );
-        txrhtxtEnrollDetailContent.callback(new XRichText.BaseClickCallback() {
-            @Override
-            public void onImageClick(List<String> urlList, int position) {
-
-            }
-
-            @Override
-            public boolean onLinkClick(String url) {
-                return true;
-            }
-
-            @Override
-            public void onFix(XRichText.ImageHolder holder, Bitmap bitmap) {
-                super.onFix(holder, bitmap);
-                holder.setStyle(XRichText.Style.CENTER);
-                int bitmapWidth = bitmap.getWidth();
-                int bitmapHeight = bitmap.getHeight();
-                //设置宽高
-                int screenWidth = ScreenUtils.widthPixels(getApplicationContext());
-                int maxWidth = screenWidth - getResources().getDimensionPixelSize(R.dimen.DIMEN_30PX);
-                int maxHidth = (maxWidth * bitmapHeight) / bitmapWidth;
-                holder.setWidth(maxWidth);
-                holder.setHeight(maxHidth);
-
-            }
-        }).text(mEnrollDetailInfo.enroll.content);
-
+        setRichText(mEnrollDetailInfo.enroll.content);
         initEnrollAdopt();
         initEnrollAll();
     }

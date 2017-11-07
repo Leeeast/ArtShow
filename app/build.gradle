@@ -68,7 +68,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    compile project(':xrichtext_library')
     compile files('libs/umeng_social_api.jar')
     compile files('libs/umeng_social_net.jar')
     compile files('libs/umeng_social_tool.jar')
@@ -77,4 +76,6 @@ dependencies {
     compile 'com.amap.api:map2d:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile 'com.amap.api:location:latest.integration'
+    //compile files('libs/jsoup-1.8.1.jar')
+    compile 'org.jsoup:jsoup:1.11.1'
 }

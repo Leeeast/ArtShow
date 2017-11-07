@@ -105,17 +105,13 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
 
-            <cn.droidlover.xrichtext.XRichText
-                android:id="@+id/xrhtxt_enroll_detail_content"
-                android:layout_width="wrap_content"
+            <WebView
+                android:id="@+id/webview_rich"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:layout_marginRight="@dimen/DIMEN_15PX"
-                android:layout_marginTop="@dimen/DIMEN_16PX"
-                android:lineSpacingExtra="6sp"
-                android:text="The Golden Gate Bridge is a suspension bridge spanning the Golden Gate strait, the mile-wide, three-mile-long channel between San Francisco Bay and the Pacific Ocean. The structure links the U.S. city of San Francisco, on the northern tip of the San Francisco Peninsula, to Marin County, bridging both U.S. Route 101 and California State Route 1 across the strait. The bridge is one of the most "
-                android:textColor="@color/enroll_end_time"
-                android:textSize="13sp" />
+                android:layout_marginTop="@dimen/DIMEN_16PX" />
 
             <include
                 android:id="@+id/include_enroll_all"
