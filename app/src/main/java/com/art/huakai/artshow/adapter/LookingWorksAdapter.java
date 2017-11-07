@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.entity.Work;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
@@ -69,7 +70,14 @@ public class LookingWorksAdapter extends  RecyclerView.Adapter{
                     typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(work.getLogo()));
                 }
                 typeOneViewHolder.tv_actor_number.setText(work.getPeopleNum()+"");
-                typeOneViewHolder.tv_show_time.setText(work.getPremiereTime()+"");
+                try {
+                    if(0!=list.get(position + 1).getCreateTime()){
+                        typeOneViewHolder.tv_show_time.setText(DateUtil.transTime(work.getPremiereTime()+"","yyyy.MM.dd"));
+                    }
+                }catch (Exception e){
+
+                }
+//                typeOneViewHolder.tv_show_time.setText(work.getPremiereTime()+"");
                 typeOneViewHolder.tv_works_fee.setText(work.getExpense()+"");
                 typeOneViewHolder.tv_works_name.setText(work.getTitle());
             }

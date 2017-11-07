@@ -6,9 +6,11 @@
         android:orientation="vertical"
         android:background="#fff5fafc"
         >
-    <include
-        android:id="@+id/include_title"
-        layout="@layout/layout_title_img" />
+    <!--<include-->
+        <!--android:id="@+id/include_title"-->
+        <!--layout="@layout/layout_title_img"-->
+        <!---->
+        <!--/>-->
 
 
   <RelativeLayout
@@ -53,7 +55,7 @@
               android:layout_centerHorizontal="true"
               android:drawablePadding="@dimen/DIMEN_25PX"
               android:gravity="center_vertical"
-              android:hint="@string/cooperate_search"
+              android:hint="请输入搜索内容"
               android:maxLines="1"
               android:textColorHint="@color/cooperate_search_hint"
               android:textSize="@dimen/DIMEN_15PX"
@@ -70,6 +72,7 @@
               android:layout_gravity="center_vertical"
               android:layout_marginRight="@dimen/DIMEN_14PX"
               android:src="@mipmap/search_clean"
+              android:visibility="invisible"
               />
       </LinearLayout>
   </RelativeLayout>

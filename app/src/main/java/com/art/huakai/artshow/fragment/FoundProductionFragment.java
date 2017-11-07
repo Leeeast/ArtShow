@@ -142,8 +142,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                 if((works.get(position)!=null)&&!TextUtils.isEmpty(works.get(position).getId())){
                     Bundle bundle = new Bundle();
                     bundle.putString(WorksDetailMessageActivity.PARAMS_ID, works.get(position).getId());
-                    invokActivity(getContext(), WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
-                }
+                invokActivity(getContext(), WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
+            }
 
                 Toast.makeText(getContext(), "itemclick", Toast.LENGTH_SHORT).show();
 

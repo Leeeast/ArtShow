@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.NewsesBean;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.ArrayList;
@@ -66,7 +67,13 @@ public class KeywordSearchNewsAdapter extends  RecyclerView.Adapter{
                     typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(newsesBean.getLogo()));
                 }
                 typeOneViewHolder.tv_news_title.setText(newsesBean.getTitle());
-                typeOneViewHolder.tv_news_time.setText(newsesBean.getCreateTime()+"");
+                try {
+                    if(0!=list.get(position + 1).getCreateTime()){
+                        typeOneViewHolder.tv_news_time.setText(DateUtil.transTime(newsesBean.getCreateTime()+"","yyyy.MM.dd"));
+                    }
+                }catch (Exception e){
+
+                }
             }
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,16 +54,16 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     LinearLayout llWhole;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
-    @BindView(R.id.lly_back)
-    LinearLayout llyBack;
+//    @BindView(R.id.lly_back)
+//    LinearLayout llyBack;
     @BindView(R.id.edt_search)
     EditText edtSearch;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.iv_right_img)
-    ImageView ivRightImg;
-    @BindView(R.id.fly_right_img)
-    FrameLayout flyRightImg;
+//    @BindView(R.id.tv_title)
+//    TextView tvTitle;
+//    @BindView(R.id.iv_right_img)
+//    ImageView ivRightImg;
+//    @BindView(R.id.fly_right_img)
+//    FrameLayout flyRightImg;
     @BindView(R.id.tv_search)
     TextView tvSearch;
     @BindView(R.id.iv_delete)
@@ -75,6 +77,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
     private String keyword = "*";
     private SearchAllBean searchAllBean;
+
 
     @Override
     public void immerseStatusBar() {
@@ -93,9 +96,38 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void initView() {
-        llyBack.setOnClickListener(this);
+//        llyBack.setOnClickListener(this);
         ivDelete.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
+        uiHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                edtSearch.requestFocus();
+            }
+        },300);
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+              if(TextUtils.isEmpty(edtSearch.getText().toString().trim())){
+                  ivDelete.setVisibility(View.INVISIBLE);
+              }else{
+                  ivDelete.setVisibility(View.VISIBLE);
+              }
+
+            }
+        });
+
     }
 
 
