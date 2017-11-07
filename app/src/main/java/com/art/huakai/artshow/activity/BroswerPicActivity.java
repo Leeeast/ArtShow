@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.art.huakai.artshow.R;
@@ -32,13 +33,15 @@ public class BroswerPicActivity extends BaseActivity {
     MultiTouchViewPager viewPager;
     @BindView(R.id.ll)
     LinearLayout ll;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
     private ArrayList<String> lists = new ArrayList<String>();
     private int lastPosition = 0;
 
     @Override
     public void immerseStatusBar() {
-        ImmerseStatusBar.myStatusBar(this);
-        ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
+//        ImmerseStatusBar.myStatusBar(this);
+//        ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
     }
 
     @Override
@@ -52,6 +55,14 @@ public class BroswerPicActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 

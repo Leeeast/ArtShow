@@ -3,16 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:fitsSystemWindows="true"
    >
 
 
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_50PX"
+
+        >
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:background="@mipmap/icon_close"
+           android:clickable="true"
+            android:focusable="true"
+            />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="详细图片"
+            android:textColor="#ff5a4b41"
+            android:textSize="@dimen/DIMEN_15PX" />
 
 
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_1PX"
+        android:background="#fff5f3f1"
+        android:layout_below="@+id/rl"
+        />
 
 
     <com.art.huakai.artshow.widget.MultiTouchViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
+        android:layout_below="@+id/view"
         android:layout_height="match_parent"/>
 
 
