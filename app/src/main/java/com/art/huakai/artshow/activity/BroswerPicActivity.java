@@ -40,7 +40,7 @@ public class BroswerPicActivity extends BaseActivity {
 
     @Override
     public void immerseStatusBar() {
-//        ImmerseStatusBar.myStatusBar(this);
+        ImmerseStatusBar.myStatusBar(this);
 //        ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
     }
 

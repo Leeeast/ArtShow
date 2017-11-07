@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffffff"
-    android:fitsSystemWindows="true"
-   >
+    android:fitsSystemWindows="true">
 
 
     <RelativeLayout
@@ -22,9 +21,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
             android:background="@mipmap/icon_close"
-           android:clickable="true"
-            android:focusable="true"
-            />
+            android:clickable="true"
+            android:focusable="true" />
 
         <TextView
 
@@ -36,7 +34,6 @@
             android:textSize="@dimen/DIMEN_15PX" />
 
 
-
     </RelativeLayout>
 
 
@@ -44,28 +41,25 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
-        android:background="#fff5f3f1"
         android:layout_below="@+id/rl"
-        />
+        android:background="#fff5f3f1" />
 
 
     <com.art.huakai.artshow.widget.MultiTouchViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_below="@+id/view"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view" />
 
 
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:layout_height="wrap_content"></LinearLayout>
-
-
+        android:orientation="horizontal"></LinearLayout>
 
 
 </RelativeLayout>
