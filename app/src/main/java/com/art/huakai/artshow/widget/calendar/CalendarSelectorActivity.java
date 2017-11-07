@@ -111,6 +111,7 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
             }
         });
         TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(R.string.theatre_schedule);
         if (mSelectEnable) {
             TextView tvSubTitle = (TextView) findViewById(R.id.tv_subtitle);
