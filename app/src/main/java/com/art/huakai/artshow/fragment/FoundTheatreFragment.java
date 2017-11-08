@@ -103,7 +103,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private ArrayList <String>lists=new ArrayList<String>();
     private int monthPosition=-1;
     private String address;
-    private String mRegionId;
+    private String mRegionId="";
 
 
     public FoundTheatreFragment() {
@@ -203,12 +203,12 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             case R.id.ll_city_choose:
 
 //                Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
-                tvComplexRanking.setTextColor(0xff5a4b41);
-                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+//                tvComplexRanking.setTextColor(0xff5a4b41);
+//                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                 tvCityChoose.setTextColor(0xffe93c2c);
                 ivChooseCity.setImageResource(R.mipmap.arrow_active);
-                tvFilter.setTextColor(0xff5a4b41);
-                ivFiter.setImageResource(R.mipmap.filter_default);
+//                tvFilter.setTextColor(0xff5a4b41);
+//                ivFiter.setImageResource(R.mipmap.filter_default);
 
                 showAddressSelect();
                 break;
@@ -217,10 +217,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
                 tvComplexRanking.setTextColor(0xffe93c2c);
                 ivComplexRanking.setImageResource(R.mipmap.arrow_active);
-                tvCityChoose.setTextColor(0xff5a4b41);
-                ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
-                tvFilter.setTextColor(0xff5a4b41);
-                ivFiter.setImageResource(R.mipmap.filter_default);
+//                tvCityChoose.setTextColor(0xff5a4b41);
+//                ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
+//                tvFilter.setTextColor(0xff5a4b41);
+//                ivFiter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(1);
 //                Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
 
@@ -228,10 +228,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
             case R.id.ll_filter:
 
-                tvComplexRanking.setTextColor(0xff5a4b41);
-                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
-                tvCityChoose.setTextColor(0xff5a4b41);
-                ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
+//                tvComplexRanking.setTextColor(0xff5a4b41);
+//                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+//                tvCityChoose.setTextColor(0xff5a4b41);
+//                ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
                 tvFilter.setTextColor(0xffe93c2c);
                 ivFiter.setImageResource(R.mipmap.filter_active);
                 showPopuwindow(3);
@@ -270,7 +270,29 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             public void onDismiss() {
                 if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
+                    tvComplexRanking.setTextColor(0xffe93c2c);
+                }else{
+                    ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+                    tvComplexRanking.setTextColor(0xff5a4b41);
                 }
+                if(!TextUtils.isEmpty(mRegionId)){
+                    tvCityChoose.setTextColor(0xffe93c2c);
+                    ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
+                }else{
+                    tvCityChoose.setTextColor(0xff5a4b41);
+                    ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
+                }
+
+                if(theatreSize!=-1||theatrefee!=-1||monthPosition!=-1){
+                    tvFilter.setTextColor(0xffe93c2c);
+                    ivFiter.setImageResource(R.mipmap.filter_active);
+                }else{
+                    tvFilter.setTextColor(0xff5a4b41);
+                    ivFiter.setImageResource(R.mipmap.filter_default);
+                }
+
+
+
                 Log.e(TAG, "onDismiss: ");
             }
         });
@@ -714,10 +736,26 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                 @Override
                 public void onPicked(String province, String city, int regionId) {
 //                    tvLiveCity.setText(province + "  " + city);
+                    tvCityChoose.setText(province + "" + city);
                     mRegionId = String.valueOf(regionId);
                     page = 1;
                     getList();
                     theatres.clear();
+                    if (complexRankingRule != 0) {
+                        ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
+                        tvComplexRanking.setTextColor(0xffe93c2c);
+                    }
+                    if(!TextUtils.isEmpty(mRegionId)){
+
+                        tvCityChoose.setTextColor(0xffe93c2c);
+                        ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
+                    }
+
+                    if(theatreSize!=-1||theatrefee!=-1||monthPosition!=-1){
+                        tvFilter.setTextColor(0xffe93c2c);
+                        ivFiter.setImageResource(R.mipmap.filter_active);
+                    }
+
                 }
             });
             picker.show();

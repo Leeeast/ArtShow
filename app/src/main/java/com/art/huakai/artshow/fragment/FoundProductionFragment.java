@@ -26,6 +26,7 @@ import com.art.huakai.artshow.activity.WorksDetailMessageActivity;
 import com.art.huakai.artshow.adapter.LookingWorksAdapter;
 import com.art.huakai.artshow.adapter.ProjectFilterAdapter;
 import com.art.huakai.artshow.adapter.SingleChooseAdapter;
+import com.art.huakai.artshow.adapter.TheatreFilterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
@@ -42,6 +43,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -95,6 +97,11 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     private int repertoryPosition = -1;
     private int page = 1;
     private String time;
+    private ArrayList <String> months=new ArrayList<String>();
+    private ArrayList <String>lists=new ArrayList<String>();
+    private int monthPosition=-1;
+
+
 
     private ArrayList<RepertoryBean> repertorys = new ArrayList<RepertoryBean>();
 
@@ -166,6 +173,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         AnimUtils.rotate(ivLoading);
         ivNoContent.setVisibility(View.GONE);
         llContent.setVisibility(View.GONE);
+        _GetDate();
     }
 
     @Override
@@ -203,12 +211,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             case R.id.ll_project_choose:
 
 //                Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
-                tvComplexRanking.setTextColor(0xff5a4b41);
-                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+//                tvComplexRanking.setTextColor(0xff5a4b41);
+//                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                 tvChooseProject.setTextColor(0xffe93c2c);
                 ivChooseProject.setImageResource(R.mipmap.arrow_active);
-                tvFilter.setTextColor(0xff5a4b41);
-                ivFilter.setImageResource(R.mipmap.filter_default);
+//                tvFilter.setTextColor(0xff5a4b41);
+//                ivFilter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(2);
 
                 break;
@@ -218,10 +226,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
                 tvComplexRanking.setTextColor(0xffe93c2c);
                 ivComplexRanking.setImageResource(R.mipmap.arrow_active);
-                tvChooseProject.setTextColor(0xff5a4b41);
-                ivChooseProject.setImageResource(R.mipmap.arrow_down_icon);
-                tvFilter.setTextColor(0xff5a4b41);
-                ivFilter.setImageResource(R.mipmap.filter_default);
+//                tvChooseProject.setTextColor(0xff5a4b41);
+//                ivChooseProject.setImageResource(R.mipmap.arrow_down_icon);
+//                tvFilter.setTextColor(0xff5a4b41);
+//                ivFilter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(1);
 //                Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
 
@@ -229,10 +237,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
             case R.id.ll_filter:
 
-                tvComplexRanking.setTextColor(0xff5a4b41);
-                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
-                tvChooseProject.setTextColor(0xff5a4b41);
-                ivChooseProject.setImageResource(R.mipmap.arrow_down_icon);
+//                tvComplexRanking.setTextColor(0xff5a4b41);
+//                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+//                tvChooseProject.setTextColor(0xff5a4b41);
+//                ivChooseProject.setImageResource(R.mipmap.arrow_down_icon);
                 tvFilter.setTextColor(0xffe93c2c);
                 ivFilter.setImageResource(R.mipmap.filter_active);
                 showPopuwindow(3);
@@ -268,11 +276,26 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                 if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                     tvComplexRanking.setTextColor(0xffe93c2c);
+                }else{
+                    ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+                    tvComplexRanking.setTextColor(0xff5a4b41);
                 }
-                if (repertorykind != 0) {
+                if (repertorykind != -1) {
                     ivChooseProject.setImageResource(R.mipmap.arrow_down_active);
                     tvChooseProject.setTextColor(0xffe93c2c);
+                }else{
+                    ivChooseProject.setImageResource(R.mipmap.arrow_down_icon);
+                    tvChooseProject.setTextColor(0xff5a4b41);
                 }
+
+                if(theatreSize!=-1||showActorAccount!=-1||theatrefee!=-1||monthPosition!=-1){
+                    tvFilter.setTextColor(0xffe93c2c);
+                    ivFilter.setImageResource(R.mipmap.filter_active);
+                }else{
+                    tvFilter.setTextColor(0xff5a4b41);
+                    ivFilter.setImageResource(R.mipmap.filter_default);
+                }
+
             }
         });
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -333,7 +356,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tvComplexRanking.setText("座位数由高到低");
+                    tvComplexRanking.setText("人数由高到低");
                     complexRankingRule = 3;
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
@@ -346,7 +369,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tvComplexRanking.setText("座位数由低到高");
+                    tvComplexRanking.setText("人数由低到高");
                     complexRankingRule = 4;
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
@@ -431,6 +454,27 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             recyclerViewthree.setAdapter(singleChooseAdapterthree);
             recyclerViewthree.setNestedScrollingEnabled(false);
 
+
+            RecyclerView recyclerViewfour= (RecyclerView) content.findViewById(R.id.rcv_four);
+            final TheatreFilterAdapter singleChooseAdapterfour = new TheatreFilterAdapter(getContext(), months, monthPosition);
+            singleChooseAdapterfour.setOnItemClickListener(new TheatreFilterAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position, String url) {
+                    monthPosition = position;
+
+
+                }
+            });
+            GridLayoutItemDecoration gridLayoutItemDecorationfour = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
+            recyclerViewfour.setItemAnimator(null);
+            GridLayoutManager gridLayoutManagerfour = new GridLayoutManager(getContext(), 3);
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+            recyclerViewfour.addItemDecoration(gridLayoutItemDecorationfour);
+            recyclerViewfour.setLayoutManager(gridLayoutManagerfour);
+            recyclerViewfour.setAdapter(singleChooseAdapterfour);
+            recyclerViewfour.setNestedScrollingEnabled(false);
+
+
             content.findViewById(R.id.but_reset).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -446,9 +490,17 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         showActorAccount = -1;
                         singleChooseAdapterthree.resetData();
                     }
+
+                    if(singleChooseAdapterfour!=null){
+                        monthPosition=-1;
+                        singleChooseAdapterfour.resetData();
+                    }
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
+
+
                     page = 1;
                     getList();
                     works.clear();
@@ -577,6 +629,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         if (repertorykind != 0 && repertorykind != -1) {
             params.put("classifyId", repertorykind + "");
         }
+
+        if(!(monthPosition==0||monthPosition==-1)){
+            String month=months.get(monthPosition);
+            params.put("enabledMonth",month.substring(0,4)+"-"+lists.get(monthPosition));
+        }
+
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getList: sign==" + sign);
@@ -743,5 +801,41 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             }
         });
     }
+
+    private void _GetDate() {
+//        TimeZone tz = TimeZone.getTimeZone("GMT");
+//        Calendar c = Calendar.getInstance(tz);
+//        Log.e(TAG, "_GetDate:year== " + c.get(Calendar.YEAR) + "month==" + c.get(Calendar.MONTH));
+//        return "year = " + c.get(Calendar.YEAR) + "\n month = " + c.get(Calendar.MONTH) + "\n day = " + c.get(Calendar.DAY_OF_MONTH);
+
+        months.add("不限");
+        lists.add("0");
+        Calendar c = Calendar.getInstance();//
+        Log.e(TAG, "_GetDate: mYear=="+c.get(Calendar.YEAR)+"--mMonth=="+(c.get(Calendar.MONTH) + 1) );
+        int year=c.get(Calendar.YEAR);
+        int month=(c.get(Calendar.MONTH) + 1);
+        if(month<10){
+            months.add(year+"年"+"0"+month+"月");
+        }else{
+            months.add(year+"年"+month+"月");
+        }
+        lists.add(""+month);
+        for(int i=1;i<=11;i++){
+            if((month+1)>12){
+                month=month+1-12;
+                year=year+1;
+            }else{
+                month=month+1;
+                year=year;
+            }
+            if(month<10){
+                months.add(year+"年"+"0"+month+"月");
+            }else{
+                months.add(year+"年"+month+"月");
+            }
+            lists.add(""+month);
+        }
+    }
+
 
 }

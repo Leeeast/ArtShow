@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/DIMEN_20PX"
         android:textColor="#ff5a4b41"
-        android:text="场租费用"
+        android:text="巡演费用"
         android:layout_marginTop="@dimen/DIMEN_15PX"
         android:clickable="true"
         />
@@ -76,6 +76,24 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/DIMEN_20PX"
+        android:textColor="#ff5a4b41"
+        android:text="可演出日期"
+        android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:clickable="true"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_four"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
 
 
     <RelativeLayout

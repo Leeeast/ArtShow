@@ -200,12 +200,12 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             case R.id.ll_city_choose:
 
 //                Toast.makeText(getContext(), "iv_choose_number", Toast.LENGTH_SHORT).show();
-                tvComplexRanking.setTextColor(0xff5a4b41);
-                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+//                tvComplexRanking.setTextColor(0xff5a4b41);
+//                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                 tvSkillChoose.setTextColor(0xffe93c2c);
                 ivChooseSkill.setImageResource(R.mipmap.arrow_active);
-                tvFilter.setTextColor(0xff5a4b41);
-                ivFilter.setImageResource(R.mipmap.filter_default);
+//                tvFilter.setTextColor(0xff5a4b41);
+//                ivFilter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(2);
 
                 break;
@@ -215,10 +215,10 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
                 tvComplexRanking.setTextColor(0xffe93c2c);
                 ivComplexRanking.setImageResource(R.mipmap.arrow_active);
-                tvSkillChoose.setTextColor(0xff5a4b41);
-                ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
-                tvFilter.setTextColor(0xff5a4b41);
-                ivFilter.setImageResource(R.mipmap.filter_default);
+//                tvSkillChoose.setTextColor(0xff5a4b41);
+//                ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
+//                tvFilter.setTextColor(0xff5a4b41);
+//                ivFilter.setImageResource(R.mipmap.filter_default);
                 showPopuwindow(1);
 //                Toast.makeText(getContext(), "iv_choose_price", Toast.LENGTH_SHORT).show();
 
@@ -226,10 +226,10 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
             case R.id.ll_filter:
 
-                tvComplexRanking.setTextColor(0xff5a4b41);
-                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
-                tvSkillChoose.setTextColor(0xff5a4b41);
-                ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
+//                tvComplexRanking.setTextColor(0xff5a4b41);
+//                ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+//                tvSkillChoose.setTextColor(0xff5a4b41);
+//                ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
                 tvFilter.setTextColor(0xffe93c2c);
                 ivFilter.setImageResource(R.mipmap.filter_active);
                 showPopuwindow(3);
@@ -267,11 +267,28 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                     tvComplexRanking.setTextColor(0xffe93c2c);
+                }else{
+                    ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
+                    tvComplexRanking.setTextColor(0xff5a4b41);
                 }
-                if (TextUtils.isEmpty(skillChildId)) {
+
+                if (!TextUtils.isEmpty(skillChildId)) {
                     ivChooseSkill.setImageResource(R.mipmap.arrow_down_active);
                     tvSkillChoose.setTextColor(0xffe93c2c);
+                }else{
+                    ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
+                    tvSkillChoose.setTextColor(0xff5a4b41);
                 }
+
+                if(yearPosition !=-1||!TextUtils.isEmpty(collegeName )||certificationPosition !=-1){
+                    tvFilter.setTextColor(0xffe93c2c);
+                    ivFilter.setImageResource(R.mipmap.filter_active);
+                }else{
+                    tvFilter.setTextColor(0xff5a4b41);
+                    ivFilter.setImageResource(R.mipmap.filter_default);
+                }
+
+
             }
         });
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -297,7 +314,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 @Override
                 public void onClick(View v) {
                     complexRankingRule = 1;
-                    tvSkillChoose.setText("年龄由高到低");
+                    tvComplexRanking.setText("年龄由高到低");
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -310,7 +327,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 @Override
                 public void onClick(View v) {
                     complexRankingRule = 2;
-                    tvSkillChoose.setText("年龄由低到高");
+                    tvComplexRanking.setText("年龄由低到高");
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -498,6 +515,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     public void onItemClick(int position, String url) {
                         skillParentId = tempSkillParentId;
                         skillChildId = tempChildrenBeans.get(position).getId() + "";
+                        tvSkillChoose.setText(tempChildrenBeans.get(position).getName());
                         skillChildPosition = position;
                         if (popupWindow != null && popupWindow.isShowing()) {
                             popupWindow.dismiss();
