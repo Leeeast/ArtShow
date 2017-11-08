@@ -22,17 +22,17 @@
 
         <com.art.huakai.artshow.widget.ChinaShowImageView
             android:id="@+id/sdv"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            fresco:roundedCornerRadius="@dimen/DIMEN_5PX"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/DIMEN_125PX"
+            fresco:roundedCornerRadius="@dimen/DIMEN_13PX"
+            android:layout_height="@dimen/DIMEN_125PX"
             fresco:actualImageScaleType="fitXY"
             fresco:placeholderImageScaleType="fitXY"
             fresco:roundTopLeft="true"
-            fresco:roundTopRight="false"
+            fresco:roundTopRight="true"
             fresco:roundBottomLeft="true"
-            fresco:roundBottomRight="false"
-
+            fresco:roundBottomRight="true"
+            android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_gravity="center_vertical"
             />
 
 
@@ -101,9 +101,9 @@
    <View
        android:layout_width="match_parent"
        android:layout_height="@dimen/DIMEN_1PX"
-       android:background="#ff1a1a1c"
+       android:background="#ffb3b3b3"
        android:layout_marginRight="@dimen/DIMEN_30PX"
-       android:layout_marginTop="@dimen/DIMEN_5PX"
+       android:layout_marginTop="@dimen/DIMEN_10PX"
        />
 
             <LinearLayout

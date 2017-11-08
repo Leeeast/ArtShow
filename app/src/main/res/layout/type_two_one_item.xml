@@ -73,7 +73,6 @@
             />
 
         <View
-
             android:layout_width="@dimen/DIMEN_10PX"
             android:layout_height="@dimen/DIMEN_18PX"
             android:background="@mipmap/arrow_right"
