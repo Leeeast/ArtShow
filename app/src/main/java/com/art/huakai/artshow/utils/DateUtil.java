@@ -54,4 +54,22 @@ public class DateUtil {
         }
         return String.valueOf(birthdayTime);
     }
+
+    /**
+     * 格式化一下日期格式
+     *
+     * @param time
+     * @return
+     */
+    public static String formateDate(String time) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        long timeTemp = 0;
+        try {
+            Date date = simpleDateFormat.parse(time);
+            timeTemp = date.getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return transTime(String.valueOf(timeTemp), "yyyy-M-d");
+    }
 }

@@ -91,7 +91,9 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mycalendar_selector);
-        orderDays = getIntent().getStringArrayListExtra(SELECT_LIST);
+        orderDays = new ArrayList<>();
+        ArrayList<String> days = getIntent().getStringArrayListExtra(SELECT_LIST);
+        formateDay(days);
         showProgressDialog = new ShowProgressDialog(this);
         ButterKnife.bind(this);
         mSelectEnable = getIntent().getBooleanExtra(SELECT_ENALBE, false);
@@ -121,6 +123,18 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
 
     }
 
+    /**
+     * 天数格式化处理
+     *
+     * @param days
+     */
+    private void formateDay(ArrayList<String> days) {
+        for (String day : days) {
+            String formateDate = DateUtil.formateDate(day);
+            orderDays.add(formateDate);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -148,7 +162,7 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
         params.put("disabledDates", jsonArray.toString());
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        LogUtil.i(TAG, "sign:" + sign);
+        LogUtil.i(TAG, "params:" + params);
         showProgressDialog.show();
         requestCall = RequestUtil.request(true, Constant.URL_THEATER_EDIT_DISABLEDDATES, params, 33, new RequestUtil.RequestListener() {
             @Override
@@ -172,6 +186,7 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
                         TheatreDetailInfo.getInstance().setDisabledDates(disabledDatesBeens);
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
                         Toast.makeText(CalendarSelectorActivity.this, getString(R.string.tip_dangqi_commit), Toast.LENGTH_SHORT).show();
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
