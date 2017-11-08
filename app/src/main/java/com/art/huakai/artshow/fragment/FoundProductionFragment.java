@@ -95,7 +95,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     private int repertoryPosition = -1;
     private int page = 1;
     private String time;
-    private boolean newrequest=true;
+
     private ArrayList<RepertoryBean> repertorys = new ArrayList<RepertoryBean>();
 
     public FoundProductionFragment() {
@@ -313,8 +313,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    works.clear();
                 }
             });
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
@@ -326,8 +326,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    works.clear();
                 }
             });
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
@@ -339,8 +339,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    works.clear();
                 }
             });
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
@@ -352,8 +352,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    works.clear();
                 }
             });
         } else if (type == 3) {
@@ -450,8 +450,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    works.clear();
 
                 }
             });
@@ -463,8 +463,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    works.clear();
 
                 }
             });
@@ -490,8 +490,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    works.clear();
                 }
             });
             GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
@@ -590,7 +590,6 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        newrequest=false;
                         if(page==1&&works.size() == 0){
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
@@ -633,11 +632,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                                 Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
-                                if(newrequest){
-                                    Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                                    newrequest=false;
-                                    return;
-                                }
+
                                 if (page == 1) {
                                     Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
@@ -655,11 +650,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                             Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 首次加载数据失败");
                         } else {
-                            if(newrequest){
-                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                                newrequest=false;
-                                return;
-                            }
+
                             if (page == 1) {
                                 recyclerView.refreshComplete();
                                 Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
@@ -676,11 +667,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 首次加载数据失败");
                     } else {
-                        if(newrequest){
-                            Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                            newrequest=false;
-                            return;
-                        }
+
                         if (page == 1) {
                             recyclerView.refreshComplete();
                             Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
@@ -693,7 +680,6 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     }
                     ResponseCodeCheck.showErrorMsg(code);
                 }
-                newrequest=false;
             }
 
             @Override
@@ -706,11 +692,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     llContent.setVisibility(View.GONE);
                     ivNoContent.setVisibility(View.VISIBLE);
                 } else {
-                    if(newrequest){
-                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                        newrequest=false;
-                        return;
-                    }
+
                     if (page == 1) {
                         Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                         recyclerView.refreshComplete();
@@ -721,7 +703,6 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
-                newrequest=false;
             }
         });
     }
@@ -762,6 +743,5 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             }
         });
     }
-
 
 }

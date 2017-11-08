@@ -102,7 +102,6 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     private int skillChildPosition = -1;
 
     private int page = 1;
-    private boolean newrequest=true;
 
     private List<SkillBean> skillBeanList = new ArrayList<SkillBean>();
 
@@ -303,8 +302,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    talentLists.clear();
                 }
             });
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
@@ -316,8 +315,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    talentLists.clear();
                 }
             });
         } else if (type == 3) {
@@ -418,8 +417,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    talentLists.clear();
 
                 }
             });
@@ -431,8 +430,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    talentLists.clear();
                 }
             });
 
@@ -476,8 +475,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         popupWindow.dismiss();
                     }
                     page = 1;
-                    newrequest=true;
                     getList();
+                    talentLists.clear();
 
                 }
             });
@@ -504,8 +503,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                             popupWindow.dismiss();
                         }
                         page = 1;
-                        newrequest=true;
                         getList();
+                        talentLists.clear();
                     }
                 });
                 GridLayoutItemDecoration gridLayoutItemDecorationone = new GridLayoutItemDecoration(3, GridLayoutManager.VERTICAL, 40, 20);
@@ -574,7 +573,6 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        newrequest=false;
                         if(page==1&&talentLists.size() == 0){
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
@@ -618,11 +616,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                                 Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
-                                if(newrequest){
-                                    Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                                    newrequest=false;
-                                    return;
-                                }
+
                                 if (page == 1) {
                                     Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
@@ -640,11 +634,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                             Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 首次加载数据失败");
                         } else {
-                            if(newrequest){
-                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                                newrequest=false;
-                                return;
-                            }
+
                             if (page == 1) {
                                 recyclerView.refreshComplete();
                                 Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
@@ -664,11 +654,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         llContent.setVisibility(View.GONE);
                         ivNoContent.setVisibility(View.VISIBLE);
                     } else {
-                        if(newrequest){
-                            Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                            newrequest=false;
-                            return;
-                        }
+
                         if (page == 1) {
                             recyclerView.refreshComplete();
                             Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
@@ -681,7 +667,6 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     }
                     ResponseCodeCheck.showErrorMsg(code);
                 }
-                newrequest=false;
             }
 
             @Override
@@ -694,11 +679,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                     llContent.setVisibility(View.GONE);
                     ivNoContent.setVisibility(View.VISIBLE);
                 } else {
-                    if(newrequest){
-                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
-                        newrequest=false;
-                        return;
-                    }
+
                     if (page == 1) {
                         recyclerView.refreshComplete();
                         Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
@@ -709,7 +690,6 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
-                newrequest=false;
             }
         });
     }
