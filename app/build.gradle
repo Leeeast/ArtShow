@@ -76,6 +76,5 @@ dependencies {
     compile 'com.amap.api:map2d:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile 'com.amap.api:location:latest.integration'
-    //compile files('libs/jsoup-1.8.1.jar')
     compile 'org.jsoup:jsoup:1.11.1'
 }
