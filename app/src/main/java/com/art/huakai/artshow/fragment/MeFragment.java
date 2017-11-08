@@ -15,6 +15,7 @@ import com.art.huakai.artshow.activity.LoginActivity;
 import com.art.huakai.artshow.activity.SetActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.eventbus.ActionTypeEvent;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.utils.LoginUtil;
@@ -42,6 +43,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     NestedScrollView nestedScrollView;
 
     private int scrollDistance;
+    private boolean disableScroll = false;
 
     public MeFragment() {
         // Required empty public constructor
@@ -104,8 +106,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }
             } else {
                 switchFragment(CODE_STATUS_UNLOGIN);
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,8 +149,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        setView();
+        if (disableScroll) {
+            disableScroll = false;
+        } else {
+            setView();
+        }
     }
+
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -180,5 +185,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         if (tvNmae != null) {
             tvNmae.setText(nameChangeEvent.getAccountName());
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventChangeScrollStatus(ActionTypeEvent event) {
+        if (event == null) {
+            return;
+        }
+        disableScroll = event.isDisableScroll();
     }
 }

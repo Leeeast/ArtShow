@@ -161,6 +161,8 @@ public class Constant {
     public static final String URL_INDEX_LINKS = BASE_URL + "/index/links";
     //随机广告
     public static final String URL_ADVERT = BASE_URL + "/advert";
+    // 首页推荐作品
+    public static final String URL_INDEX_REPERTORY = BASE_URL + "/index/repertory";
 
     public static final String URL_GET_HOMEPAGE_INFOS = BASE_URL + "/index";
     //获取技能类型列表 分类类型，talent：取人才类型，repertory：取演出项目类型

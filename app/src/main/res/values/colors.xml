@@ -86,7 +86,7 @@
     <color name="main_page_txt_yellow">#f7d540</color>
     <color name="deal_tab_yellow">#f8cd1d</color>
     <color name="item_yellow_txt">#f7d540</color>
-    <color name="main_bottom_bg">#ffffffff</color>
+    <color name="main_bottom_bg">#fffefefe</color>
     <color name="main_bottom_font_s">#f9ce1d</color>
     <color name="spinner_bg">#3f3d40</color>
     <color name="bg_tap">#e0ba1b</color>

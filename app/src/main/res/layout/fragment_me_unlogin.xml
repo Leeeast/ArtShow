@@ -3,5 +3,6 @@
     android:id="@+id/rlv_recommend"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/DIMEN_5PX"
     android:background="@color/whiteff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />

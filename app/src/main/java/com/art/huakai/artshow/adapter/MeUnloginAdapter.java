@@ -9,6 +9,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.MeUnloginDesHolder;
 import com.art.huakai.artshow.adapter.holder.MeUnloginHolder;
+import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.util.List;
@@ -21,10 +22,15 @@ public class MeUnloginAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_TEXT_DES = 11;
     public static final int TYPE_NORMAL = 12;
-    private List<String> mlist;
+    private List<RepertorysBean> mlist;
+    private OnItemClickListener mOnItemClickListener;
 
-    public MeUnloginAdapter(List<String> list) {
+    public MeUnloginAdapter(List<RepertorysBean> list) {
         this.mlist = list;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -49,7 +55,7 @@ public class MeUnloginAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         switch (getItemViewType(position)) {
             case TYPE_EMPTY:
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
@@ -59,6 +65,16 @@ public class MeUnloginAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_NORMAL:
                 MeUnloginHolder collHolder = (MeUnloginHolder) holder;
+                RepertorysBean repertorysBean = mlist.get(position);
+                collHolder.sdv.setImageURI(repertorysBean.getLogo());
+                collHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.onItemClickListener(position);
+                        }
+                    }
+                });
                 break;
         }
     }
