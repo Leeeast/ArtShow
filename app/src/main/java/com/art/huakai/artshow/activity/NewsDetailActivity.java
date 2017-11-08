@@ -127,7 +127,7 @@ public class NewsDetailActivity extends BaseActivity {
     @Override
     public void initView() {
         tvTitle.setVisibility(View.GONE);
-        ivRightImg.setImageResource(R.mipmap.icon_share_white);
+        ivRightImg.setImageResource(R.mipmap.icon_share_gray);
         initWebView();
     }
 

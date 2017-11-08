@@ -168,6 +168,8 @@
     <color name="upload_photo_bg">#fff6f6f6</color>
     <color name="pic_loading_bg">#fff2f2f2</color>
     <color name="detail_connect_bg">#e6f9f9f9</color>
+    <!--资讯-->
+    <color name="news_share_bg">#f9f9f9</color>
 
 
     <color name="banner_blue">#ffea003d</color>
