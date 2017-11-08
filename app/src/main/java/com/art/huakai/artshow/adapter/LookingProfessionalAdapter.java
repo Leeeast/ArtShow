@@ -71,7 +71,11 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
                 String str="";
                 if(talent.getClassifyNames()!=null&&talent.getClassifyNames().size()>0){
                     for(int i=0;i<talent.getClassifyNames().size();i++){
-                        str=str+talent.getClassifyNames().get(i);
+                        if(i>0){
+                            str=str+"/"+talent.getClassifyNames().get(i);
+                        }else{
+                            str=str+talent.getClassifyNames().get(i);
+                        }
                     }
                 }
                 typeOneViewHolder.tv_professional_name.setText(talent.getName());

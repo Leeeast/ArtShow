@@ -34,6 +34,7 @@ import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SoftInputUtil;
 import com.art.huakai.artshow.utils.ToastUtils;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.google.gson.Gson;
@@ -77,6 +78,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
     private String keyword = "*";
     private SearchAllBean searchAllBean;
+    private boolean loadingData=false;
 
 
     @Override
@@ -103,6 +105,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
             @Override
             public void run() {
                 edtSearch.requestFocus();
+                SoftInputUtil.toggleInput(KeywordSearchAllActivity.this);
             }
         },300);
 
@@ -162,6 +165,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
             case R.id.tv_search:
                 keyword = edtSearch.getText().toString();
                 if (!TextUtils.isEmpty(keyword)) {
+                    SoftInputUtil.hideInput(KeywordSearchAllActivity.this);
                     getKeywordSearchAllMessage();
                 } else {
                     ToastUtils.showToast(KeywordSearchAllActivity.this, 20, "请输入内容");
@@ -184,7 +188,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 View view = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
                 TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
                 RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv);
-                tv_name.setText("合作招募");
+                tv_name.setText("合作机会");
                 TextView tv_see_all = (TextView) view.findViewById(R.id.tv_see_all);
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -343,18 +347,23 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
             }
         }
+
+        tvAccount.setText("共发现"+10+"条相关数据");
     }
 
 
     private void getKeywordSearchAllMessage() {
-
+        if(loadingData)return;
+        loadingData=true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH==" + Constant.URL_KEYWORD_SEARCH);
         params.put("keyword", keyword);
         Log.e(TAG, "getRepertoryClassify: " + params.toString());
+
         RequestUtil.request(true, Constant.URL_KEYWORD_SEARCH, params, 111, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                loadingData=false;
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: 1111111111111obj222=" + obj);
@@ -379,11 +388,10 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 ivNoContent.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.GONE);
             }
-
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-
+                loadingData=false;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.GONE);

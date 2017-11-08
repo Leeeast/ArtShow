@@ -36,6 +36,7 @@ import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AnimUtils;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -196,8 +197,21 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         }
         tvShowTime.setText(worksDetailBean.getShowLast() + "min");
         tvAlreadyShowTimes.setText(worksDetailBean.getViewTimes() + "场");
-        tvFirstShowTime.setText(worksDetailBean.getPremiereTime() + "");
-        tvShowUsefulTime.setText(worksDetailBean.getPerformanceBeginDate()+"～"+worksDetailBean.getPerformanceEndDate());
+        try {
+            if(0!=worksDetailBean.getPremiereTime()){
+                tvFirstShowTime.setText(DateUtil.transTime(worksDetailBean.getPremiereTime()+"","yyyy.MM.dd"));
+            }
+//            if(0!=worksDetailBean.getPerformanceBeginDate()&&0!=worksDetailBean.getPerformanceEndDate()){
+//                tvShowUsefulTime.setText(DateUtil.transTime(worksDetailBean.getPerformanceBeginDate()+"","yyyy.MM.dd")+"～"+DateUtil.transTime(worksDetailBean.getPerformanceEndDate()+"","yyyy.MM.dd"));
+//            }
+        }catch (Exception e){
+
+        }
+//        tvFirstShowTime.setText(worksDetailBean.getPremiereTime() + "");
+
+
+//        tvShowUsefulTime.setText(worksDetailBean.getPerformanceBeginDate()+"～"+worksDetailBean.getPerformanceEndDate());
+
 
         if(worksDetailBean.getStaffs()!=null&&worksDetailBean.getStaffs().size()>0){
             tvActorDetail.setVisibility(View.VISIBLE);
