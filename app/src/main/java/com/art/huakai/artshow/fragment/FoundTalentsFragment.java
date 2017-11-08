@@ -2,6 +2,7 @@ package com.art.huakai.artshow.fragment;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -539,7 +541,16 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             popupWindow.setContentView(content);
         }
         if (popupWindow != null && !popupWindow.isShowing()) {
-            popupWindow.showAsDropDown(llComplexRanking, 0, 0);
+            if(Build.VERSION.SDK_INT<24){
+                popupWindow.showAsDropDown(llComplexRanking, 0, 0);
+            }else{
+                int [] Location =new int [2];
+                llComplexRanking.getLocationInWindow(Location);
+                int x=Location[0];
+                int y=Location[1];
+                popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY,0,y+llComplexRanking.getHeight());
+            }
+
         }
     }
 
