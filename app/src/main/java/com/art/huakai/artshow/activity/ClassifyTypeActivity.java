@@ -16,6 +16,7 @@ import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.ClassifyTypeBean;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.utils.ACache;
 import com.art.huakai.artshow.utils.GsonTools;
@@ -77,6 +78,18 @@ public class ClassifyTypeActivity extends BaseActivity {
             Bundle extras = intent.getExtras();
             mType = extras.getString(CLASSIFY_TYPE);
         }
+        if (mType.equals(CLASSIFY_TYPE_TALENT)) {
+            if (TalentDetailInfo.getInstance().getClassifyNames() != null &&
+                    TalentDetailInfo.getInstance().getClassifyNames().size() > 0) {
+                for (int i = 0; i < TalentDetailInfo.getInstance().getClassifyNames().size(); i++) {
+                    ClassifyTypeBean classifyTypeBean =
+                            new ClassifyTypeBean(
+                                    TalentDetailInfo.getInstance().getClassifyIds().get(i),
+                                    TalentDetailInfo.getInstance().getClassifyNames().get(i));
+                    classifyTypeAdded.add(classifyTypeBean);
+                }
+            }
+        }
     }
 
     @Override
@@ -133,7 +146,6 @@ public class ClassifyTypeActivity extends BaseActivity {
             setClassifyData(addressJson);
             return;
         }
-
         Map<String, String> params = new TreeMap<>();
         params.put("type", type);
         String sign = SignUtil.getSign(params);

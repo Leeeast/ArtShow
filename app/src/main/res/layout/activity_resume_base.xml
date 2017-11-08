@@ -221,7 +221,7 @@
                     android:layout_toRightOf="@+id/tv_subsidiary_organ"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:hint="@string/user_must_fill"
+                    android:hint="@string/user_not_must_fill"
                     android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
                     android:textCursorDrawable="@null"

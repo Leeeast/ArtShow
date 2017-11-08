@@ -23,6 +23,7 @@ import com.art.huakai.artshow.utils.CitySelectUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
@@ -124,8 +125,17 @@ public class ResumeBaseActivity extends BaseActivity {
                 getString(R.string.app_un_fill) :
                 DateUtil.transTime(talentDetailInfo.getBirthday(), "yyyy-MM");
         tvBirthday.setText(birthday);
-
-        //tvAbilityType.setText(classifyType);
+        String classifyType = "";
+        if (talentDetailInfo.getClassifyNames() != null && talentDetailInfo.getClassifyNames().size() > 0) {
+            for (int i = 0; i < talentDetailInfo.getClassifyNames().size(); i++) {
+                if (i == talentDetailInfo.getClassifyNames().size() - 1) {
+                    classifyType += talentDetailInfo.getClassifyNames().get(i);
+                } else {
+                    classifyType += talentDetailInfo.getClassifyNames().get(i) + "  ";
+                }
+            }
+        }
+        tvAbilityType.setText(classifyType);
         edtSubsidiaryOrgan.setText(talentDetailInfo.getAgency());
         tvGraduateInstitu.setText(talentDetailInfo.getSchool());
         if (!TextUtils.isEmpty(talentDetailInfo.getRegionId())) {
@@ -188,10 +198,10 @@ public class ResumeBaseActivity extends BaseActivity {
         final String classifyIds = jsonArray.toString();
         final String schrool = tvGraduateInstitu.getText().toString().trim();
         final String agency = edtSubsidiaryOrgan.getText().toString().trim();
-        if (TextUtils.isEmpty(agency)) {
-            Toast.makeText(this, getString(R.string.tip_resume_agency_input), Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (TextUtils.isEmpty(agency)) {
+//            Toast.makeText(this, getString(R.string.tip_resume_agency_input), Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         if (mRegionId == -1) {
             Toast.makeText(this, getString(R.string.tip_resume_region_city), Toast.LENGTH_SHORT).show();
             return;
@@ -202,6 +212,10 @@ public class ResumeBaseActivity extends BaseActivity {
         final String linkTel = edtConnectMethod.getText().toString().trim();
         if (TextUtils.isEmpty(linkTel)) {
             Toast.makeText(this, getString(R.string.tip_resume_linktel_input), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!PhoneUtils.isMobileNumber(linkTel)) {
+            showToast(getString(R.string.please_input_correct_phone));
             return;
         }
         Map<String, String> params = new TreeMap<>();
@@ -252,6 +266,7 @@ public class ResumeBaseActivity extends BaseActivity {
                         talentDetailInfo.setHeight(heigth);
                         talentDetailInfo.setLinkTel(linkTel);
                         EventBus.getDefault().post(new TalentInfoChangeEvent());
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
