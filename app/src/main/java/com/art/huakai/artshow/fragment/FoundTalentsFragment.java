@@ -550,7 +550,6 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 int y=Location[1];
                 popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY,0,y+llComplexRanking.getHeight());
             }
-
         }
     }
 
