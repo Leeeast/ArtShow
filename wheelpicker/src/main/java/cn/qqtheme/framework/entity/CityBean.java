@@ -11,6 +11,18 @@ public class CityBean implements LinkageItem {
     private String name;
     private List<String> children;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setChildren(List<String> children) {
+        this.children = children;
+    }
+
     public Object getId() {
         return id;
     }

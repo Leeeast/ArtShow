@@ -42,6 +42,7 @@ import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.entity.CityBean;
 import cn.qqtheme.framework.entity.ProvinceBean;
 import cn.qqtheme.framework.picker.DoublePicker;
 import cn.qqtheme.framework.picker.OptionPicker;
@@ -380,6 +381,7 @@ public class ResumeBaseActivity extends BaseActivity {
     public void showAddressSelect(String address) {
         try {
             List<ProvinceBean> provinceBeen = GsonTools.parseDatas(address, ProvinceBean.class);
+            //处理数据添加全部
             final ProvincePicker picker = new ProvincePicker(ResumeBaseActivity.this, provinceBeen);
             picker.setDividerRatio(WheelView.DividerConfig.FILL);
             picker.setCanceledOnTouchOutside(false);

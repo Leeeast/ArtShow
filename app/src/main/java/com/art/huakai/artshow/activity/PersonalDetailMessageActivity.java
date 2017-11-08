@@ -311,8 +311,14 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     @OnClick(R.id.fly_right_img)
     public void shareProject() {
         if (shareDialog == null) {
-            String title = talentDetailBean == null ? getString(R.string.app_name) : talentDetailBean.getName();
-            String shareLink = talentDetailBean == null ? getString(R.string.share_main_url) : talentDetailBean.getShareLink();
+            String title = talentDetailBean == null ||
+                    TextUtils.isEmpty(talentDetailBean.getName()) ?
+                    getString(R.string.app_name) :
+                    talentDetailBean.getName();
+            String shareLink = talentDetailBean == null ||
+                    TextUtils.isEmpty(talentDetailBean.getShareLink()) ?
+                    getString(R.string.share_main_url) :
+                    talentDetailBean.getShareLink();
             shareDialog = ShareDialog.newInstence(title, shareLink);
             shareDialog.setShareHandler(mShareHandler);
         }

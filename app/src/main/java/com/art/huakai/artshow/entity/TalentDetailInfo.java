@@ -38,7 +38,7 @@ public class TalentDetailInfo {
     private long updateTime;
     private List<PicturesBean> pictures;
     private List<Integer> classifyIds;
-    private String classifyNames;
+    private List<String> classifyNames;
     private String regionName;
     private int age;
     private int viewTimes;
@@ -196,11 +196,11 @@ public class TalentDetailInfo {
         this.classifyIds = classifyIds;
     }
 
-    public String getClassifyNames() {
+    public List<String> getClassifyNames() {
         return classifyNames;
     }
 
-    public void setClassifyNames(String classifyNames) {
+    public void setClassifyNames(List<String> classifyNames) {
         this.classifyNames = classifyNames;
     }
 

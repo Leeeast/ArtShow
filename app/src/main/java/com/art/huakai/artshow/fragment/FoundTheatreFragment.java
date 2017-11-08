@@ -53,6 +53,7 @@ import java.util.TreeMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.qqtheme.framework.entity.CityBean;
 import cn.qqtheme.framework.entity.ProvinceBean;
 import cn.qqtheme.framework.picker.ProvincePicker;
 import cn.qqtheme.framework.widget.WheelView;
@@ -101,11 +102,11 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private int locationId = 0;
     private int page = 1;
     private String time;
-    private ArrayList <String> months=new ArrayList<String>();
-    private ArrayList <String>lists=new ArrayList<String>();
-    private int monthPosition=-1;
+    private ArrayList<String> months = new ArrayList<String>();
+    private ArrayList<String> lists = new ArrayList<String>();
+    private int monthPosition = -1;
     private String address;
-    private String mRegionId="";
+    private String mRegionId = "";
 
 
     public FoundTheatreFragment() {
@@ -169,7 +170,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onItemClickListener(int position) {
 
-                if(theatres.get(position)!=null&&!TextUtils.isEmpty(theatres.get(position).getId())){
+                if (theatres.get(position) != null && !TextUtils.isEmpty(theatres.get(position).getId())) {
                     Bundle bundle = new Bundle();
                     bundle.putString(TheatreDetailMessageActivity.PARAMS_ID, theatres.get(position).getId());
                     bundle.putBoolean(TheatreDetailMessageActivity.PARAMS_ORG, false);
@@ -273,26 +274,25 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                 if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                     tvComplexRanking.setTextColor(0xffe93c2c);
-                }else{
+                } else {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                     tvComplexRanking.setTextColor(0xff5a4b41);
                 }
-                if(!TextUtils.isEmpty(mRegionId)){
+                if (!TextUtils.isEmpty(mRegionId)) {
                     tvCityChoose.setTextColor(0xffe93c2c);
                     ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
-                }else{
+                } else {
                     tvCityChoose.setTextColor(0xff5a4b41);
                     ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
                 }
 
-                if(theatreSize!=-1||theatrefee!=-1||monthPosition!=-1){
+                if (theatreSize != -1 || theatrefee != -1 || monthPosition != -1) {
                     tvFilter.setTextColor(0xffe93c2c);
                     ivFiter.setImageResource(R.mipmap.filter_active);
-                }else{
+                } else {
                     tvFilter.setTextColor(0xff5a4b41);
                     ivFiter.setImageResource(R.mipmap.filter_default);
                 }
-
 
 
                 Log.e(TAG, "onDismiss: ");
@@ -420,8 +420,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             recyclerViewtwo.setNestedScrollingEnabled(false);
 
 
-
-            RecyclerView recyclerViewthree= (RecyclerView) content.findViewById(R.id.rcv_three);
+            RecyclerView recyclerViewthree = (RecyclerView) content.findViewById(R.id.rcv_three);
             final TheatreFilterAdapter singleChooseAdapterthree = new TheatreFilterAdapter(getContext(), months, monthPosition);
             singleChooseAdapterthree.setOnItemClickListener(new TheatreFilterAdapter.OnItemClickListener() {
                 @Override
@@ -441,9 +440,6 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             recyclerViewthree.setNestedScrollingEnabled(false);
 
 
-
-
-
             content.findViewById(R.id.but_reset).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -455,14 +451,14 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         theatrefee = -1;
                         singleChooseAdaptertwo.resetData();
                     }
-                    if(singleChooseAdapterthree!=null){
-                        monthPosition=-1;
+                    if (singleChooseAdapterthree != null) {
+                        monthPosition = -1;
                         singleChooseAdapterthree.resetData();
                     }
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
-                    page=1;
+                    page = 1;
                     getList();
                     theatres.clear();
                 }
@@ -474,7 +470,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
-                    page=1;
+                    page = 1;
                     getList();
                     theatres.clear();
                 }
@@ -484,14 +480,14 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
         }
         if (popupWindow != null && !popupWindow.isShowing()) {
-            if(Build.VERSION.SDK_INT<24){
+            if (Build.VERSION.SDK_INT < 24) {
                 popupWindow.showAsDropDown(llComplexRanking, 0, 0);
-            }else{
-                int [] Location =new int [2];
+            } else {
+                int[] Location = new int[2];
                 llComplexRanking.getLocationInWindow(Location);
-                int x=Location[0];
-                int y=Location[1];
-                popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY,0,y+llComplexRanking.getHeight());
+                int x = Location[0];
+                int y = Location[1];
+                popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY, 0, y + llComplexRanking.getHeight());
             }
         }
 
@@ -540,11 +536,11 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         } else if (theatrefee == 2) {
             params.put("expenseMin", "100000");
         }
-        if(!(monthPosition==0||monthPosition==-1)){
-            String month=months.get(monthPosition);
-            params.put("enabledMonth",month.substring(0,4)+"-"+lists.get(monthPosition));
+        if (!(monthPosition == 0 || monthPosition == -1)) {
+            String month = months.get(monthPosition);
+            params.put("enabledMonth", month.substring(0, 4) + "-" + lists.get(monthPosition));
         }
-        if(!TextUtils.isEmpty(mRegionId)){
+        if (!TextUtils.isEmpty(mRegionId)) {
             params.put("regionId", mRegionId);
         }
 
@@ -560,13 +556,13 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(page==1&&theatres.size() == 0){
+                        if (page == 1 && theatres.size() == 0) {
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
                             ivNoContent.setVisibility(View.VISIBLE);
                         }
                     }
-                },500);
+                }, 500);
 
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
@@ -601,16 +597,16 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                             }
                         } else {
                             if (theatres.size() == 0) {
-                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
                                 if (page == 1) {
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
-                                    Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
-                                    Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
@@ -618,29 +614,35 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         Log.e(TAG, "onSuccess: theatres.size==" + theatres.size());
                     } else {
                         if (theatres.size() == 0) {
-                            Log.e(TAG, "onSuccess: 首次加载数据失败");Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onSuccess: 首次加载数据失败");
+                            Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
 
                         } else {
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败");Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败");Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 } else {
 
                     if (theatres.size() == 0) {
-                        Log.e(TAG, "onSuccess: 首次加载数据失败");Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onSuccess: 首次加载数据失败");
+                        Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                     } else {
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败");Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                            Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                         } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败");Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onSuccess: 加载更多数据失败");
+                            Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -651,17 +653,20 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
                 if (theatres.size() == 0) {
-                    Log.e(TAG, "onSuccess: 首次加载数据失败");Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onSuccess: 首次加载数据失败");
+                    Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                     ivLoading.setVisibility(View.GONE);
                     llContent.setVisibility(View.GONE);
                     ivNoContent.setVisibility(View.VISIBLE);
                 } else {
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败");Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                        Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                     } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败");Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onSuccess: 加载更多数据失败");
+                        Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -678,39 +683,39 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         months.add("不限");
         lists.add("0");
         Calendar c = Calendar.getInstance();//
-        Log.e(TAG, "_GetDate: mYear=="+c.get(Calendar.YEAR)+"--mMonth=="+(c.get(Calendar.MONTH) + 1) );
-        int year=c.get(Calendar.YEAR);
-        int month=(c.get(Calendar.MONTH) + 1);
-        if(month<10){
-            months.add(year+"年"+"0"+month+"月");
-        }else{
-            months.add(year+"年"+month+"月");
+        Log.e(TAG, "_GetDate: mYear==" + c.get(Calendar.YEAR) + "--mMonth==" + (c.get(Calendar.MONTH) + 1));
+        int year = c.get(Calendar.YEAR);
+        int month = (c.get(Calendar.MONTH) + 1);
+        if (month < 10) {
+            months.add(year + "年" + "0" + month + "月");
+        } else {
+            months.add(year + "年" + month + "月");
         }
-        lists.add(""+month);
-        for(int i=1;i<=11;i++){
-           if((month+1)>12){
-               month=month+1-12;
-               year=year+1;
-           }else{
-               month=month+1;
-               year=year;
-           }
-            if(month<10){
-                months.add(year+"年"+"0"+month+"月");
-            }else{
-                months.add(year+"年"+month+"月");
+        lists.add("" + month);
+        for (int i = 1; i <= 11; i++) {
+            if ((month + 1) > 12) {
+                month = month + 1 - 12;
+                year = year + 1;
+            } else {
+                month = month + 1;
+                year = year;
             }
-            lists.add(""+month);
+            if (month < 10) {
+                months.add(year + "年" + "0" + month + "月");
+            } else {
+                months.add(year + "年" + month + "月");
+            }
+            lists.add("" + month);
         }
     }
 
 
-    private void showCityDialog(){
+    private void showCityDialog() {
 
         CitySelectUtil.getCityJson(new CitySelectUtil.CityDataRequestListener() {
             @Override
             public void onSuccess(String s) {
-                address=s;
+                address = s;
 //                showAddressSelect(s);
             }
 
@@ -724,12 +729,13 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
 
     public void showAddressSelect() {
-        if(TextUtils.isEmpty(address)){
+        if (TextUtils.isEmpty(address)) {
             showCityDialog();
             return;
         }
         try {
             List<ProvinceBean> provinceBeen = GsonTools.parseDatas(address, ProvinceBean.class);
+            parseAddress(provinceBeen);
             final ProvincePicker picker = new ProvincePicker(getActivity(), provinceBeen);
             picker.setDividerRatio(WheelView.DividerConfig.FILL);
             picker.setCanceledOnTouchOutside(false);
@@ -755,13 +761,13 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                         tvComplexRanking.setTextColor(0xffe93c2c);
                     }
-                    if(!TextUtils.isEmpty(mRegionId)){
+                    if (!TextUtils.isEmpty(mRegionId)) {
 
                         tvCityChoose.setTextColor(0xffe93c2c);
                         ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
                     }
 
-                    if(theatreSize!=-1||theatrefee!=-1||monthPosition!=-1){
+                    if (theatreSize != -1 || theatrefee != -1 || monthPosition != -1) {
                         tvFilter.setTextColor(0xffe93c2c);
                         ivFiter.setImageResource(R.mipmap.filter_active);
                     }
@@ -772,6 +778,36 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 对地区数据添加全部
+     *
+     * @param provinceBeens
+     */
+    private void parseAddress(List<ProvinceBean> provinceBeens) {
+        ProvinceBean provinceBean = new ProvinceBean();
+        provinceBean.setName("全国");
+        provinceBean.setId(0);
+        CityBean city = new CityBean();
+        city.setId(0);
+        city.setName("不限");
+        ArrayList<CityBean> citys = new ArrayList<>();
+        citys.add(city);
+        provinceBean.setChildren(citys);
+
+        provinceBeens.add(0, provinceBean);
+        for (int i = 1; i < provinceBeens.size(); i++) {
+            ProvinceBean province = provinceBeens.get(i);
+            List<CityBean> children = province.getChildren();
+            if (children == null) {
+                children = new ArrayList<>();
+            }
+            CityBean cityBean = new CityBean();
+            cityBean.setId((int) province.getId());
+            cityBean.setName("全部");
+            children.add(0, cityBean);
         }
     }
 

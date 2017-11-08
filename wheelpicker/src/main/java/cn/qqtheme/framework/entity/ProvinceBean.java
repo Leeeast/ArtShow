@@ -24,6 +24,18 @@ public class ProvinceBean implements Serializable, LinkageItem {
         return children;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setChildren(List<CityBean> children) {
+        this.children = children;
+    }
+
     @Override
     public String toString() {
         return getName();

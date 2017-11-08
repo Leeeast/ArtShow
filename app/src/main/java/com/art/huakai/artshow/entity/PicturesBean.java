@@ -7,22 +7,40 @@ import java.io.Serializable;
  */
 public class PicturesBean implements Serializable {
     /**
-     * masterUrl : https://www.showonline.com.cn/image/2017/08/18/bc8ac1d4ee3d410ebb0a6051c76d4120.image
-     * largeUrl : https://www.showonline.com.cn/image/2017/08/18/bc8ac1d4ee3d410ebb0a6051c76d4120.image
-     * middleUrl : https://www.showonline.com.cn/image/2017/08/18/bc8ac1d4ee3d410ebb0a6051c76d4120.image
-     * smallUrl : https://www.showonline.com.cn/image/2017/08/18/bc8ac1d4ee3d410ebb0a6051c76d4120.image
-     * talentId : null
-     * height : 1084
-     * width : 750
-     * createTime : null
+     * "masterUrl": "http://139.224.47.213/image/8a999cce5f7d51fb015f7d5977700004.png",
+     * "largeUrl": "http://139.224.47.213/image/8a999cce5f7d51fb015f7d5977700004.png",
+     * "middleUrl": "http://139.224.47.213/image/8a999cce5f7d51fb015f7d5977700004.png",
+     * "smallUrl": "http://139.224.47.213/image/8a999cce5f7d51fb015f7d5977700004.png",
+     * "talentId": "8a999cce5f618543015f68f622740115",
+     * "height": 1040,
+     * "width": 780,
+     * "createTime": 1509636536000
      */
 
     private String masterUrl;
     private String largeUrl;
     private String middleUrl;
     private String smallUrl;
+    private String talentId;
     private int height;
     private int width;
+    private long createTime;
+
+    public String getTalentId() {
+        return talentId;
+    }
+
+    public void setTalentId(String talentId) {
+        this.talentId = talentId;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
 
     public String getMasterUrl() {
         return masterUrl;
