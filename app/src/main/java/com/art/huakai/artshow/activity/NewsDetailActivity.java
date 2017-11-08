@@ -148,7 +148,7 @@ public class NewsDetailActivity extends BaseActivity {
         settings.setJavaScriptEnabled(true);
         settings.setBuiltInZoomControls(true);
         settings.setDisplayZoomControls(false);
-        //settings.setTextSize(WebSettings.TextSize.NORMAL);
+        settings.setTextSize(WebSettings.TextSize.NORMAL);
         webViewRich.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
         webViewRich.setWebChromeClient(new WebChromeClient());
         webViewRich.setWebViewClient(new WebViewClient());

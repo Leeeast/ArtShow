@@ -9,5 +9,5 @@
     <dimen name="main_tab_text_size">10sp</dimen>
 
     <dimen name="design_fab_size_normal" tools:ignore="PrivateResource">@dimen/DIMEN_50PX</dimen>
-
+    <dimen name="rich_text_size">15sp</dimen>
 </resources>

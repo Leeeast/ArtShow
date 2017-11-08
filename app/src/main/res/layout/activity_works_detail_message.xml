@@ -39,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:overScrollMode="never"
             app:hvp_topOffset="@dimen/DIMEN_5PX">
 
             <LinearLayout
@@ -578,7 +579,9 @@
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/dis_viewpager_bg" />
+                android:layout_marginBottom="@dimen/DIMEN_50PX"
+                android:background="@color/dis_viewpager_bg"
+                android:overScrollMode="never" />
 
         </com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager>
 

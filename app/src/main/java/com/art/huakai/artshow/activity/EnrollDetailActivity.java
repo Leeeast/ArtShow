@@ -160,7 +160,8 @@ public class EnrollDetailActivity extends BaseActivity {
         settings.setJavaScriptEnabled(true);
         settings.setBuiltInZoomControls(true);
         settings.setDisplayZoomControls(false);
-        //settings.setTextSize(WebSettings.TextSize.NORMAL);
+        // settings.setTextSize(WebSettings.TextSize.NORMAL);
+        settings.setTextZoom(300);
         webViewRich.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
         webViewRich.setWebChromeClient(new WebChromeClient());
         webViewRich.setWebViewClient(new WebViewClient());
@@ -174,6 +175,7 @@ public class EnrollDetailActivity extends BaseActivity {
 
     /**
      * 解析富文本
+     *
      * @param htmltext
      * @return
      */
@@ -188,6 +190,7 @@ public class EnrollDetailActivity extends BaseActivity {
 
     /**
      * 显示富文本
+     *
      * @param content
      */
     public void setRichText(String content) {

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:overScrollMode="never"
     android:background="@color/whiteff">
 
     <RelativeLayout
@@ -23,10 +24,7 @@
             android:id="@+id/webview_rich"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_news_title"
-            android:layout_marginLeft="@dimen/DIMEN_15PX"
-            android:layout_marginRight="@dimen/DIMEN_15PX"
-            android:layout_marginTop="@dimen/DIMEN_8PX" />
+            android:scrollbars="none" />
 
     </RelativeLayout>
 

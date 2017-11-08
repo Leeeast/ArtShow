@@ -444,9 +444,8 @@
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/dis_viewpager_bg"
-
-                />
+                android:layout_marginBottom="@dimen/DIMEN_50PX"
+                android:background="@color/dis_viewpager_bg" />
         </com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager>
 
 
