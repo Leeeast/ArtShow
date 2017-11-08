@@ -8,6 +8,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.utils.SharePreUtil;
+import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 
 import java.lang.ref.WeakReference;
 
@@ -19,7 +20,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void immerseStatusBar() {
-
+        ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
     }
 
     @Override

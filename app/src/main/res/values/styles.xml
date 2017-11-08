@@ -17,7 +17,7 @@
         <!-- 是否允许有标题栏 -->
         <item name="android:windowNoTitle">true</item>
         <!--是否全屏-->
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFullscreen">false</item>
         <!-- 提示背景图片 -->
         <item name="android:windowBackground">@drawable/bg_launch</item>
         <item name="android:windowContentOverlay">@null</item>
