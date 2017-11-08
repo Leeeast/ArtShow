@@ -76,6 +76,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         tvNmae = (TextView) rootView.findViewById(R.id.tv_name);
         rootView.findViewById(R.id.iv_setting).setOnClickListener(this);
         tvNmae.setOnClickListener(this);
+        sdvAvatar.setOnClickListener(this);
     }
 
     /**
@@ -132,6 +133,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.sdv_avatar:
             case R.id.tv_name:
                 if (TextUtils.isEmpty(LocalUserInfo.getInstance().getMobile()) ||
                         TextUtils.isEmpty(LocalUserInfo.getInstance().getAccessToken())) {
