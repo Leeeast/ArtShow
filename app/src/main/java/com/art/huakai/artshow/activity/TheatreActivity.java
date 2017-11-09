@@ -281,6 +281,8 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
                 theatre.setRegionName(t.getRegionName());
                 theatre.setLinkman(t.getLinkman());
                 theatre.setLinkTel(t.getLinkTel());
+                theatre.setStatus(t.getStatus());
+                theatre.setCreateTime(t.getCreateTime());
                 mTheatres.add(theatre);
                 mOrgTheatreAdapter.notifyDataSetChanged();
                 recyclerViewTheatre.scrollToPosition(mTheatres.size());

@@ -51,6 +51,7 @@ public class DateUtil {
             birthdayTime = date.getTime();
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
         return String.valueOf(birthdayTime);
     }

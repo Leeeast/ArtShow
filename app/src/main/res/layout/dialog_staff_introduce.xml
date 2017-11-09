@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/DIMEN_5PX"
         android:layout_marginRight="@dimen/DIMEN_5PX"
-        android:background="#ffffffff"
+        android:background="@drawable/shape_bg_dialog"
         android:orientation="vertical">
 
         <FrameLayout
@@ -49,14 +49,14 @@
             android:id="@+id/sdv_member"
             android:layout_width="@dimen/DIMEN_130PX"
             android:layout_height="@dimen/DIMEN_130PX"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/DIMEN_18PX"
+            android:layout_marginTop="@dimen/DIMEN_38PX"
             fresco:actualImageScaleType="centerCrop"
             fresco:failureImage="@mipmap/loading_fail"
             fresco:failureImageScaleType="centerInside"
             fresco:placeholderImage="@color/pic_loading_bg"
             fresco:placeholderImageScaleType="fitXY"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/DIMEN_18PX"
-            android:layout_marginTop="@dimen/DIMEN_38PX"
             fresco:roundedCornerRadius="@dimen/DIMEN_13PX" />
 
         <TextView
@@ -74,21 +74,21 @@
             android:layout_width="@dimen/DIMEN_130PX"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
             android:text="导演"
             android:textColor="#ff9b9b9b"
-            android:layout_marginTop="@dimen/DIMEN_10PX"
             android:textSize="@dimen/DIMEN_14PX" />
 
         <TextView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
+            android:layout_marginTop="@dimen/DIMEN_20PX"
+            android:gravity="center_vertical"
             android:text="@string/project_member_intro"
             android:textColor="#ff5a4b41"
             android:textSize="@dimen/DIMEN_20PX"
-            android:layout_marginTop="@dimen/DIMEN_20PX"
 
             />
 
@@ -96,17 +96,12 @@
             android:id="@+id/tv_introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
-            android:textColor="#ff928470"
-            android:textSize="@dimen/DIMEN_14PX"
             android:layout_marginTop="@dimen/DIMEN_8PX"
+            android:gravity="center_vertical"
             android:paddingBottom="@dimen/DIMEN_20PX"
-            />
-
-
-
-
+            android:textColor="#ff928470"
+            android:textSize="@dimen/DIMEN_14PX" />
 
 
     </LinearLayout>

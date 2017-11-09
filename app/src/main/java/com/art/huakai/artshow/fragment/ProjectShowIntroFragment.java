@@ -15,6 +15,7 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -133,6 +134,8 @@ public class ProjectShowIntroFragment extends BaseFragment {
                         ProjectDetailInfo.getInstance().setId(projectId);
                         ProjectDetailInfo.getInstance().setPlot(mDescription);
                         EventBus.getDefault().post(new ProjectInfoChangeEvent());
+                        EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_INTRODUCE_SHOW));
+                        getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

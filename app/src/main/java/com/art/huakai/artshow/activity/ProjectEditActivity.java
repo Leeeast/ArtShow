@@ -20,6 +20,7 @@ import com.art.huakai.artshow.entity.PicturesBean;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -265,7 +266,7 @@ public class ProjectEditActivity extends BaseActivity {
      */
     @OnClick(R.id.lly_back)
     public void setlLyBack() {
-        finish();
+        onBackPressed();
     }
 
     /**
@@ -429,6 +430,7 @@ public class ProjectEditActivity extends BaseActivity {
                         String theatreId = jsonObject.getString("id");
                         ProjectDetailInfo.getInstance().setId(theatreId);
                         ProjectDetailInfo.getInstance().setLogo(picUrl);
+                        EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_AVATAR));
                         showToast(getString(R.string.tip_project_cover_suc));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -522,6 +524,7 @@ public class ProjectEditActivity extends BaseActivity {
                     showToast(getString(R.string.tip_project_release_suc));
                     projectDetailInfo.setStatus(1);
                     switchRelease.setChecked(true);
+                    EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_SEND));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -560,6 +563,7 @@ public class ProjectEditActivity extends BaseActivity {
                     showToast(getString(R.string.tip_project_offline_suc));
                     switchRelease.setChecked(false);
                     projectDetailInfo.setStatus(0);
+                    EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_SEND));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -588,5 +592,15 @@ public class ProjectEditActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mIsNewCreate) {
+            setResult(JumpCode.FLAG_RES_ADD_PROJECT);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

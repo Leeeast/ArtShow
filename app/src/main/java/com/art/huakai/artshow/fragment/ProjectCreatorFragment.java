@@ -18,6 +18,7 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.Staff;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -172,6 +173,8 @@ public class ProjectCreatorFragment extends BaseFragment {
                         ProjectDetailInfo.getInstance().setId(projectId);
                         ProjectDetailInfo.getInstance().setStaffs(mStaffs);
                         EventBus.getDefault().post(new ProjectInfoChangeEvent());
+                        EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_INTRODUCE_CREATE));
+                        getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

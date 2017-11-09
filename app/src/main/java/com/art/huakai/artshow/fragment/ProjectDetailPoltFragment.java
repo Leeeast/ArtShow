@@ -17,8 +17,14 @@ import android.widget.ImageView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
+import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.WorksDetailBean;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
+import com.art.huakai.artshow.utils.DateUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -45,6 +51,7 @@ public class ProjectDetailPoltFragment extends HeaderViewPagerFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             mWorksDatailBean = (WorksDetailBean) getArguments().getSerializable(PARAMS_PROJECT);
         }
@@ -141,7 +148,45 @@ public class ProjectDetailPoltFragment extends HeaderViewPagerFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public View getScrollableView() {
         return scrollView;
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(ProjectNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isDetached()) {
+            return;
+        }
+        try {
+            ProjectDetailInfo p = ProjectDetailInfo.getInstance();
+            switch (event.getActionCode()) {
+                case ProjectNotifyEvent.NOTIFY_INTRODUCE_SHOW:
+                    if (!TextUtils.isEmpty(p.getPlot())) {
+                        setRichText(webViewRich, p.getPlot());
+                    }
+                    break;
+                case ProjectNotifyEvent.NOTIFY_AWARD_DES:
+                    if (!TextUtils.isEmpty(p.getAwardsDescpt())) {
+                        fLyAward.setVisibility(View.VISIBLE);
+                        setRichText(webViewAward, p.getAwardsDescpt());
+                    } else {
+                        fLyAward.setVisibility(View.GONE);
+                    }
+                    break;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

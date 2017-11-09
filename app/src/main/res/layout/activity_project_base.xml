@@ -105,7 +105,7 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_arrow_project_type"
                     android:hint="@string/theatre_data_unfill"
-                    android:textColor="@color/login_btn"
+                    android:textColor="@color/set_account_text"
                     android:textColorHint="@color/set_account_text"
                     android:textSize="17sp" />
 
@@ -187,7 +187,7 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_arrow_city"
                     android:hint="@string/theatre_data_unfill"
-                    android:textColor="@color/login_btn"
+                    android:textColor="@color/set_account_text"
                     android:textColorHint="@color/set_account_text"
                     android:textSize="17sp" />
 
@@ -229,7 +229,7 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_fit_theatre"
                     android:hint="@string/theatre_data_unfill"
-                    android:textColor="@color/login_btn"
+                    android:textColor="@color/set_account_text"
                     android:textColorHint="@color/set_account_text"
                     android:textSize="17sp" />
 
@@ -278,6 +278,19 @@
                     android:layout_height="@dimen/DIMEN_1PX"
                     android:layout_alignParentBottom="true"
                     android:background="@color/me_personal_line" />
+
+                <TextView
+                    android:id="@+id/tv_first_show_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/edt_project_show_hour"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginTop="24dp"
+                    android:hint="@string/theatre_data_unfill"
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text"
+                    android:textSize="17sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -302,18 +315,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:background="@mipmap/arrow_right" />
-
-                <TextView
-                    android:id="@+id/tv_first_show_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_15PX"
-                    android:layout_toLeftOf="@id/iv_first_show_time"
-                    android:hint="@string/theatre_data_unfill"
-                    android:textColor="@color/login_btn"
-                    android:textColorHint="@color/set_account_text"
-                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="match_parent"

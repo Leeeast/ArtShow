@@ -17,6 +17,7 @@ import com.art.huakai.artshow.entity.ClassifyTypeBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
 import com.art.huakai.artshow.eventbus.ProjectPerformTimeEvent;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.CitySelectUtil;
@@ -260,6 +261,7 @@ public class ProjectBaseActivity extends BaseActivity {
                         projectDetailInfo.setPerformanceBeginDate(mStartTime);
                         projectDetailInfo.setPerformanceEndDate(mEndTime);
                         EventBus.getDefault().post(new ProjectInfoChangeEvent());
+                        EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_BASE_INFO));
                         finish();
                     } catch (Exception e) {
                         e.printStackTrace();

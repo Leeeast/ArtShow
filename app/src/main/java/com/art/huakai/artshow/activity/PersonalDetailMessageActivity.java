@@ -380,33 +380,37 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         if (this.isFinishing()) {
             return;
         }
-        TalentDetailInfo t = TalentDetailInfo.getInstance();
-        switch (event.getActionCode()) {
-            case TalentNotifyEvent.NOTIFY_AVATAR:
-                talentsPic.setImageURI(t.getLogo());
-                break;
-            case TalentNotifyEvent.NOTIFY_BASE_INFO:
-                tvName.setText(t.getName());
-                List<String> classifyNames = t.getClassifyNames();
-                String s = "";
-                for (int i = 0; i < classifyNames.size(); i++) {
-                    if (i != classifyNames.size() - 1) {
-                        s += classifyNames.get(i) + "/";
-                    } else {
-                        s += classifyNames.get(i);
+        try {
+            TalentDetailInfo t = TalentDetailInfo.getInstance();
+            switch (event.getActionCode()) {
+                case TalentNotifyEvent.NOTIFY_AVATAR:
+                    talentsPic.setImageURI(t.getLogo());
+                    break;
+                case TalentNotifyEvent.NOTIFY_BASE_INFO:
+                    tvName.setText(t.getName());
+                    List<String> classifyNames = t.getClassifyNames();
+                    String s = "";
+                    for (int i = 0; i < classifyNames.size(); i++) {
+                        if (i != classifyNames.size() - 1) {
+                            s += classifyNames.get(i) + "/";
+                        } else {
+                            s += classifyNames.get(i);
+                        }
                     }
-                }
-                tvMajor.setText(s);
-                tvAge.setText(String.valueOf(t.getAge()));
-                tvWeight.setText(String.valueOf(t.getWeight()));
-                tvHeight.setText(String.valueOf(t.getHeight()));
-                tvCity.setText(t.getRegionName());
-                tvUniversity.setText(t.getSchool());
-                tvOrganize.setText(t.getAgency());
-                break;
-            case TalentNotifyEvent.NOTIFY_INTRODUCE:
-                tvIntroduce.setText(t.getDescription());
-                break;
+                    tvMajor.setText(s);
+                    tvAge.setText(String.valueOf(t.getAge()));
+                    tvWeight.setText(String.valueOf(t.getWeight()));
+                    tvHeight.setText(String.valueOf(t.getHeight()));
+                    tvCity.setText(t.getRegionName());
+                    tvUniversity.setText(t.getSchool());
+                    tvOrganize.setText(t.getAgency());
+                    break;
+                case TalentNotifyEvent.NOTIFY_INTRODUCE:
+                    tvIntroduce.setText(t.getDescription());
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

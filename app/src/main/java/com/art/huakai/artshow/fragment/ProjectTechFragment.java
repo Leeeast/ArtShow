@@ -3,6 +3,7 @@ package com.art.huakai.artshow.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.EventLog;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -133,6 +135,8 @@ public class ProjectTechFragment extends BaseFragment {
                         ProjectDetailInfo.getInstance().setId(projectId);
                         ProjectDetailInfo.getInstance().setRequirements(mDescription);
                         EventBus.getDefault().post(new ProjectInfoChangeEvent());
+                        EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_TECH_REQUIRE));
+                        getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

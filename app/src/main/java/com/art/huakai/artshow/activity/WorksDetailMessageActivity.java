@@ -29,7 +29,11 @@ import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.StaffIntroduceDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.entity.ProjectDetailInfo;
+import com.art.huakai.artshow.entity.Staff;
 import com.art.huakai.artshow.entity.WorksDetailBean;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailPoltFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
@@ -48,7 +52,12 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.sina.weibo.sdk.share.WbShareHandler;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -133,6 +142,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     private TakePhoneDialog takePhoneDialog;
     private WbShareHandler mShareHandler;
     private RequestCall requestCall;
+    private List<Staff> mStaffs;
 
 
     private void setData() {
@@ -182,9 +192,9 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
         }
         tvTheatreName.setText(worksDetailBean.getTitle());
-        tvFee.setText(worksDetailBean.getExpense()+"");
+        tvFee.setText(worksDetailBean.getExpense() + "");
         tvProducers.setText(worksDetailBean.getLinkman());
-        tvActorNumber.setText(worksDetailBean.getPeopleNum()+"人");
+        tvActorNumber.setText(worksDetailBean.getPeopleNum() + "人");
         tvCity.setText(worksDetailBean.getRegionName());
         if (worksDetailBean.getSeatingRequir() <= 400) {
             tvThratreSize.setText("小剧场");
@@ -198,13 +208,11 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         tvShowTime.setText(worksDetailBean.getShowLast() + "min");
         tvAlreadyShowTimes.setText(worksDetailBean.getViewTimes() + "场");
         try {
-            if(0!=worksDetailBean.getPremiereTime()){
-                tvFirstShowTime.setText(DateUtil.transTime(worksDetailBean.getPremiereTime()+"","yyyy.MM.dd"));
+            if (0 != worksDetailBean.getPremiereTime()) {
+                tvFirstShowTime.setText(DateUtil.transTime(worksDetailBean.getPremiereTime() + "", "yyyy.MM.dd"));
             }
-//            if(0!=worksDetailBean.getPerformanceBeginDate()&&0!=worksDetailBean.getPerformanceEndDate()){
-//                tvShowUsefulTime.setText(DateUtil.transTime(worksDetailBean.getPerformanceBeginDate()+"","yyyy.MM.dd")+"～"+DateUtil.transTime(worksDetailBean.getPerformanceEndDate()+"","yyyy.MM.dd"));
-//            }
-        }catch (Exception e){
+            tvShowUsefulTime.setText(DateUtil.transTime(worksDetailBean.getPerformanceBeginDate() + "", "yyyy.M.d") + "～" + DateUtil.transTime(worksDetailBean.getPerformanceEndDate() + "", "yyyy.M.d"));
+        } catch (Exception e) {
 
         }
 //        tvFirstShowTime.setText(worksDetailBean.getPremiereTime() + "");
@@ -213,18 +221,19 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 //        tvShowUsefulTime.setText(worksDetailBean.getPerformanceBeginDate()+"～"+worksDetailBean.getPerformanceEndDate());
 
 
-        if(worksDetailBean.getStaffs()!=null&&worksDetailBean.getStaffs().size()>0){
+        if (worksDetailBean.getStaffs() != null && worksDetailBean.getStaffs().size() > 0) {
             tvActorDetail.setVisibility(View.VISIBLE);
             rcv.setVisibility(View.VISIBLE);
-            LinearLayoutManager linearLayoutManager= new LinearLayoutManager(WorksDetailMessageActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            final StaffIntroduceAdapter staffIntroduceAdapter=new StaffIntroduceAdapter(WorksDetailMessageActivity.this,worksDetailBean.getStaffs());
-            LinearItemDecoration linearItemDecoration=new LinearItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_14PX));
+            mStaffs = worksDetailBean.getStaffs();
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(WorksDetailMessageActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            final StaffIntroduceAdapter staffIntroduceAdapter = new StaffIntroduceAdapter(WorksDetailMessageActivity.this, mStaffs);
+            LinearItemDecoration linearItemDecoration = new LinearItemDecoration((int) getResources().getDimension(R.dimen.DIMEN_14PX));
             staffIntroduceAdapter.setOnItemClickListener(new StaffIntroduceAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
 
                     StaffIntroduceDialog staffIntroduceDialog = StaffIntroduceDialog.newInstence(worksDetailBean.getStaffs().get(position));
-                    staffIntroduceDialog.show(getSupportFragmentManager(),"");
+                    staffIntroduceDialog.show(getSupportFragmentManager(), "");
 
                 }
             });
@@ -232,11 +241,10 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             rcv.setLayoutManager(linearLayoutManager);
             rcv.setAdapter(staffIntroduceAdapter);
 
-        }else{
+        } else {
             tvActorDetail.setVisibility(View.GONE);
             rcv.setVisibility(View.GONE);
         }
-
 
 
 //        if (!TextUtils.isEmpty(talentDetailBean.getLogo())) {
@@ -419,6 +427,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (requestCall != null) {
             requestCall.cancel();
             requestCall = null;
@@ -430,5 +439,59 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(ProjectNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isFinishing()) {
+            return;
+        }
+        try {
+            ProjectDetailInfo p = ProjectDetailInfo.getInstance();
+            switch (event.getActionCode()) {
+                case ProjectNotifyEvent.NOTIFY_AVATAR:
+                    sdv.setImageURI(p.getLogo());
+                    break;
+                case ProjectNotifyEvent.NOTIFY_BASE_INFO:
+                    tvTheatreName.setText(p.getTitle());
+                    tvFee.setText(p.getExpense() + "");
+                    tvProducers.setText(p.getLinkman());
+                    tvActorNumber.setText(p.getPeopleNum() + "人");
+                    tvCity.setText(p.getRegionName());
+
+                    if (Integer.valueOf(p.getSeatingRequir()) <= 400) {
+                        tvThratreSize.setText("小剧场");
+                    } else if (400 < Integer.valueOf(p.getSeatingRequir()) && Integer.valueOf(p.getSeatingRequir()) <= 800) {
+                        tvThratreSize.setText("中剧场");
+                    } else if (800 < Integer.valueOf(p.getSeatingRequir()) && Integer.valueOf(p.getSeatingRequir()) <= 1500) {
+                        tvThratreSize.setText("大剧场");
+                    } else if (1500 < Integer.valueOf(p.getSeatingRequir())) {
+                        tvThratreSize.setText("超大剧场");
+                    }
+                    tvShowTime.setText(p.getShowLast() + "min");
+                    tvFirstShowTime.setText(DateUtil.transTime(p.getPremiereTime() + "", "yyyy.M.d"));
+                    tvAlreadyShowTimes.setText(p.getViewTimes() + "场");
+                    tvShowUsefulTime.setText(
+                            DateUtil.transTime(p.getPerformanceBeginDate() + "", "yyyy.M.d") + "～" +
+                                    DateUtil.transTime(p.getPerformanceEndDate() + "", "yyyy.M.d"));
+
+                    break;
+                case ProjectNotifyEvent.NOTIFY_INTRODUCE:
+                    tvIntroduce.setText(p.getDescription());
+                    break;
+                case ProjectNotifyEvent.NOTIFY_INTRODUCE_CREATE:
+                    mStaffs.clear();
+                    mStaffs.addAll(p.getStaffs());
+                    rcv.getAdapter().notifyDataSetChanged();
+                    break;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

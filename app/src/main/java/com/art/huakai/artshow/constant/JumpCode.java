@@ -52,5 +52,6 @@ public class JumpCode {
     public static final int FLAG_RES_CLASSIFY_TYPE_CONFIRM = FLAG_RES_RETURN + 3;
     public static final int FLAG_RES_ADDRESS_RESULT = FLAG_RES_RETURN + 4;
     public static final int FLAG_RES_ADD_THEATRE = FLAG_RES_RETURN + 5;
+    public static final int FLAG_RES_ADD_PROJECT = FLAG_RES_RETURN + 6;
 
 }

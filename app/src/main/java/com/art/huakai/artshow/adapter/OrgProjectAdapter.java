@@ -9,6 +9,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
 import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.listener.OnHolderCallBack;
 import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
@@ -24,7 +25,7 @@ public class OrgProjectAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_NORMAL = 12;
     private List<RepertorysBean> mlist;
-    private OnItemClickListener onItemClickListener;
+    private OnHolderCallBack onItemClickListener;
     private Date mEndDate;
     private SimpleDateFormat mSimpleDateFormat;
 
@@ -34,7 +35,7 @@ public class OrgProjectAdapter extends RecyclerView.Adapter {
         mSimpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnHolderCallBack onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -56,18 +57,18 @@ public class OrgProjectAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         switch (getItemViewType(position)) {
             case TYPE_EMPTY:
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_NORMAL:
-                OrgProjectHolder projectHolder = (OrgProjectHolder) holder;
+                final OrgProjectHolder projectHolder = (OrgProjectHolder) holder;
                 projectHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (onItemClickListener != null) {
-                            onItemClickListener.onItemClickListener(position);
+                            onItemClickListener.onItemClickListener(position, projectHolder);
                         }
                     }
                 });

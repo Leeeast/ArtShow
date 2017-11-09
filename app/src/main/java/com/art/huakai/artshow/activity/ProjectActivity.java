@@ -1,11 +1,19 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
+import com.art.huakai.artshow.listener.OnHolderCallBack;
 import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.adapter.OrgProjectAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -16,6 +24,7 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
+import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -24,6 +33,11 @@ import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +66,8 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
     private List<RepertorysBean> mRepertorys;
     private OrgProjectAdapter mOrgProjectAdapter;
     private RequestCall requestCall;
+    private boolean isNewCreate = false;
+    private OrgProjectHolder mHolder;
 
     @Override
     public void immerseStatusBar() {
@@ -65,6 +81,7 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         showProgressDialog = new ShowProgressDialog(this);
         mRepertorys = new ArrayList<>();
     }
@@ -137,9 +154,11 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
         recyclerViewProject.setLayoutManager(layManager);
         mOrgProjectAdapter = new OrgProjectAdapter(mRepertorys);
         recyclerViewProject.setAdapter(mOrgProjectAdapter);
-        mOrgProjectAdapter.setOnItemClickListener(new OnItemClickListener() {
+        mOrgProjectAdapter.setOnItemClickListener(new OnHolderCallBack() {
             @Override
-            public void onItemClickListener(int position) {
+            public void onItemClickListener(int position, RecyclerView.ViewHolder holder) {
+                isNewCreate = false;
+                mHolder = (OrgProjectHolder) holder;
                 RepertorysBean repertorys = mRepertorys.get(position);
                 ProjectDetailInfo.getInstance().setId(repertorys.getId());
                 Bundle bundle = new Bundle();
@@ -167,6 +186,7 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
      */
     @OnClick(R.id.tv_subtitle)
     public void uploadTheatre() {
+        isNewCreate = true;
         Bundle bundle = new Bundle();
         bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, true);
         invokActivity(this, ProjectEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
@@ -187,9 +207,102 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (requestCall != null) {
             requestCall.cancel();
             requestCall = null;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(ProjectNotifyEvent event) {
+        if (isNewCreate) {
+            return;
+        }
+        if (event == null) {
+            return;
+        }
+        if (this.isFinishing()) {
+            return;
+        }
+        ProjectDetailInfo p = ProjectDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case ProjectNotifyEvent.NOTIFY_AVATAR:
+                mHolder.sdvProject.setImageURI(p.getLogo());
+                break;
+            case ProjectNotifyEvent.NOTIFY_BASE_INFO:
+                mHolder.tvProjectTitle.setText(p.getTitle());
+                mHolder.tvActorCount.setText(p.getPeopleNum());
+                mHolder.tvFirstShowTime.setText(DateUtil.transTime(p.getPremiereTime(), "yyyy.M.d"));
+                String price = String.format(getResources().getString(R.string.me_theatre_price), Integer.valueOf(p.getExpense()));
+                mHolder.tvProjectPrice.setText(price);
+                break;
+            case ProjectNotifyEvent.NOTIFY_SEND:
+                if (p.getStatus() == 1) {
+                    mHolder.tvProjectStatus.setText(R.string.send_status);
+                    mHolder.tvProjectStatus.setTextColor(getResources().getColor(R.color.theatre_send_suc));
+                } else {
+                    mHolder.tvProjectStatus.setText(R.string.unsend_status);
+                    mHolder.tvProjectStatus.setTextColor(getResources().getColor(R.color.theatre_send_fail));
+                }
+                break;
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == JumpCode.FLAG_RES_ADD_PROJECT) {
+            ProjectDetailInfo p = ProjectDetailInfo.getInstance();
+            if (TextUtils.isEmpty(p.getId())) {
+                return;
+            }
+            try {
+                /**
+                 * id : 8a999cce5d3237f0015d327125cf0001
+                 * logo : https://www.showonline.com.cn/image/2017/07/12/ddbd5716035840629afd7e75786e8a89@thumb.JPG
+                 * title : 夜·班
+                 * agency : 北京龙百合艺术传媒有限公司
+                 * expense : 30000
+                 * peopleNum : 8
+                 * premiereTime : 1508256000000
+                 * classifyId : 14
+                 * classifyName : 实验当代
+                 * rounds : 35
+                 * status : 1
+                 * createTime : 1508336509499
+                 */
+                RepertorysBean r = new RepertorysBean();
+                r.setId(p.getId());
+                r.setLogo(p.getLogo());
+                r.setTitle(p.getTitle());
+                r.setExpense(Integer.valueOf(
+                        TextUtils.isEmpty(p.getExpense()) ? "0" : p.getExpense()
+                ));
+                r.setPeopleNum(Integer.valueOf(
+                        TextUtils.isEmpty(p.getPeopleNum()) ? "0" : p.getPeopleNum()
+                ));
+                r.setPremiereTime(Long.valueOf(
+                        TextUtils.isEmpty(p.getPremiereTime()) ? "0" : p.getPremiereTime()
+                ));
+                r.setClassifyId(Integer.valueOf(
+                        TextUtils.isEmpty(p.getClassifyId()) ? "0" : p.getPremiereTime()
+                ));
+                r.setClassifyName(p.getClassifyName());
+                r.setRounds(Integer.valueOf(
+                        TextUtils.isEmpty(p.getRounds()) ? "0" : p.getRounds()
+                ));
+                r.setStatus(p.getStatus());
+                r.setCreateTime(p.getCreateTime());
+
+                mRepertorys.add(r);
+                mOrgProjectAdapter.notifyDataSetChanged();
+                recyclerViewProject.scrollToPosition(mRepertorys.size());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

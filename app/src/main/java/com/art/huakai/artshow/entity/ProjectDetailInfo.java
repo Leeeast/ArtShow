@@ -44,9 +44,18 @@ public class ProjectDetailInfo {
     private String performanceBeginDate;
     private String performanceEndDate;
     private String regionName;
+    private String classifyName;
     private List<PicturesBean> pictures;
     private List<Staff> staffs;
     private int viewTimes;
+
+    public String getClassifyName() {
+        return classifyName;
+    }
+
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
+    }
 
     public String getId() {
         return id;

@@ -485,31 +485,35 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         if (this.isFinishing()) {
             return;
         }
-        TheatreDetailInfo t = TheatreDetailInfo.getInstance();
-        switch (event.getActionCode()) {
-            case TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR:
-                sdv.setImageURI(t.getLogo());
-                break;
-            case TheatreNotifyEvent.NOTIFY_THEATRE_BASE_INFO:
-                tvTheatreName.setText(t.getName());
-                tvFee.setText(t.getExpense() + "");
-                tvSeatCount.setText(t.getSeating() + "");
-                tvLocation.setText(t.getAddress());
-                tvIntroduce.setText(t.getDescription());
-                break;
-            case TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE:
-                tvIntroduce.setText(t.getDescription());
-                break;
-            case TheatreNotifyEvent.NOTIFY_THEATRE_DISABLE_DATE:
-                if (theatreDetailBean != null) {
-                    theatreDetailBean.setDisabledDates(t.getDisabledDates());
-                }
-                break;
-            case TheatreNotifyEvent.NOTIFY_THEATRE_TICKET:
-                if (theatreDetailBean != null) {
-                    theatreDetailBean.setPriceDiagram(t.getPriceDiagram());
-                }
-                break;
+        try {
+            TheatreDetailInfo t = TheatreDetailInfo.getInstance();
+            switch (event.getActionCode()) {
+                case TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR:
+                    sdv.setImageURI(t.getLogo());
+                    break;
+                case TheatreNotifyEvent.NOTIFY_THEATRE_BASE_INFO:
+                    tvTheatreName.setText(t.getName());
+                    tvFee.setText(t.getExpense() + "");
+                    tvSeatCount.setText(t.getSeating() + "");
+                    tvLocation.setText(t.getAddress());
+                    tvIntroduce.setText(t.getDescription());
+                    break;
+                case TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE:
+                    tvIntroduce.setText(t.getDescription());
+                    break;
+                case TheatreNotifyEvent.NOTIFY_THEATRE_DISABLE_DATE:
+                    if (theatreDetailBean != null) {
+                        theatreDetailBean.setDisabledDates(t.getDisabledDates());
+                    }
+                    break;
+                case TheatreNotifyEvent.NOTIFY_THEATRE_TICKET:
+                    if (theatreDetailBean != null) {
+                        theatreDetailBean.setPriceDiagram(t.getPriceDiagram());
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
