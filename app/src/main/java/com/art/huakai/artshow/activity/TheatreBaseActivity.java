@@ -198,10 +198,6 @@ public class TheatreBaseActivity extends BaseActivity {
 //        }
         final String theatreSeatCount = edtTheatreSeatCount.getText().toString().trim();
         if (TextUtils.isEmpty(theatreSeatCount)) {
-            if (TextUtils.isEmpty(tvLiveCity.getText().toString())) {
-                showToast(getString(R.string.tip_theatre_address_reselect));
-                return;
-            }
             showToast(getString(R.string.tip_theatre_input_seat));
             return;
         }
@@ -211,6 +207,10 @@ public class TheatreBaseActivity extends BaseActivity {
             return;
         }
         if (mPoiItem == null) {
+            if (!TextUtils.isEmpty(tvLiveCity.getText().toString())) {
+                showToast(getString(R.string.tip_theatre_address_reselect));
+                return;
+            }
             showToast(getString(R.string.tip_resume_region_city));
             return;
         }

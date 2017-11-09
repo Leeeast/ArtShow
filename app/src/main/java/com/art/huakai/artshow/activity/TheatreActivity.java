@@ -1,8 +1,10 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ import com.art.huakai.artshow.widget.SmartRecyclerview;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -221,7 +224,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
         TheatreDetailInfo t = TheatreDetailInfo.getInstance();
         switch (event.getActionCode()) {
             case TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR:
-                mHolder.sdvTheatre.setImageURI(t.getLinkman());
+                mHolder.sdvTheatre.setImageURI(t.getLogo());
                 break;
             case TheatreNotifyEvent.NOTIFY_THEATRE_BASE_INFO:
                 mHolder.tvTheatreName.setText(t.getName());
@@ -239,6 +242,51 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
                     mHolder.tvTheatreStatus.setTextColor(getResources().getColor(R.color.theatre_send_fail));
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == JumpCode.FLAG_RES_ADD_THEATRE) {
+            TheatreDetailInfo t = TheatreDetailInfo.getInstance();
+            if (TextUtils.isEmpty(t.getId())) {
+                return;
+            }
+            /**
+             * id : 402881e85f30a14c015f30a15e2b0066
+             * logo : https://www.showonline.com.cn/image/2017/08/29/691194ce02a0463686748e32d972cbc0@thumb.JPG
+             * name : 磁劇場
+             * roomName :
+             * expense : 10000
+             * seating : 227
+             * regionName : 东城区
+             * linkman : 华艺互联
+             * linkTel : 18600508821
+             * status : 1
+             * createTime : 1508349402000
+             */
+            try {
+                Theatre theatre = new Theatre();
+                theatre.setId(t.getId());
+                theatre.setLogo(t.getLogo());
+                theatre.setName(t.getName());
+                theatre.setRoomName(t.getRoomName());
+                theatre.setExpense(Integer.valueOf(
+                        TextUtils.isEmpty(t.getExpense()) ? "0" : t.getExpense()
+                ));
+                theatre.setSeating(Integer.valueOf(
+                        TextUtils.isEmpty(t.getSeating()) ? "0" : t.getSeating()
+                ));
+                theatre.setRegionName(t.getRegionName());
+                theatre.setLinkman(t.getLinkman());
+                theatre.setLinkTel(t.getLinkTel());
+                mTheatres.add(theatre);
+                mOrgTheatreAdapter.notifyDataSetChanged();
+                recyclerViewTheatre.scrollToPosition(mTheatres.size());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

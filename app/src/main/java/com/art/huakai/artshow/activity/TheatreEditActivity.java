@@ -262,7 +262,7 @@ public class TheatreEditActivity extends BaseActivity {
      */
     @OnClick(R.id.lly_back)
     public void setlLyBack() {
-        finish();
+        onBackPressed();
     }
 
     /**
@@ -635,4 +635,13 @@ public class TheatreEditActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isNewCreate) {
+            setResult(JumpCode.FLAG_RES_ADD_THEATRE);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
