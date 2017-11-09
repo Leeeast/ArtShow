@@ -359,6 +359,8 @@
     <string name="send_status">已发布</string>
     <string name="unsend_status">未发布</string>
     <string name="tip_theatre_select">未发布</string>
+    <string name="tip_theatre_address_reselect">所在城市信息有误，请重新选择所在城市</string>
+
     <!--项目相关-->
     <string name="project_title_my">我的项目</string>
     <string name="project_upload">上传项目</string>

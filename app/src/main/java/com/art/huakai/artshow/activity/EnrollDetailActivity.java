@@ -270,24 +270,28 @@ public class EnrollDetailActivity extends BaseActivity {
      * 填充数据
      */
     public void fillData() {
-        if (mEnrollDetailInfo.enroll.enrollReceiving) {
-            rLyEnrollApply.setVisibility(View.VISIBLE);
-        } else {
-            rLyEnrollApply.setVisibility(View.GONE);
+        try {
+            if (mEnrollDetailInfo.enroll.enrollReceiving) {
+                rLyEnrollApply.setVisibility(View.VISIBLE);
+            } else {
+                rLyEnrollApply.setVisibility(View.GONE);
+            }
+            tvEnrollMainTitle.setText(mEnrollDetailInfo.enroll.title);
+            tvEnrollAnchor.setText(mEnrollDetailInfo.enroll.authName);
+            tvEnrollTime.setText(DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.createTime), "yyyy年MM月dd日"));
+            tvEnrollEndTime.setText(
+                    String.format(getString(R.string.cooperate_end_time),
+                            DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.endTime), "yyyy年MM月dd日")));
+            tvEnrollViewTimes.setText(
+                    String.format(getString(R.string.enroll_detail_read),
+                            mEnrollDetailInfo.enroll.viewTimes)
+            );
+            setRichText(mEnrollDetailInfo.enroll.content);
+            initEnrollAdopt();
+            initEnrollAll();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        tvEnrollMainTitle.setText(mEnrollDetailInfo.enroll.title);
-        tvEnrollAnchor.setText(mEnrollDetailInfo.enroll.authName);
-        tvEnrollTime.setText(DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.createTime), "yyyy年MM月dd日"));
-        tvEnrollEndTime.setText(
-                String.format(getString(R.string.cooperate_end_time),
-                        DateUtil.transTime(String.valueOf(mEnrollDetailInfo.enroll.endTime), "yyyy年MM月dd日")));
-        tvEnrollViewTimes.setText(
-                String.format(getString(R.string.enroll_detail_read),
-                        mEnrollDetailInfo.enroll.viewTimes)
-        );
-        setRichText(mEnrollDetailInfo.enroll.content);
-        initEnrollAdopt();
-        initEnrollAll();
     }
 
     private void initEnrollAdopt() {

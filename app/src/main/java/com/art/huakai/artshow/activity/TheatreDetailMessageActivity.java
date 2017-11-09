@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -131,6 +132,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     public AMapLocationClientOption mLocationOption = null;
 
 
+    @SuppressLint("HandlerLeak")
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -486,7 +488,14 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         TheatreDetailInfo t = TheatreDetailInfo.getInstance();
         switch (event.getActionCode()) {
             case TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR:
-                sdv.setImageURI(t.getLinkman());
+                sdv.setImageURI(t.getLogo());
+                break;
+            case TheatreNotifyEvent.NOTIFY_THEATRE_BASE_INFO:
+                tvTheatreName.setText(t.getName());
+                tvFee.setText(t.getExpense() + "");
+                tvSeatCount.setText(t.getSeating() + "");
+                tvLocation.setText(t.getAddress());
+                tvIntroduce.setText(t.getDescription());
                 break;
         }
     }

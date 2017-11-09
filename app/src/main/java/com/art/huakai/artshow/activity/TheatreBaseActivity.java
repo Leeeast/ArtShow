@@ -16,6 +16,7 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.CitySelectUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -118,6 +119,7 @@ public class TheatreBaseActivity extends BaseActivity {
         edtConnectName.setText(theatreInstance.getLinkman());
         edtConnectPhone.setText(theatreInstance.getLinkTel());
         edtTheatreDetailAddress.setText(theatreInstance.getAddress());
+        tvLiveCity.setText(theatreInstance.getRegionName());
     }
 
     /**
@@ -196,6 +198,10 @@ public class TheatreBaseActivity extends BaseActivity {
 //        }
         final String theatreSeatCount = edtTheatreSeatCount.getText().toString().trim();
         if (TextUtils.isEmpty(theatreSeatCount)) {
+            if (TextUtils.isEmpty(tvLiveCity.getText().toString())) {
+                showToast(getString(R.string.tip_theatre_address_reselect));
+                return;
+            }
             showToast(getString(R.string.tip_theatre_input_seat));
             return;
         }
@@ -270,8 +276,10 @@ public class TheatreBaseActivity extends BaseActivity {
                         theatreInstance.setExpense(theatreColoPrice);
                         theatreInstance.setLinkman(theatreConnectName);
                         theatreInstance.setLinkTel(theatreConnectPhone);
+                        theatreInstance.setRegionName(tvLiveCity.getText().toString());
 
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                        EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_BASE_INFO));
                         finish();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -303,7 +311,7 @@ public class TheatreBaseActivity extends BaseActivity {
             mAddressLatitude = mPoiItem.getLatLonPoint().getLatitude() + "";
             mAddressLongitude = mPoiItem.getLatLonPoint().getLongitude() + "";
 
-            String address = mPoiItem.getProvinceName() + "    " + mPoiItem.getCityName();
+            String address = mPoiItem.getCityName() + "  " + mPoiItem.getAdName();
             tvLiveCity.setText(address);
             edtTheatreDetailAddress.setText(mAddressDetailName);
         }

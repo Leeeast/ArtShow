@@ -131,3 +131,6 @@
 }
 #--------EventBus end----------
 -keep class com.sina.weibo.sdk.** { *; }
+
+-dontwarn com.google.android.gms.internal.zzhu
+-keep class com.google.android.gms.internal.** { *; }

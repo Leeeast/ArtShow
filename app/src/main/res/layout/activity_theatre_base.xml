@@ -94,7 +94,7 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toRightOf="@id/tv_theatre_hall_name"
                     android:background="@null"
-                    android:hint="@string/user_must_fill"
+                    android:hint="@string/user_not_must_fill"
                     android:text=""
                     android:textColor="@color/login_btn"
                     android:textColorHint="@color/set_account_text"
@@ -218,7 +218,7 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_arrow_city"
                     android:hint="@string/theatre_data_unfill"
-                    android:textColor="@color/login_btn"
+                    android:textColor="@color/set_account_text"
                     android:textColorHint="@color/set_account_text"
                     android:textSize="17sp" />
 

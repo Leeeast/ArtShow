@@ -59,6 +59,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     private ShowProgressDialog showProgressDialog;
     private RequestCall requestCall;
     private OrgTheatreHolder mHolder;
+    private boolean isNewCreate = false;
 
     @Override
     public void immerseStatusBar() {
@@ -150,6 +151,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
             @Override
             public void onItemClickListener(int position, RecyclerView.ViewHolder holder) {
                 mHolder = (OrgTheatreHolder) holder;
+                isNewCreate = false;
                 Theatre theatre = mTheatres.get(position);
                 TheatreDetailInfo.getInstance().setId(theatre.getId());
                 Bundle bundle = new Bundle();
@@ -177,6 +179,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
      */
     @OnClick(R.id.tv_subtitle)
     public void uploadTheatre() {
+        isNewCreate = true;
         Bundle bundle = new Bundle();
         bundle.putBoolean(TheatreEditActivity.PARAMS_NEW_CREATE, true);
         invokActivity(this, TheatreEditActivity.class, bundle, JumpCode.FLAG_REQ_THEATRE_EDIT);
@@ -206,6 +209,9 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventLogin(TheatreNotifyEvent event) {
+        if (isNewCreate) {
+            return;
+        }
         if (event == null) {
             return;
         }
@@ -216,6 +222,13 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
         switch (event.getActionCode()) {
             case TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR:
                 mHolder.sdvTheatre.setImageURI(t.getLinkman());
+                break;
+            case TheatreNotifyEvent.NOTIFY_THEATRE_BASE_INFO:
+                mHolder.tvTheatreName.setText(t.getName());
+                mHolder.tvSeatCount.setText(t.getSeating());
+                mHolder.tvTheatrePosition.setText(t.getRegionName());
+                String price = String.format(getString(R.string.me_theatre_price), Integer.valueOf(t.getExpense()));
+                mHolder.tvTheatrePrice.setText(price);
                 break;
         }
     }

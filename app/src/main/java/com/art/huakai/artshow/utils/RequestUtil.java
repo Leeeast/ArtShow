@@ -88,9 +88,9 @@ public class RequestUtil {
                 if (!TextUtils.isEmpty(response)) {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
-                        int code = jsonObject.getInt("code");
-                        String msg = jsonObject.getString("msg");
-                        String data = jsonObject.getString("data");
+                        int code = jsonObject.optInt("code");
+                        String msg = jsonObject.optString("msg");
+                        String data = jsonObject.optString("data");
                         if (ResponseCodeCheck.checkResponseCode(code)) {
                             listener.onSuccess(true, data, code, id);
                         } else {
@@ -98,6 +98,7 @@ public class RequestUtil {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        listener.onSuccess(false, "Json data parsing exception", 0, id);
                     }
                 } else {
 
@@ -135,9 +136,9 @@ public class RequestUtil {
                 if (!TextUtils.isEmpty(response)) {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
-                        int code = jsonObject.getInt("code");
-                        String msg = jsonObject.getString("msg");
-                        String data = jsonObject.getString("data");
+                        int code = jsonObject.optInt("code");
+                        String msg = jsonObject.optString("msg");
+                        String data = jsonObject.optString("data");
                         if (ResponseCodeCheck.checkResponseCode(code)) {
                             listener.onSuccess(true, data, code, id);
                         } else {
@@ -145,6 +146,7 @@ public class RequestUtil {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        listener.onSuccess(false, "Json data parsing exception", 0, id);
                     }
                 }
             }
@@ -254,9 +256,9 @@ public class RequestUtil {
                 if (!TextUtils.isEmpty(response)) {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
-                        int code = jsonObject.getInt("code");
-                        String msg = jsonObject.getString("msg");
-                        String data = jsonObject.getString("data");
+                        int code = jsonObject.optInt("code");
+                        String msg = jsonObject.optString("msg");
+                        String data = jsonObject.optString("data");
                         if (ResponseCodeCheck.checkResponseCode(code)) {
                             listener.onSuccess(true, data, code, id);
                         } else {
@@ -264,6 +266,7 @@ public class RequestUtil {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        listener.onSuccess(false, "Json data parsing exception", 0, id);
                     }
                 } else {
 
