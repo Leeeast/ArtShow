@@ -29,6 +29,7 @@ import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
 import com.google.gson.Gson;
@@ -184,11 +185,14 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
 //            项目
             url = Constant.URL_KEYWORD_SEARCH_REPERTORYS;
         }
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
         RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                Log.e(TAG, "onSuccess: " );
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
