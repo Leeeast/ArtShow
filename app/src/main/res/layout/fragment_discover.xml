@@ -11,14 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_47PX"
         android:background="@color/whiteff"
-        tl:tl_indicator_color="@color/black00"
+        tl:tl_indicator_color="@color/dis_tab_text_s"
         tl:tl_indicator_corner_radius="2.5dp"
         tl:tl_indicator_height="5dp"
         tl:tl_indicator_width="5dp"
         tl:tl_tab_space_equal="true"
         tl:tl_textSelectColor="@color/dis_tab_text_s"
         tl:tl_textUnselectColor="@color/dis_tab_text_n"
-        tl:tl_textsize="16sp" />
+        tl:tl_textBold="SELECT"
+        tl:tl_textsize="20sp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
