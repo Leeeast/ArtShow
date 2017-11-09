@@ -5,14 +5,16 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_cooperate_item"
     android:padding="@dimen/DIMEN_12PX"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/rl_whole"
     >
 
     <LinearLayout
         android:id="@+id/ll_whole"
         android:layout_width="@dimen/DIMEN_230PX"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
+
         android:orientation="vertical"
 
         >

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
                 typeOneViewHolder.tv_update_time.setText("截止时间："+DateUtil.transTime(list.get(position).endTime+"","yyyy年MM月dd日"));
             }
 
-            typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
+            typeOneViewHolder.rl_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(onItemClickListener!=null){
@@ -75,6 +76,10 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
                     }
                 }
             });
+
+
+
+
         }
     }
 
@@ -94,12 +99,14 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
         private TextView tv_detail;
         private TextView tv_update_time;
         private LinearLayout ll_whole;
+        private RelativeLayout rl_whole;
         public TypeOneViewHolder(View itemView) {
             super(itemView);
             tv_name= (TextView) itemView.findViewById(R.id.tv_name);
             tv_detail= (TextView) itemView.findViewById(R.id.tv_detail);
             tv_update_time= (TextView) itemView.findViewById(R.id.tv_update_time);
             ll_whole= (LinearLayout) itemView.findViewById(R.id.ll_whole);
+            rl_whole= (RelativeLayout) itemView.findViewById(R.id.rl_whole);
         }
     }
 
