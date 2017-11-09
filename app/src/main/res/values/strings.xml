@@ -342,7 +342,7 @@
     <string name="tip_theatre_cover_upload">剧场封面上传成功</string>
     <string name="tip_theatre_cover_fail">剧场封面上传失败</string>
     <string name="theatre_send_status">发布状态</string>
-    <string name="tip_theatre_input_name">请输入剧场姓名</string>
+    <string name="tip_theatre_input_name">请输入剧场名称</string>
     <string name="tip_theatre_input_hall">请输入厅馆名称</string>
     <string name="tip_theatre_input_seat">请输入座位数量</string>
     <string name="tip_theatre_input_price">请输入场租价格</string>

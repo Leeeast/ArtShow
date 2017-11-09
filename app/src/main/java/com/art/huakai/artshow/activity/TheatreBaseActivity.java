@@ -190,10 +190,10 @@ public class TheatreBaseActivity extends BaseActivity {
             return;
         }
         final String theatreHallName = edtTheatreHallName.getText().toString().trim();
-        if (TextUtils.isEmpty(theatreHallName)) {
-            showToast(getString(R.string.tip_theatre_input_hall));
-            return;
-        }
+//        if (TextUtils.isEmpty(theatreHallName)) {
+//            showToast(getString(R.string.tip_theatre_input_hall));
+//            return;
+//        }
         final String theatreSeatCount = edtTheatreSeatCount.getText().toString().trim();
         if (TextUtils.isEmpty(theatreSeatCount)) {
             showToast(getString(R.string.tip_theatre_input_seat));
