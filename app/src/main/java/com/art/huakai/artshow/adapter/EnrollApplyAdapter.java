@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.adapter;
 
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import com.art.huakai.artshow.adapter.holder.EnrollApplyAddHolder;
 import com.art.huakai.artshow.adapter.holder.EnrollApplyHolder;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.utils.DateUtil;
 
 import java.util.List;

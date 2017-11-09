@@ -49,11 +49,14 @@
             android:id="@+id/sdv_member"
             android:layout_width="@dimen/DIMEN_130PX"
             android:layout_height="@dimen/DIMEN_130PX"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:failureImage="@mipmap/loading_fail"
+            fresco:failureImageScaleType="centerInside"
+            fresco:placeholderImage="@color/pic_loading_bg"
+            fresco:placeholderImageScaleType="fitXY"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/DIMEN_18PX"
             android:layout_marginTop="@dimen/DIMEN_38PX"
-            fresco:actualImageScaleType="fitXY"
-            fresco:placeholderImageScaleType="centerInside"
             fresco:roundedCornerRadius="@dimen/DIMEN_13PX" />
 
         <TextView

@@ -20,7 +20,7 @@ import com.art.huakai.artshow.adapter.KeywordSearchNewsAdapter;
 import com.art.huakai.artshow.adapter.KeywordSearchProfessionalAdapter;
 import com.art.huakai.artshow.adapter.KeywordSearchTheatreAdapter;
 import com.art.huakai.artshow.adapter.KeywordSearchWorksAdapter;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.EnrollInfo;

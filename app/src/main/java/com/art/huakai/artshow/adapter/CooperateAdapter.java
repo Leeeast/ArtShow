@@ -11,6 +11,7 @@ import com.art.huakai.artshow.adapter.holder.CooperateHolder;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.entity.EnrollInfo;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.text.SimpleDateFormat;

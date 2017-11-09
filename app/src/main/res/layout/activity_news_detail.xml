@@ -25,7 +25,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_155PX"
                 fresco:actualImageScaleType="centerCrop"
-                fresco:placeholderImage="@color/black6d" />
+                fresco:failureImage="@mipmap/loading_fail"
+                fresco:failureImageScaleType="centerInside"
+                fresco:placeholderImage="@color/pic_loading_bg"
+                fresco:placeholderImageScaleType="fitXY" />
 
             <RelativeLayout
                 android:id="@+id/rly_auth"

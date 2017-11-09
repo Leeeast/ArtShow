@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.EnrollApplyAdapter;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;

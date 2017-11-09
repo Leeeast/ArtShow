@@ -23,6 +23,9 @@
         android:layout_marginRight="@dimen/DIMEN_15PX"
         android:layout_marginTop="@dimen/DIMEN_16PX"
         android:background="@drawable/shape_upload_photo_bg"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="@mipmap/loading_fail"
+        fresco:failureImageScaleType="centerInside"
         fresco:placeholderImage="@mipmap/icon_photo"
         fresco:placeholderImageScaleType="centerInside"
         fresco:roundedCornerRadius="5dp" />

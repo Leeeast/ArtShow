@@ -9,6 +9,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.OrgTheatreHolder;
 import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.listener.OnHolderCallBack;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.util.List;
@@ -21,13 +22,13 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
     public static final int TYPE_EMPTY = 10;
     public static final int TYPE_NORMAL = 12;
     private List<Theatre> mlist;
-    private OnItemClickListener onItemClickListener;
+    private OnHolderCallBack onItemClickListener;
 
     public OrgTheatreAdapter(List<Theatre> list) {
         this.mlist = list;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnHolderCallBack onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -55,12 +56,12 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_NORMAL:
-                OrgTheatreHolder theatreHolder = (OrgTheatreHolder) holder;
+                final OrgTheatreHolder theatreHolder = (OrgTheatreHolder) holder;
                 theatreHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (onItemClickListener != null) {
-                            onItemClickListener.onItemClickListener(position);
+                            onItemClickListener.onItemClickListener(position, theatreHolder);
                         }
                     }
                 });

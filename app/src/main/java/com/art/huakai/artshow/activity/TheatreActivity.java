@@ -2,12 +2,13 @@ package com.art.huakai.artshow.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
 import com.art.huakai.artshow.adapter.OrgTheatreAdapter;
+import com.art.huakai.artshow.adapter.holder.OrgTheatreHolder;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
@@ -15,6 +16,8 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.Theatre;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
+import com.art.huakai.artshow.listener.OnHolderCallBack;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -23,6 +26,10 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +58,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     private int mPage = 1;
     private ShowProgressDialog showProgressDialog;
     private RequestCall requestCall;
+    private OrgTheatreHolder mHolder;
 
     @Override
     public void immerseStatusBar() {
@@ -64,6 +72,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         showProgressDialog = new ShowProgressDialog(this);
         mTheatres = new ArrayList<>();
     }
@@ -137,16 +146,16 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
 
         mOrgTheatreAdapter = new OrgTheatreAdapter(mTheatres);
         recyclerViewTheatre.setAdapter(mOrgTheatreAdapter);
-        mOrgTheatreAdapter.setOnItemClickListener(new OnItemClickListener() {
+        mOrgTheatreAdapter.setOnItemClickListener(new OnHolderCallBack() {
             @Override
-            public void onItemClickListener(int position) {
+            public void onItemClickListener(int position, RecyclerView.ViewHolder holder) {
+                mHolder = (OrgTheatreHolder) holder;
                 Theatre theatre = mTheatres.get(position);
                 TheatreDetailInfo.getInstance().setId(theatre.getId());
                 Bundle bundle = new Bundle();
                 bundle.putString(TheatreDetailMessageActivity.PARAMS_ID, theatre.getId());
                 bundle.putBoolean(TheatreDetailMessageActivity.PARAMS_ORG, true);
                 invokActivity(TheatreActivity.this, TheatreDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_THEATRE);
-
             }
         });
         recyclerViewTheatre.setLoadingListener(this);
@@ -188,9 +197,26 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (requestCall != null) {
             requestCall.cancel();
             requestCall = null;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(TheatreNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isFinishing()) {
+            return;
+        }
+        TheatreDetailInfo t = TheatreDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR:
+                mHolder.sdvTheatre.setImageURI(t.getLinkman());
+                break;
         }
     }
 }

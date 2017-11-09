@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.adapter.OrgProjectAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
@@ -15,8 +15,6 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
-import com.art.huakai.artshow.entity.Theatre;
-import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;

@@ -18,6 +18,7 @@ import com.art.huakai.artshow.entity.DisabledDatesBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -523,6 +524,7 @@ public class TheatreEditActivity extends BaseActivity {
                         TheatreDetailInfo.getInstance().setId(theatreId);
                         TheatreDetailInfo.getInstance().setLogo(picUrl);
                         showToast(getString(R.string.tip_theatre_cover_upload));
+                        EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

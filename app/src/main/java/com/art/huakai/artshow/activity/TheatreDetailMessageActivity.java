@@ -31,6 +31,8 @@ import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.DisabledDatesBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailDesFragment;
@@ -49,6 +51,10 @@ import com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.sina.weibo.sdk.share.WbShareHandler;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -229,6 +235,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -456,6 +463,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (mlocationClient != null) {
             mlocationClient.stopLocation();
             mlocationClient.onDestroy();
@@ -464,6 +472,22 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         if (requestCall != null) {
             requestCall.cancel();
             requestCall = null;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(TheatreNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isFinishing()) {
+            return;
+        }
+        TheatreDetailInfo t = TheatreDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TheatreNotifyEvent.NOTIFY_THEATRE_AVATAR:
+                sdv.setImageURI(t.getLinkman());
+                break;
         }
     }
 }

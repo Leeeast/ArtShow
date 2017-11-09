@@ -13,7 +13,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.EnrollDetailActivity;
 import com.art.huakai.artshow.activity.KeywordSearchNewsActivity;
 import com.art.huakai.artshow.adapter.CooperateAdapter;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;

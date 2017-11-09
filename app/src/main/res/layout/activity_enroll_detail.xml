@@ -148,6 +148,10 @@
                 android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:background="@mipmap/bg_ad_1"
                 fresco:actualImageScaleType="centerCrop"
+                fresco:failureImage="@mipmap/loading_fail"
+                fresco:failureImageScaleType="centerInside"
+                fresco:placeholderImage="@color/pic_loading_bg"
+                fresco:placeholderImageScaleType="fitXY"
                 fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
 
         </LinearLayout>

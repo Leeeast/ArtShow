@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.holder.CooperateDesHolder;
 import com.art.huakai.artshow.adapter.holder.CooperateHolder;
-import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.entity.EnrollInfo;
-import com.art.huakai.artshow.entity.NewsesBean;
-import com.art.huakai.artshow.entity.TalentBean;
-import com.art.huakai.artshow.utils.DeviceUtils;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

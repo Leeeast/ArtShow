@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_153PX"
         fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="@mipmap/loading_fail"
+        fresco:failureImageScaleType="centerInside"
         fresco:placeholderImage="@mipmap/bg_ad_2"
         fresco:placeholderImageScaleType="centerCrop"
         fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />

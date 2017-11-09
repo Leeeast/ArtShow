@@ -7,14 +7,11 @@ import android.view.ViewGroup;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.holder.EmptyHolder;
-import com.art.huakai.artshow.adapter.holder.EnrollJoinHolder;
 import com.art.huakai.artshow.adapter.holder.EnrolledHolder;
 import com.art.huakai.artshow.entity.RepertorysBean;
-import com.art.huakai.artshow.utils.DateUtil;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

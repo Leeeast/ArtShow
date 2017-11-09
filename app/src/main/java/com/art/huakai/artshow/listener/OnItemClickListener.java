@@ -1,4 +1,4 @@
-package com.art.huakai.artshow.adapter;
+package com.art.huakai.artshow.listener;
 
 /**
  * RecyclerView item 点击

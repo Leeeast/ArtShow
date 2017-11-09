@@ -10,7 +10,7 @@ import android.view.View;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WorksDetailMessageActivity;
 import com.art.huakai.artshow.adapter.MeUnloginAdapter;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;

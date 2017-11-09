@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchCooperateAdapter;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.EnrollInfo;

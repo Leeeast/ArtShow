@@ -203,7 +203,11 @@
                 android:layout_height="@dimen/DIMEN_86PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginTop="@dimen/DIMEN_15PX"
-                android:background="@mipmap/upload_data" />
+                android:background="@mipmap/upload_data"
+                fresco:failureImage="@mipmap/loading_fail"
+                fresco:failureImageScaleType="centerInside"
+                fresco:placeholderImage="@color/pic_loading_bg"
+                fresco:placeholderImageScaleType="fitXY" />
 
             <Button
                 android:id="@+id/btn_commit_data"

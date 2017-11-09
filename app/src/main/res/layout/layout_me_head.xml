@@ -25,6 +25,8 @@
         fresco:actualImageScaleType="focusCrop"
         fresco:placeholderImage="@mipmap/avatar_default"
         fresco:placeholderImageScaleType="fitCenter"
+        fresco:failureImage="@mipmap/loading_fail"
+        fresco:failureImageScaleType="centerInside"
         fresco:roundAsCircle="true" />
 
     <TextView

@@ -15,7 +15,6 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
-import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
 import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
@@ -203,7 +202,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventLogin1(TalentNotifyEvent event) {
+    public void onEventLogin(TalentNotifyEvent event) {
         if (event == null) {
             return;
         }

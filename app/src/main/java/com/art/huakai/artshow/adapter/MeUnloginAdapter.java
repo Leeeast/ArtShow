@@ -10,6 +10,7 @@ import com.art.huakai.artshow.adapter.holder.EmptyHolder;
 import com.art.huakai.artshow.adapter.holder.MeUnloginDesHolder;
 import com.art.huakai.artshow.adapter.holder.MeUnloginHolder;
 import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 import java.util.List;
