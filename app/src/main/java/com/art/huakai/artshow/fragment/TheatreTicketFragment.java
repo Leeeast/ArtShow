@@ -19,6 +19,7 @@ import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -144,6 +145,8 @@ public class TheatreTicketFragment extends BaseFragment {
                     TheatreDetailInfo.getInstance().setId(theatreId);
                     TheatreDetailInfo.getInstance().setPriceDiagram(mPhotoUrl);
                     EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                    EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_TICKET));
+                    getActivity().finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

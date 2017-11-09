@@ -10,8 +10,10 @@ public class TheatreNotifyEvent {
     public static final int NOTIFY_THEATRE_BASE_INFO = 1;//基本信息
     public static final int NOTIFY_THEATRE_SEND = 2;//发布
     public static final int NOTIFY_THEATRE_INTRODUCE = 3;//介绍
-    public static final int NOTIFY_THEATRE_WORKS_DES = 4;//项目介绍
-    public static final int NOTIFY_THEATRE_AWARD_DES = 4;//获奖
+    public static final int NOTIFY_THEATRE_INTRODUCE_DETAIL = 4;//介绍
+    public static final int NOTIFY_THEATRE_DISABLE_DATE = 5;//剧场档期
+    public static final int NOTIFY_THEATRE_TECH = 6;//技术参数
+    public static final int NOTIFY_THEATRE_TICKET = 7;//票图
 
     private int actionCode;
 

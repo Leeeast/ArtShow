@@ -11,7 +11,7 @@ public class TalentNotifyEvent {
     public static final int NOTIFY_SEND = 2;//发布
     public static final int NOTIFY_INTRODUCE = 3;//介绍
     public static final int NOTIFY_WORKS_DES = 4;//项目介绍
-    public static final int NOTIFY_AWARD_DES = 4;//获奖
+    public static final int NOTIFY_AWARD_DES = 5;//获奖
 
     private int actionCode;
 

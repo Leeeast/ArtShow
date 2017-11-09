@@ -141,6 +141,7 @@
     <string name="tip_data_error">数据异常</string>
     <string name="tip_data_commit_fail">信息提交失败</string>
     <string name="tip_auth_data_update">请上传资质认证图片</string>
+    <string name="tip_net_error">服务器异常，请稍候重试</string>
 
 
     <string name="response_code_200">success</string>
@@ -356,6 +357,8 @@
     <string name="tip_theatre_offline_suc">剧场下线成功</string>
     <string name="tip_theatre_offline_fail">剧场下线失败</string>
     <string name="tip_theatre_select_address">请选择剧场位置</string>
+    <string name="tip_theatre_intro_input">请输入剧场简介</string>
+    <string name="tip_theatre_detail_input">请输入剧场详细介绍</string>
     <string name="send_status">已发布</string>
     <string name="unsend_status">未发布</string>
     <string name="tip_theatre_select">未发布</string>

@@ -15,13 +15,17 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.art.huakai.artshow.utils.SoftInputUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -108,7 +112,7 @@ public class TheatreDetailIntroFragment extends BaseFragment {
         }
         mDescription = edtIntroduce.getText().toString().trim();
         if (TextUtils.isEmpty(mDescription)) {
-            Toast.makeText(getContext(), getString(R.string.tip_description_input), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.tip_theatre_detail_input), Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, String> params = new TreeMap<>();
@@ -138,6 +142,9 @@ public class TheatreDetailIntroFragment extends BaseFragment {
                         TheatreDetailInfo.getInstance().setId(theatreId);
                         TheatreDetailInfo.getInstance().setDetailedIntroduce(mDescription);
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                        EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE_DETAIL));
+                        SoftInputUtil.hideInput(getContext());
+                        getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

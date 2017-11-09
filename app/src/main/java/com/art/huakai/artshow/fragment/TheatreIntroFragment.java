@@ -15,11 +15,13 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.art.huakai.artshow.utils.SoftInputUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -94,7 +96,7 @@ public class TheatreIntroFragment extends BaseFragment {
     }
 
     /**
-     * 修改简历个人介绍
+     * 修改剧场介绍
      */
     public void changeResumeDescription() {
         //判断是否登录
@@ -108,7 +110,7 @@ public class TheatreIntroFragment extends BaseFragment {
         }
         mDescription = edtIntroduce.getText().toString().trim();
         if (TextUtils.isEmpty(mDescription)) {
-            Toast.makeText(getContext(), getString(R.string.tip_description_input), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.tip_theatre_intro_input), Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, String> params = new TreeMap<>();
@@ -138,6 +140,9 @@ public class TheatreIntroFragment extends BaseFragment {
                         TheatreDetailInfo.getInstance().setId(theatreId);
                         TheatreDetailInfo.getInstance().setDescription(mDescription);
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                        EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE));
+                        SoftInputUtil.hideInput(getContext());
+                        getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

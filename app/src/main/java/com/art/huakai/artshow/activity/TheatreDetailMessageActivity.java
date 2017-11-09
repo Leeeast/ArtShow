@@ -497,6 +497,19 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 tvLocation.setText(t.getAddress());
                 tvIntroduce.setText(t.getDescription());
                 break;
+            case TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE:
+                tvIntroduce.setText(t.getDescription());
+                break;
+            case TheatreNotifyEvent.NOTIFY_THEATRE_DISABLE_DATE:
+                if (theatreDetailBean != null) {
+                    theatreDetailBean.setDisabledDates(t.getDisabledDates());
+                }
+                break;
+            case TheatreNotifyEvent.NOTIFY_THEATRE_TICKET:
+                if (theatreDetailBean != null) {
+                    theatreDetailBean.setPriceDiagram(t.getPriceDiagram());
+                }
+                break;
         }
     }
 }

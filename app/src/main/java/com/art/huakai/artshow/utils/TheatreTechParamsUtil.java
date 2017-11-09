@@ -48,6 +48,7 @@ public class TheatreTechParamsUtil {
     }
 
     public static void getTheatreTechParamsAddedList(List<String> added) {
+        added.clear();
         String[] stringArray = ShowApplication.getAppContext().getResources().getStringArray(R.array.theatre_tech_param);
         TheatreDetailInfo theatre = TheatreDetailInfo.getInstance();
         if (!TextUtils.isEmpty(theatre.getStageLights()) &&
@@ -101,6 +102,7 @@ public class TheatreTechParamsUtil {
     }
 
     public static void getTheatreEquipAddedList(List<String> added, TheatreDetailBean theatre) {
+        added.clear();
         String[] stringArray = ShowApplication.getAppContext().getResources().getStringArray(R.array.theatre_tech_param);
         if (theatre.getStageLights() == 1) {
             added.add(stringArray[0]);//灯光
@@ -141,20 +143,45 @@ public class TheatreTechParamsUtil {
     }
 
     public static List<TechParamsBean> getTheatreTechParamsAddedList(List<TechParamsBean> added, TheatreDetailBean theatre) {
+        added.clear();
         if (!TextUtils.isEmpty(theatre.getStageHeight())) {
-            added.add(new TechParamsBean("舞台高度", theatre.getStageHeight() + "米"));
+            added.add(new TechParamsBean("舞台高度", theatre.getStageHeight() + "m"));
         }
         if (!TextUtils.isEmpty(theatre.getStageWidth())) {
-            added.add(new TechParamsBean("舞台宽度", theatre.getStageWidth() + "米"));
+            added.add(new TechParamsBean("舞台宽度", theatre.getStageWidth() + "m"));
         }
         if (!TextUtils.isEmpty(theatre.getStageDepth())) {
-            added.add(new TechParamsBean("舞台深度", theatre.getStageDepth() + "米"));
+            added.add(new TechParamsBean("舞台深度", theatre.getStageDepth() + "m"));
         }
         if (!TextUtils.isEmpty(theatre.getCurtainWidth())) {
-            added.add(new TechParamsBean("幕布宽度", theatre.getCurtainWidth() + "米"));
+            added.add(new TechParamsBean("幕布宽度", theatre.getCurtainWidth() + "m"));
         }
         if (!TextUtils.isEmpty(theatre.getCurtainHeight())) {
             added.add(new TechParamsBean("幕布高度", theatre.getCurtainHeight() + "米"));
+        }
+        added.add(new TechParamsBean("化妆间数量", theatre.getDressingRoomNum() + "个"));
+        added.add(new TechParamsBean("排练室数量", theatre.getRehearsalRoomNum() + "个"));
+        added.add(new TechParamsBean("道具间数量", theatre.getPropRoomNum() + "个"));
+        added.add(new TechParamsBean("服装间数量", theatre.getCostumeRoomNum() + "个"));
+        return added;
+    }
+
+    public static List<TechParamsBean> getTheatreTechParamsAddedList(List<TechParamsBean> added, TheatreDetailInfo theatre) {
+        added.clear();
+        if (!TextUtils.isEmpty(theatre.getStageHeight())) {
+            added.add(new TechParamsBean("舞台高度", theatre.getStageHeight() + "m"));
+        }
+        if (!TextUtils.isEmpty(theatre.getStageWidth())) {
+            added.add(new TechParamsBean("舞台宽度", theatre.getStageWidth() + "m"));
+        }
+        if (!TextUtils.isEmpty(theatre.getStageDepth())) {
+            added.add(new TechParamsBean("舞台深度", theatre.getStageDepth() + "m"));
+        }
+        if (!TextUtils.isEmpty(theatre.getCurtainWidth())) {
+            added.add(new TechParamsBean("幕布宽度", theatre.getCurtainWidth() + "m"));
+        }
+        if (!TextUtils.isEmpty(theatre.getCurtainHeight())) {
+            added.add(new TechParamsBean("幕布高度", theatre.getCurtainHeight() + "m"));
         }
         added.add(new TechParamsBean("化妆间数量", theatre.getDressingRoomNum() + "个"));
         added.add(new TechParamsBean("排练室数量", theatre.getRehearsalRoomNum() + "个"));

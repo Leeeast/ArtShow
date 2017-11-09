@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,13 @@ import com.art.huakai.artshow.decoration.GridLayoutItemDecoration;
 import com.art.huakai.artshow.entity.SkillBean;
 import com.art.huakai.artshow.entity.TechParamsBean;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.TheatreTechParamsUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +38,9 @@ public class TheatreDetailParamsFragment extends HeaderViewPagerFragment {
     private TheatreDetailBean mTheatreDetailBean;
     private RecyclerView recyclerViewParams;
     private TextView tvSkillParams;
+    private List<TechParamsBean> techParamsBeans;
+    private RecyclerView recyclerViewEquip;
+    private ArrayList<String> techParamsAdded;
 
     public static TheatreDetailParamsFragment newInstance(TheatreDetailBean theatreDetailBean) {
         TheatreDetailParamsFragment fragment = new TheatreDetailParamsFragment();
@@ -43,6 +53,7 @@ public class TheatreDetailParamsFragment extends HeaderViewPagerFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             mTheatreDetailBean = (TheatreDetailBean) getArguments().getSerializable(PARAMS_THEATRE);
         }
@@ -71,18 +82,18 @@ public class TheatreDetailParamsFragment extends HeaderViewPagerFragment {
                 getResources().getDimensionPixelSize(R.dimen.DIMEN_5PX));
         recyclerViewParams.addItemDecoration(gridLayoutItemDecorationone);
 
-        List<TechParamsBean> techParamsBeans = new ArrayList<>();
+        techParamsBeans = new ArrayList<>();
         TheatreTechParamsUtil.getTheatreTechParamsAddedList(techParamsBeans, mTheatreDetailBean);
         SkillParamsAdapter skillParamsAdapter = new SkillParamsAdapter(techParamsBeans);
         recyclerViewParams.setAdapter(skillParamsAdapter);
 
         ArrayList<String> techParams = new ArrayList<>();
-        ArrayList<String> techParamsAdded = new ArrayList<>();
+        techParamsAdded = new ArrayList<>();
         TheatreTechParamsUtil.getTheatreEquipAddedList(techParamsAdded, mTheatreDetailBean);
         String[] stringArray = getResources().getStringArray(R.array.theatre_tech_param);
         techParams.addAll(Arrays.asList(stringArray));
 
-        RecyclerView recyclerViewEquip = (RecyclerView) view.findViewById(R.id.recycle_equip);
+        recyclerViewEquip = (RecyclerView) view.findViewById(R.id.recycle_equip);
         GridLayoutManager gridLayoutEquip = new GridLayoutManager(getContext(), 4);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerViewParams.setLayoutManager(gridLayoutManager);
@@ -100,7 +111,33 @@ public class TheatreDetailParamsFragment extends HeaderViewPagerFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public View getScrollableView() {
         return scrollView;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(TheatreNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isDetached()) {
+            return;
+        }
+        TheatreDetailInfo t = TheatreDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TheatreNotifyEvent.NOTIFY_THEATRE_TECH:
+                TheatreTechParamsUtil.getTheatreTechParamsAddedList(techParamsBeans, t);
+                recyclerViewParams.getAdapter().notifyDataSetChanged();
+
+                TheatreTechParamsUtil.getTheatreTechParamsAddedList(techParamsAdded);
+                recyclerViewEquip.getAdapter().notifyDataSetChanged();
+                break;
+        }
     }
 }

@@ -17,7 +17,12 @@ import android.widget.ImageView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,6 +47,7 @@ public class TheatreDetailDesFragment extends HeaderViewPagerFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             mTheatreDetailBean = (TheatreDetailBean) getArguments().getSerializable(PARAMS_THEATRE);
         }
@@ -126,9 +132,41 @@ public class TheatreDetailDesFragment extends HeaderViewPagerFragment {
                 "UTF-8", null);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public View getScrollableView() {
         return scrollView;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(TheatreNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isDetached()) {
+            return;
+        }
+        TheatreDetailInfo t = TheatreDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE_DETAIL:
+
+                if (!TextUtils.isEmpty(t.getDetailedIntroduce())) {
+                    ivPageEmpty.setVisibility(View.GONE);
+                    webViewRich.setVisibility(View.VISIBLE);
+                    initWebView();
+                    setRichText(t.getDetailedIntroduce());
+                } else {
+                    ivPageEmpty.setVisibility(View.VISIBLE);
+                    webViewRich.setVisibility(View.GONE);
+                }
+
+                break;
+        }
+    }
+
 }

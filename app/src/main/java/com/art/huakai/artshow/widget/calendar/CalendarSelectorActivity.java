@@ -20,6 +20,7 @@ import com.art.huakai.artshow.entity.DisabledDatesBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -185,6 +186,7 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
                         }
                         TheatreDetailInfo.getInstance().setDisabledDates(disabledDatesBeens);
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                        EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_DISABLE_DATE));
                         Toast.makeText(CalendarSelectorActivity.this, getString(R.string.tip_dangqi_commit), Toast.LENGTH_SHORT).show();
                         finish();
                     } catch (Exception e) {
@@ -198,6 +200,7 @@ public class CalendarSelectorActivity extends Activity implements View.OnClickLi
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                Toast.makeText(CalendarSelectorActivity.this, getString(R.string.tip_net_error), Toast.LENGTH_SHORT).show();
                 if (showProgressDialog.isShowing()) {
                     showProgressDialog.dismiss();
                 }

@@ -19,6 +19,7 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -201,7 +202,7 @@ public class TheatreTechParamFragment extends BaseFragment {
                 }
                 try {
                     if (isSuccess) {
-                        Toast.makeText(getContext(), getString(R.string.tip_theatre_info_commit_success), Toast.LENGTH_SHORT).show();
+                        showToast(getString(R.string.tip_theatre_info_commit_success));
                         //{"id":"8a999cce5f51904d015f528af2ce0004"}
                         JSONObject jsonObject = new JSONObject(obj);
                         String theatreId = (String) jsonObject.get("id");
@@ -227,6 +228,8 @@ public class TheatreTechParamFragment extends BaseFragment {
                         theatreInstance.setSpecialEquipment(specialEquipment);
                         theatreInstance.setProjector(projector);
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                        EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_TECH));
+                        getActivity().finish();
                     } else {
                         ResponseCodeCheck.showErrorMsg(code);
                     }

@@ -579,6 +579,7 @@ public class TheatreEditActivity extends BaseActivity {
                     showToast(getString(R.string.tip_theatre_release_suc));
                     switchRelease.setChecked(true);
                     TheatreDetailInfo.getInstance().setStatus(1);
+                    EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_SEND));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -617,6 +618,7 @@ public class TheatreEditActivity extends BaseActivity {
                     showToast(getString(R.string.tip_theatre_offline_suc));
                     switchRelease.setChecked(false);
                     TheatreDetailInfo.getInstance().setStatus(0);
+                    EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_SEND));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }

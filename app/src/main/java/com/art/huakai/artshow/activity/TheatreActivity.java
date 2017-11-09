@@ -230,6 +230,15 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
                 String price = String.format(getString(R.string.me_theatre_price), Integer.valueOf(t.getExpense()));
                 mHolder.tvTheatrePrice.setText(price);
                 break;
+            case TheatreNotifyEvent.NOTIFY_THEATRE_SEND:
+                if (t.getStatus() == 1) {
+                    mHolder.tvTheatreStatus.setText(R.string.send_status);
+                    mHolder.tvTheatreStatus.setTextColor(getResources().getColor(R.color.theatre_send_suc));
+                } else {
+                    mHolder.tvTheatreStatus.setText(R.string.unsend_status);
+                    mHolder.tvTheatreStatus.setTextColor(getResources().getColor(R.color.theatre_send_fail));
+                }
+                break;
         }
     }
 }
