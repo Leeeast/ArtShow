@@ -17,8 +17,10 @@ import com.art.huakai.artshow.entity.ClassifyTypeBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.ACache;
+import com.art.huakai.artshow.utils.AgeUtils;
 import com.art.huakai.artshow.utils.CitySelectUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
@@ -102,6 +104,7 @@ public class ResumeBaseActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        classifyTypeAdded = new ArrayList<>();
         showProgressDialog = new ShowProgressDialog(this);
         talentDetailInfo = TalentDetailInfo.getInstance();
         mACache = ACache.get(this);
@@ -117,43 +120,52 @@ public class ResumeBaseActivity extends BaseActivity {
 
     @Override
     public void setView() {
-        if (!TextUtils.isEmpty(TalentDetailInfo.getInstance().getName())) {
-            edtUserName.setText(TalentDetailInfo.getInstance().getName());
-        }
+        try {
+            if (!TextUtils.isEmpty(TalentDetailInfo.getInstance().getName())) {
+                edtUserName.setText(TalentDetailInfo.getInstance().getName());
+            }
 
-        String birthday = TextUtils.isEmpty(TalentDetailInfo.getInstance().getBirthday()) ?
-                getString(R.string.app_un_fill) :
-                DateUtil.transTime(talentDetailInfo.getBirthday(), "yyyy-MM");
-        tvBirthday.setText(birthday);
-        String classifyType = "";
-        if (talentDetailInfo.getClassifyNames() != null && talentDetailInfo.getClassifyNames().size() > 0) {
-            for (int i = 0; i < talentDetailInfo.getClassifyNames().size(); i++) {
-                if (i == talentDetailInfo.getClassifyNames().size() - 1) {
-                    classifyType += talentDetailInfo.getClassifyNames().get(i);
-                } else {
-                    classifyType += talentDetailInfo.getClassifyNames().get(i) + "  ";
+            String birthday = TextUtils.isEmpty(TalentDetailInfo.getInstance().getBirthday()) ?
+                    getString(R.string.app_un_fill) :
+                    DateUtil.transTime(talentDetailInfo.getBirthday(), "yyyy-MM");
+            tvBirthday.setText(birthday);
+            String classifyType = "";
+            if (talentDetailInfo.getClassifyNames() != null && talentDetailInfo.getClassifyNames().size() > 0) {
+                for (int i = 0; i < talentDetailInfo.getClassifyNames().size(); i++) {
+                    if (i == talentDetailInfo.getClassifyNames().size() - 1) {
+                        classifyType += talentDetailInfo.getClassifyNames().get(i);
+                    } else {
+                        classifyType += talentDetailInfo.getClassifyNames().get(i) + "  ";
+                    }
+                    ClassifyTypeBean classifyTypeBean = new ClassifyTypeBean(
+                            talentDetailInfo.getClassifyIds().get(i),
+                            talentDetailInfo.getClassifyNames().get(i));
+                    classifyTypeAdded.add(classifyTypeBean);
                 }
             }
-        }
-        tvAbilityType.setText(classifyType);
-        edtSubsidiaryOrgan.setText(talentDetailInfo.getAgency());
-        tvGraduateInstitu.setText(talentDetailInfo.getSchool());
-        if (!TextUtils.isEmpty(talentDetailInfo.getRegionId())) {
-            CitySelectUtil.getCity(talentDetailInfo.getRegionId(), new CitySelectUtil.CityDataRequestListener() {
-                @Override
-                public void onSuccess(String s) {
-                    tvLiveCity.setText(s);
-                }
+            tvAbilityType.setText(classifyType);
+            edtSubsidiaryOrgan.setText(talentDetailInfo.getAgency());
+            tvGraduateInstitu.setText(talentDetailInfo.getSchool());
+            if (!TextUtils.isEmpty(talentDetailInfo.getRegionId())) {
+                CitySelectUtil.getCity(talentDetailInfo.getRegionId(), new CitySelectUtil.CityDataRequestListener() {
+                    @Override
+                    public void onSuccess(String s) {
+                        tvLiveCity.setText(s);
+                    }
 
-                @Override
-                public void onFail() {
+                    @Override
+                    public void onFail() {
 
-                }
-            });
+                    }
+                });
+            }
+            edtStature.setText(talentDetailInfo.getHeight());
+            edtWeight.setText(talentDetailInfo.getWeight());
+            edtConnectMethod.setText(talentDetailInfo.getLinkTel());
+            mRegionId = Integer.valueOf(talentDetailInfo.getRegionId());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        edtStature.setText(talentDetailInfo.getHeight());
-        edtWeight.setText(talentDetailInfo.getWeight());
-        edtConnectMethod.setText(talentDetailInfo.getLinkTel());
     }
 
     /**
@@ -174,7 +186,7 @@ public class ResumeBaseActivity extends BaseActivity {
             showToast(getString(R.string.tip_resume_name_input));
             return;
         }
-        String birthday = tvBirthday.getText().toString().toString();
+        final String birthday = tvBirthday.getText().toString().toString();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
 
         try {
@@ -265,7 +277,17 @@ public class ResumeBaseActivity extends BaseActivity {
                         talentDetailInfo.setWeight(weight);
                         talentDetailInfo.setHeight(heigth);
                         talentDetailInfo.setLinkTel(linkTel);
+                        List<Integer> classifyIds = new ArrayList<>();
+                        List<String> classifyIdNames = new ArrayList<>();
+                        for (ClassifyTypeBean c : classifyTypeAdded) {
+                            classifyIds.add(c.getId());
+                            classifyIdNames.add(c.getName());
+                        }
+                        talentDetailInfo.setClassifyIds(classifyIds);
+                        talentDetailInfo.setClassifyNames(classifyIdNames);
+                        talentDetailInfo.setAge(AgeUtils.getAgeByBirth(String.valueOf(birthdayTime)));
                         EventBus.getDefault().post(new TalentInfoChangeEvent());
+                        EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_BASE_INFO));
                         finish();
                     } catch (Exception e) {
                         e.printStackTrace();

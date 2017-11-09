@@ -6,18 +6,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.OnItemClickListener;
-import com.art.huakai.artshow.adapter.OrgProjectAdapter;
 import com.art.huakai.artshow.adapter.OrgTalentAdapter;
+import com.art.huakai.artshow.adapter.holder.OrgTalentHolder;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.ProjectDetailInfo;
-import com.art.huakai.artshow.entity.RepertorysBean;
 import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -26,6 +25,10 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +58,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     private List<TalentBean> mTalentBeans;
     private OrgTalentAdapter mOrgTalentAdapter;
     private RequestCall requestCall;
+    private OrgTalentHolder mHolder;
 
     @Override
     public void immerseStatusBar() {
@@ -68,6 +72,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         showProgressDialog = new ShowProgressDialog(this);
         mTalentBeans = new ArrayList<>();
     }
@@ -139,9 +144,10 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
         recyclerViewResume.setLayoutManager(layManager);
         mOrgTalentAdapter = new OrgTalentAdapter(mTalentBeans);
         recyclerViewResume.setAdapter(mOrgTalentAdapter);
-        mOrgTalentAdapter.setOnItemClickListener(new OnItemClickListener() {
+        mOrgTalentAdapter.setOnItemClickListener(new OrgTalentAdapter.OnItemClickListener() {
             @Override
-            public void onItemClickListener(int position) {
+            public void onItemClickListener(int position, OrgTalentHolder holder) {
+                mHolder = holder;
                 TalentBean talentBean = mTalentBeans.get(position);
                 TalentDetailInfo.getInstance().setId(talentBean.getId());
                 Bundle bundle = new Bundle();
@@ -189,9 +195,49 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (requestCall != null) {
             requestCall.cancel();
             requestCall = null;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin1(TalentNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isFinishing()) {
+            return;
+        }
+        TalentDetailInfo t = TalentDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TalentNotifyEvent.NOTIFY_AVATAR:
+                mHolder.sdvTalent.setImageURI(t.getLogo());
+                break;
+            case TalentNotifyEvent.NOTIFY_BASE_INFO:
+                mHolder.tvTalentName.setText(t.getName());
+                List<String> classifyNames = t.getClassifyNames();
+                String s = "";
+                for (int i = 0; i < classifyNames.size(); i++) {
+                    if (i != classifyNames.size() - 1) {
+                        s += classifyNames.get(i) + ",";
+                    } else {
+                        s += classifyNames.get(i);
+                    }
+                }
+                mHolder.tvClassifyType.setText(s);
+                mHolder.tvTalentAge.setText(String.valueOf(t.getAge()));
+                break;
+            case TalentNotifyEvent.NOTIFY_SEND:
+                if (t.getStatus() == 1) {
+                    mHolder.tvTalentStatus.setText(R.string.send_status);
+                    mHolder.tvTalentStatus.setTextColor(getResources().getColor(R.color.theatre_send_suc));
+                } else {
+                    mHolder.tvTalentStatus.setText(R.string.unsend_status);
+                    mHolder.tvTalentStatus.setTextColor(getResources().getColor(R.color.theatre_send_fail));
+                }
+                break;
         }
     }
 }

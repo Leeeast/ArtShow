@@ -19,6 +19,7 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -335,6 +336,7 @@ public class ResumeEditActivity extends BaseActivity {
                     showToast(getString(R.string.tip_resume_offline_suc));
                     talentInfo.setStatus(0);
                     switchTalentRelease.setChecked(false);
+                    EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_SEND));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -377,6 +379,7 @@ public class ResumeEditActivity extends BaseActivity {
                     showToast(getString(R.string.tip_resume_release_suc));
                     talentInfo.setStatus(1);
                     switchTalentRelease.setChecked(true);
+                    EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_SEND));
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
@@ -501,6 +504,7 @@ public class ResumeEditActivity extends BaseActivity {
                         String theatreId = jsonObject.getString("id");
                         talentInfo.setId(theatreId);
                         talentInfo.setLogo(talentLogoUrl);
+                        EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_AVATAR));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

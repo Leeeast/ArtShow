@@ -24,6 +24,7 @@ import com.art.huakai.artshow.utils.ClassifySelectUtil;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
@@ -200,6 +201,10 @@ public class ProjectBaseActivity extends BaseActivity {
             showToast(getString(R.string.tip_theatre_input_linktel));
             return;
         }
+        if (!PhoneUtils.isMobileNumber(linkTel)) {
+            showToast(getString(R.string.please_input_correct_phone));
+            return;
+        }
         if (TextUtils.isEmpty(mStartTime)) {
             showToast(getString(R.string.tip_project_per_start_time));
             return;
@@ -255,6 +260,7 @@ public class ProjectBaseActivity extends BaseActivity {
                         projectDetailInfo.setPerformanceBeginDate(mStartTime);
                         projectDetailInfo.setPerformanceEndDate(mEndTime);
                         EventBus.getDefault().post(new ProjectInfoChangeEvent());
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

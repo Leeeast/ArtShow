@@ -27,6 +27,10 @@ public class OrgTalentAdapter extends RecyclerView.Adapter {
     private List<TalentBean> mlist;
     private OnItemClickListener onItemClickListener;
 
+    public interface OnItemClickListener {
+        void onItemClickListener(int position, OrgTalentHolder holder);
+    }
+
     public OrgTalentAdapter(List<TalentBean> list) {
         this.mlist = list;
     }
@@ -59,12 +63,12 @@ public class OrgTalentAdapter extends RecyclerView.Adapter {
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
                 break;
             case TYPE_NORMAL:
-                OrgTalentHolder talentHolder = (OrgTalentHolder) holder;
+                final OrgTalentHolder talentHolder = (OrgTalentHolder) holder;
                 talentHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (onItemClickListener != null) {
-                            onItemClickListener.onItemClickListener(position);
+                            onItemClickListener.onItemClickListener(position, talentHolder);
                         }
                     }
                 });

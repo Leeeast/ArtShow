@@ -17,7 +17,12 @@ import android.widget.ImageView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.entity.TalentDetailBean;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,6 +47,7 @@ public class PersonalDetailAwarsFragment extends HeaderViewPagerFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             mTalentDetailBean = (TalentDetailBean) getArguments().getSerializable(PARAMS_TALENT);
         }
@@ -130,7 +136,36 @@ public class PersonalDetailAwarsFragment extends HeaderViewPagerFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public View getScrollableView() {
         return scrollView;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(TalentNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isDetached()) {
+            return;
+        }
+        TalentDetailInfo t = TalentDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TalentNotifyEvent.NOTIFY_AWARD_DES:
+                if (!TextUtils.isEmpty(t.getAwardsDescpt())) {
+                    ivPageEmpty.setVisibility(View.GONE);
+                    webViewRich.setVisibility(View.VISIBLE);
+                    setRichText(t.getAwardsDescpt());
+                } else {
+                    ivPageEmpty.setVisibility(View.VISIBLE);
+                    webViewRich.setVisibility(View.GONE);
+                }
+                break;
+        }
     }
 }

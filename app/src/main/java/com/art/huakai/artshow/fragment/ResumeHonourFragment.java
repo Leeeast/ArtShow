@@ -15,11 +15,13 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.art.huakai.artshow.utils.SoftInputUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -137,6 +139,9 @@ public class ResumeHonourFragment extends BaseFragment {
                         TalentDetailInfo.getInstance().setId(talentId);
                         TalentDetailInfo.getInstance().setAwardsDescpt(mAwardsDescpt);
                         EventBus.getDefault().post(new TalentInfoChangeEvent());
+                        EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_AWARD_DES));
+                        SoftInputUtil.hideInput(getContext());
+                        getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

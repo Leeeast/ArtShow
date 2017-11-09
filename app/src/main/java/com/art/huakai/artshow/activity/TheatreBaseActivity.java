@@ -19,6 +19,7 @@ import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.utils.CitySelectUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
+import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
@@ -222,6 +223,10 @@ public class TheatreBaseActivity extends BaseActivity {
             showToast(getString(R.string.tip_theatre_input_linktel));
             return;
         }
+        if (!PhoneUtils.isMobileNumber(theatreConnectPhone)) {
+            showToast(getString(R.string.please_input_correct_phone));
+            return;
+        }
         Map<String, String> params = new TreeMap<>();
         if (theatreInstance.getId() != null) {
             params.put("id", theatreInstance.getId());
@@ -267,6 +272,7 @@ public class TheatreBaseActivity extends BaseActivity {
                         theatreInstance.setLinkTel(theatreConnectPhone);
 
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

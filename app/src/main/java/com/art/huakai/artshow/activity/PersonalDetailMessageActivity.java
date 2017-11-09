@@ -25,6 +25,8 @@ import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentDetailBean;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailAwarsFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailworksFragment;
@@ -42,7 +44,12 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.sina.weibo.sdk.share.WbShareHandler;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -184,6 +191,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         tvAge.setText(talentDetailBean.getAge() + "");
         tvWeight.setText(talentDetailBean.getWeight());
         tvHeight.setText(talentDetailBean.getHeight());
+        tvCity.setText(talentDetailBean.getRegionName());
         tvUniversity.setText(talentDetailBean.getSchool());
         tvOrganize.setText(talentDetailBean.getAgency());
         tvIntroduce.setText(talentDetailBean.getDescription());
@@ -204,6 +212,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -356,9 +365,48 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (requestCall != null) {
             requestCall.cancel();
             requestCall = null;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(TalentNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isFinishing()) {
+            return;
+        }
+        TalentDetailInfo t = TalentDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TalentNotifyEvent.NOTIFY_AVATAR:
+                talentsPic.setImageURI(t.getLogo());
+                break;
+            case TalentNotifyEvent.NOTIFY_BASE_INFO:
+                tvName.setText(t.getName());
+                List<String> classifyNames = t.getClassifyNames();
+                String s = "";
+                for (int i = 0; i < classifyNames.size(); i++) {
+                    if (i != classifyNames.size() - 1) {
+                        s += classifyNames.get(i) + "/";
+                    } else {
+                        s += classifyNames.get(i);
+                    }
+                }
+                tvMajor.setText(s);
+                tvAge.setText(String.valueOf(t.getAge()));
+                tvWeight.setText(String.valueOf(t.getWeight()));
+                tvHeight.setText(String.valueOf(t.getHeight()));
+                tvCity.setText(t.getRegionName());
+                tvUniversity.setText(t.getSchool());
+                tvOrganize.setText(t.getAgency());
+                break;
+            case TalentNotifyEvent.NOTIFY_INTRODUCE:
+                tvIntroduce.setText(t.getDescription());
+                break;
         }
     }
 }

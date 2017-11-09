@@ -34,10 +34,21 @@ public class TalentDetailBean implements Serializable {
      * age : 25
      * viewTimes : 1
      * authentication : 1
+     * "shareLink": "https://www.showonline.com.cn/talent/detail?id=8a999cce5f8cc900015f8ed9279800f1&scene=share"
      */
 
     private String height;
     private String weight;
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    private String regionName;
 
     public String getHeight() {
         return height;
