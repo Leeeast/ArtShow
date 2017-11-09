@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -24,15 +25,16 @@ import com.art.huakai.artshow.adapter.KeywordSearchNewsAdapter;
 import com.art.huakai.artshow.adapter.KeywordSearchProfessionalAdapter;
 import com.art.huakai.artshow.adapter.KeywordSearchTheatreAdapter;
 import com.art.huakai.artshow.adapter.KeywordSearchWorksAdapter;
-import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.SearchAllBean;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.SoftInputUtil;
 import com.art.huakai.artshow.utils.ToastUtils;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
@@ -54,11 +56,11 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     LinearLayout llWhole;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
-//    @BindView(R.id.lly_back)
+    //    @BindView(R.id.lly_back)
 //    LinearLayout llyBack;
     @BindView(R.id.edt_search)
     EditText edtSearch;
-//    @BindView(R.id.tv_title)
+    //    @BindView(R.id.tv_title)
 //    TextView tvTitle;
 //    @BindView(R.id.iv_right_img)
 //    ImageView ivRightImg;
@@ -78,6 +80,14 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     private String keyword = "*";
     private SearchAllBean searchAllBean;
     private boolean loadingData=false;
+    private int totalSize;
+    private View view1;
+    private View view2;
+    private View view3;
+    private View view4;
+    private View view5;
+
+
 
 
     @Override
@@ -121,11 +131,11 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void afterTextChanged(Editable s) {
-              if(TextUtils.isEmpty(edtSearch.getText().toString().trim())){
-                  ivDelete.setVisibility(View.INVISIBLE);
-              }else{
-                  ivDelete.setVisibility(View.VISIBLE);
-              }
+                if(TextUtils.isEmpty(edtSearch.getText().toString().trim())){
+                    ivDelete.setVisibility(View.INVISIBLE);
+                }else{
+                    ivDelete.setVisibility(View.VISIBLE);
+                }
 
             }
         });
@@ -181,14 +191,31 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     }
 
     private void setData() {
+        totalSize=0;
+        if(view1!=null){
+            llWhole.removeView(view1);
+        }
+        if(view2!=null){
+            llWhole.removeView(view2);
+        }
+        if(view3!=null){
+            llWhole.removeView(view3);
+        }
+        if(view4!=null){
+            llWhole.removeView(view4);
+        }
+        if(view5!=null){
+            llWhole.removeView(view5);
+        }
         if (searchAllBean != null) {
             if (searchAllBean.getEnrolls() != null && searchAllBean.getEnrolls().size() > 0) {
+                totalSize=searchAllBean.getEnrolls().size();
                 Log.e(TAG, "setData: 1111111");
-                View view = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv);
+                view1= LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                TextView tv_name = (TextView) view1.findViewById(R.id.tv_name);
+                RecyclerView recyclerView = (RecyclerView) view1.findViewById(R.id.rcv);
                 tv_name.setText("合作机会");
-                TextView tv_see_all = (TextView) view.findViewById(R.id.tv_see_all);
+                TextView tv_see_all = (TextView) view1.findViewById(R.id.tv_see_all);
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -210,15 +237,16 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.setLayoutManager(industryNewsLayoutManager);
                 recyclerView.setAdapter(keywordSearchCooperateAdapter);
-                llWhole.addView(view);
+                llWhole.addView(view1);
             }
             if (searchAllBean.getNews() != null && searchAllBean.getNews().size() > 0) {
+                totalSize=totalSize+searchAllBean.getNews().size();
                 Log.e(TAG, "setData: 222222");
-                View view = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv);
+                view2 = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                TextView tv_name = (TextView) view2.findViewById(R.id.tv_name);
+                RecyclerView recyclerView = (RecyclerView) view2.findViewById(R.id.rcv);
                 tv_name.setText("资讯");
-                TextView tv_see_all = (TextView) view.findViewById(R.id.tv_see_all);
+                TextView tv_see_all = (TextView) view2.findViewById(R.id.tv_see_all);
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -241,15 +269,16 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.setLayoutManager(industryNewsLayoutManager);
                 recyclerView.setAdapter(keywordSearchNewsAdapter);
-                llWhole.addView(view);
+                llWhole.addView(view2);
             }
             if (searchAllBean.getRepertorys() != null && searchAllBean.getRepertorys().size() > 0) {
+                totalSize=totalSize+searchAllBean.getRepertorys().size();
                 Log.e(TAG, "setData: 333333");
-                View view = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv);
+                view3= LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                TextView tv_name = (TextView) view3.findViewById(R.id.tv_name);
+                RecyclerView recyclerView = (RecyclerView) view3.findViewById(R.id.rcv);
                 tv_name.setText("项目");
-                TextView tv_see_all = (TextView) view.findViewById(R.id.tv_see_all);
+                TextView tv_see_all = (TextView) view3.findViewById(R.id.tv_see_all);
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -273,16 +302,17 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.setLayoutManager(industryNewsLayoutManager);
                 recyclerView.setAdapter(keywordSearchWorksAdapter);
-                llWhole.addView(view);
+                llWhole.addView(view3);
 
             }
             if (searchAllBean.getTalents() != null && searchAllBean.getTalents().size() > 0) {
+                totalSize=totalSize+searchAllBean.getTalents().size();
                 Log.e(TAG, "setData: 4444444");
-                View view = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv);
+                view4= LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                TextView tv_name = (TextView) view4.findViewById(R.id.tv_name);
+                RecyclerView recyclerView = (RecyclerView) view4.findViewById(R.id.rcv);
                 tv_name.setText("人才");
-                TextView tv_see_all = (TextView) view.findViewById(R.id.tv_see_all);
+                TextView tv_see_all = (TextView) view4.findViewById(R.id.tv_see_all);
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -307,16 +337,17 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.setLayoutManager(industryNewsLayoutManager);
                 recyclerView.setAdapter(keywordSearchProfessionalAdapter);
-                llWhole.addView(view);
+                llWhole.addView(view4);
 
             }
             if (searchAllBean.getTheaters() != null && searchAllBean.getTheaters().size() > 0) {
+                totalSize=totalSize+searchAllBean.getTheaters().size();
                 Log.e(TAG, "setData: 5555555");
-                View view = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv);
+                view5 = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                TextView tv_name = (TextView) view5.findViewById(R.id.tv_name);
+                RecyclerView recyclerView = (RecyclerView) view5.findViewById(R.id.rcv);
                 tv_name.setText("剧场");
-                TextView tv_see_all = (TextView) view.findViewById(R.id.tv_see_all);
+                TextView tv_see_all = (TextView) view5.findViewById(R.id.tv_see_all);
                 tv_see_all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -342,12 +373,12 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.setLayoutManager(industryNewsLayoutManager);
                 recyclerView.setAdapter(keywordSearchTheatreAdapter);
-                llWhole.addView(view);
+                llWhole.addView(view5);
 
             }
         }
 
-        tvAccount.setText("共发现"+10+"条相关数据");
+        tvAccount.setText("共发现"+totalSize+"条相关数据");
     }
 
 
@@ -357,6 +388,8 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH==" + Constant.URL_KEYWORD_SEARCH);
         params.put("keyword", keyword);
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
         Log.e(TAG, "getRepertoryClassify: " + params.toString());
 
         RequestUtil.request(true, Constant.URL_KEYWORD_SEARCH, params, 111, new RequestUtil.RequestListener() {
