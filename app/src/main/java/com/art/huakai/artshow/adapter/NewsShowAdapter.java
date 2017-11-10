@@ -86,7 +86,7 @@ public class NewsShowAdapter extends RecyclerView.Adapter {
 //            Log.e(TAG, "getItemCount: size=="+list.size() );
             return list.size();
         }
-        Log.e(TAG, "getItemCount: 00000");
+
         return 0;
     }
 

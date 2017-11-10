@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +42,13 @@ import com.art.huakai.artshow.entity.HomePageDetails;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.DeviceUtils;
+import com.art.huakai.artshow.utils.FrescoHelper;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
+import com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout;
+import com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView;
 import com.art.huakai.artshow.widget.banner.BannerEntity;
 import com.art.huakai.artshow.widget.banner.BannerView;
 import com.art.huakai.artshow.widget.banner.OnBannerClickListener;
@@ -82,16 +84,17 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     @BindView(R.id.banner)
     BannerView banner;
     Unbinder unbinder;
+    @BindView(R.id.pull)
+    PullToRefreshLayout pull;
     @BindView(R.id.iv_loading)
     ImageView ivLoading;
     @BindView(R.id.iv_no_content)
     ImageView ivNoContent;
-    @BindView(R.id.lly_content)
-    LinearLayout llyContent;
+
     private HomePageDetails homePageDetails;
 
-    @BindView(R.id.iv_search)
-    ImageView ivSearch;
+    @BindView(R.id.search)
+    LinearLayout ivSearch;
     @BindView(R.id.tv_one_title)
     TextView tvIndustryNewsTitle;
     @BindView(R.id.tv_one_whole)
@@ -104,7 +107,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     LinearLayoutManager industryNewsLayoutManager;
 
     @BindView(R.id.sv)
-    ScrollView scrollView;
+    PullableScrollView scrollView;
     @BindView(R.id.tv_two_title)
     TextView tvCooperationTitle;
     @BindView(R.id.tv_two_whole)
@@ -163,13 +166,21 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     TextView tvChName;
     private int scrollDistance;
     final List<BannerEntity> entities = new ArrayList<>();
+    private boolean isRefresh=false;
+    private boolean isLoadingData=false;
 
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                if(ivLoading==null)return;
+                if(isRefresh){
+                    Toast.makeText(getContext(),"刷新成功",Toast.LENGTH_SHORT).show();
+                    isRefresh=false;
+                }
+                pull.refreshFinish(PullToRefreshLayout.SUCCEED);
                 ivLoading.setVisibility(View.GONE);
-                scrollView.setVisibility(View.VISIBLE);
+                pull.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
                 setData();
             }
@@ -227,7 +238,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         //处理状态栏遮挡问题
         LinearLayout llyContent = (LinearLayout) rootView.findViewById(R.id.lly_content);
         int statusBarHeight = DeviceUtils.getStatusBarHeight(getContext());
-        llyContent.setPadding(0, statusBarHeight, 0, 0);
+        llyContent.setPadding(0, -statusBarHeight, 0, 0);
     }
 
     @Override
@@ -239,23 +250,31 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         tvTheatreWhole.setOnClickListener(this);
         tvProfessionalWhole.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
-        AnimUtils.rotate(ivLoading);
-        ivNoContent.setVisibility(View.GONE);
-        scrollView.setVisibility(View.GONE);
+//        scrollView.setVisibility(View.GONE);
         chinaShowImageView.setOnClickListener(this);
+        pull.setOnPullListener(new MyPullListener());
+        pull.setPullUpEnable(false);
     }
 
     private void initData() {
         getHomePageDetails();
+
+        ivLoading.setVisibility(View.VISIBLE);
+        ivNoContent.setVisibility(View.GONE);
+        pull.setVisibility(View.GONE);
+        AnimUtils.rotate(ivLoading);
 //        getList();
     }
 
     private void getHomePageDetails() {
+        if(isLoadingData)return;
+        isLoadingData=true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_HOMEPAGE_INFOS==" + Constant.URL_GET_HOMEPAGE_INFOS);
         RequestUtil.request(true, Constant.URL_GET_HOMEPAGE_INFOS, params, 100, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                isLoadingData=false;
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Gson gson = new Gson();
@@ -270,14 +289,40 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     Log.e(TAG, "onSuccess: code==" + code);
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                if(ivLoading==null)return;
                 ivLoading.setVisibility(View.GONE);
-                scrollView.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
+                pull.setVisibility(View.GONE);
+                if(isRefresh){
+                    Toast.makeText(getContext(),"刷新失败",Toast.LENGTH_SHORT).show();
+                    isRefresh=false;
+                }
+                uiHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    }
+                });
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if(ivLoading==null)return;
+                isLoadingData=false;
+                ivLoading.setVisibility(View.GONE);
+                ivNoContent.setVisibility(View.VISIBLE);
+                pull.setVisibility(View.GONE);
+                if(isRefresh){
+                    Toast.makeText(getContext(),"刷新失败",Toast.LENGTH_SHORT).show();
+                    isRefresh=false;
+                }
+                uiHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    }
+                });
             }
         });
     }
@@ -331,7 +376,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onItemClickListener(int position) {
                     Log.e(TAG, "onItemClickListener: position==" + position);
-                    if(homePageDetails.getNewses()!=null&&homePageDetails.getNewses().size()>position&&homePageDetails.getNewses().get(position)!=null){
+                    if (homePageDetails.getNewses() != null && homePageDetails.getNewses().size() > position && homePageDetails.getNewses().get(position) != null) {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("PARAMS_ENROLL_ID", homePageDetails.getNewses().get(position).getId());
                         invokActivity(getContext(), EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
@@ -428,8 +473,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             rlProfessional.setVisibility(View.GONE);
             talentsDivider.setVisibility(View.GONE);
         }
-        if(homePageDetails.getAdvert()!=null&&!TextUtils.isEmpty(homePageDetails.getAdvert().getLogo())){
-            chinaShowImageView.setImageURI(Uri.parse(homePageDetails.getAdvert().getLogo()));
+        if (homePageDetails.getAdvert() != null && !TextUtils.isEmpty(homePageDetails.getAdvert().getLogo())) {
+//            chinaShowImageView.setImageURI(Uri.parse(homePageDetails.getAdvert().getLogo()));
+            chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(homePageDetails.getAdvert().getLogo()), getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX), getResources().getDimensionPixelSize(R.dimen.DIMEN_155PX));
         }
 
 //      chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
@@ -450,8 +496,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onClick(int position) {
                 Toast.makeText(getContext(), "position==" + position, Toast.LENGTH_SHORT).show();
-                if(homePageDetails.getBanners()!=null&&homePageDetails.getBanners().size()>position&&homePageDetails.getBanners().get(position)!=null){
-                    AdvertJumpUtil.invoke((BaseActivity) getActivity(),getContext(),homePageDetails.getBanners().get(position));
+                if (homePageDetails.getBanners() != null && homePageDetails.getBanners().size() > position && homePageDetails.getBanners().get(position) != null) {
+                    AdvertJumpUtil.invoke((BaseActivity) getActivity(), getContext(), homePageDetails.getBanners().get(position));
                 }
             }
         });
@@ -498,13 +544,13 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 mainActivity.setCheckId(R.id.rdobtn_discover);
             }
 
-        } else if (v.getId() == R.id.iv_search) {
+        }  else if (v.getId() == R.id.csiv) {
+            if (homePageDetails != null && homePageDetails.getAdvert() != null) {
+                AdvertJumpUtil.invoke((BaseActivity) getActivity(), getContext(), homePageDetails.getAdvert());
+            }
+        } else if (v.getId() == R.id.search) {
             Intent intent = new Intent(getContext(), KeywordSearchAllActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.csiv){
-            if(homePageDetails!=null&&homePageDetails.getAdvert()!=null){
-                AdvertJumpUtil.invoke((BaseActivity) getActivity(),getContext(),homePageDetails.getAdvert());
-            }
         }
     }
 
@@ -522,5 +568,36 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         unbinder.unbind();
     }
 
+
+    class MyPullListener implements PullToRefreshLayout.OnPullListener {
+
+        @Override
+        public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
+            isRefresh=true;
+            getHomePageDetails();
+
+//            // 下拉刷新操作
+//            new Handler() {
+//                @Override
+//                public void handleMessage(Message msg) {
+//                    // 千万别忘了告诉控件刷新完毕了哦！
+//                    pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+//                }
+//            }.sendEmptyMessageDelayed(0, 1000);
+        }
+
+        @Override
+        public void onLoadMore(final PullToRefreshLayout pullToRefreshLayout) {
+            // 加载操作
+//            new Handler() {
+//                @Override
+//                public void handleMessage(Message msg) {
+//                    // 千万别忘了告诉控件加载完毕了哦！
+//                    pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+//                }
+//            }.sendEmptyMessageDelayed(0, 1000);
+        }
+
+    }
 
 }

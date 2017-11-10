@@ -26,7 +26,7 @@ import java.util.TimerTask;
  */
 
 public class BannerView extends FrameLayout {
-    private long mAutoScrollDelay = 3000;
+    private long mAutoScrollDelay = 5000;
     private Timer mAutoScrollTimer;
     private ViewPager mVpBanner;
     private BannerLine mLine;
@@ -163,6 +163,9 @@ public class BannerView extends FrameLayout {
     }
 
     public void startAutoScroll() {
+        if(mAutoScrollTimer!=null){
+            stopAutoScroll();
+        }
         mAutoScrollTimer = new Timer();
         mAutoScrollTimer.schedule(new TimerTask() {
             @Override

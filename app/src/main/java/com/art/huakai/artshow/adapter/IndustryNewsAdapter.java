@@ -73,7 +73,9 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
             } else {
                 if (list.get(1) != null) {
                     if (!TextUtils.isEmpty(list.get(1).getLogo())) {
-                        typeOneViewHolder.chinaShowImageViewTwo.setImageURI(Uri.parse(list.get(1).getLogo()));
+//                        typeOneViewHolder.chinaShowImageViewTwo.setImageURI(Uri.parse(list.get(1).getLogo()));
+                        Log.d(TAG, "onBindViewHolder: list.get(1)=="+list.get(1).getLogo());
+                        typeOneViewHolder.chinaShowImageViewTwo.setSpecificSizeImageUrl(Uri.parse(list.get(1).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_91PX));
                     }
                     try {
                         if(0!=list.get(1).getCreateTime()){
@@ -87,7 +89,10 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
             }
             if (list.get(0) != null) {
                 if (!TextUtils.isEmpty(list.get(0).getLogo())) {
-                    typeOneViewHolder.chinaShowImageViewOne.setImageURI(Uri.parse(list.get(0).getLogo()));
+//                    typeOneViewHolder.chinaShowImageViewOne.setImageURI(Uri.parse(list.get(0).getLogo()));
+                    Log.d(TAG, "onBindViewHolder: list.get(0)=="+list.get(0).getLogo());
+                    typeOneViewHolder.chinaShowImageViewTwo.setSpecificSizeImageUrl(Uri.parse(list.get(0).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_91PX));
+
                 }
                 try {
                     if(0!=list.get(0).getCreateTime()){
@@ -122,7 +127,9 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
             TypeTwoViewHolder typeTwoViewHolder = (TypeTwoViewHolder) holder;
             if (list.get(position + 1) != null) {
                 if (!TextUtils.isEmpty(list.get(position + 1).getLogo())) {
-                    typeTwoViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position + 1).getLogo()));
+//                    typeTwoViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position + 1).getLogo()));
+                    typeTwoViewHolder.chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(list.get(position + 1).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_91PX));
+
                 }
                 typeTwoViewHolder.tv_name.setText(list.get(position + 1).getTitle());
                 typeTwoViewHolder.tv_subtitle.setText(list.get(position + 1).getDescription());
@@ -150,10 +157,8 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         if (list != null && list.size() > 0) {
-            Log.e(TAG, "getItemCount: size==" + list.size());
             return list.size() - 1;
         }
-        Log.e(TAG, "getItemCount: 00000");
         return 0;
     }
 

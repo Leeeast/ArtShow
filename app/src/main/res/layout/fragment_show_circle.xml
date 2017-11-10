@@ -2,7 +2,9 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="false"
+    android:background="#ffffffff">
+
 
     <ImageView
         android:id="@+id/iv_loading"
@@ -23,8 +25,13 @@
         android:src="@mipmap/loading_fail"
         android:visibility="gone" />
 
-
-    <ScrollView
+<com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/pull"
+    android:visibility="visible"
+    >
+    <com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,38 +45,47 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DIMEN_20PX">
-
-                <View
-                    android:layout_width="@dimen/DIMEN_168PX"
-                    android:layout_height="@dimen/DIMEN_38PX"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/DIMEN_9PX"
-                    android:background="@mipmap/chinashow_logo" />
-
-                <ImageView
-                    android:id="@+id/iv_search"
-                    android:layout_width="@dimen/DIMEN_30PX"
-                    android:layout_height="@dimen/DIMEN_30PX"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/DIMEN_16PX"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:scaleType="centerInside"
-                    android:src="@mipmap/search_black" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
                 android:layout_height="@dimen/DIMEN_240PX"
-                android:layout_marginTop="@dimen/DIMEN_13PX">
+               >
 
                 <com.art.huakai.artshow.widget.banner.BannerView
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_30PX"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/DIMEN_15PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_50PX"
+                android:background="@mipmap/search_background"
+                android:gravity="center_vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="@dimen/DIMEN_30PX"
+                    android:layout_height="@dimen/DIMEN_30PX"
+                    android:layout_marginLeft="@dimen/DIMEN_5PX"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/search_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请输入搜索内容"
+                    android:textColor="#ffffffff"
+                    android:textSize="@dimen/DIMEN_14PX" />
+
+
+
+            </LinearLayout>
+
+
+
 
             </RelativeLayout>
 
@@ -388,10 +404,10 @@
                     />
 
             </RelativeLayout>
-
-
         </LinearLayout>
 
+    </com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView>
 
-    </ScrollView>
+</com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout>
+
 </RelativeLayout>

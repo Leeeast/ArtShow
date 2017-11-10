@@ -86,10 +86,10 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         if(list!=null&&list.size()>0){
-            Log.e(TAG, "getItemCount: size=="+list.size() );
+
             return list.size();
         }
-        Log.e(TAG, "getItemCount: 00000" );
+
         return 0;
     }
 

@@ -180,4 +180,7 @@
     <color name="permission_request_line">#ffdddddd</color>
     <color name="permission_request_cancel">#ff999999</color>
 
+    <color name="black">#000000</color>
+    <color name="gray">#AAAA</color>
+
 </resources>

@@ -21,8 +21,11 @@ import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 
 /**
@@ -87,6 +90,26 @@ public class ChinaShowImageView extends SimpleDraweeView {
             super.setImageURI(uri);
         }
     }
+
+
+    public void setSpecificSizeImageUrl(Uri uri,int width,int height){
+        if (uri == null) return;
+        if (mUriString != null && mUriString.equals(uri.toString())) return;
+        mUriString = uri.toString();
+        if (mPipelineDraweeControllerBuilder != null) {
+                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                        .setResizeOptions(new ResizeOptions(width,height))
+                        .build();
+                setController(mPipelineDraweeControllerBuilder.setImageRequest(request).build());
+                setController(mPipelineDraweeControllerBuilder.setUri(uri).build());
+        } else {
+            super.setImageURI(uri);
+        }
+    }
+
+
+
+
 
     public void setImageLoadListener(ImageLoadListener imageLoadListener) {
         this.mImageLoadListener = imageLoadListener;
