@@ -147,6 +147,7 @@ public class SetActivity extends BaseActivity {
         //TODO 用一个集合保存左右activity，退出关闭所有activity
         SharePreUtil.getInstance().clearUserInfo();
         SharePreUtil.getInstance().initUserInfo();
+        setResult(JumpCode.FLAG_RES_LOGIN_OUT);
         finish();
     }
 

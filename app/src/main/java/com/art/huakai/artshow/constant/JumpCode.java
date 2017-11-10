@@ -44,7 +44,7 @@ public class JumpCode {
     public static final int FLAG_REQ_NEWS_WEBSITE = FLAG_REQ + 30;
     public static final int FLAG_REQ_ADDRESS_SELECT = FLAG_REQ + 31;
     public static final int FLAG_REQ_SEARCH = FLAG_REQ + 32;
-
+    public static final int FLAG_REQ_SETTING = FLAG_REQ + 33;
 
     // 返回码,往下加1
     public static final int FLAG_RES_EXIT_APP = FLAG_RES_RETURN + 1;
@@ -54,5 +54,6 @@ public class JumpCode {
     public static final int FLAG_RES_ADD_THEATRE = FLAG_RES_RETURN + 5;
     public static final int FLAG_RES_ADD_PROJECT = FLAG_RES_RETURN + 6;
     public static final int FLAG_RES_ADD_TALENT = FLAG_RES_RETURN + 7;
+    public static final int FLAG_RES_LOGIN_OUT = FLAG_RES_RETURN + 8;
 
 }

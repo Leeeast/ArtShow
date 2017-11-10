@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.LoginActivity;
+import com.art.huakai.artshow.activity.MainActivity;
 import com.art.huakai.artshow.activity.SetActivity;
 import com.art.huakai.artshow.base.BaseFragment;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.ActionTypeEvent;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
@@ -142,7 +144,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.iv_setting:
                 if (LoginUtil.checkUserLogin(getContext(), true)) {
-                    startActivity(new Intent(getContext(), SetActivity.class));
+                    invokActivity(getContext(), SetActivity.class, null, JumpCode.FLAG_REQ_SETTING);
                 }
                 break;
         }
@@ -195,5 +197,14 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             return;
         }
         disableScroll = event.isDisableScroll();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == JumpCode.FLAG_RES_LOGIN_OUT) {
+            tvNmae.setText(getString(R.string.me_unlogin));
+            sdvAvatar.setImageURI("");
+        }
     }
 }

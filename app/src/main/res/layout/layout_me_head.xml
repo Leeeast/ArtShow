@@ -23,10 +23,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/DIMEN_33PX"
         fresco:actualImageScaleType="focusCrop"
+        fresco:failureImage="@mipmap/avatar_default"
+        fresco:failureImageScaleType="fitCenter"
         fresco:placeholderImage="@mipmap/avatar_default"
         fresco:placeholderImageScaleType="fitCenter"
-        fresco:failureImage="@mipmap/loading_fail"
-        fresco:failureImageScaleType="centerInside"
         fresco:roundAsCircle="true" />
 
     <TextView
