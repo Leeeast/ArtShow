@@ -142,6 +142,8 @@
     <string name="tip_data_commit_fail">信息提交失败</string>
     <string name="tip_auth_data_update">请上传资质认证图片</string>
     <string name="tip_net_error">服务器异常，请稍候重试</string>
+    <string name="tip_delete_success">删除成功</string>
+    <string name="tip_delete_staff">是否删除主创成员</string>
 
 
     <string name="response_code_200">success</string>

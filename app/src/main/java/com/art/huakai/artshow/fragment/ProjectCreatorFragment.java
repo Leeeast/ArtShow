@@ -12,6 +12,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.CreatorIntorAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.dialog.CommonTipDialog;
 import com.art.huakai.artshow.dialog.MemberAddDialog;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
@@ -88,6 +89,8 @@ public class ProjectCreatorFragment extends BaseFragment {
         recyclerView.setAdapter(creatorIntorAdapter);
         creatorIntorAdapter.setOnItemClickListener(new CreatorIntorAdapter.OnItemClickListener() {
 
+            private CommonTipDialog mDialog;
+
             @Override
             public void onCreateNew(final int position) {
                 MemberAddDialog memberAddDialog = MemberAddDialog.newInstence();
@@ -125,6 +128,29 @@ public class ProjectCreatorFragment extends BaseFragment {
                 memberAddDialog.show(getChildFragmentManager(), "MEMBERADD.DIALOG");
 
             }
+
+            @Override
+            public void onDelete(final int position) {
+                if (mDialog == null) {
+                    mDialog = CommonTipDialog.getInstance(
+                            getString(R.string.tip_delete_staff),
+                            getString(R.string.cancel),
+                            getString(R.string.affirm));
+                }
+                mDialog.setOnDismissListener(new CommonTipDialog.OnDismissListener() {
+                    @Override
+                    public void cancel() {
+
+                    }
+
+                    @Override
+                    public void sure() {
+                        mStaffs.remove(position);
+                        creatorIntorAdapter.notifyDataSetChanged();
+                    }
+                });
+                mDialog.show(getChildFragmentManager(), "COMMONTIP.DIALOG");
+            }
         });
     }
 
@@ -138,10 +164,10 @@ public class ProjectCreatorFragment extends BaseFragment {
      */
     @OnClick(R.id.tv_subtitle)
     public void confirmInfo() {
-        if (mStaffs.size() <= 0) {
-            showToast(getString(R.string.tip_project_staff_add));
-            return;
-        }
+//        if (mStaffs.size() <= 0) {
+//            showToast(getString(R.string.tip_project_staff_add));
+//            return;
+//        }
         Map<String, String> params = new TreeMap<>();
         if (!TextUtils.isEmpty(ProjectDetailInfo.getInstance().getId())) {
             params.put("id", ProjectDetailInfo.getInstance().getId());

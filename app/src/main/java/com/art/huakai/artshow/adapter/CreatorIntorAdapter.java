@@ -34,6 +34,8 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
         void onCreateNew(int position);
 
         void onUpdate(int position);
+
+        void onDelete(int position);
     }
 
     @Override
@@ -72,6 +74,15 @@ public class CreatorIntorAdapter extends RecyclerView.Adapter {
                         if (mOnItemClickListener != null) {
                             mOnItemClickListener.onUpdate(position);
                         }
+                    }
+                });
+                staffHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.onDelete(position);
+                        }
+                        return true;
                     }
                 });
                 Staff staff = mlist.get(position);

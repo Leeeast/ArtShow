@@ -60,9 +60,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/DIMEN_18PX"
             android:layout_marginTop="@dimen/DIMEN_15PX"
-            fresco:actualImageScaleType="fitXY"
+            fresco:actualImageScaleType="centerInside"
             fresco:placeholderImage="@mipmap/upload_member_avatar"
-            fresco:placeholderImageScaleType="centerInside"
+            fresco:placeholderImageScaleType="fitXY"
             fresco:roundedCornerRadius="4dp" />
 
         <TextView
