@@ -164,6 +164,11 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     }
 
     private void setData() {
+        if (TextUtils.isEmpty(theatreDetailBean.getPriceDiagram())) {
+            llCheckTicketArea.setVisibility(View.INVISIBLE);
+        } else {
+            llCheckTicketArea.setVisibility(View.VISIBLE);
+        }
         mTabArray = getResources().getStringArray(R.array.theatre_detail_tab);
         mFragments = new ArrayList<HeaderViewPagerFragment>();
         TheatreDetailDesFragment theatreDetailTheatreFragment = TheatreDetailDesFragment.newInstance(theatreDetailBean);
@@ -268,7 +273,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         rlContent.setVisibility(View.GONE);
         llCheckMapArea.setOnClickListener(this);
         llCheckScheduleArea.setOnClickListener(this);
-        llCheckTicketArea.setOnClickListener(this);
     }
 
     @Override
@@ -301,9 +305,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 intent.putExtra("theatreLocation", theatreDetailBean.getAddress());
                 intent.setClass(TheatreDetailMessageActivity.this, NavigationActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.ll_check_ticket_area:
-
                 break;
             case R.id.ll_check_schedule_area:
                 ArrayList<String> listAdd = new ArrayList<>();
@@ -461,6 +462,15 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         }
     }
 
+    @OnClick(R.id.rly_ticket_area)
+    public void showTicketArea() {
+        if (TextUtils.isEmpty(theatreDetailBean.getPriceDiagram())) {
+            return;
+        }
+        Bundle bundle = new Bundle();
+        bundle.putString(TicketAreaActivity.PARAMS_URL, theatreDetailBean.getPriceDiagram());
+        invokActivity(this, TicketAreaActivity.class, bundle, JumpCode.FLAG_REQ_CHECK_TICKET_AREA);
+    }
 
     @Override
     protected void onDestroy() {

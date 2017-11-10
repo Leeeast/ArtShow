@@ -13,20 +13,21 @@
         android:layout_height="1dp"
         android:background="@color/change_pwd_line" />
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdv_add_photo"
+    <com.art.huakai.artshow.widget.photoview.PhotoDraweeView
+        android:id="@+id/pdv_ticket_photo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_120PX"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/DIMEN_15PX"
-        android:layout_marginLeft="@dimen/DIMEN_15PX"
-        android:layout_marginRight="@dimen/DIMEN_15PX"
-        android:layout_marginTop="@dimen/DIMEN_16PX"
+        android:layout_marginBottom="@dimen/DIMEN_5PX"
+        android:layout_marginLeft="@dimen/DIMEN_5PX"
+        android:layout_marginRight="@dimen/DIMEN_5PX"
+        android:layout_marginTop="@dimen/DIMEN_5PX"
         android:background="@drawable/shape_upload_photo_bg"
-        fresco:actualImageScaleType="centerCrop"
+        fresco:actualImageScaleType="centerInside"
         fresco:failureImage="@mipmap/loading_fail"
         fresco:failureImageScaleType="centerInside"
-        fresco:placeholderImage="@mipmap/icon_photo"
+        fresco:placeholderImage="@color/pic_loading_bg"
         fresco:placeholderImageScaleType="centerInside"
         fresco:roundedCornerRadius="5dp" />
+
 </LinearLayout>

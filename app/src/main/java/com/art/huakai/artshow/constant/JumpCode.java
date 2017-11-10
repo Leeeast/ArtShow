@@ -45,6 +45,7 @@ public class JumpCode {
     public static final int FLAG_REQ_ADDRESS_SELECT = FLAG_REQ + 31;
     public static final int FLAG_REQ_SEARCH = FLAG_REQ + 32;
     public static final int FLAG_REQ_SETTING = FLAG_REQ + 33;
+    public static final int FLAG_REQ_CHECK_TICKET_AREA = FLAG_REQ + 34;
 
     // 返回码,往下加1
     public static final int FLAG_RES_EXIT_APP = FLAG_RES_RETURN + 1;

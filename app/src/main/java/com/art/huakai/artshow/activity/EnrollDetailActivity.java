@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.EnrollJoinAdapter;
 import com.art.huakai.artshow.adapter.EnrolledAdapter;
-import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
@@ -30,6 +29,7 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.DateUtil;
@@ -160,8 +160,7 @@ public class EnrollDetailActivity extends BaseActivity {
         settings.setJavaScriptEnabled(true);
         settings.setBuiltInZoomControls(true);
         settings.setDisplayZoomControls(false);
-        // settings.setTextSize(WebSettings.TextSize.NORMAL);
-        settings.setTextZoom(300);
+        settings.setTextSize(WebSettings.TextSize.NORMAL);
         webViewRich.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
         webViewRich.setWebChromeClient(new WebChromeClient());
         webViewRich.setWebViewClient(new WebViewClient());

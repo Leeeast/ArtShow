@@ -3,6 +3,7 @@ package com.art.huakai.artshow.utils;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
 /**
@@ -21,7 +22,6 @@ public class FrescoHelper {
         Fresco.shutDown();
     }
 
-
     public static void pause() {
         Fresco.getImagePipeline().pause();
     }
@@ -30,4 +30,8 @@ public class FrescoHelper {
         Fresco.getImagePipeline().resume();
     }
 
+    public static void clear() {
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        imagePipeline.clearCaches();
+    }
 }

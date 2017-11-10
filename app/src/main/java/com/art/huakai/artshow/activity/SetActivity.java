@@ -1,14 +1,9 @@
 package com.art.huakai.artshow.activity;
 
-import android.accounts.Account;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,13 +11,10 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ConfirmDialog;
-import com.art.huakai.artshow.eventbus.NameChangeEvent;
+import com.art.huakai.artshow.utils.FrescoHelper;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartToast;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,6 +93,7 @@ public class SetActivity extends BaseActivity {
                 @Override
                 public void onChoose(DialogFragment dialogFragment) {
                     dialogFragment.dismiss();
+                    FrescoHelper.clear();
                     SmartToast.makeToast(SetActivity.this,
                             getString(R.string.cache_clear_suc),
                             getResources().getDrawable(R.mipmap.image_select_p),
