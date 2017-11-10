@@ -105,6 +105,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
 
 
     private void setData() {
+        if(ivLoading==null)return;
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText("搜索-" + keyword);
         if (searchType.equals(NEWS)) {
@@ -230,7 +231,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
         RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-
+                if(ivLoading==null)return;
                 if (newSearch) {
                     newsesBeanList.clear();
                 }
@@ -238,6 +239,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        if(ivLoading==null)return;
                         if (page == 1 && newsesBeanList.size() == 0) {
                             ivLoading.setVisibility(View.GONE);
                             llWhole.setVisibility(View.GONE);
@@ -325,6 +327,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if(ivLoading==null)return;
                 if (newSearch) {
                     newsesBeanList.clear();
                 }

@@ -193,9 +193,11 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 Log.e(TAG, "onSuccess: " );
+                if(ivLoading==null)return;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        if(ivLoading==null)return;
                         if(page==1&&workLists.size() == 0){
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
@@ -284,6 +286,7 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if(ivLoading==null)return;
                 if (workLists.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);

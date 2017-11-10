@@ -189,9 +189,11 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
         RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                if(ivLoading==null)return;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        if(ivLoading==null)return;
                         if(page==1&&theatreList.size() == 0){
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
@@ -280,7 +282,7 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-
+                if(ivLoading==null)return;
                 if (theatreList.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);

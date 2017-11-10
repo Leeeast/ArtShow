@@ -119,6 +119,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                if(ivLoading==null)return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
@@ -276,6 +277,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         requestCall = RequestUtil.request(true, URL_TALENT_DETAL, params, 120, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                if(ivLoading==null)return;
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "objj=" + obj);
@@ -303,6 +305,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if(ivLoading==null)return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);

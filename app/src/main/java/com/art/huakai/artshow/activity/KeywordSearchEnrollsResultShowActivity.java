@@ -71,6 +71,7 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
     private int page = 1;
 
     private void setData() {
+        if(ivLoading==null)return;
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText("搜索-" + keyword);
         if (searchType.equals(ENROLLS)) {
@@ -182,10 +183,11 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
         RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-
+                if(ivLoading==null)return;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        if(ivLoading==null)return;
                         if(page==1&&enrollInfoList.size() == 0){
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
@@ -274,6 +276,7 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if(ivLoading==null)return;
                 if (enrollInfoList.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);

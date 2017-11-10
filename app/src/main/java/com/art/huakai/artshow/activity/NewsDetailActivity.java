@@ -223,6 +223,7 @@ public class NewsDetailActivity extends BaseActivity {
      * 填充数据
      */
     public void fillData() {
+        if(sdbLogo==null)return;
         sdbLogo.setImageURI(mNewsDetail.getLogo());
         tvNewsTitle.setText(mNewsDetail.getTitle());
         tvNewsAnchor.setText(mNewsDetail.getAuthName());

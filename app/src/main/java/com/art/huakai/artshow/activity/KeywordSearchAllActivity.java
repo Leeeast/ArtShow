@@ -154,10 +154,11 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                setData();
+                if(ivLoading==null)return;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.GONE);
                 scrollView.setVisibility(View.VISIBLE);
+                setData();
             }
         }
     };
@@ -416,6 +417,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                if(ivLoading==null)return;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.GONE);
@@ -423,6 +425,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                if(ivLoading==null)return;
                 loadingData=false;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
