@@ -42,12 +42,10 @@ import com.art.huakai.artshow.widget.SmartRecyclerview;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.TreeMap;
 
 import butterknife.BindView;
@@ -540,7 +538,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             String month = months.get(monthPosition);
             params.put("enabledMonth", month.substring(0, 4) + "-" + lists.get(monthPosition));
         }
-        if (!TextUtils.isEmpty(mRegionId)) {
+        if (!TextUtils.isEmpty(mRegionId) && !mRegionId.equals("0")) {
             params.put("regionId", mRegionId);
         }
 
