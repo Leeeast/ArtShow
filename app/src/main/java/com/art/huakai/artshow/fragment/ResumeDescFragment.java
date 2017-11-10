@@ -142,7 +142,6 @@ public class ResumeDescFragment extends BaseFragment {
                         TalentDetailInfo.getInstance().setDescription(mDescription);
                         EventBus.getDefault().post(new TalentInfoChangeEvent());
                         EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_INTRODUCE));
-                        SoftInputUtil.hideInput(getContext());
                         getActivity().finish();
                     } catch (JSONException e) {
                         e.printStackTrace();

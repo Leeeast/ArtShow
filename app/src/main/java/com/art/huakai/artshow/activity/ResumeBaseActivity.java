@@ -208,7 +208,8 @@ public class ResumeBaseActivity extends BaseActivity {
             jsonArray.put(String.valueOf(classifyTypeAdded.get(i).getId()));
         }
         final String classifyIds = jsonArray.toString();
-        final String schrool = tvGraduateInstitu.getText().toString().trim();
+        String schrool = tvGraduateInstitu.getText().toString().trim();
+        final String schroolN = schrool.equals("选择院校") ? "" : schrool;
         final String agency = edtSubsidiaryOrgan.getText().toString().trim();
 //        if (TextUtils.isEmpty(agency)) {
 //            Toast.makeText(this, getString(R.string.tip_resume_agency_input), Toast.LENGTH_SHORT).show();
@@ -239,7 +240,7 @@ public class ResumeBaseActivity extends BaseActivity {
         params.put("name", name);
         params.put("birthday", String.valueOf(birthdayTime));
         params.put("classifyIds", classifyIds);
-        params.put("school", schrool);
+        params.put("school", schroolN);
         params.put("agency", agency);
         params.put("regionId", regionId);
         params.put("height", heigth);
@@ -271,7 +272,7 @@ public class ResumeBaseActivity extends BaseActivity {
                             added.add(classifyTypeAdded.get(i).getId());
                         }
                         talentDetailInfo.setClassifyIds(added);
-                        talentDetailInfo.setSchool(schrool);
+                        talentDetailInfo.setSchool(schroolN);
                         talentDetailInfo.setAgency(agency);
                         talentDetailInfo.setRegionId(regionId);
                         talentDetailInfo.setWeight(weight);

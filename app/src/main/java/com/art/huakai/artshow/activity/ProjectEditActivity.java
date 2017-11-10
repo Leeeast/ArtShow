@@ -209,7 +209,9 @@ public class ProjectEditActivity extends BaseActivity {
      * 更新相应的页面
      */
     private void updateEditUI() {
-        sdvAvatar.setImageURI(projectDetailInfo.getLogo());
+        if (!TextUtils.isEmpty(projectDetailInfo.getLogo())) {
+            sdvAvatar.setImageURI(projectDetailInfo.getLogo());
+        }
         switchRelease.setChecked(projectDetailInfo.getStatus() == 1);
 
         String dataBase = TextUtils.isEmpty(projectDetailInfo.getTitle()) ?

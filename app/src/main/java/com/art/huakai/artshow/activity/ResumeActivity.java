@@ -1,7 +1,9 @@
 package com.art.huakai.artshow.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -58,6 +60,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
     private OrgTalentAdapter mOrgTalentAdapter;
     private RequestCall requestCall;
     private OrgTalentHolder mHolder;
+    private boolean mIsNewCreate = false;
 
     @Override
     public void immerseStatusBar() {
@@ -146,12 +149,13 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
         mOrgTalentAdapter.setOnItemClickListener(new OrgTalentAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position, OrgTalentHolder holder) {
+                mIsNewCreate = false;
                 mHolder = holder;
                 TalentBean talentBean = mTalentBeans.get(position);
                 TalentDetailInfo.getInstance().setId(talentBean.getId());
                 Bundle bundle = new Bundle();
-                bundle.putString(WorksDetailMessageActivity.PARAMS_ID, talentBean.getId());
-                bundle.putBoolean(WorksDetailMessageActivity.PARAMS_ORG, true);
+                bundle.putString(PersonalDetailMessageActivity.PARAMS_ID, talentBean.getId());
+                bundle.putBoolean(PersonalDetailMessageActivity.PARAMS_ORG, true);
                 invokActivity(ResumeActivity.this, PersonalDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
             }
         });
@@ -174,6 +178,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
      */
     @OnClick(R.id.tv_subtitle)
     public void uploadTheatre() {
+        mIsNewCreate = true;
         Bundle bundle = new Bundle();
         bundle.putBoolean(ProjectEditActivity.PARAMS_NEW, true);
         invokActivity(this, ResumeEditActivity.class, bundle, JumpCode.FLAG_REQ_TALENT_EDIT);
@@ -203,6 +208,9 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventLogin(TalentNotifyEvent event) {
+        if (mIsNewCreate) {
+            return;
+        }
         if (event == null) {
             return;
         }
@@ -237,6 +245,61 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
                     mHolder.tvTalentStatus.setTextColor(getResources().getColor(R.color.theatre_send_fail));
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == JumpCode.FLAG_RES_ADD_TALENT) {
+            try {
+                TalentDetailInfo t = TalentDetailInfo.getInstance();
+                if (TextUtils.isEmpty(t.getId())) {
+                    return;
+                }
+                /**
+                 * id : 402894115f38179a015f38179aea0000
+                 * logo : http://139.224.47.213/image/8a999cce5f35db15015f381749680004.jpg
+                 * name : xdssdf
+                 * school : 北京舞蹈学院
+                 * age : 13
+                 * birthday : 1096560000000
+                 * classifyNames : ["话剧演员","影视演员"]
+                 * classifyNamesStr : 话剧演员 影视演员
+                 * regionName : 西城区
+                 * status : 1
+                 * createTime : 1508474586000
+                 * userId : 2c91faca5f37a50f015f37a6b7f80000
+                 * authentication : 1
+                 * agency : 收到发生的发
+                 * linkTel : 18511320250
+                 */
+                TalentBean talentBean = new TalentBean();
+                talentBean.setId(t.getId());
+                talentBean.setLogo(t.getLogo());
+                talentBean.setName(t.getName());
+                talentBean.setSchool(t.getSchool());
+                talentBean.setAge(t.getAge());
+                talentBean.setBirthday(Long.valueOf(
+                        TextUtils.isEmpty(t.getBirthday()) ? "0" : t.getBirthday()
+                ));
+                talentBean.setClassifyNames(t.getClassifyNames());
+                //talentBean.setClassifyNamesStr(t.getClassifyNames());
+                talentBean.setRegionName(t.getRegionName());
+                talentBean.setStatus(t.getStatus());
+                talentBean.setCreateTime(t.getCreateTime());
+                talentBean.setUserId(t.getUserId());
+                talentBean.setAuthentication(Integer.valueOf(
+                        TextUtils.isEmpty(t.getAuthentication()) ? "0" : t.getAuthentication()
+                ));
+                talentBean.setAgency(t.getAgency());
+                talentBean.setLinkTel(t.getLinkTel());
+                mTalentBeans.add(talentBean);
+                mOrgTalentAdapter.notifyDataSetChanged();
+                recyclerViewResume.scrollToPosition(mTalentBeans.size());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

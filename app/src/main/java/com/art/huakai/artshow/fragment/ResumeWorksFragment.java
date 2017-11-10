@@ -143,7 +143,6 @@ public class ResumeWorksFragment extends BaseFragment {
                         TalentDetailInfo.getInstance().setWorksDescpt(mTalentDescpt);
                         EventBus.getDefault().post(new TalentInfoChangeEvent());
                         EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_WORKS_DES));
-                        SoftInputUtil.hideInput(getContext());
                         getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();

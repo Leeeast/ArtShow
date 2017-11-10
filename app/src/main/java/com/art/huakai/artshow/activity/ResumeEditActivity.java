@@ -27,6 +27,7 @@ import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
+import com.art.huakai.artshow.utils.SoftInputUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
@@ -188,7 +189,9 @@ public class ResumeEditActivity extends BaseActivity {
             tvAwards.setText(getString(R.string.app_has_filled));
         }
         switchTalentRelease.setChecked(talentInfo.getStatus() == 1);
-        sdvAvatar.setImageURI(talentInfo.getLogo());
+        if (!TextUtils.isEmpty(talentInfo.getLogo())) {
+            sdvAvatar.setImageURI(talentInfo.getLogo());
+        }
     }
 
     /**
@@ -226,7 +229,17 @@ public class ResumeEditActivity extends BaseActivity {
      */
     @OnClick(R.id.lly_back)
     public void setlLyBack() {
-        finish();
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mIsNewCreate) {
+            setResult(JumpCode.FLAG_RES_ADD_TALENT);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**
@@ -501,7 +514,7 @@ public class ResumeEditActivity extends BaseActivity {
                         showToast(getString(R.string.talent_logo_upload_suc));
                         //{"id":"8a999cce5f5da93b015f5f338d0a0020"}
                         JSONObject jsonObject = new JSONObject(obj);
-                        String theatreId = jsonObject.getString("id");
+                        String theatreId = jsonObject.optString("id");
                         talentInfo.setId(theatreId);
                         talentInfo.setLogo(talentLogoUrl);
                         EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_AVATAR));
@@ -611,7 +624,6 @@ public class ResumeEditActivity extends BaseActivity {
         }
         updateEditUI();
     }
-
 
     @Override
     protected void onDestroy() {

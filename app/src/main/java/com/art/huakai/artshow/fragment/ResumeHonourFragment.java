@@ -140,7 +140,6 @@ public class ResumeHonourFragment extends BaseFragment {
                         TalentDetailInfo.getInstance().setAwardsDescpt(mAwardsDescpt);
                         EventBus.getDefault().post(new TalentInfoChangeEvent());
                         EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_AWARD_DES));
-                        SoftInputUtil.hideInput(getContext());
                         getActivity().finish();
                     } catch (Exception e) {
                         e.printStackTrace();

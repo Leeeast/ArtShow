@@ -31,10 +31,10 @@
                 android:layout_width="@dimen/DIMEN_96PX"
                 android:layout_height="@dimen/DIMEN_96PX"
                 android:layout_gravity="center_horizontal"
-                fresco:failureImage="@mipmap/loading_fail"
-                fresco:failureImageScaleType="centerInside"
                 android:layout_marginTop="@dimen/DIMEN_20PX"
                 fresco:actualImageScaleType="focusCrop"
+                fresco:failureImage="@mipmap/loading_fail"
+                fresco:failureImageScaleType="centerInside"
                 fresco:placeholderImage="@mipmap/avatar_default"
                 fresco:placeholderImageScaleType="fitCenter"
                 fresco:roundAsCircle="true" />
@@ -91,7 +91,8 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_data_base"
                     android:hint="@string/app_un_fill"
-                    android:textColor="@color/login_btn" />
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text" />
 
                 <View
                     android:layout_width="match_parent"
@@ -131,7 +132,8 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_intro"
                     android:hint="@string/app_un_fill"
-                    android:textColor="@color/login_btn" />
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text" />
 
                 <View
                     android:layout_width="match_parent"
@@ -171,7 +173,8 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_project"
                     android:hint="@string/app_un_fill"
-                    android:textColor="@color/login_btn" />
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text" />
 
 
                 <View
@@ -222,7 +225,8 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_pic"
                     android:hint="@string/app_un_fill"
-                    android:textColor="@color/login_btn" />
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text" />
 
                 <View
                     android:layout_width="match_parent"
@@ -262,7 +266,8 @@
                     android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:layout_toLeftOf="@id/iv_awards"
                     android:hint="@string/app_un_fill"
-                    android:textColor="@color/login_btn" />
+                    android:textColor="@color/set_account_text"
+                    android:textColorHint="@color/set_account_text" />
 
                 <View
                     android:layout_width="match_parent"

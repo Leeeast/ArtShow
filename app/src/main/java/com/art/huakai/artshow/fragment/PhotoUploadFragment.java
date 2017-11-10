@@ -314,6 +314,8 @@ public class PhotoUploadFragment extends BaseFragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    getActivity().finish();
                 }
             }
 
