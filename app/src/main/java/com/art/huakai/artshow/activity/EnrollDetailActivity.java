@@ -24,8 +24,8 @@ import com.art.huakai.artshow.adapter.EnrolledAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.PageLoadingDialog;
 import com.art.huakai.artshow.dialog.ShareDialog;
-import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
@@ -94,7 +94,7 @@ public class EnrollDetailActivity extends BaseActivity {
 
     private String mEnrollId;
     private EnrollDetailInfo mEnrollDetailInfo;
-    private ShowProgressDialog showProgressDialog;
+    private PageLoadingDialog pageLoading;
     private AdvertBean mAdvert;
 
     @SuppressLint("HandlerLeak")
@@ -129,7 +129,7 @@ public class EnrollDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        showProgressDialog = new ShowProgressDialog(this);
+        pageLoading = new PageLoadingDialog(this);
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -349,14 +349,14 @@ public class EnrollDetailActivity extends BaseActivity {
         params.put("id", mEnrollId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        showProgressDialog.show();
+        pageLoading.show();
         requestCallD = RequestUtil.request(true, Constant.URL_ENROLL_DETAIL, params, 31, new RequestUtil.RequestListener() {
 
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (showProgressDialog.isShowing()) {
-                    showProgressDialog.dismiss();
+                if (pageLoading.isShowing()) {
+                    pageLoading.dismiss();
                 }
                 if (isSuccess) {
                     try {
@@ -374,8 +374,8 @@ public class EnrollDetailActivity extends BaseActivity {
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if (showProgressDialog.isShowing()) {
-                    showProgressDialog.dismiss();
+                if (pageLoading.isShowing()) {
+                    pageLoading.dismiss();
                 }
             }
         });
