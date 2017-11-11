@@ -348,7 +348,7 @@ public class EnrollDetailActivity extends BaseActivity implements PageLoadingLis
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        //params.put("id", mEnrollId);
+        params.put("id", mEnrollId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         if (!pageLoading.isShowing()) {
@@ -360,9 +360,14 @@ public class EnrollDetailActivity extends BaseActivity implements PageLoadingLis
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
                 if (isSuccess) {
-                    if (pageLoading.isShowing()) {
-                        pageLoading.dismiss();
-                    }
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (pageLoading.isShowing()) {
+                                pageLoading.dismiss();
+                            }
+                        }
+                    }, 300);
                     try {
                         mEnrollDetailInfo = GsonTools.parseData(obj, EnrollDetailInfo.class);
                         mHandler.sendEmptyMessage(CODE_FILL_DATA);

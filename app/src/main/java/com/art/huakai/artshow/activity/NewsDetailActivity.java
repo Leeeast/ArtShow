@@ -18,10 +18,11 @@ import android.widget.TextView;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.dialog.PageLoadingDialog;
 import com.art.huakai.artshow.dialog.ShareDialog;
-import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.NewsDetail;
+import com.art.huakai.artshow.listener.PageLoadingListener;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.DateUtil;
@@ -47,7 +48,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class NewsDetailActivity extends BaseActivity {
+public class NewsDetailActivity extends BaseActivity implements PageLoadingListener {
 
     public static final String PARAMS_NEWS_ID = "PARAMS_NEWS_ID";
     public final int CODE_FILL_DATA = 10;
@@ -75,7 +76,7 @@ public class NewsDetailActivity extends BaseActivity {
     WebView webViewRich;
 
     private NewsDetail mNewsDetail;
-    private ShowProgressDialog showProgressDialog;
+    private PageLoadingDialog pageLoadingDialog;
     private ShareDialog shareDialog;
     private WbShareHandler mShareHandler;
     private AdvertBean mAdvert;
@@ -113,7 +114,8 @@ public class NewsDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        showProgressDialog = new ShowProgressDialog(this);
+        pageLoadingDialog = new PageLoadingDialog(this);
+        pageLoadingDialog.setPageLoadingListener(this);
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -223,7 +225,7 @@ public class NewsDetailActivity extends BaseActivity {
      * 填充数据
      */
     public void fillData() {
-        if(sdbLogo==null)return;
+        if (sdbLogo == null) return;
         sdbLogo.setImageURI(mNewsDetail.getLogo());
         tvNewsTitle.setText(mNewsDetail.getTitle());
         tvNewsAnchor.setText(mNewsDetail.getAuthName());
@@ -245,16 +247,24 @@ public class NewsDetailActivity extends BaseActivity {
         params.put("id", mNewsId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        showProgressDialog.show();
+        if (!pageLoadingDialog.isShowing()) {
+            pageLoadingDialog.show();
+        }
+        pageLoadingDialog.show();
         requestCall1 = RequestUtil.request(true, Constant.URL_GET_NEWS_DETAIL, params, 31, new RequestUtil.RequestListener() {
 
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (showProgressDialog.isShowing()) {
-                    showProgressDialog.dismiss();
-                }
                 if (isSuccess) {
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (pageLoadingDialog.isShowing()) {
+                                pageLoadingDialog.dismiss();
+                            }
+                        }
+                    }, 300);
                     try {
                         mNewsDetail = GsonTools.parseData(obj, NewsDetail.class);
                         mHandler.sendEmptyMessage(CODE_FILL_DATA);
@@ -263,16 +273,14 @@ public class NewsDetailActivity extends BaseActivity {
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
-
+                    pageLoadingDialog.showErrorLoading();
                 }
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if (showProgressDialog.isShowing()) {
-                    showProgressDialog.dismiss();
-                }
+                pageLoadingDialog.showErrorLoading();
             }
         });
     }
@@ -328,5 +336,15 @@ public class NewsDetailActivity extends BaseActivity {
             requestCall2.cancel();
             requestCall2 = null;
         }
+    }
+
+    @Override
+    public void onClose() {
+        finish();
+    }
+
+    @Override
+    public void onRetry() {
+        getNewsDetail();
     }
 }

@@ -468,5 +468,6 @@
     <string name="release_to_load">释放立即加载</string>
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
+    <string name="load_retry">重新加载</string>
 
 </resources>

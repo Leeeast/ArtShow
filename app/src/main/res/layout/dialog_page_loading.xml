@@ -12,4 +12,29 @@
         android:layout_gravity="center"
         android:background="@mipmap/loading_content"
         android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/lly_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/DIMEN_115PX"
+            android:layout_height="@dimen/DIMEN_115PX"
+            android:background="@mipmap/loading_fail" />
+
+        <Button
+            android:id="@+id/btn_retry"
+            android:layout_width="@dimen/DIMEN_72PX"
+            android:layout_height="@dimen/DIMEN_29PX"
+            android:layout_marginTop="@dimen/DIMEN_35PX"
+            android:background="@drawable/shape_bg_red"
+            android:text="@string/load_retry"
+            android:textColor="@color/whiteff"
+            android:textSize="12sp" />
+    </LinearLayout>
 </FrameLayout>

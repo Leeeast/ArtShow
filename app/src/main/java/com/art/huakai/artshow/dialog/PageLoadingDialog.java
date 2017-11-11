@@ -10,11 +10,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.ShowApplication;
+import com.art.huakai.artshow.listener.PageLoadingListener;
 import com.art.huakai.artshow.utils.DeviceUtils;
 
 
@@ -22,11 +25,14 @@ import com.art.huakai.artshow.utils.DeviceUtils;
  * 旋转等待
  * Created by lidongliang on 2015/5/29.
  */
-public class PageLoadingDialog extends ProgressDialog implements DialogInterface.OnDismissListener {
+public class PageLoadingDialog extends ProgressDialog implements DialogInterface.OnDismissListener, View.OnClickListener {
     private final String TAG = PageLoadingDialog.class.getSimpleName();
     private Context context;
     private ImageView round_progress;//圆环加载图
     private ObjectAnimator rotationAnim;
+    private PageLoadingListener mListener;
+    private LinearLayout lLyRetry;
+    private Button btnRetry;
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -44,6 +50,9 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
         this.context = context;
     }
 
+    public void setPageLoadingListener(PageLoadingListener listener) {
+        this.mListener = listener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,9 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
         rotationAnim.setRepeatMode(ValueAnimator.RESTART);
         setOnDismissListener(this);
 
+        lLyRetry = (LinearLayout) findViewById(R.id.lly_retry);
+        btnRetry = (Button) findViewById(R.id.btn_retry);
+        btnRetry.setOnClickListener(this);
         FrameLayout flyRoot = (FrameLayout) findViewById(R.id.fly_root);
         int screenHeight = DeviceUtils.getScreenHeight(ShowApplication.getAppContext());
         int screenWidth = DeviceUtils.getScreenWeight(ShowApplication.getAppContext());
@@ -70,7 +82,16 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
         setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                return true;
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (mListener != null) {
+                            mListener.onClose();
+                        }
+                    }
+                    return true;
+
+                }
+                return false;
             }
         });
     }
@@ -86,6 +107,15 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
         }
     }
 
+    public void showLoading() {
+        round_progress.setVisibility(View.VISIBLE);
+        lLyRetry.setVisibility(View.GONE);
+    }
+
+    public void showErrorLoading() {
+        round_progress.setVisibility(View.INVISIBLE);
+        lLyRetry.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -95,6 +125,18 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
             rotationAnim.start();
         } else {
             rotationAnim.cancel();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_retry:
+                showLoading();
+                if (mListener != null) {
+                    mListener.onRetry();
+                }
+                break;
         }
     }
 }
