@@ -14,4 +14,5 @@ public class EnrollInfo implements Serializable {
     public String authName;
     public long endTime;
     public long createTime;
+    public boolean enrollReceiving;
 }

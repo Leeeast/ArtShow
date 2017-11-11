@@ -11,12 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.EnrollInfo;
 import com.art.huakai.artshow.utils.DateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +62,13 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
                 typeOneViewHolder.tv_update_time.setText(list.get(position).endTime+"");
 
                 typeOneViewHolder.tv_update_time.setText("截止时间："+DateUtil.transTime(list.get(position).endTime+"","yyyy年MM月dd日"));
+                if(list.get(position).enrollReceiving){
+                    typeOneViewHolder.tv_status.setText("报名中");
+                    typeOneViewHolder.tv_status.setTextColor(0xffe93c2c);
+                }else{
+                    typeOneViewHolder.tv_status.setText("已结束");
+                    typeOneViewHolder.tv_status.setTextColor(0xff333333);
+                }
             }
 
             typeOneViewHolder.rl_whole.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +105,7 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
         private TextView tv_update_time;
         private LinearLayout ll_whole;
         private RelativeLayout rl_whole;
+        private TextView tv_status;
         public TypeOneViewHolder(View itemView) {
             super(itemView);
             tv_name= (TextView) itemView.findViewById(R.id.tv_name);
@@ -107,6 +113,7 @@ public class CooperationOpportunitiesAdapter extends  RecyclerView.Adapter{
             tv_update_time= (TextView) itemView.findViewById(R.id.tv_update_time);
             ll_whole= (LinearLayout) itemView.findViewById(R.id.ll_whole);
             rl_whole= (RelativeLayout) itemView.findViewById(R.id.rl_whole);
+            tv_status= (TextView) itemView.findViewById(R.id.tv_status);
         }
     }
 

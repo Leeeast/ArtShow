@@ -15,8 +15,6 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.RegUserInfo;
-import com.art.huakai.artshow.entity.User;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.fragment.CooperateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
@@ -233,6 +231,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         Fragment fragment = null;
         if (tag.equals(ShowCircleFragment.TAG_FRAGMENT)) {
             fragment = ShowCircleFragment.newInstance();
+//            fragment = ShowCircleTestFragment.newInstance();
         } else if (tag.equals(DiscoverFragment.TAG_FRAGMENT)) {
             fragment = DiscoverFragment.newInstance();
         } else if (tag.equals(CooperateFragment.TAG_FRAGMENT)) {

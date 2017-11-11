@@ -25,12 +25,13 @@
         android:src="@mipmap/loading_fail"
         android:visibility="gone" />
 
-<com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/pull"
-    android:visibility="visible"
-    >
+    <com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pull"
+        android:visibility="visible"
+        >
+
     <com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
@@ -95,7 +96,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/DIMEN_14PX"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
-                android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_29PX">
 
                 <TextView
@@ -105,7 +105,8 @@
                     android:maxLength="10"
                     android:text="行业快讯"
                     android:textColor="@color/account_type_name"
-                    android:textSize="@dimen/DIMEN_19PX" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/DIMEN_21PX" />
 
                 <TextView
                     android:id="@+id/tv_one_whole"
@@ -115,10 +116,11 @@
                     android:layout_centerVertical="true"
                     android:clickable="true"
                     android:focusable="true"
+                    android:layout_marginRight="@dimen/DIMEN_15PX"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="#ff007aff"
-                    android:textSize="@dimen/DIMEN_15PX" />
+                    android:textColor="#ffe93c2c"
+                    android:textSize="@dimen/DIMEN_17PX"  />
 
             </RelativeLayout>
 
@@ -130,6 +132,16 @@
                 android:layout_marginRight="@dimen/DIMEN_14PX">
 
             </android.support.v7.widget.RecyclerView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_six"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_14PX">
+
+            </android.support.v7.widget.RecyclerView>
+
 
             <View
                 android:id="@+id/news_divider"
@@ -156,7 +168,8 @@
                     android:maxLength="10"
                     android:text="合作机会"
                     android:textColor="@color/account_type_name"
-                    android:textSize="@dimen/DIMEN_19PX" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/DIMEN_21PX"/>
 
                 <TextView
                     android:id="@+id/tv_two_whole"
@@ -168,8 +181,8 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="#ff007aff"
-                    android:textSize="@dimen/DIMEN_15PX" />
+                    android:textColor="#ffe93c2c"
+                    android:textSize="@dimen/DIMEN_17PX" />
 
             </RelativeLayout>
 
@@ -208,7 +221,8 @@
                     android:maxLength="10"
                     android:text="优秀项目"
                     android:textColor="@color/account_type_name"
-                    android:textSize="@dimen/DIMEN_19PX" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/DIMEN_21PX"/>
 
                 <TextView
                     android:id="@+id/tv_three_whole"
@@ -220,8 +234,8 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="#ff007aff"
-                    android:textSize="@dimen/DIMEN_15PX" />
+                    android:textColor="#ffe93c2c"
+                    android:textSize="@dimen/DIMEN_17PX" />
 
             </RelativeLayout>
 
@@ -260,7 +274,8 @@
                     android:maxLength="10"
                     android:text="推荐剧场"
                     android:textColor="@color/account_type_name"
-                    android:textSize="@dimen/DIMEN_19PX" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/DIMEN_21PX" />
 
                 <TextView
                     android:id="@+id/tv_four_whole"
@@ -272,8 +287,8 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="#ff007aff"
-                    android:textSize="@dimen/DIMEN_15PX" />
+                    android:textColor="#ffe93c2c"
+                    android:textSize="@dimen/DIMEN_17PX" />
 
             </RelativeLayout>
 
@@ -310,7 +325,8 @@
                     android:maxLength="10"
                     android:text="专业人才"
                     android:textColor="@color/account_type_name"
-                    android:textSize="@dimen/DIMEN_19PX" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/DIMEN_21PX" />
 
                 <TextView
                     android:id="@+id/tv_five_whole"
@@ -322,8 +338,8 @@
                     android:focusable="true"
                     android:maxLength="10"
                     android:text="查看全部"
-                    android:textColor="@color/text_cancel"
-                    android:textSize="@dimen/DIMEN_15PX" />
+                    android:textColor="#ffe93c2c"
+                    android:textSize="@dimen/DIMEN_17PX" />
 
             </RelativeLayout>
 
@@ -407,6 +423,7 @@
         </LinearLayout>
 
     </com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView>
+
 
 </com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout>
 

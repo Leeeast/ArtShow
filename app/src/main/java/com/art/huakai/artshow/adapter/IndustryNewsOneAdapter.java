@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by lining on 17-9-7.
  */
-public class IndustryNewsAdapter extends RecyclerView.Adapter {
+public class IndustryNewsOneAdapter extends RecyclerView.Adapter {
 
     private static final String TAG = "IndustryNewsAdapter";
 
@@ -32,7 +32,7 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
     private static final int TYPE_TWO = 2;
 
 
-    public IndustryNewsAdapter(Context context, List<NewsesBean> list) {
+    public IndustryNewsOneAdapter(Context context, List<NewsesBean> list) {
         this.list = list;
         this.mContext = context;
 
@@ -46,17 +46,16 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.e(TAG, "onCreateViewHolder: 111111");
-        if (viewType == 1) {
-//            View view = LayoutInflater.from(mContext).inflate(R.layout.type_one_one_item, parent, false);
-//            TypeOneViewHolder typeOneViewHolder = new TypeOneViewHolder(view);
-//            return typeOneViewHolder;
+        if (viewType == 2) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.type_one_one_item, parent, false);
+            TypeOneViewHolder typeOneViewHolder = new TypeOneViewHolder(view);
+            return typeOneViewHolder;
         } else {
             View view = LayoutInflater.from(mContext).inflate(R.layout.type_one_two_item, parent, false);
             TypeTwoViewHolder typeTwoViewHolder = new TypeTwoViewHolder(view);
             return typeTwoViewHolder;
         }
 
-        return null;
     }
 
     @Override
@@ -121,25 +120,25 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
 //            });
 //        } else
 
-        if (holder instanceof TypeTwoViewHolder) {
-            TypeTwoViewHolder typeTwoViewHolder = (TypeTwoViewHolder) holder;
+        if (holder instanceof TypeOneViewHolder) {
+            TypeOneViewHolder typeTwoViewHolder = (TypeOneViewHolder) holder;
             if (list.get(position ) != null) {
                 if (!TextUtils.isEmpty(list.get(position ).getLogo())) {
 //                    typeTwoViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position + 1).getLogo()));
-                    typeTwoViewHolder.chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(list.get(position).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX)/4,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_91PX)/2);
+                    typeTwoViewHolder.chinaShowImageViewOne.setSpecificSizeImageUrl(Uri.parse(list.get(position).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX)/4,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_91PX)/2);
 
                 }
-                typeTwoViewHolder.tv_name.setText(list.get(position ).getTitle());
+                typeTwoViewHolder.tv_name_one.setText(list.get(position ).getTitle());
 //                typeTwoViewHolder.tv_subtitle.setText(list.get(position ).getDescription());
             }
             try {
-                if(0!=list.get(position).getCreateTime()){
-                    typeTwoViewHolder.tv_update_time.setText(DateUtil.transTime(list.get(position ).getCreateTime()+"","yyyy年MM月dd"));
+                if(0!=list.get(position ).getCreateTime()){
+                    typeTwoViewHolder.tv_update_time_one.setText(DateUtil.transTime(list.get(position ).getCreateTime()+"","yyyy年MM月dd"));
                 }
             }catch (Exception e){
 
             }
-            typeTwoViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
+            typeTwoViewHolder.ll_whole_one.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onItemClickListener != null) {
@@ -160,30 +159,27 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
     }
 
 
-//    public class TypeOneViewHolder extends RecyclerView.ViewHolder {
-//        private ChinaShowImageView chinaShowImageViewOne;
-//        private TextView tv_name_one;
-//        private TextView tv_update_time_one;
-//        private LinearLayout ll_whole_one;
-//        private ChinaShowImageView chinaShowImageViewTwo;
-//        private TextView tv_name_two;
-//        private TextView tv_update_time_two;
-//        private LinearLayout ll_whole_two;
-//
-//        public TypeOneViewHolder(View itemView) {
-//            super(itemView);
-//            chinaShowImageViewOne = (ChinaShowImageView) itemView.findViewById(R.id.sdv_one);
-//            tv_name_one = (TextView) itemView.findViewById(R.id.tv_name_one);
-//            tv_update_time_one = (TextView) itemView.findViewById(R.id.tv_update_time_one);
-//            ll_whole_one = (LinearLayout) itemView.findViewById(R.id.ll_whole_one);
-//
-//            chinaShowImageViewTwo = (ChinaShowImageView) itemView.findViewById(R.id.sdv_two);
-//            tv_name_two = (TextView) itemView.findViewById(R.id.tv_name_two);
-//            tv_update_time_two = (TextView) itemView.findViewById(R.id.tv_update_time_two);
-//            ll_whole_two = (LinearLayout) itemView.findViewById(R.id.ll_whole_two);
-//
-//        }
-//    }
+    public class TypeOneViewHolder extends RecyclerView.ViewHolder {
+        private ChinaShowImageView chinaShowImageViewOne;
+        private TextView tv_name_one;
+        private TextView tv_update_time_one;
+        private LinearLayout ll_whole_one;
+        private ChinaShowImageView chinaShowImageViewTwo;
+        private TextView tv_name_two;
+        private TextView tv_update_time_two;
+        private LinearLayout ll_whole_two;
+
+        public TypeOneViewHolder(View itemView) {
+            super(itemView);
+            chinaShowImageViewOne = (ChinaShowImageView) itemView.findViewById(R.id.sdv_one);
+            tv_name_one = (TextView) itemView.findViewById(R.id.tv_name_one);
+            tv_update_time_one = (TextView) itemView.findViewById(R.id.tv_update_time_one);
+            ll_whole_one = (LinearLayout) itemView.findViewById(R.id.ll_whole_one);
+
+
+
+        }
+    }
 
     public class TypeTwoViewHolder extends RecyclerView.ViewHolder {
         private ChinaShowImageView chinaShowImageView;

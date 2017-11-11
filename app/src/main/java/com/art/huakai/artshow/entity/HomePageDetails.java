@@ -25,6 +25,24 @@ public class HomePageDetails {
     private List<AdvertBean> banners;
     private List<NewsesBean> newses;
     private List<TalentsBean> talents;
+    private List<NewsesBean> newsesLine;
+    private List<NewsesBean> newsesColumn;
+
+    public List<NewsesBean> getNewsesLine() {
+        return newsesLine;
+    }
+
+    public void setNewsesLine(List<NewsesBean> newsesLine) {
+        this.newsesLine = newsesLine;
+    }
+
+    public List<NewsesBean> getNewsesColumn() {
+        return newsesColumn;
+    }
+
+    public void setNewsesColumn(List<NewsesBean> newsesColumn) {
+        this.newsesColumn = newsesColumn;
+    }
 
     public AdvertBean getAdvert() {
         return advert;
