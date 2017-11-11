@@ -12,12 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.TheatersBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +60,7 @@ public class RecommendTheaterAdapter extends  RecyclerView.Adapter{
             if(list.get(position)!=null){
                 if(!TextUtils.isEmpty(list.get(position).getLogo())){
                     typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getLogo()));
-                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(list.get(position).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_93PX));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(list.get(position).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_93PX)/2);
                 }
                 typeOneViewHolder.tv_name.setText(list.get(position).getName());
             }

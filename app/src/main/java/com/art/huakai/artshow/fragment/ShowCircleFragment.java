@@ -31,6 +31,7 @@ import com.art.huakai.artshow.activity.WorksDetailMessageActivity;
 import com.art.huakai.artshow.adapter.CooperationOpportunitiesAdapter;
 import com.art.huakai.artshow.adapter.ExcellentWorksAdapter;
 import com.art.huakai.artshow.adapter.IndustryNewsAdapter;
+import com.art.huakai.artshow.adapter.IndustryNewsOneAdapter;
 import com.art.huakai.artshow.adapter.ProfessionalPersonAdapter;
 import com.art.huakai.artshow.adapter.RecommendTheaterAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -42,7 +43,6 @@ import com.art.huakai.artshow.entity.HomePageDetails;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.DeviceUtils;
-import com.art.huakai.artshow.utils.FrescoHelper;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -90,6 +90,10 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     ImageView ivLoading;
     @BindView(R.id.iv_no_content)
     ImageView ivNoContent;
+    @BindView(R.id.rcv_six)
+    RecyclerView rcvSix;
+    @BindView(R.id.lly_content)
+    LinearLayout llyContent;
 
     private HomePageDetails homePageDetails;
 
@@ -103,8 +107,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     RelativeLayout rlIndustryNews;
     @BindView(R.id.rcv_one)
     RecyclerView rcvIndustryNews;
-    IndustryNewsAdapter industryNewsAdapter;
+    IndustryNewsOneAdapter industryNewsAdapter;
     LinearLayoutManager industryNewsLayoutManager;
+
+    IndustryNewsAdapter industryNewsAdapterTwo;
+    LinearLayoutManager industryNewsLayoutManagerTwo;
 
     @BindView(R.id.sv)
     PullableScrollView scrollView;
@@ -166,17 +173,17 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     TextView tvChName;
     private int scrollDistance;
     final List<BannerEntity> entities = new ArrayList<>();
-    private boolean isRefresh=false;
-    private boolean isLoadingData=false;
+    private boolean isRefresh = false;
+    private boolean isLoadingData = false;
 
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if(ivLoading==null)return;
-                if(isRefresh){
-                    Toast.makeText(getContext(),"刷新成功",Toast.LENGTH_SHORT).show();
-                    isRefresh=false;
+                if (ivLoading == null) return;
+                if (isRefresh) {
+                    Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
+                    isRefresh = false;
                 }
                 pull.refreshFinish(PullToRefreshLayout.SUCCEED);
                 ivLoading.setVisibility(View.GONE);
@@ -267,14 +274,14 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     }
 
     private void getHomePageDetails() {
-        if(isLoadingData)return;
-        isLoadingData=true;
+        if (isLoadingData) return;
+        isLoadingData = true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_HOMEPAGE_INFOS==" + Constant.URL_GET_HOMEPAGE_INFOS);
         RequestUtil.request(true, Constant.URL_GET_HOMEPAGE_INFOS, params, 100, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                isLoadingData=false;
+                isLoadingData = false;
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Gson gson = new Gson();
@@ -289,13 +296,13 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     Log.e(TAG, "onSuccess: code==" + code);
                     ResponseCodeCheck.showErrorMsg(code);
                 }
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
                 pull.setVisibility(View.GONE);
-                if(isRefresh){
-                    Toast.makeText(getContext(),"刷新失败",Toast.LENGTH_SHORT).show();
-                    isRefresh=false;
+                if (isRefresh) {
+                    Toast.makeText(getContext(), "刷新失败", Toast.LENGTH_SHORT).show();
+                    isRefresh = false;
                 }
                 uiHandler.post(new Runnable() {
                     @Override
@@ -308,14 +315,14 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(ivLoading==null)return;
-                isLoadingData=false;
+                if (ivLoading == null) return;
+                isLoadingData = false;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
                 pull.setVisibility(View.GONE);
-                if(isRefresh){
-                    Toast.makeText(getContext(),"刷新失败",Toast.LENGTH_SHORT).show();
-                    isRefresh=false;
+                if (isRefresh) {
+                    Toast.makeText(getContext(), "刷新失败", Toast.LENGTH_SHORT).show();
+                    isRefresh = false;
                 }
                 uiHandler.post(new Runnable() {
                     @Override
@@ -335,18 +342,18 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             return;
         }
 
-        if (homePageDetails.getNewses() != null && homePageDetails.getNewses().size() > 0) {
+        if (homePageDetails.getNewsesLine() != null && homePageDetails.getNewsesLine().size() > 0) {
             if (null == industryNewsAdapter) {
-                industryNewsAdapter = new IndustryNewsAdapter(getContext(), homePageDetails.getNewses());
+                industryNewsAdapter = new IndustryNewsOneAdapter(getContext(), homePageDetails.getNewsesLine());
             }
             if (null == industryNewsLayoutManager) {
-                industryNewsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                industryNewsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
-            industryNewsAdapter.setOnItemClickListener(new IndustryNewsAdapter.OnItemClickListener() {
+            industryNewsAdapter.setOnItemClickListener(new IndustryNewsOneAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
                     Bundle bundle = new Bundle();
-                    bundle.putString(NewsDetailActivity.PARAMS_NEWS_ID, homePageDetails.getNewses().get(position).getId());
+                    bundle.putString(NewsDetailActivity.PARAMS_NEWS_ID, homePageDetails.getNewsesLine().get(position).getId());
                     invokActivity(getContext(), NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
                 }
             });
@@ -362,6 +369,34 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             rlIndustryNews.setVisibility(View.GONE);
             newsDivider.setVisibility(View.GONE);
         }
+
+        Log.e(TAG, "setData:getNewsesColumn== "+homePageDetails.getNewsesColumn().size() );
+        if(homePageDetails.getNewsesColumn() != null && homePageDetails.getNewsesColumn().size() > 0){
+            if (null == industryNewsAdapterTwo) {
+                industryNewsAdapterTwo = new IndustryNewsAdapter(getContext(), homePageDetails.getNewsesColumn());
+            }
+            if (null == industryNewsLayoutManagerTwo) {
+                industryNewsLayoutManagerTwo = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            }
+            industryNewsAdapterTwo.setOnItemClickListener(new IndustryNewsAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(NewsDetailActivity.PARAMS_NEWS_ID, homePageDetails.getNewsesColumn().get(position).getId());
+                    invokActivity(getContext(), NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
+                }
+            });
+//              实现屏蔽recyclerview的滑动效果
+            rcvSix.setNestedScrollingEnabled(false);
+//              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+            LinearItemDecoration itemDecoration = new LinearItemDecoration(10);
+            rcvSix.addItemDecoration(itemDecoration);
+            rcvSix.setLayoutManager(industryNewsLayoutManagerTwo);
+            rcvSix.setAdapter(industryNewsAdapterTwo);
+        }else{
+            rcvSix.setVisibility(View.GONE);
+        }
+
 
         if (homePageDetails.getEnrolls() != null && homePageDetails.getEnrolls().size() > 0) {
             if (null == cooperationAdapter) {
@@ -475,7 +510,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         }
         if (homePageDetails.getAdvert() != null && !TextUtils.isEmpty(homePageDetails.getAdvert().getLogo())) {
 //            chinaShowImageView.setImageURI(Uri.parse(homePageDetails.getAdvert().getLogo()));
-            chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(homePageDetails.getAdvert().getLogo()), getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX), getResources().getDimensionPixelSize(R.dimen.DIMEN_155PX));
+            chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(homePageDetails.getAdvert().getLogo()), getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX) / 4, getResources().getDimensionPixelSize(R.dimen.DIMEN_155PX) / 2);
         }
 
 //      chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));
@@ -490,7 +525,6 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         } else {
             entities.add(new BannerEntity(0, "http://logo", "image"));
         }
-        entities.add(new BannerEntity(0, "http://logo", "image"));
         banner.setEntities(entities);
         banner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
@@ -505,6 +539,12 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             banner.startAutoScroll();
         }
 
+//        uiHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                FrescoHelper.pause();
+//            }
+//        },5000);
 
     }
 
@@ -544,7 +584,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 mainActivity.setCheckId(R.id.rdobtn_discover);
             }
 
-        }  else if (v.getId() == R.id.csiv) {
+        } else if (v.getId() == R.id.csiv) {
             if (homePageDetails != null && homePageDetails.getAdvert() != null) {
                 AdvertJumpUtil.invoke((BaseActivity) getActivity(), getContext(), homePageDetails.getAdvert());
             }
@@ -559,6 +599,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+        Log.d(TAG, "onCreateView:360px== " + getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX));
         return rootView;
     }
 
@@ -573,7 +614,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
-            isRefresh=true;
+            isRefresh = true;
             getHomePageDetails();
 
 //            // 下拉刷新操作

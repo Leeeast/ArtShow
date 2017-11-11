@@ -93,12 +93,15 @@ public class ChinaShowImageView extends SimpleDraweeView {
 
 
     public void setSpecificSizeImageUrl(Uri uri,int width,int height){
+//        if(true)return;
+        uri=Uri.parse("https://www.showonline.com.cn/image/2017/09/04/f38335157d8b45f5b9aa179694d8e014.jpg");
         if (uri == null) return;
         if (mUriString != null && mUriString.equals(uri.toString())) return;
-        mUriString = uri.toString();
+         mUriString = uri.toString();
         if (mPipelineDraweeControllerBuilder != null) {
+            Log.d(TAG, "setSpecificSizeImageUrl: ");
                 ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                        .setResizeOptions(new ResizeOptions(width,height))
+                        .setResizeOptions(new ResizeOptions(width/2,height/2))
                         .build();
                 setController(mPipelineDraweeControllerBuilder.setImageRequest(request).build());
                 setController(mPipelineDraweeControllerBuilder.setUri(uri).build());

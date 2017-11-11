@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -15,7 +14,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -68,7 +66,7 @@ public class BannerLayout extends FrameLayout {
 //            Glide.with(getContext().getApplicationContext()).load(entity.url).centerCrop().crossFade().into(mImageView);
             if(!TextUtils.isEmpty(entity.url)){
                 SimpleDraweeView.setImageURI(Uri.parse(entity.url));
-                SimpleDraweeView.setSpecificSizeImageUrl(Uri.parse(entity.url),getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX),getResources().getDimensionPixelSize(R.dimen.DIMEN_240PX));
+                SimpleDraweeView.setSpecificSizeImageUrl(Uri.parse(entity.url),getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX)/4,getResources().getDimensionPixelSize(R.dimen.DIMEN_240PX)/2);
             }
         }else if (entity.type == 1){
             SimpleDraweeView.setVisibility(View.GONE);

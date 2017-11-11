@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/DIMEN_2PX"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="2017青戏节最全排期"
                 android:textColor="#ff555555"
                 android:textSize="@dimen/DIMEN_14PX" />
@@ -54,7 +54,9 @@
                 android:layout_marginTop="@dimen/DIMEN_4PX"
                 android:text="快来支持你想看的项目"
                 android:textColor="#ff555555"
-                android:textSize="@dimen/DIMEN_14PX" />
+                android:textSize="@dimen/DIMEN_14PX"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/tv_update_time"
