@@ -30,6 +30,7 @@ import com.art.huakai.artshow.entity.AdvertBean;
 import com.art.huakai.artshow.entity.EnrollDetailInfo;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.listener.OnItemClickListener;
+import com.art.huakai.artshow.listener.PageLoadingListener;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AdvertJumpUtil;
 import com.art.huakai.artshow.utils.DateUtil;
@@ -55,7 +56,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class EnrollDetailActivity extends BaseActivity {
+public class EnrollDetailActivity extends BaseActivity implements PageLoadingListener {
 
     public static final String PARAMS_ENROLL_ID = "PARAMS_ENROLL_ID";
     public final int CODE_FILL_DATA = 10;
@@ -130,6 +131,7 @@ public class EnrollDetailActivity extends BaseActivity {
     @Override
     public void initData() {
         pageLoading = new PageLoadingDialog(this);
+        pageLoading.setPageLoadingListener(this);
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -346,19 +348,21 @@ public class EnrollDetailActivity extends BaseActivity {
             return;
         }
         Map<String, String> params = new TreeMap<>();
-        params.put("id", mEnrollId);
+        //params.put("id", mEnrollId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        pageLoading.show();
+        if (!pageLoading.isShowing()) {
+            pageLoading.show();
+        }
         requestCallD = RequestUtil.request(true, Constant.URL_ENROLL_DETAIL, params, 31, new RequestUtil.RequestListener() {
 
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                if (pageLoading.isShowing()) {
-                    pageLoading.dismiss();
-                }
                 if (isSuccess) {
+                    if (pageLoading.isShowing()) {
+                        pageLoading.dismiss();
+                    }
                     try {
                         mEnrollDetailInfo = GsonTools.parseData(obj, EnrollDetailInfo.class);
                         mHandler.sendEmptyMessage(CODE_FILL_DATA);
@@ -367,16 +371,14 @@ public class EnrollDetailActivity extends BaseActivity {
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
-
+                    pageLoading.showErrorLoading();
                 }
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if (pageLoading.isShowing()) {
-                    pageLoading.dismiss();
-                }
+                pageLoading.showErrorLoading();
             }
         });
     }
@@ -445,5 +447,15 @@ public class EnrollDetailActivity extends BaseActivity {
             requestCallAD.cancel();
             requestCallAD = null;
         }
+    }
+
+    @Override
+    public void onClose() {
+        this.finish();
+    }
+
+    @Override
+    public void onRetry() {
+        getEnrollDetail();
     }
 }
