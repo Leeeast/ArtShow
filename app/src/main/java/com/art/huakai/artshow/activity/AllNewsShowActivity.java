@@ -115,6 +115,7 @@ public class AllNewsShowActivity extends BaseActivity implements View.OnClickLis
         recyclerView.setLoadingListener(this);
         ivRightImg.setImageResource(R.mipmap.search_black);
         ivRightImg.setOnClickListener(this);
+        tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText("行业资讯");
     }
 

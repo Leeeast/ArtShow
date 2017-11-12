@@ -60,6 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
         android:layout_marginTop="@dimen/DIMEN_20PX"
+        android:textSize="@dimen/DIMEN_18PX"
+        android:textColor="#ff24253d"
         android:text="项目" />
 
     <com.art.huakai.artshow.widget.SmartRecyclerview
