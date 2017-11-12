@@ -82,7 +82,7 @@ public class StaggerFragment extends HeaderViewPagerFragment {
     }
 
     private void initData() {
-
+        Log.d(TAG, "initData: lists.size()=="+lists.size());
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adpter = new StaggerAdapter(lists, getContext(), itemWidth);
         decoration = new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_10PX));
@@ -113,7 +113,6 @@ public class StaggerFragment extends HeaderViewPagerFragment {
 //
 //            }
 //        },300);
-
         for (int i = 0; i < lists.size(); i++) {
             picList.add(lists.get(i).getMasterUrl());
 

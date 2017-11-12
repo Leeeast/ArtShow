@@ -177,7 +177,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         StaggerFragment staggerFragment = StaggerFragment.newInstance(theatreDetailBean.getPictures());
         mFragments.add(staggerFragment);
 
-
         TheatreDetailParamsFragment theatreDetailParamsFragment = TheatreDetailParamsFragment.newInstance(theatreDetailBean);
         mFragments.add(theatreDetailParamsFragment);
 

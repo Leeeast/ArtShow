@@ -43,6 +43,7 @@ public class StaggerAdapter extends RecyclerView.Adapter {
         this.datas = data;
         this.context = context;
         this.itemWidth = itemWidth;
+        Log.d(TAG, "StaggerAdapter: datas.size()=="+datas.size());
     }
 
 
@@ -62,6 +63,7 @@ public class StaggerAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        Log.d(TAG, "onBindViewHolder:getItemViewType(position)== "+getItemViewType(position));
         switch (getItemViewType(position)) {
             case TYPE_EMPTY:
                 EmptyHolder emptyHolder = (EmptyHolder) holder;
@@ -69,7 +71,6 @@ public class StaggerAdapter extends RecyclerView.Adapter {
                 ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
                 layoutParams.width = DeviceUtils.getScreenWeight(emptyHolder.itemView.getContext());
                 itemView.setLayoutParams(layoutParams);
-
                 FrameLayout.LayoutParams framLayoutParams = (FrameLayout.LayoutParams) emptyHolder.ivEmpty.getLayoutParams();
                 framLayoutParams.topMargin = emptyHolder.itemView.getResources().getDimensionPixelSize(R.dimen.DIMEN_55PX);
                 framLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
@@ -77,17 +78,21 @@ public class StaggerAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_NORMAL:
                 MyHolder myHolder = (MyHolder) holder;
+                Log.e(TAG, "onBindViewHolder: masterurl=="+datas.get(position).getMasterUrl() );
                 if (!TextUtils.isEmpty(datas.get(position).getMasterUrl())) {
                     try {
+                        Log.d(TAG, "onBindViewHolder: 1111");
                         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (datas.get(position).getHeight() / datas.get(position).getWidth() * itemWidth));
                         myHolder.chinaShowImageView.setLayoutParams(lp);
-                        myHolder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
+//                        myHolder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
+                        myHolder.chinaShowImageView.setSpecificSizeImageUrl(datas.get(position).getMasterUrl(),itemWidth/2,(int) (datas.get(position).getHeight() / datas.get(position).getWidth() * itemWidth)/2);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Log.d(TAG, "onBindViewHolder: 22222");
                         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, itemWidth);
                         myHolder.chinaShowImageView.setLayoutParams(lp);
                         myHolder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
-
+                        myHolder.chinaShowImageView.setSpecificSizeImageUrl(datas.get(position).getMasterUrl(),itemWidth/2,itemWidth/2);
                     }
                 }
                 myHolder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
