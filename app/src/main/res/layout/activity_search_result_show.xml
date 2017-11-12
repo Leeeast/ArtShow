@@ -52,7 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
         android:layout_marginTop="@dimen/DIMEN_10PX"
-        android:text="共发现2条相关数据"
         android:textColor="#ff797c87" />
 
     <TextView

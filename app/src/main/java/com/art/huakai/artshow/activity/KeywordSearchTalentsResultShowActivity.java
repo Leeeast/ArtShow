@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchProfessionalAdapter;
@@ -74,16 +75,17 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
     private LinearLayoutManager linearlayoutManager;
 
     private int page = 1;
+    private int totalCount;
 
     private void setData() {
+        tvSearchCount.setVisibility(View.VISIBLE);
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText("搜索-" + keyword);
         if (searchType.equals(TALENTS)) {
             tvSearchType.setText("人才");
-            tvSearchCount.setText("共发现" + talentBeanlists.size() + "条相关数据");
+            tvSearchCount.setText("共发现" + totalCount + "条相关数据");
             keywordSearchProfessionalAdapter = new KeywordSearchProfessionalAdapter(this, talentBeanlists);
             linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
             recyclerView.setLayoutManager(linearlayoutManager);
             recyclerView.setAdapter(keywordSearchProfessionalAdapter);
             keywordSearchProfessionalAdapter.setOnItemClickListener(new KeywordSearchProfessionalAdapter.OnItemClickListener() {
@@ -117,7 +119,6 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
 
     @Override
     public void initView() {
-
         llyBack.setOnClickListener(this);
         recyclerView.setLoadingListener(this);
     }
@@ -173,32 +174,30 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
     private void getKeywordSearchAllMessage() {
 
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH_NEWS==" + Constant.URL_KEYWORD_SEARCH_NEWS);
         params.put("keyword", keyword);
         params.put("page", page + "");
-
         String url = "";
-       if (searchType.equals(TALENTS)) {
+        if (searchType.equals(TALENTS)) {
 //            人才
-            url = Constant.URL_KEYWORD_SEARCH_TALENS;
+            url = Constant.URL_GET_TALENTS;
         }
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
-        RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
+        RequestUtil.request(url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(ivLoading==null)return;
-                        if(page==1&&talentBeanlists.size() == 0){
+                        if (ivLoading == null) return;
+                        if (page == 1 && talentBeanlists.size() == 0) {
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
                             ivNoContent.setVisibility(View.VISIBLE);
                         }
                     }
-                },500);
+                }, 500);
 
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
@@ -210,6 +209,7 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
                         }.getType());
                         if (tempTheatres != null && tempTheatres.size() > 0) {
                             if (talentBeanlists.size() == 0) {
+                                totalCount = id;
                                 if (talentBeanlists.addAll(tempTheatres)) {
                                     uiHandler.removeCallbacksAndMessages(null);
                                     uiHandler.sendEmptyMessage(0);
@@ -220,6 +220,7 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
                                     recyclerView.refreshComplete();
                                     talentBeanlists.clear();
                                     if (talentBeanlists.addAll(tempTheatres)) {
+                                        totalCount = id;
                                         uiHandler.sendEmptyMessage(0);
                                     }
                                 } else {
@@ -236,11 +237,11 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
                                 if (page == 1) {
-                                    Log.e(TAG, "onSuccess: 刷新数据失败");
+                                    Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                    Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -251,10 +252,10 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
                         } else {
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -267,10 +268,10 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
                     } else {
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                            Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
                         } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败");
+                            Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -280,7 +281,7 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 if (talentBeanlists.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);
@@ -289,10 +290,10 @@ public class KeywordSearchTalentsResultShowActivity extends BaseActivity impleme
                 } else {
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                        Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
                     } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败");
+                        Toast.makeText(KeywordSearchTalentsResultShowActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

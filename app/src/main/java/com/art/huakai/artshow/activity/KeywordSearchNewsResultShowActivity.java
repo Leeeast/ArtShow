@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchNewsAdapter;
@@ -72,7 +73,7 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
 
     private KeywordSearchNewsAdapter keywordSearchNewsAdapter;
     private LinearLayoutManager linearlayoutManager;
-
+    private int totalCount;
     private int page = 1;
 
     private void setData() {
@@ -80,7 +81,7 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
         tvTitle.setText("搜索-" + keyword);
         if (searchType.equals(NEWS)) {
             tvSearchType.setText("资讯");
-            tvSearchCount.setText("共发现" + newsesBeanList.size() + "条相关数据");
+            tvSearchCount.setText("共发现" + totalCount + "条相关数据");
             keywordSearchNewsAdapter = new KeywordSearchNewsAdapter(this, newsesBeanList);
             linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearlayoutManager);
@@ -128,7 +129,9 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            if(ivLoading==null)return;
             if (msg.what == 0) {
+                tvSearchCount.setVisibility(View.VISIBLE);
                 ivLoading.setVisibility(View.GONE);
                 llContent.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
@@ -170,26 +173,24 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
     private void getKeywordSearchAllMessage() {
 
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH_NEWS==" + Constant.URL_KEYWORD_SEARCH_NEWS);
         params.put("keyword", keyword);
         params.put("page", page + "");
-//        params.put("sign", sign);
-//        Log.e(TAG, "getList: sign==" + sign);
-//        Log.e(TAG, "getRepertoryClassify: " + params.toString());
         String url = "";
         if (searchType.equals(NEWS)) {
 //            资讯
-            url = Constant.URL_KEYWORD_SEARCH_NEWS;
+            url = Constant.URL_GET_NEWS;
         }
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
-        RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
+        RequestUtil.request( url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                if(ivLoading==null)return;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if(page==1&&newsesBeanList.size() == 0){
+                            if(ivLoading==null)return;
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
                             ivNoContent.setVisibility(View.VISIBLE);
@@ -206,6 +207,7 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<NewsesBean>>() {
                         }.getType());
                         if (tempTheatres != null && tempTheatres.size() > 0) {
+                            totalCount=id;
                             if (newsesBeanList.size() == 0) {
                                 if (newsesBeanList.addAll(tempTheatres)) {
                                     uiHandler.removeCallbacksAndMessages(null);
@@ -233,11 +235,11 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
                                 if (page == 1) {
-                                    Log.e(TAG, "onSuccess: 刷新数据失败");
+                                    Toast.makeText(KeywordSearchNewsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                    Toast.makeText(KeywordSearchNewsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -248,10 +250,10 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
                         } else {
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Toast.makeText(KeywordSearchNewsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Toast.makeText(KeywordSearchNewsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -264,10 +266,10 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
                     } else {
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                            Toast.makeText(KeywordSearchNewsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                         } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败");
+                            Toast.makeText(KeywordSearchNewsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -277,7 +279,7 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-
+                if(ivLoading==null)return;
                 if (newsesBeanList.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);
@@ -286,10 +288,10 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
                 } else {
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                        Toast.makeText(KeywordSearchNewsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                     } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败");
+                        Toast.makeText(KeywordSearchNewsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -301,6 +303,7 @@ public class KeywordSearchNewsResultShowActivity extends BaseActivity implements
     @Override
     public void onRefresh() {
         page = 1;
+//        tvSearchCount.setVisibility(View.INVISIBLE);
         getKeywordSearchAllMessage();
     }
 

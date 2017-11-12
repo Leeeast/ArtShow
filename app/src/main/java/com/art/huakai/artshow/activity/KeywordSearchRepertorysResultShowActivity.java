@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchWorksAdapter;
@@ -70,7 +71,7 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
     LinearLayout llContent;
     private String keyword = "新闻";
     private String searchType = "";
-
+    private int totalCount;
     private List<Work> workLists = new ArrayList<Work>();
 
 
@@ -83,8 +84,9 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText("搜索-" + keyword);
         if (searchType.equals(REPERTORYS)) {
+            tvSearchCount.setVisibility(View.VISIBLE);
             tvSearchType.setText("项目");
-            tvSearchCount.setText("共发现" + workLists.size() + "条相关数据");
+            tvSearchCount.setText("共发现" + totalCount + "条相关数据");
             keywordSearchWorksAdapter = new KeywordSearchWorksAdapter(this, workLists);
             linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearlayoutManager);
@@ -135,6 +137,7 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                if(ivLoading==null)return;
                 setData();
                 ivLoading.setVisibility(View.GONE);
                 llContent.setVisibility(View.VISIBLE);
@@ -177,19 +180,18 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
     private void getKeywordSearchAllMessage() {
 
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH_NEWS==" + Constant.URL_KEYWORD_SEARCH_NEWS);
         params.put("keyword", keyword);
         params.put("page", page + "");
         String url = "";
         if (searchType.equals(REPERTORYS)) {
 //            项目
-            url = Constant.URL_KEYWORD_SEARCH_REPERTORYS;
+            url = Constant.URL_GET_WORKS;
         }
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
-        RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
+        RequestUtil.request(url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 Log.e(TAG, "onSuccess: " );
@@ -217,6 +219,7 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
                         if (tempTheatres != null && tempTheatres.size() > 0) {
                             if (workLists.size() == 0) {
                                 if (workLists.addAll(tempTheatres)) {
+                                    totalCount=id;
                                     uiHandler.removeCallbacksAndMessages(null);
                                     uiHandler.sendEmptyMessage(0);
                                 }
@@ -225,6 +228,7 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
                                 if (page == 1) {
                                     recyclerView.refreshComplete();
                                     workLists.clear();
+                                    totalCount=id;
                                     if (workLists.addAll(tempTheatres)) {
                                         uiHandler.sendEmptyMessage(0);
                                     }
@@ -242,11 +246,11 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
                                 if (page == 1) {
-                                    Log.e(TAG, "onSuccess: 刷新数据失败");
+                                    Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                    Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -257,10 +261,10 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
                         } else {
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -273,10 +277,10 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
                     } else {
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                            Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                         } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败");
+                            Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -295,10 +299,10 @@ public class KeywordSearchRepertorysResultShowActivity extends BaseActivity impl
                 } else {
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                        Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                     } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败");
+                        Toast.makeText(KeywordSearchRepertorysResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                     }
                 }
             }

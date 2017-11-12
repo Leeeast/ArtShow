@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchCooperateAdapter;
@@ -62,12 +63,12 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
     ImageView ivNoContent;
     @BindView(R.id.ll_content)
     LinearLayout llContent;
-    private String keyword = "新闻";
+    private String keyword = "";
     private String searchType = "";
     private List<EnrollInfo> enrollInfoList = new ArrayList<EnrollInfo>();
     private KeywordSearchCooperateAdapter keywordSearchCooperateAdapter;
     private LinearLayoutManager linearlayoutManager;
-
+    private int totalCount;
     private int page = 1;
 
     private void setData() {
@@ -76,7 +77,7 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
         tvTitle.setText("搜索-" + keyword);
         if (searchType.equals(ENROLLS)) {
             tvSearchType.setText("合作");
-            tvSearchCount.setText("共发现" + enrollInfoList.size() + "条相关数据");
+                tvSearchCount.setText("共发现" + totalCount+ "条相关数据");
                 keywordSearchCooperateAdapter = new KeywordSearchCooperateAdapter(enrollInfoList);
                 linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(linearlayoutManager);
@@ -176,11 +177,12 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
         String url = "";
          if (searchType.equals(ENROLLS)) {
 //            合作招募
-            url = Constant.URL_KEYWORD_SEARCH_ENROLL;
+//            url = Constant.URL_KEYWORD_SEARCH_ENROLL;
+             url = Constant.URL_ENROLL_PAGE;
         }
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
-        RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
+        RequestUtil.request( url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if(ivLoading==null)return;
@@ -207,6 +209,7 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
                         if (tempTheatres != null && tempTheatres.size() > 0) {
                             if (enrollInfoList.size() == 0) {
                                 if (enrollInfoList.addAll(tempTheatres)) {
+                                    totalCount=id;
                                     uiHandler.removeCallbacksAndMessages(null);
                                     uiHandler.sendEmptyMessage(0);
                                 }
@@ -216,6 +219,7 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
                                     recyclerView.refreshComplete();
                                     enrollInfoList.clear();
                                     if (enrollInfoList.addAll(tempTheatres)) {
+                                        totalCount=id;
                                         uiHandler.sendEmptyMessage(0);
                                     }
                                 } else {
@@ -233,10 +237,12 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
                             } else {
                                 if (page == 1) {
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
+                                    Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
                                     Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                    Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -247,10 +253,10 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
                         } else {
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -263,10 +269,10 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
                     } else {
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                            Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                         } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败");
+                            Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -285,10 +291,10 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
                 } else {
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                        Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                     } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败");
+                        Toast.makeText(KeywordSearchEnrollsResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -299,7 +305,9 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
     @Override
     public void onRefresh() {
         page = 1;
+//        tvSearchCount.setVisibility(View.INVISIBLE);
         getKeywordSearchAllMessage();
+
     }
 
     @Override

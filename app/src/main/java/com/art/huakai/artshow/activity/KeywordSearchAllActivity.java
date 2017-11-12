@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchCooperateAdapter;
@@ -86,7 +87,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     private View view3;
     private View view4;
     private View view5;
-
+    private String validKeyword;
 
 
 
@@ -102,7 +103,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void initData() {
-        getKeywordSearchAllMessage();
+//        getKeywordSearchAllMessage();
     }
 
     @Override
@@ -145,7 +146,8 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void setView() {
-        AnimUtils.rotate(ivLoading);
+//        AnimUtils.rotate(ivLoading);
+        ivLoading.setVisibility(View.GONE);
         ivNoContent.setVisibility(View.GONE);
         scrollView.setVisibility(View.GONE);
     }
@@ -158,6 +160,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.GONE);
                 scrollView.setVisibility(View.VISIBLE);
+                tvAccount.setVisibility(View.VISIBLE);
                 setData();
             }
         }
@@ -177,8 +180,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 if (!TextUtils.isEmpty(keyword)) {
                     SoftInputUtil.hideInput(KeywordSearchAllActivity.this);
                     getKeywordSearchAllMessage();
+                    tvAccount.setVisibility(View.INVISIBLE);
                 } else {
-                    ToastUtils.showToast(KeywordSearchAllActivity.this, 20, "请输入内容");
+                    Toast.makeText(KeywordSearchAllActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -222,7 +226,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                     public void onClick(View v) {
                         Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchEnrollsResultShowActivity.class);
                         intent.putExtra("searchType", "enrolls");
-                        intent.putExtra("keyword", keyword);
+                        intent.putExtra("keyword", validKeyword);
                         startActivity(intent);
                     }
                 });
@@ -253,7 +257,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                     public void onClick(View v) {
                         Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchNewsResultShowActivity.class);
                         intent.putExtra("searchType", "news");
-                        intent.putExtra("keyword", keyword);
+                        intent.putExtra("keyword", validKeyword);
                         startActivity(intent);
 
                     }
@@ -285,7 +289,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                     public void onClick(View v) {
                         Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchRepertorysResultShowActivity.class);
                         intent.putExtra("searchType", "repertorys");
-                        intent.putExtra("keyword", keyword);
+                        intent.putExtra("keyword", validKeyword);
                         startActivity(intent);
                     }
                 });
@@ -320,7 +324,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
                         Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchTalentsResultShowActivity.class);
                         intent.putExtra("searchType", "talents");
-                        intent.putExtra("keyword", keyword);
+                        intent.putExtra("keyword", validKeyword);
                         startActivity(intent);
                     }
                 });
@@ -354,7 +358,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                     public void onClick(View v) {
                         Intent intent = new Intent(KeywordSearchAllActivity.this, KeywordSearchTheatresResultShowActivity.class);
                         intent.putExtra("searchType", "theatres");
-                        intent.putExtra("keyword", keyword);
+                        intent.putExtra("keyword", validKeyword);
                         startActivity(intent);
 
                     }
@@ -398,6 +402,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 loadingData=false;
                 if (isSuccess) {
+                    validKeyword=keyword;
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: 1111111111111obj222=" + obj);
                         Gson gson = new Gson();

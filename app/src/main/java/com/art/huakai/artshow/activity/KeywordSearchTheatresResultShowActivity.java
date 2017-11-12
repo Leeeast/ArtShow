@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchTheatreAdapter;
@@ -73,7 +74,7 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
 
     private KeywordSearchTheatreAdapter KeywordSearchTheatreAdapter;
     private LinearLayoutManager linearlayoutManager;
-
+    private int totalCount;
     private int page = 1;
 
     private void setData() {
@@ -81,7 +82,7 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
         tvTitle.setText("搜索-" + keyword);
         if (searchType.equals(THEATRES)) {
             tvSearchType.setText("剧场");
-            tvSearchCount.setText("共发现" + theatreList.size() + "条相关数据");
+            tvSearchCount.setText("共发现" + totalCount+ "条相关数据");
             KeywordSearchTheatreAdapter = new KeywordSearchTheatreAdapter(this, theatreList);
             linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearlayoutManager);
@@ -98,7 +99,6 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
         }
     }
 
-
     @Override
     public void immerseStatusBar() {
         ImmerseStatusBar.myStatusBar(this);
@@ -112,9 +112,7 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
     @Override
     public void initData() {
 
-
     }
-
 
     @Override
     public void initView() {
@@ -132,8 +130,10 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            if(ivLoading==null)return;
             if (msg.what == 0) {
                 setData();
+                tvSearchCount.setVisibility(View.VISIBLE);
                 ivLoading.setVisibility(View.GONE);
                 llContent.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
@@ -175,18 +175,16 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
     private void getKeywordSearchAllMessage() {
 
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH_NEWS==" + Constant.URL_KEYWORD_SEARCH_NEWS);
         params.put("keyword", keyword);
         params.put("page", page + "");
-
         String url = "";
        if (searchType.equals(THEATRES)) {
 //            剧场
-            url = Constant.URL_KEYWORD_SEARCH_THEATRES;
+            url = Constant.URL_GET_THEATRES;
         }
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
-        RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
+        RequestUtil.request( url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if(ivLoading==null)return;
@@ -211,6 +209,7 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<Theatre>>() {
                         }.getType());
                         if (tempTheatres != null && tempTheatres.size() > 0) {
+                            totalCount=id;
                             if (theatreList.size() == 0) {
                                 if (theatreList.addAll(tempTheatres)) {
                                     uiHandler.removeCallbacksAndMessages(null);
@@ -222,6 +221,7 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
                                     recyclerView.refreshComplete();
                                     theatreList.clear();
                                     if (theatreList.addAll(tempTheatres)) {
+                                        totalCount=id;
                                         uiHandler.sendEmptyMessage(0);
                                     }
                                 } else {
@@ -238,11 +238,11 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
                                 if (page == 1) {
-                                    Log.e(TAG, "onSuccess: 刷新数据失败");
+                                    Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
-                                    Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                    Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -253,10 +253,10 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
                         } else {
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -269,10 +269,10 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
                     } else {
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Log.e(TAG, "onSuccess: 刷新数据失败");
+                            Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                         } else {
                             recyclerView.loadMoreComplete();
-                            Log.e(TAG, "onSuccess: 加载更多数据失败");
+                            Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
@@ -291,10 +291,10 @@ public class KeywordSearchTheatresResultShowActivity extends BaseActivity implem
                 } else {
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Log.e(TAG, "onSuccess: 刷新数据失败");
+                        Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"刷新数据失败",Toast.LENGTH_SHORT).show();
                     } else {
                         recyclerView.loadMoreComplete();
-                        Log.e(TAG, "onSuccess: 加载更多数据失败");
+                        Toast.makeText(KeywordSearchTheatresResultShowActivity.this,"已无更多数据",Toast.LENGTH_SHORT).show();
                     }
                 }
 
