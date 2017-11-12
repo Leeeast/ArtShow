@@ -282,7 +282,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                     tvComplexRanking.setTextColor(0xff5a4b41);
                 }
-                if (repertorykind != -1) {
+                if (repertorykind != -1&&repertorykind!=0) {
                     ivChooseProject.setImageResource(R.mipmap.arrow_down_active);
                     tvChooseProject.setTextColor(0xffe93c2c);
                 }else{

@@ -276,7 +276,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                     tvComplexRanking.setTextColor(0xff5a4b41);
                 }
-                if (!TextUtils.isEmpty(mRegionId)) {
+                if (!TextUtils.isEmpty(mRegionId)&&!mRegionId.equals("0")) {
                     tvCityChoose.setTextColor(0xffe93c2c);
                     ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
                 } else {
