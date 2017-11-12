@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.TheatersBean;
+import com.art.huakai.artshow.okhttp.request.CountingRequestBody;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.List;
@@ -80,7 +81,11 @@ public class RecommendTheaterAdapter extends  RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         if(list!=null&&list.size()>0){
-            return list.size();
+            if(list.size()>6){
+                return 6;
+            }else{
+                return list.size();
+            }
         }
         return 0;
     }

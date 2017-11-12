@@ -123,19 +123,18 @@
 
             </LinearLayout>
 
-   <View
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/DIMEN_1PX"
-       android:background="#ffb3b3b3"
-       android:layout_marginRight="@dimen/DIMEN_30PX"
-       android:layout_marginTop="@dimen/DIMEN_3PX"
-       />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_12PX"
+                android:background="@color/line_theatre" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/DIMEN_18PX"
+                android:layout_marginTop="@dimen/DIMEN_10PX"
                 >
                 <TextView
                     android:id="@+id/tv_thratre_rent"
