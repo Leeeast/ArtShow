@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchCooperateAdapter;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
@@ -86,6 +87,9 @@ public class KeywordSearchEnrollsResultShowActivity extends BaseActivity impleme
                     @Override
                     public void onItemClickListener(int position) {
 
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("PARAMS_ENROLL_ID", enrollInfoList.get(position).id);
+                        invokActivity(KeywordSearchEnrollsResultShowActivity.this , EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
                     }
                 });
         }

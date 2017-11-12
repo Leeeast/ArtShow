@@ -83,7 +83,6 @@ public class ChinaShowImageView extends SimpleDraweeView {
 //                        .build();
 //                setController(mPipelineDraweeControllerBuilder.setImageRequest(request).build());
                 setController(mPipelineDraweeControllerBuilder.setUri(uri).build());
-
             }
 
         } else {
@@ -92,9 +91,15 @@ public class ChinaShowImageView extends SimpleDraweeView {
     }
 
 
-    public void setSpecificSizeImageUrl(Uri uri,int width,int height){
+    public void setSpecificSizeImageUrl(String url,int width,int height){
 //        if(true)return;
 //        uri=Uri.parse("https://www.showonline.com.cn/image/2017/09/04/f38335157d8b45f5b9aa179694d8e014.jpg");
+        Uri uri=null;
+        if((url.endsWith("JPG")||url.endsWith("jpg")||url.endsWith("jpeg")||url.endsWith("png")||url.endsWith("JPEG")||url.endsWith("gif"))){
+             uri=Uri.parse("http://123");
+        }else{
+             uri=Uri.parse(url);
+        }
         if (uri == null) return;
         if (mUriString != null && mUriString.equals(uri.toString())) return;
         if (mPipelineDraweeControllerBuilder != null) {
@@ -108,9 +113,6 @@ public class ChinaShowImageView extends SimpleDraweeView {
             super.setImageURI(uri);
         }
     }
-
-
-
 
 
     public void setImageLoadListener(ImageLoadListener imageLoadListener) {

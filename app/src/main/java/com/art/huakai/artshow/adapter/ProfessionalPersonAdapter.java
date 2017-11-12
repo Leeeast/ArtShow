@@ -59,7 +59,7 @@ public class ProfessionalPersonAdapter extends  RecyclerView.Adapter{
             if(list.get(position)!=null){
                 if(!TextUtils.isEmpty(list.get(position).getLogo())){
 //                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getLogo()));
-                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(list.get(position).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX)/2);
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX)/2);
                 }
                 typeOneViewHolder.tv_name.setText(list.get(position).getName());
             }

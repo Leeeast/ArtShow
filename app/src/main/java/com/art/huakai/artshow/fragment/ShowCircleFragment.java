@@ -414,7 +414,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     Log.e(TAG, "onItemClickListener: position==" + position);
                     if (homePageDetails.getNewses() != null && homePageDetails.getNewses().size() > position && homePageDetails.getNewses().get(position) != null) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("PARAMS_ENROLL_ID", homePageDetails.getNewses().get(position).getId());
+                        bundle.putSerializable("PARAMS_ENROLL_ID", homePageDetails.getEnrolls().get(position).id);
                         invokActivity(getContext(), EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
                     }
                 }
@@ -511,7 +511,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         }
         if (homePageDetails.getAdvert() != null && !TextUtils.isEmpty(homePageDetails.getAdvert().getLogo())) {
 //            chinaShowImageView.setImageURI(Uri.parse(homePageDetails.getAdvert().getLogo()));
-            chinaShowImageView.setSpecificSizeImageUrl(Uri.parse(homePageDetails.getAdvert().getLogo()), getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX) / 4, getResources().getDimensionPixelSize(R.dimen.DIMEN_155PX) / 2);
+            chinaShowImageView.setSpecificSizeImageUrl(homePageDetails.getAdvert().getLogo(), getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX) / 4, getResources().getDimensionPixelSize(R.dimen.DIMEN_155PX) / 2);
         }
 
 //      chinaShowImageView.setImageURI(Uri.parse("file:///storage/emulated/0/DCIM/Camera/IMG_20171002_150026.jpg"));

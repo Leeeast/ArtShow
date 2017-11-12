@@ -125,7 +125,7 @@ public class IndustryNewsOneAdapter extends RecyclerView.Adapter {
             if (list.get(position ) != null) {
                 if (!TextUtils.isEmpty(list.get(position ).getLogo())) {
 //                    typeTwoViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position + 1).getLogo()));
-                    typeTwoViewHolder.chinaShowImageViewOne.setSpecificSizeImageUrl(Uri.parse(list.get(position).getLogo()),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX)/4,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_91PX)/2);
+                    typeTwoViewHolder.chinaShowImageViewOne.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX)/4,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_91PX)/2);
 
                 }
                 typeTwoViewHolder.tv_name_one.setText(list.get(position ).getTitle());

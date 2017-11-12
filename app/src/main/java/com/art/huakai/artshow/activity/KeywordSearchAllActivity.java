@@ -235,7 +235,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 keywordSearchCooperateAdapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClickListener(int position) {
-
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("PARAMS_ENROLL_ID", searchAllBean.getEnrolls().get(position).id);
+                        invokActivity(KeywordSearchAllActivity.this, EnrollDetailActivity.class, bundle, JumpCode.FLAG_REQ_ENROLL_DETAIL);
                     }
                 });
 //              实现屏蔽recyclerview的滑动效果
@@ -267,7 +269,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 keywordSearchNewsAdapter.setOnItemClickListener(new KeywordSearchNewsAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClickListener(int position) {
-
+                        Bundle bundle = new Bundle();
+                        bundle.putString(NewsDetailActivity.PARAMS_NEWS_ID, searchAllBean.getNews().get(position).getId());
+                        invokActivity(KeywordSearchAllActivity.this, NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
                     }
                 });
 //              实现屏蔽recyclerview的滑动效果

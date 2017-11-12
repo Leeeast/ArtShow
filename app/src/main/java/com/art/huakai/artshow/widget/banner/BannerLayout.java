@@ -66,7 +66,7 @@ public class BannerLayout extends FrameLayout {
 //            Glide.with(getContext().getApplicationContext()).load(entity.url).centerCrop().crossFade().into(mImageView);
             if(!TextUtils.isEmpty(entity.url)){
                 SimpleDraweeView.setImageURI(Uri.parse(entity.url));
-                SimpleDraweeView.setSpecificSizeImageUrl(Uri.parse(entity.url),getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX)/4,getResources().getDimensionPixelSize(R.dimen.DIMEN_240PX)/2);
+                SimpleDraweeView.setSpecificSizeImageUrl(entity.url,getResources().getDimensionPixelSize(R.dimen.DIMEN_720PX)/4,getResources().getDimensionPixelSize(R.dimen.DIMEN_240PX)/2);
             }
         }else if (entity.type == 1){
             SimpleDraweeView.setVisibility(View.GONE);
