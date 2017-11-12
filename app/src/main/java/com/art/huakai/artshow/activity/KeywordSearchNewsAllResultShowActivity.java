@@ -18,6 +18,7 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchNewsAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -85,6 +86,9 @@ public class KeywordSearchNewsAllResultShowActivity extends BaseActivity impleme
             keywordSearchNewsAdapter.setOnItemClickListener(new KeywordSearchNewsAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(NewsDetailActivity.PARAMS_NEWS_ID, newsesBeanList.get(position).getId());
+                    invokActivity(KeywordSearchNewsAllResultShowActivity.this, NewsDetailActivity.class, bundle, JumpCode.FLAG_REQ_NEWS_DETAIL);
 
                 }
             });

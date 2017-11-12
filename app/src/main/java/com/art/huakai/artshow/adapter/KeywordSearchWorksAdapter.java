@@ -65,7 +65,7 @@ public class KeywordSearchWorksAdapter extends  RecyclerView.Adapter{
             if(list.get(position)!=null){
                 Work work=list.get(position);
                 if(!TextUtils.isEmpty(work.getLogo())){
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(work.getLogo()));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_144PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_163PX)/2);
                 }
                 typeOneViewHolder.tv_actor_number.setText(work.getPeopleNum()+"");
 

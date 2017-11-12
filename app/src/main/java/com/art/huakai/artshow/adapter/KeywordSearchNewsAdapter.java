@@ -64,7 +64,7 @@ public class KeywordSearchNewsAdapter extends  RecyclerView.Adapter{
             if(list.get(position)!=null){
                 NewsesBean newsesBean=list.get(position);
                 if(!TextUtils.isEmpty(newsesBean.getLogo())){
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(newsesBean.getLogo()));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_175PX)/2);
                 }
                 typeOneViewHolder.tv_news_title.setText(newsesBean.getTitle());
                 try {
@@ -90,10 +90,8 @@ public class KeywordSearchNewsAdapter extends  RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         if(list!=null&&list.size()>0){
-            Log.e(TAG, "getItemCount: size=="+list.size() );
             return list.size();
         }
-        Log.e(TAG, "getItemCount: 00000" );
         return 0;
     }
 

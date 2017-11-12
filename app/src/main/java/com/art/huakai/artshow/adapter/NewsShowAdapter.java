@@ -63,7 +63,7 @@ public class NewsShowAdapter extends RecyclerView.Adapter {
             if (list.get(position) != null) {
                 NewsesBean newsesBean = list.get(position);
                 if (!TextUtils.isEmpty(newsesBean.getLogo())) {
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(newsesBean.getLogo()));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_175PX));
                 }
                 typeOneViewHolder.tv_news_title.setText(newsesBean.getTitle());
                 typeOneViewHolder.tv_news_time.setText(newsesBean.getCreateTime() + "");

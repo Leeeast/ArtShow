@@ -50,7 +50,7 @@
         android:id="@+id/rcv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DIMEN_10PX"
+
         android:layout_marginBottom="@dimen/DIMEN_15PX"
         >
 

@@ -66,7 +66,7 @@ public class LookingTheatreAdapter extends  RecyclerView.Adapter{
             if(list.get(position)!=null){
                 Theatre theatre=list.get(position);
                 if(!TextUtils.isEmpty(theatre.getLogo())){
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(theatre.getLogo()));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_144PX),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_163PX));
                 }
                 typeOneViewHolder.tv_thratre_name.setText(theatre.getName());
                 typeOneViewHolder.tv_seat_number.setText(theatre.getSeating()+"");

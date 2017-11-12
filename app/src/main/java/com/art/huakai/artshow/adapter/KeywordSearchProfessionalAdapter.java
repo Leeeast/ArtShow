@@ -66,7 +66,7 @@ public class KeywordSearchProfessionalAdapter extends  RecyclerView.Adapter{
             if(list.get(position)!=null){
                 TalentBean talent=list.get(position);
                 if(!TextUtils.isEmpty(talent.getLogo())){
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(talent.getLogo()));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_125PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_125PX)/2);
                 }
                 String str="";
                 if(talent.getClassifyNames()!=null&&talent.getClassifyNames().size()>0){
