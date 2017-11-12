@@ -60,7 +60,13 @@ public class KeywordSearchCooperateAdapter extends RecyclerView.Adapter {
                    EnrollInfo enrollInfo = list.get(position);
                    collHolder.tvItemTitle.setText(enrollInfo.title);
                    collHolder.tvItemDes.setText(enrollInfo.description);
-
+                   if(list.get(position).enrollReceiving){
+                       collHolder.tvItemStatus.setText("报名中");
+                       collHolder.tvItemStatus.setTextColor(0xffe93c2c);
+                   }else{
+                       collHolder.tvItemStatus.setText("已结束");
+                       collHolder.tvItemStatus.setTextColor(0xff333333);
+                   }
                    mEndDate.setTime(enrollInfo.endTime);
                    String formatTime = mSimpleDateFormat.format(mEndDate);
                    String endTime = String.format(
