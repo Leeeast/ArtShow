@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources  xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string-array name="markArray2">
         <item>-1</item>
@@ -18,9 +18,9 @@
     </string-array>
 
     <string-array name="discover_tab">
-        <item>找剧场</item>
-        <item>找项目</item>
-        <item>找人才</item>
+        <item>&#160;&#160;找剧场&#160;&#160;</item>
+        <item>&#160;&#160;找项目&#160;&#160;</item>
+        <item>&#160;&#160;找人才&#160;&#160;</item>
     </string-array>
 
     <string-array name="talent_detail_tab">
