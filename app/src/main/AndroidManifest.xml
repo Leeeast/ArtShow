@@ -244,6 +244,9 @@
             android:name=".activity.TicketAreaActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.art.huakai.artshow.activity.AllNewsShowActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

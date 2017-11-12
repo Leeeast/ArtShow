@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.AllNewsShowActivity;
 import com.art.huakai.artshow.activity.EnrollDetailActivity;
 import com.art.huakai.artshow.activity.KeywordSearchAllActivity;
 import com.art.huakai.artshow.activity.KeywordSearchNewsActivity;
@@ -182,7 +183,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             if (msg.what == 0) {
                 if (ivLoading == null) return;
                 if (isRefresh) {
-                    Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
                     isRefresh = false;
                 }
                 pull.refreshFinish(PullToRefreshLayout.SUCCEED);
@@ -555,7 +556,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         if (v.getId() == R.id.tv_one_whole) {
             if (null != mainActivity) {
 
-                Intent intent = new Intent(getContext(), KeywordSearchNewsActivity.class);
+                Intent intent = new Intent(getContext(), AllNewsShowActivity.class);
                 intent.putExtra("searchType", "news");
                 intent.putExtra("keyword", "*");
                 startActivity(intent);

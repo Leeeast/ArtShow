@@ -7,11 +7,10 @@
         android:background="#fff5fafc"
         >
     <!--<include-->
-        <!--android:id="@+id/include_title"-->
-        <!--layout="@layout/layout_title_img"-->
-        <!---->
-        <!--/>-->
-
+    <!--android:id="@+id/include_title"-->
+    <!--layout="@layout/layout_title_img"-->
+    <!---->
+    <!--/>-->
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -77,6 +76,18 @@
       </LinearLayout>
   </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DIMEN_14PX"
+        android:textSize="@dimen/DIMEN_14PX"
+        android:textColor="#ffc0c6d1"
+        android:layout_marginLeft="@dimen/DIMEN_15PX"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_25PX"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -93,7 +104,6 @@
             android:visibility="visible"
             />
 
-
         <ImageView
             android:id="@+id/iv_no_content"
             android:layout_width="@dimen/DIMEN_120PX"
@@ -104,34 +114,18 @@
             android:visibility="gone"
             />
 
-
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/DIMEN_14PX"
         android:visibility="gone"
         >
-
         <LinearLayout
             android:id="@+id/ll_whole"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="条数"
-                android:textSize="@dimen/DIMEN_14PX"
-                android:textColor="#ffc0c6d1"
-                android:layout_marginLeft="@dimen/DIMEN_15PX"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_25PX"/>
 
         </LinearLayout>
 
