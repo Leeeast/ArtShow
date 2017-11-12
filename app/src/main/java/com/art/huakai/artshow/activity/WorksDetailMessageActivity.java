@@ -207,10 +207,9 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         tvShowTime.setText(worksDetailBean.getShowLast() + "min");
         tvAlreadyShowTimes.setText(worksDetailBean.getViewTimes() + "场");
         try {
-            if (0 != worksDetailBean.getPremiereTime()) {
-                tvFirstShowTime.setText(DateUtil.transTime(worksDetailBean.getPremiereTime() + "", "yyyy.MM.dd"));
+            if (0 != worksDetailBean.getPremiereTime()&&0 != worksDetailBean.getPerformanceEndDate()) {
+                tvShowUsefulTime.setText(DateUtil.transTime(worksDetailBean.getPerformanceBeginDate() + "", "yyyy.M.d") + "～" + DateUtil.transTime(worksDetailBean.getPerformanceEndDate() + "", "yyyy.M.d"));
             }
-            tvShowUsefulTime.setText(DateUtil.transTime(worksDetailBean.getPerformanceBeginDate() + "", "yyyy.M.d") + "～" + DateUtil.transTime(worksDetailBean.getPerformanceEndDate() + "", "yyyy.M.d"));
         } catch (Exception e) {
 
         }

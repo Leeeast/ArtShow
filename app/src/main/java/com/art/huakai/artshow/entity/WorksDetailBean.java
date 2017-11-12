@@ -72,7 +72,7 @@ public class WorksDetailBean implements Serializable {
     private long createTime;
     private Object updateTime;
     private long performanceBeginDate;
-    private Object performanceEndDate;
+    private long performanceEndDate;
     private String regionName;
     private String classifyName;
     private String agency;
@@ -266,11 +266,11 @@ public class WorksDetailBean implements Serializable {
         this.performanceBeginDate = performanceBeginDate;
     }
 
-    public Object getPerformanceEndDate() {
+    public long getPerformanceEndDate() {
         return performanceEndDate;
     }
 
-    public void setPerformanceEndDate(Object performanceEndDate) {
+    public void setPerformanceEndDate(long performanceEndDate) {
         this.performanceEndDate = performanceEndDate;
     }
 

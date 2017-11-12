@@ -62,7 +62,7 @@ public class ChinaShowImageView extends SimpleDraweeView {
             setFailureImage(getResources().getDrawable(loadingRef), ScalingUtils.ScaleType.FIT_XY);
         } else {
             setPlaceholderImage(getResources().getDrawable(R.drawable.dynamic_item_loading), ScalingUtils.ScaleType.FIT_XY);
-            setFailureImage(getResources().getDrawable(R.drawable.dynamic_item_loading), ScalingUtils.ScaleType.FIT_XY);
+            setFailureImage(getResources().getDrawable(R.mipmap.loading_fail), ScalingUtils.ScaleType.FIT_XY);
         }
         initDefaultControllerListener();
         typedArray.recycle();
@@ -94,10 +94,9 @@ public class ChinaShowImageView extends SimpleDraweeView {
 
     public void setSpecificSizeImageUrl(Uri uri,int width,int height){
 //        if(true)return;
-        uri=Uri.parse("https://www.showonline.com.cn/image/2017/09/04/f38335157d8b45f5b9aa179694d8e014.jpg");
+//        uri=Uri.parse("https://www.showonline.com.cn/image/2017/09/04/f38335157d8b45f5b9aa179694d8e014.jpg");
         if (uri == null) return;
         if (mUriString != null && mUriString.equals(uri.toString())) return;
-         mUriString = uri.toString();
         if (mPipelineDraweeControllerBuilder != null) {
             Log.d(TAG, "setSpecificSizeImageUrl: ");
                 ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)

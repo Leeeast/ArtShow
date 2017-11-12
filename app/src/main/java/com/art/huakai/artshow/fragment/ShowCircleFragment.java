@@ -530,7 +530,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
         banner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void onClick(int position) {
-                Toast.makeText(getContext(), "position==" + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "position==" + position, Toast.LENGTH_SHORT).show();
                 if (homePageDetails.getBanners() != null && homePageDetails.getBanners().size() > position && homePageDetails.getBanners().get(position) != null) {
                     AdvertJumpUtil.invoke((BaseActivity) getActivity(), getContext(), homePageDetails.getBanners().get(position));
                 }

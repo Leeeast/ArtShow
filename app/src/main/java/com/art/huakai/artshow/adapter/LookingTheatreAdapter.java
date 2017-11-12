@@ -78,7 +78,6 @@ public class LookingTheatreAdapter extends  RecyclerView.Adapter{
                 public void onClick(View v) {
                     if(onItemClickListener!=null){
                         Log.e(TAG, "onClick: 2222" );
-                        Toast.makeText(mContext,""+position,Toast.LENGTH_LONG).show();
                         onItemClickListener.onItemClickListener(position);
                     }
                 }
