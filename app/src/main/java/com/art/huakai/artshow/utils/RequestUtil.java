@@ -62,6 +62,55 @@ public class RequestUtil {
     }
 
     /**
+     * 请求统一封装
+     *
+     *
+     * @param url       请求连接
+     * @param params    参数
+     * @param requestId 请求ID
+     * @param listener  请求回调
+     */
+    public static RequestCall request(String url, Map<String, String> params, int requestId, final RequestListener listener) {
+        RequestCall build = OkHttpUtils
+                .get()
+                .url(url)
+                .params(params)
+                .id(requestId)
+                .build();
+        build.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "-" + id);
+                listener.onFailed(call, e, id);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i(TAG, response + ":id = " + id);
+                if (!TextUtils.isEmpty(response)) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.optInt("code");
+                        String msg = jsonObject.optString("msg");
+                        String data = jsonObject.optString("data");
+                        int  totalCount=jsonObject.optInt("totalCount");
+                        if (ResponseCodeCheck.checkResponseCode(code)) {
+                            listener.onSuccess(true, data, code, totalCount);
+                        } else {
+                            listener.onSuccess(false, msg, code, totalCount);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        listener.onSuccess(false, "Json data parsing exception", 0, id);
+                    }
+                }
+            }
+        });
+        return build;
+    }
+
+
+    /**
      * post请求封装
      *
      * @param url       请求连接
@@ -153,6 +202,9 @@ public class RequestUtil {
         });
         return build;
     }
+
+
+
 
     /**
      * 请求统一封装

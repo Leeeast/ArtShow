@@ -53,7 +53,7 @@
               android:layout_centerHorizontal="true"
               android:drawablePadding="@dimen/DIMEN_25PX"
               android:gravity="center_vertical"
-              android:hint="@string/cooperate_search"
+              android:hint="请输入搜索内容"
               android:maxLines="1"
               android:textColorHint="@color/cooperate_search_hint"
               android:textSize="@dimen/DIMEN_15PX"
@@ -76,8 +76,10 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         >
 
         <ImageView
@@ -113,37 +115,21 @@
                 android:id="@+id/tv_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="条数"
                 android:textSize="@dimen/DIMEN_14PX"
                 android:textColor="#ffc0c6d1"
                 android:layout_marginLeft="@dimen/DIMEN_15PX"
                 android:visibility="invisible"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_25PX"
-                android:visibility="gone"
+                android:layout_marginTop="@dimen/DIMEN_15PX"
                 />
 
-            <TextView
-                android:id="@+id/tv_search_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/DIMEN_15PX"
-                android:text="项目" />
 
             <com.art.huakai.artshow.widget.SmartRecyclerview
                 android:id="@+id/rcv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/DIMEN_5PX">
+               android:paddingTop="@dimen/DIMEN_15PX">
 
             </com.art.huakai.artshow.widget.SmartRecyclerview>
-
-
-
-
-
 
 
         </LinearLayout>

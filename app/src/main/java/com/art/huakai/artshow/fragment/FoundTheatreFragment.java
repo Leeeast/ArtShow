@@ -550,7 +550,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         RequestUtil.request(true, Constant.URL_GET_THEATRES, params, 105, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                LogUtil.i(TAG, obj);
+
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

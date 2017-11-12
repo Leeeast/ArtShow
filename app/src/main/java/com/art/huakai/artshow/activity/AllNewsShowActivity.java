@@ -144,7 +144,9 @@ public class AllNewsShowActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.iv_right_img:
-
+                Intent intent=new Intent();
+                intent.setClass(AllNewsShowActivity.this,KeywordSearchNewsActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -172,7 +174,6 @@ public class AllNewsShowActivity extends BaseActivity implements View.OnClickLis
         if(isLoading)return;
         isLoading=true;
         final Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH_NEWS==" + Constant.URL_KEYWORD_SEARCH_NEWS);
         params.put("page", page + "");
         String url = Constant.URL_GET_NEWS;
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
@@ -212,12 +213,17 @@ public class AllNewsShowActivity extends BaseActivity implements View.OnClickLis
                                     uiHandler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            recyclerView.loadMoreComplete();
+                                            if(recyclerView==null)return;
+                                            if(page!=1){
+                                                recyclerView.loadMoreComplete();
+                                            }
                                         }
                                     });
                                     newsesBeanList.addAll(tempNewsesBeanList);
                                     if(keywordSearchNewsAdapter!=null){
                                         keywordSearchNewsAdapter.add(tempNewsesBeanList);
+                                    }else{
+                                        uiHandler.sendEmptyMessage(0);
                                     }
                                 }
                                 return;

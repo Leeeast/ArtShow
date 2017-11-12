@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +16,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.adapter.KeywordSearchNewsAdapter;
@@ -25,16 +29,19 @@ import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.utils.SoftInputUtil;
 import com.art.huakai.artshow.utils.ToastUtils;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartRecyclerview;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.RunnableFuture;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,47 +77,27 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
     ImageView ivNoContent;
     @BindView(R.id.tv_account)
     TextView tvSearchCount;
-    @BindView(R.id.tv_search_type)
-    TextView tvSearchType;
     @BindView(R.id.rcv)
     SmartRecyclerview recyclerView;
     @BindView(R.id.ll_whole)
     LinearLayout llWhole;
-
-//    @BindView(R.id.rcv)
-//    SmartRecyclerview recyclerView;
-//    @BindView(R.id.lly_back)
-//    LinearLayout llyBack;
-//    @BindView(R.id.tv_title)
-//    TextView tvTitle;
-//    @BindView(R.id.tv_search_count)
-//    TextView tvSearchCount;
-//    @BindView(R.id.tv_search_type)
-//    TextView tvSearchType;
-//    @BindView(R.id.iv_loading)
-//    ImageView ivLoading;
-//    @BindView(R.id.iv_no_content)
-//    ImageView ivNoContent;
-//    @BindView(R.id.ll_content)
-//    LinearLayout llContent;
+    @BindView(R.id.rl_whole)
+    RelativeLayout rlWhole;
 
 
-    private String keyword = "新闻";
-    private String searchType = "";
+    private String keyword = "";
     private List<NewsesBean> newsesBeanList = new ArrayList<NewsesBean>();
     private KeywordSearchNewsAdapter keywordSearchNewsAdapter;
     private LinearLayoutManager linearlayoutManager;
     private int page = 1;
-    private boolean newSearch = true;
-
+    private int totalCount;
+    private boolean newSearch=true;
+    private boolean isRefresh=false;
 
     private void setData() {
-        if(ivLoading==null)return;
-        tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText("搜索-" + keyword);
-        if (searchType.equals(NEWS)) {
-            tvSearchType.setText("资讯");
-            tvSearchCount.setText("共发现" + newsesBeanList.size() + "条相关数据");
+        if (ivLoading == null) return;
+            tvTitle.setVisibility(View.VISIBLE);
+            tvSearchCount.setText("共发现" + totalCount + "条相关数据");
             keywordSearchNewsAdapter = new KeywordSearchNewsAdapter(this, newsesBeanList);
             linearlayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearlayoutManager);
@@ -121,7 +108,6 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
 
                 }
             });
-        }
     }
 
 
@@ -138,16 +124,44 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
     @Override
     public void initData() {
 
-
     }
 
     @Override
     public void initView() {
-
+        rlWhole.setVisibility(View.GONE);
         llyBack.setOnClickListener(this);
         recyclerView.setLoadingListener(this);
         ivDelete.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
+        tvTitle.setText("行业资讯-搜索");
+        uiHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                edtSearch.requestFocus();
+                SoftInputUtil.toggleInput(KeywordSearchNewsActivity.this);
+            }
+        },300);
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(TextUtils.isEmpty(edtSearch.getText().toString().trim())){
+                    ivDelete.setVisibility(View.INVISIBLE);
+                }else{
+                    ivDelete.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
 
@@ -160,8 +174,11 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                if(ivDelete==null)return;
+                tvSearchCount.setVisibility(View.VISIBLE);
+                tvSearchCount.setText("共发现"+totalCount+"条相关数据");
                 ivLoading.setVisibility(View.GONE);
-                llWhole.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
                 setData();
             }
@@ -180,11 +197,14 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
             case R.id.tv_search:
                 keyword = edtSearch.getText().toString();
                 if (!TextUtils.isEmpty(keyword)) {
+                    newSearch=true;
+                    page = 1;
+                    tvSearchCount.setVisibility(View.GONE);
+                    SoftInputUtil.hideInput(KeywordSearchNewsActivity.this);
                     getKeywordSearchAllMessage();
                 } else {
-                    ToastUtils.showToast(KeywordSearchNewsActivity.this, 20, "请输入内容");
+                    Toast.makeText(KeywordSearchNewsActivity.this,"请输入搜索内容",Toast.LENGTH_SHORT).show();
                 }
-                newSearch = true;
                 break;
         }
     }
@@ -199,54 +219,33 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        searchType = intent.getStringExtra("searchType");
-        keyword = intent.getStringExtra("keyword");
-        Log.e(TAG, "onCreate: searchType==" + searchType + "----keyword==" + keyword);
-        getKeywordSearchAllMessage();
-        AnimUtils.rotate(ivLoading);
-        ivNoContent.setVisibility(View.GONE);
-        llWhole.setVisibility(View.GONE);
     }
 
 
     private void getKeywordSearchAllMessage() {
-
+        rlWhole.setVisibility(View.VISIBLE);
         Map<String, String> params = new TreeMap<>();
-        Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH_NEWS==" + Constant.URL_KEYWORD_SEARCH_NEWS);
         params.put("keyword", keyword);
         params.put("page", page + "");
-//        params.put("sign", sign);
-//        Log.e(TAG, "getList: sign==" + sign);
-//        Log.e(TAG, "getRepertoryClassify: " + params.toString());
-        String url = "";
-        if (searchType.equals(NEWS)) {
-//            资讯
-            url = Constant.URL_KEYWORD_SEARCH_NEWS;
-        } else if (searchType.equals(ENROLL)) {
-            url = Constant.URL_KEYWORD_SEARCH_ENROLL;
-        }
+        String url = Constant.URL_KEYWORD_SEARCH_NEWS;
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
-        RequestUtil.request(true, url, params, 113, new RequestUtil.RequestListener() {
+        RequestUtil.request( url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if(ivLoading==null)return;
-                if (newSearch) {
-                    newsesBeanList.clear();
-                }
-                newSearch = false;
+                if (ivLoading == null) return;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(ivLoading==null)return;
-                        if (page == 1 && newsesBeanList.size() == 0) {
+                        if (newSearch) {
+                            if(ivLoading==null)return;
                             ivLoading.setVisibility(View.GONE);
-                            llWhole.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
                             ivNoContent.setVisibility(View.VISIBLE);
                         }
                     }
                 }, 500);
+
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: obj==" + obj);
@@ -256,14 +255,18 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<NewsesBean>>() {
                         }.getType());
                         if (tempTheatres != null && tempTheatres.size() > 0) {
-                            if (newsesBeanList.size() == 0) {
+                            uiHandler.removeCallbacksAndMessages(null);
+                            if (newSearch) {
+                                newSearch=false;
+                                newsesBeanList.clear();
                                 if (newsesBeanList.addAll(tempTheatres)) {
-                                    uiHandler.removeCallbacksAndMessages(null);
+                                    totalCount=id;
                                     uiHandler.sendEmptyMessage(0);
                                 }
                                 page++;
                             } else {
-                                if (page == 1) {
+                                if (isRefresh) {
+                                    isRefresh=false;
                                     recyclerView.refreshComplete();
                                     newsesBeanList.clear();
                                     if (newsesBeanList.addAll(tempTheatres)) {
@@ -279,74 +282,153 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
                                 page++;
                             }
                         } else {
-                            if (newsesBeanList.size() == 0) {
+                            if (newSearch) {
+                                newSearch=false;
+                                uiHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ivLoading.setVisibility(View.GONE);
+                                        recyclerView.setVisibility(View.GONE);
+                                        ivNoContent.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                                Toast.makeText(KeywordSearchNewsActivity.this, "未查询到您搜索的数据", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
-                                if (page == 1) {
+                                if (isRefresh) {
+                                    isRefresh=false;
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
-                                    recyclerView.refreshComplete();
+                                    Toast.makeText(KeywordSearchNewsActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
+                                    uiHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            recyclerView.refreshComplete();
+                                        }
+                                    });
                                 } else {
-                                    recyclerView.loadMoreComplete();
+                                    uiHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            recyclerView.loadMoreComplete();
+                                        }
+                                    });
+
+                                    Toast.makeText(KeywordSearchNewsActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
                         }
                         Log.e(TAG, "onSuccess: theatres.size==" + newsesBeanList.size());
                     } else {
-                        if (newsesBeanList.size() == 0) {
+                        if (newSearch) {
                             Log.e(TAG, "onSuccess: 首次加载数据失败");
+                            Toast.makeText(KeywordSearchNewsActivity.this, "未查询到您搜索的数据", Toast.LENGTH_SHORT).show();
+                            uiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ivLoading.setVisibility(View.GONE);
+                                    recyclerView.setVisibility(View.GONE);
+                                    ivNoContent.setVisibility(View.VISIBLE);
+                                }
+                            });
                         } else {
-                            if (page == 1) {
-                                recyclerView.refreshComplete();
+                            if (isRefresh) {
+                                uiHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        recyclerView.refreshComplete();
+                                    }
+                                });
                                 Log.e(TAG, "onSuccess: 刷新数据失败");
+                                Toast.makeText(KeywordSearchNewsActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
                             } else {
-                                recyclerView.loadMoreComplete();
+                                uiHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        recyclerView.loadMoreComplete();
+                                    }
+                                });
                                 Log.e(TAG, "onSuccess: 加载更多数据失败");
+                                Toast.makeText(KeywordSearchNewsActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 } else {
-                    if (newsesBeanList.size() == 0) {
+                    if (newSearch) {
                         Log.e(TAG, "onSuccess: 首次加载数据失败");
-                        ivLoading.setVisibility(View.GONE);
-                        llWhole.setVisibility(View.GONE);
-                        ivNoContent.setVisibility(View.VISIBLE);
+                        uiHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ivLoading.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.GONE);
+                                ivNoContent.setVisibility(View.VISIBLE);
+                                Toast.makeText(KeywordSearchNewsActivity.this, "未查询到您搜索的数据", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else {
-                        if (page == 1) {
-                            recyclerView.refreshComplete();
+                        if (isRefresh) {
+                            isRefresh=false;
+                            uiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recyclerView.refreshComplete();
+                                    Toast.makeText(KeywordSearchNewsActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             Log.e(TAG, "onSuccess: 刷新数据失败");
                         } else {
-                            recyclerView.loadMoreComplete();
+                            uiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recyclerView.loadMoreComplete();
+                                    Toast.makeText(KeywordSearchNewsActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
                     ResponseCodeCheck.showErrorMsg(code);
                 }
+                newSearch=false;
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 if (newSearch) {
-                    newsesBeanList.clear();
-                }
-                newSearch = false;
-                if (newsesBeanList.size() == 0) {
+                    newSearch=false;
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
-                    ivLoading.setVisibility(View.GONE);
-                    llWhole.setVisibility(View.GONE);
-                    ivNoContent.setVisibility(View.VISIBLE);
+                    uiHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ivLoading.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
+                            ivNoContent.setVisibility(View.VISIBLE);
+                            Toast.makeText(KeywordSearchNewsActivity.this, "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
-                    if (page == 1) {
-                        recyclerView.refreshComplete();
+                    if (isRefresh) {
+                        uiHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerView.refreshComplete();
+                                Toast.makeText(KeywordSearchNewsActivity.this, "刷新数据失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         Log.e(TAG, "onSuccess: 刷新数据失败");
                     } else {
-                        recyclerView.loadMoreComplete();
+                        uiHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerView.loadMoreComplete();
+                                Toast.makeText(KeywordSearchNewsActivity.this, "已无更多数据", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
-
             }
         });
     }
@@ -355,6 +437,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
     @Override
     public void onRefresh() {
         page = 1;
+        isRefresh=true;
         getKeywordSearchAllMessage();
     }
 
