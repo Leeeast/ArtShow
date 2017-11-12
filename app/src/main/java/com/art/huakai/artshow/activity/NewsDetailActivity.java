@@ -41,6 +41,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -50,10 +51,9 @@ import okhttp3.Call;
 
 public class NewsDetailActivity extends BaseActivity implements PageLoadingListener {
 
+    public static final int CODE_FILL_DATA = 10;
+    public static final int CODE_FILL_AD = 11;
     public static final String PARAMS_NEWS_ID = "PARAMS_NEWS_ID";
-    public final int CODE_FILL_DATA = 10;
-    public final int CODE_FILL_AD = 11;
-
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_right_img)
@@ -81,23 +81,53 @@ public class NewsDetailActivity extends BaseActivity implements PageLoadingListe
     private WbShareHandler mShareHandler;
     private AdvertBean mAdvert;
     private String mNewsId;
+    private MyHandler myHandler;
+    private MyRunnable myRunnable;
 
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
+    private static class MyHandler extends Handler {
+
+        //持有弱引用HandlerActivity,GC回收时会被回收掉.
+        private final WeakReference<NewsDetailActivity> mActivty;
+
+        public MyHandler(NewsDetailActivity activity) {
+            mActivty = new WeakReference<NewsDetailActivity>(activity);
+        }
+
         @Override
         public void handleMessage(Message msg) {
+            NewsDetailActivity activity = mActivty.get();
             super.handleMessage(msg);
-            switch (msg.what) {
-                case CODE_FILL_DATA:
-                    fillData();
-                    break;
-                case CODE_FILL_AD:
-                    fillADData();
-                    break;
-
+            if (activity != null) {
+                //执行业务逻辑
+                switch (msg.what) {
+                    case CODE_FILL_DATA:
+                        activity.fillData();
+                        break;
+                    case CODE_FILL_AD:
+                        activity.fillADData();
+                        break;
+                }
             }
         }
-    };
+    }
+
+    private static class MyRunnable implements Runnable {
+        //持有弱引用HandlerActivity,GC回收时会被回收掉.
+        private final WeakReference<NewsDetailActivity> mActivty;
+
+        public MyRunnable(NewsDetailActivity activity) {
+            mActivty = new WeakReference<NewsDetailActivity>(activity);
+        }
+
+        @Override
+        public void run() {
+            NewsDetailActivity newsDetailActivity = mActivty.get();
+            if (newsDetailActivity != null && newsDetailActivity.pageLoadingDialog.isShowing()) {
+                newsDetailActivity.pageLoadingDialog.dismiss();
+            }
+        }
+    }
+
     private RequestCall requestCall2;
     private RequestCall requestCall1;
 
@@ -114,6 +144,8 @@ public class NewsDetailActivity extends BaseActivity implements PageLoadingListe
 
     @Override
     public void initData() {
+        myHandler = new MyHandler(this);
+        myRunnable = new MyRunnable(this);
         pageLoadingDialog = new PageLoadingDialog(this);
         pageLoadingDialog.setPageLoadingListener(this);
         Intent intent = getIntent();
@@ -247,27 +279,21 @@ public class NewsDetailActivity extends BaseActivity implements PageLoadingListe
         params.put("id", mNewsId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
-        if (!pageLoadingDialog.isShowing()) {
+        if (!pageLoadingDialog.isShowing() && !this.isFinishing()) {
             pageLoadingDialog.show();
         }
-        pageLoadingDialog.show();
         requestCall1 = RequestUtil.request(true, Constant.URL_GET_NEWS_DETAIL, params, 31, new RequestUtil.RequestListener() {
 
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
                 if (isSuccess) {
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (pageLoadingDialog.isShowing()) {
-                                pageLoadingDialog.dismiss();
-                            }
-                        }
-                    }, 300);
+                    myHandler.postDelayed(
+                            myRunnable
+                            , 300);
                     try {
                         mNewsDetail = GsonTools.parseData(obj, NewsDetail.class);
-                        mHandler.sendEmptyMessage(CODE_FILL_DATA);
+                        myHandler.sendEmptyMessage(CODE_FILL_DATA);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -294,7 +320,7 @@ public class NewsDetailActivity extends BaseActivity implements PageLoadingListe
                 if (isSuccess) {
                     try {
                         mAdvert = GsonTools.parseData(obj, AdvertBean.class);
-                        mHandler.sendEmptyMessage(CODE_FILL_AD);
+                        myHandler.sendEmptyMessage(CODE_FILL_AD);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

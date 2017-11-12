@@ -86,6 +86,7 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (mListener != null) {
+                            PageLoadingDialog.this.dismiss();
                             mListener.onClose();
                         }
                     }
@@ -101,7 +102,7 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
         try {
             if (!isShowing())
                 super.show();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }

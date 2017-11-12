@@ -434,7 +434,7 @@
     <string name="tip_project_tech_input_suc">项目技术要求提交成功</string>
     <string name="tip_project_staff_photo">请选择主创头像</string>
     <string name="tip_project_staff_name">请输入主创姓名</string>
-    <string name="tip_project_staff_title">请输入主创头像</string>
+    <string name="tip_project_staff_title">请输入主创头衔</string>
     <string name="tip_project_staff_desc">请输入主创介绍</string>
     <string name="tip_project_staff_add">请添加主创</string>
     <!--人才相关-->
