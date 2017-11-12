@@ -58,7 +58,8 @@ public class StaffIntroduceAdapter extends  RecyclerView.Adapter{
 //            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
             if(list.get(position)!=null){
                 if(!TextUtils.isEmpty(list.get(position).getPhoto())){
-                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getPhoto()));
+//                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getPhoto()));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getPhoto(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_88PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_88PX)/2);
                 }
                 typeOneViewHolder.tv_actor_name.setText(list.get(position).getName());
                 typeOneViewHolder.tv_actor_major.setText(list.get(position).getRoleName());
