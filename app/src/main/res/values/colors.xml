@@ -182,5 +182,6 @@
 
     <color name="black">#000000</color>
     <color name="gray">#AAAA</color>
+    <color name="upgrade_title_bg">#ffF2F4F8</color>
 
 </resources>

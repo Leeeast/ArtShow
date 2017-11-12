@@ -14,12 +14,17 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.UpgradeDialog;
+import com.art.huakai.artshow.entity.ClientBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
+import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.fragment.CooperateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
 import com.art.huakai.artshow.fragment.ShowCircleFragment;
+import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
@@ -28,6 +33,9 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -88,6 +96,46 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void initData() {
         fragmentManager = getSupportFragmentManager();
         updateUserInfo();
+        checkUpdate();
+    }
+
+    /**
+     * 检查是否更新
+     */
+    private void checkUpdate() {
+        Map<String, String> params = new TreeMap<>();
+        params.put("system", "android");
+        String sign = SignUtil.getSign(params);
+        params.put("sign", sign);
+        RequestUtil.request(true, Constant.URL_CLIENT_UPGRADE, params, 100, new RequestUtil.RequestListener() {
+            @Override
+            public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                LogUtil.i(TAG, obj);
+                if (isSuccess) {
+                    try {
+                        ClientBean clientBean = GsonTools.parseData(obj, ClientBean.class);
+                        if (clientBean != null) {
+                            String targetVersion = clientBean.clientVersion.versionName;
+                            String currentVersion = DeviceUtils.getVersionName(MainActivity.this);
+                            if (currentVersion.compareTo(targetVersion) < 0) {
+                                //有更新
+                                UpgradeDialog upgradeDialog = UpgradeDialog.getInstance(clientBean);
+                                upgradeDialog.show(getSupportFragmentManager(),"UPGRADEDIALOG");
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ResponseCodeCheck.showErrorMsg(code);
+                }
+            }
+
+            @Override
+            public void onFailed(Call call, Exception e, int id) {
+                LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+            }
+        });
     }
 
     /**

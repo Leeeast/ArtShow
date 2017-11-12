@@ -184,6 +184,8 @@ public class Constant {
     public static final String URL_KEYWORD_SEARCH_ENROLL = BASE_URL + "/search/enroll";
     public static final String URL_REPERTORY_DETAIL = BASE_URL + "/repertory/detail";
 
+    public static final String URL_CLIENT_UPGRADE = BASE_URL + "/client/upgrade";
+
 
 //    获取地区借口
 //    http://139.224.47.213:8080/showonline_api/region/list
