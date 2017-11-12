@@ -227,7 +227,15 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 //        tvOrganize.setText(talentDetailBean.getAgency());
         tvIntroduce.setText(theatreDetailBean.getDescription());
         tvLocation.setText(theatreDetailBean.getAddress());
-
+        if (theatreDetailBean.getSeating() <= 400) {
+            tvTheatreKind.setText("小剧场");
+        } else if (400 < theatreDetailBean.getSeating() && theatreDetailBean.getSeating()<= 800) {
+            tvTheatreKind.setText("中剧场");
+        } else if (800 <theatreDetailBean.getSeating() && theatreDetailBean.getSeating() <= 1500) {
+            tvTheatreKind.setText("大剧场");
+        } else if (1500 < theatreDetailBean.getSeating()) {
+            tvTheatreKind.setText("超大剧场");
+        }
 
     }
 

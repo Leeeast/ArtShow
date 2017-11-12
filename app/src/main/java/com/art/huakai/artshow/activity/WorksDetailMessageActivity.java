@@ -199,12 +199,16 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         tvCity.setText(worksDetailBean.getRegionName());
         if (worksDetailBean.getSeatingRequir() <= 400) {
             tvThratreSize.setText("小剧场");
+            tvTheatreKind.setText("小剧场");
         } else if (400 < worksDetailBean.getSeatingRequir() && worksDetailBean.getSeatingRequir() <= 800) {
             tvThratreSize.setText("中剧场");
+            tvTheatreKind.setText("中剧场");
         } else if (800 < worksDetailBean.getSeatingRequir() && worksDetailBean.getSeatingRequir() <= 1500) {
             tvThratreSize.setText("大剧场");
+            tvTheatreKind.setText("大剧场");
         } else if (1500 < worksDetailBean.getSeatingRequir()) {
             tvThratreSize.setText("超大剧场");
+            tvTheatreKind.setText("超大剧场");
         }
         tvShowTime.setText(worksDetailBean.getShowLast() + "min");
         tvAlreadyShowTimes.setText(worksDetailBean.getViewTimes() + "场");
