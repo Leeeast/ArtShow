@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.icu.util.ULocale;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -97,8 +98,12 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
     }
 
     public void show() {
-        if (!isShowing())
-            super.show();
+        try {
+            if (!isShowing())
+                super.show();
+        }catch (Exception e){
+
+        }
     }
 
     public void dismiss() {
