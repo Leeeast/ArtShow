@@ -237,9 +237,9 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         ivNoContent.setVisibility(View.GONE);
         rlContent.setVisibility(View.GONE);
 
-        AnimUtils.rotate(ivLoading);
-        ivNoContent.setVisibility(View.GONE);
-        rlContent.setVisibility(View.GONE);
+//        AnimUtils.rotate(ivLoading);
+//        ivNoContent.setVisibility(View.GONE);
+//        rlContent.setVisibility(View.GONE);
     }
 
     @Override

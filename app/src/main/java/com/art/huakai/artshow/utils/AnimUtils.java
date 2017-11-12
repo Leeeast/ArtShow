@@ -2,9 +2,13 @@ package com.art.huakai.artshow.utils;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
+
+import com.art.huakai.artshow.R;
 
 /**
  * Created by lining on 17-10-2.
@@ -32,9 +36,10 @@ public class AnimUtils {
 
     public static void rotate(View view){
         if(view!=null){
+//             view.startAnimation((RotateAnimation) AnimationUtils.loadAnimation(
+//                    context, R.anim.rotating_anim));
             ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotation", 0f, 3600f);
             animator.setDuration(5000);
-
             animator.setRepeatCount(Animation.INFINITE);
             animator.setRepeatMode(Animation.RESTART);
             animator.start();
