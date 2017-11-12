@@ -103,7 +103,9 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
 
     private void navigation(){
         try {
+            Log.d(TAG, "navigation: 11111");
             if(isAvilible(mContext, "com.baidu.BaiduMap")){
+                Log.d(TAG, "navigation: 222222");
                 Intent i1 = new Intent();
                 // 驾车路线规划
                 String str="baidumap://map/direction?destination="+toLatitude+","+toLongitude;
@@ -111,21 +113,21 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
                 mContext.startActivity(i1);
                 return;
             }else if(isAvilible(mContext, "com.autonavi.minimap")){
+                Log.d(TAG, "navigation: 444444");
                 String str="androidamap://route?sname=我的位置"+"&dev=0&m=0&t=1"+"&dlat="+toLatitude+"&dlon="+toLongitude;
                 Intent intent = new Intent();
-                // 驾车路线规划
                 intent = Intent.getIntent(str);
                 mContext.startActivity(intent);
                 return;
             }
-
-//            intent = Intent.getIntent("androidamap://route?sname=我的位置"+"&dev=0&m=0&t=1"+"&dlat="+"39.98871"+"&dlon="+"116.43234");
+            Log.d(TAG, "navigation: 55555");
+            Intent intent = Intent.getIntent("androidamap://route?sname=我的位置"+"&dev=0&m=0&t=1"+"&dlat="+"39.98871"+"&dlon="+"116.43234");
             Intent i1 = new Intent();
-            // 驾车路线规划
-            i1.setData(Uri.parse("baidumap://map/direction?destination="));
+            i1.setData(Uri.parse("baidumap://map/direction?destination="+toLatitude+","+toLongitude));
             mContext.startActivity(i1);
         }catch (Exception e){
-
+            Log.d(TAG, "navigation: 666666");
+            Toast.makeText(mContext,"请您先下载安装百度地图或高德地图客户端",Toast.LENGTH_LONG).show();
         }
     }
 

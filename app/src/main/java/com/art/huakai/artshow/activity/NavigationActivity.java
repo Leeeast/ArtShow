@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
@@ -70,14 +71,6 @@ public class NavigationActivity extends BaseActivity {
         ivGotoAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                if(true){
-//                    Intent intent=new Intent();
-//                    intent.setClass(NavigationActivity.this,PioSearchActivity.class);
-//                    startActivity(intent);
-//                    return;
-//                }
-
 
                 Log.e(TAG, "onClick: toLatitude=="+toLatitude+"--toLongitude=="+toLongitude );
                if(TextUtils.isEmpty(toLatitude)||TextUtils.isEmpty(toLongitude)){
@@ -151,14 +144,13 @@ public class NavigationActivity extends BaseActivity {
                 startActivity(intent);
                 return;
             }
-
-//            intent = Intent.getIntent("androidamap://route?sname=我的位置"+"&dev=0&m=0&t=1"+"&dlat="+"39.98871"+"&dlon="+"116.43234");
+//          intent = Intent.getIntent("androidamap://route?sname=我的位置"+"&dev=0&m=0&t=1"+"&dlat="+"39.98871"+"&dlon="+"116.43234");
             Intent i1 = new Intent();
             // 驾车路线规划
             i1.setData(Uri.parse("baidumap://map/direction?destination="));
             startActivity(i1);
         }catch (Exception e){
-
+            Toast.makeText(NavigationActivity.this,"请您先下载安装百度地图或高德地图客户端",Toast.LENGTH_LONG).show();
         }
     }
 
