@@ -32,8 +32,6 @@
             fresco:actualImageScaleType="fitCenter"
             fresco:failureImage="@mipmap/loading_fail"
             fresco:failureImageScaleType="centerInside"
-            fresco:placeholderImage="@color/pic_loading_bg"
-            fresco:placeholderImageScaleType="fitXY"
             fresco:roundAsCircle="true"
             fresco:roundingBorderWidth="1dp" />
 

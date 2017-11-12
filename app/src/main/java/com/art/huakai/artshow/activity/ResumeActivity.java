@@ -170,7 +170,7 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
      */
     @OnClick(R.id.lly_back)
     public void setlLyBack() {
-        finish();
+        onBackPressed();
     }
 
     /**
@@ -301,5 +301,11 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        LocalUserInfo.getInstance().setTalentCount(mTalentBeans.size());
+        finish();
     }
 }

@@ -12,7 +12,7 @@ import com.art.huakai.artshow.R;
 
 public class EmptyHolder extends RecyclerView.ViewHolder {
 
-    private final ImageView ivEmpty;
+    public ImageView ivEmpty;
 
     public EmptyHolder(View itemView) {
         super(itemView);

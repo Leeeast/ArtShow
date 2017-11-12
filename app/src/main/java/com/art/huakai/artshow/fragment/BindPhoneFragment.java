@@ -76,7 +76,6 @@ public class BindPhoneFragment extends BaseFragment {
 
     @Override
     public void setView() {
-        edtVerifyCode.setText("098765");
     }
 
     @OnClick(R.id.btn_next_step)

@@ -22,8 +22,11 @@ import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.ProjectInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
 import com.art.huakai.artshow.eventbus.TalentInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -283,33 +286,36 @@ public class PhotoUploadFragment extends BaseFragment {
                             ArrayList<PicturesBean> picturesTheatre = new ArrayList<>();
                             for (int i = 0; i < mJSONArray.length(); i++) {
                                 PicturesBean picturesBean = new PicturesBean();
-                                picturesBean.setLargeUrl(String.valueOf(mJSONArray.get(i)));
+                                picturesBean.setMasterUrl(String.valueOf(mJSONArray.get(i)));
                                 picturesTheatre.add(picturesBean);
                             }
                             TheatreDetailInfo.getInstance().setPictures(picturesTheatre);
                             EventBus.getDefault().post(new TheatreInfoChangeEvent());
+                            EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_PHOTO));
                             break;
                         case TYPE_TALENT:
                             TalentDetailInfo.getInstance().setId(typeId);
                             ArrayList<PicturesBean> picturesTalent = new ArrayList<>();
                             for (int i = 0; i < mJSONArray.length(); i++) {
                                 PicturesBean picturesBean = new PicturesBean();
-                                picturesBean.setLargeUrl(String.valueOf(mJSONArray.get(i)));
+                                picturesBean.setMasterUrl(String.valueOf(mJSONArray.get(i)));
                                 picturesTalent.add(picturesBean);
                             }
                             TalentDetailInfo.getInstance().setPictures(picturesTalent);
                             EventBus.getDefault().post(new TalentInfoChangeEvent());
+                            EventBus.getDefault().post(new TalentNotifyEvent(TalentNotifyEvent.NOTIFY_PHOTO));
                             break;
                         case TYPE_PROJECT:
                             ProjectDetailInfo.getInstance().setId(typeId);
                             ArrayList<PicturesBean> picturesProject = new ArrayList<>();
                             for (int i = 0; i < mJSONArray.length(); i++) {
                                 PicturesBean picturesBean = new PicturesBean();
-                                picturesBean.setLargeUrl(String.valueOf(mJSONArray.get(i)));
+                                picturesBean.setMasterUrl(String.valueOf(mJSONArray.get(i)));
                                 picturesProject.add(picturesBean);
                             }
                             ProjectDetailInfo.getInstance().setPictures(picturesProject);
                             EventBus.getDefault().post(new ProjectInfoChangeEvent());
+                            EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_PHOTO));
                             break;
                     }
                 } catch (Exception e) {
@@ -368,7 +374,7 @@ public class PhotoUploadFragment extends BaseFragment {
                     .isCamera(true)// 是否显示拍照按钮
                     .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
                     //.setOutputCameraPath("/CustomPath")// 自定义拍照保存路径
-                    .enableCrop(true)// 是否裁剪
+                    .enableCrop(false)// 是否裁剪
                     .compress(true)// 是否压缩
                     .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)//系统自带 or 鲁班压缩 PictureConfig.SYSTEM_COMPRESS_MODE or LUBAN_COMPRESS_MODE
                     //.sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效

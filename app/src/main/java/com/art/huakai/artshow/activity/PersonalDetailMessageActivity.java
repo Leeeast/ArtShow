@@ -119,7 +119,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
@@ -137,14 +137,8 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         mFragments = new ArrayList<>();
         PersonalDetailworksFragment personalDetailworksFragment = PersonalDetailworksFragment.newInstance(talentDetailBean);
         mFragments.add(personalDetailworksFragment);
-        if (talentDetailBean.getPictures() != null && talentDetailBean.getPictures().size() > 0) {
-            StaggerFragment staggerFragment = StaggerFragment.newInstance();
-            staggerFragment.setLists(talentDetailBean.getPictures());
-            mFragments.add(staggerFragment);
-        } else {
-            ErrorFragment errorFragment = ErrorFragment.newInstance();
-            mFragments.add(errorFragment);
-        }
+        StaggerFragment staggerFragment = StaggerFragment.newInstance(talentDetailBean.getPictures());
+        mFragments.add(staggerFragment);
         PersonalDetailAwarsFragment personalDetailAwarsFragment = PersonalDetailAwarsFragment.newInstance(talentDetailBean);
         mFragments.add(personalDetailAwarsFragment);
         TalentDetailFragmentAdapter disPagerAdapter = new TalentDetailFragmentAdapter(getSupportFragmentManager(), mFragments, mTabArray);
@@ -277,7 +271,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         requestCall = RequestUtil.request(true, URL_TALENT_DETAL, params, 120, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "objj=" + obj);
@@ -305,7 +299,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);

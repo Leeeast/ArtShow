@@ -174,7 +174,7 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
      */
     @OnClick(R.id.lly_back)
     public void setlLyBack() {
-        finish();
+        onBackPressed();
     }
 
     /**
@@ -290,5 +290,11 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        LocalUserInfo.getInstance().setTheterCount(mTheatres.size());
+        finish();
     }
 }

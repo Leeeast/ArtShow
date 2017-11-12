@@ -14,6 +14,7 @@ public class TheatreNotifyEvent {
     public static final int NOTIFY_THEATRE_DISABLE_DATE = 5;//剧场档期
     public static final int NOTIFY_THEATRE_TECH = 6;//技术参数
     public static final int NOTIFY_THEATRE_TICKET = 7;//票图
+    public static final int NOTIFY_THEATRE_PHOTO = 8;//票图
 
     private int actionCode;
 

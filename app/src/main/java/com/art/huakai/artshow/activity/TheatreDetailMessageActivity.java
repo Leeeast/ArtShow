@@ -137,7 +137,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
@@ -174,15 +174,9 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         mFragments = new ArrayList<HeaderViewPagerFragment>();
         TheatreDetailDesFragment theatreDetailTheatreFragment = TheatreDetailDesFragment.newInstance(theatreDetailBean);
         mFragments.add(theatreDetailTheatreFragment);
-        if (theatreDetailBean.getPictures() != null && theatreDetailBean.getPictures().size() > 0) {
-            StaggerFragment staggerFragment = StaggerFragment.newInstance();
-            staggerFragment.setLists(theatreDetailBean.getPictures());
-            mFragments.add(staggerFragment);
-        } else {
-            ErrorFragment errorFragment = ErrorFragment.newInstance();
-            mFragments.add(errorFragment);
+        StaggerFragment staggerFragment = StaggerFragment.newInstance(theatreDetailBean.getPictures());
+        mFragments.add(staggerFragment);
 
-        }
 
         TheatreDetailParamsFragment theatreDetailParamsFragment = TheatreDetailParamsFragment.newInstance(theatreDetailBean);
         mFragments.add(theatreDetailParamsFragment);
@@ -352,7 +346,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         requestCall = RequestUtil.request(true, URL_THEATRE_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "onSuccess: obj=" + obj);
@@ -380,7 +374,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);

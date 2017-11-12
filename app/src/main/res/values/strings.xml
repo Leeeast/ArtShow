@@ -185,7 +185,7 @@
     <string name="enroll_detail">详情介绍</string>
     <string name="enroll_detail_read">阅读：&#160;%1$d</string>
     <string name="enroll_apply">我要报名</string>
-    <string name="enroll_apply_number">演员人数</string>
+    <string name="enroll_apply_number">巡演人数</string>
     <string name="enroll_first_show_time">首演时间</string>
     <string name="enroll_produce_add">+&#160;&#160;添加新项目</string>
     <string name="enroll_adopt">入围戏剧项目</string>
@@ -246,7 +246,7 @@
     <string name="cache_clear_suc">缓存清除成功</string>
     <string name="account_authed">审核通过</string>
     <string name="account_unauth">未认证</string>
-    <string name="account_authing">认证中</string>
+    <string name="account_authing">审核中</string>
     <string name="account_auth_fail">审核驳回</string>
     <string name="account_change_pwd">修改密码</string>
     <string name="account_change_account_pwd">修改帐号密码</string>
@@ -383,7 +383,7 @@
     <string name="project_info">项目信息</string>
     <string name="project_name">项目名称</string>
     <string name="project_type">项目类型</string>
-    <string name="project_actor_count">演员人数</string>
+    <string name="project_actor_count">巡演人数</string>
     <string name="project_city">所在城市</string>
     <string name="project_fit_theatre">适合剧场</string>
     <string name="project_show_hour">演出时长：</string>

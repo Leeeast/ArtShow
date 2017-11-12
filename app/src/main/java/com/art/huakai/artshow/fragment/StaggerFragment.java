@@ -3,9 +3,11 @@ package com.art.huakai.artshow.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,12 +21,23 @@ import com.art.huakai.artshow.adapter.StaggerAdapter;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.decoration.SpacesItemDecoration;
 import com.art.huakai.artshow.entity.PicturesBean;
+import com.art.huakai.artshow.entity.ProjectDetailInfo;
+import com.art.huakai.artshow.entity.TalentDetailInfo;
+import com.art.huakai.artshow.entity.TheatreDetailInfo;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
+import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
+import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class StaggerFragment extends HeaderViewPagerFragment {
+    public static final String PARAMS_LIST = "PARAMS_LIST";
 
     private String TAG = "StaggerFragment";
     private RecyclerView mRecyclerView;
@@ -35,14 +48,21 @@ public class StaggerFragment extends HeaderViewPagerFragment {
     private ArrayList<String> picList = new ArrayList<String>();
 
 
-    public static StaggerFragment newInstance() {
-        return new StaggerFragment();
+    public static StaggerFragment newInstance(ArrayList<PicturesBean> picturesBeans) {
+        StaggerFragment staggerFragment = new StaggerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(PARAMS_LIST, picturesBeans);
+        staggerFragment.setArguments(bundle);
+        return staggerFragment;
     }
 
-
-    public void setLists(ArrayList<PicturesBean> lists) {
-        this.lists = lists;
-//        initData();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+        if (getArguments() != null) {
+            lists = getArguments().getParcelableArrayList(PARAMS_LIST);
+        }
     }
 
     @Override
@@ -94,14 +114,69 @@ public class StaggerFragment extends HeaderViewPagerFragment {
 //            }
 //        },300);
 
-
         for (int i = 0; i < lists.size(); i++) {
-
             picList.add(lists.get(i).getMasterUrl());
 
         }
-
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventTalentPhoto(TalentNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isDetached()) {
+            return;
+        }
+        TalentDetailInfo t = TalentDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TalentNotifyEvent.NOTIFY_PHOTO:
+                lists.clear();
+                lists.addAll(t.getPictures());
+                adpter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventTheatrePhoto(TheatreNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isDetached()) {
+            return;
+        }
+        TheatreDetailInfo t = TheatreDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case TheatreNotifyEvent.NOTIFY_THEATRE_PHOTO:
+                lists.clear();
+                lists.addAll(t.getPictures());
+                adpter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventProjectPhoto(ProjectNotifyEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (this.isDetached()) {
+            return;
+        }
+        ProjectDetailInfo p = ProjectDetailInfo.getInstance();
+        switch (event.getActionCode()) {
+            case ProjectNotifyEvent.NOTIFY_PHOTO:
+                lists.clear();
+                lists.addAll(p.getPictures());
+                adpter.notifyDataSetChanged();
+                break;
+        }
+    }
 }

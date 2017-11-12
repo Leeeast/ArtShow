@@ -178,7 +178,7 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
      */
     @OnClick(R.id.lly_back)
     public void setlLyBack() {
-        finish();
+        onBackPressed();
     }
 
     /**
@@ -304,5 +304,11 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        LocalUserInfo.getInstance().setRepertoryCount(mRepertorys.size());
+        finish();
     }
 }

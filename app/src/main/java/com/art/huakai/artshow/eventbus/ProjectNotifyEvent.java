@@ -14,6 +14,7 @@ public class ProjectNotifyEvent {
     public static final int NOTIFY_AWARD_DES = 5;//获奖
     public static final int NOTIFY_TECH_REQUIRE = 6;//技术要求
     public static final int NOTIFY_INTRODUCE_CREATE = 7;//主创介绍
+    public static final int NOTIFY_PHOTO = 8;//相片
 
     private int actionCode;
 

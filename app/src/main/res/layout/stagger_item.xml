@@ -12,8 +12,7 @@
         fresco:actualImageScaleType="fitXY"
         fresco:placeholderImageScaleType="fitXY"
         fresco:roundedCornerRadius="@dimen/DIMEN_4PX"
-        android:clickable="true"
-        />
+        android:clickable="true" />
 
 
 </RelativeLayout>

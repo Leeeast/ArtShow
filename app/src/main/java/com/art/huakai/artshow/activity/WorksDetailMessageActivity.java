@@ -131,7 +131,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
@@ -152,14 +152,8 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         mFragments = new ArrayList<>();
         ProjectDetailPoltFragment worksDetailShowFragment = ProjectDetailPoltFragment.newInstance(worksDetailBean);
         mFragments.add(worksDetailShowFragment);
-        if (worksDetailBean.getPictures() != null && worksDetailBean.getPictures().size() > 0) {
-            StaggerFragment staggerFragment = StaggerFragment.newInstance();
-            staggerFragment.setLists(worksDetailBean.getPictures());
-            mFragments.add(staggerFragment);
-        } else {
-            ErrorFragment errorFragment = ErrorFragment.newInstance();
-            mFragments.add(errorFragment);
-        }
+        StaggerFragment staggerFragment = StaggerFragment.newInstance(worksDetailBean.getPictures());
+        mFragments.add(staggerFragment);
 
         ProjectDetailRequireFragment worksDetailSkillFragment = ProjectDetailRequireFragment.newInstance(worksDetailBean);
         mFragments.add(worksDetailSkillFragment);
@@ -346,7 +340,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         requestCall = RequestUtil.request(true, URL_TALENT_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "onSuccess: obj=" + obj);
@@ -374,7 +368,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 rlContent.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);

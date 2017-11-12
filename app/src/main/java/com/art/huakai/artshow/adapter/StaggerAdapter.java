@@ -5,15 +5,20 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.adapter.holder.EmptyHolder;
+import com.art.huakai.artshow.adapter.holder.OrgTheatreHolder;
 import com.art.huakai.artshow.entity.PicturesBean;
+import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.List;
@@ -21,7 +26,11 @@ import java.util.List;
 /**
  * Created by lining on 2017/10/10.
  */
-public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder> {
+public class StaggerAdapter extends RecyclerView.Adapter {
+
+    private static final int TYPE_EMPTY = 20;
+    private static final int TYPE_NORMAL = 21;
+
 
     private static final String TAG = "StaggerAdapter";
     private List<PicturesBean> datas;
@@ -38,55 +47,75 @@ public class StaggerAdapter extends RecyclerView.Adapter<StaggerAdapter.MyHolder
 
 
     @Override
-    public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.stagger_item, null);
-        MyHolder myHolder = new MyHolder(view);
-        return myHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = null;
+        if (TYPE_EMPTY == viewType) {
+            //设置空布局高，使空布局图片居中
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty, parent, false);
+            return new EmptyHolder(view);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stagger_item, parent, false);
+            return new MyHolder(view);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(final MyHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        switch (getItemViewType(position)) {
+            case TYPE_EMPTY:
+                EmptyHolder emptyHolder = (EmptyHolder) holder;
+                View itemView = emptyHolder.itemView;
+                ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+                layoutParams.width = DeviceUtils.getScreenWeight(emptyHolder.itemView.getContext());
+                itemView.setLayoutParams(layoutParams);
 
-        if (!TextUtils.isEmpty(datas.get(position).getMasterUrl())) {
-            try {
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (datas.get(position).getHeight() / datas.get(position).getWidth() * itemWidth));
-                holder.chinaShowImageView.setLayoutParams(lp);
-                holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
-            } catch (Exception e) {
-                e.printStackTrace();
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, itemWidth);
-                holder.chinaShowImageView.setLayoutParams(lp);
-                holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
+                FrameLayout.LayoutParams framLayoutParams = (FrameLayout.LayoutParams) emptyHolder.ivEmpty.getLayoutParams();
+                framLayoutParams.topMargin = emptyHolder.itemView.getResources().getDimensionPixelSize(R.dimen.DIMEN_55PX);
+                framLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+                emptyHolder.ivEmpty.setLayoutParams(framLayoutParams);
+                break;
+            case TYPE_NORMAL:
+                MyHolder myHolder = (MyHolder) holder;
+                if (!TextUtils.isEmpty(datas.get(position).getMasterUrl())) {
+                    try {
+                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (datas.get(position).getHeight() / datas.get(position).getWidth() * itemWidth));
+                        myHolder.chinaShowImageView.setLayoutParams(lp);
+                        myHolder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, itemWidth);
+                        myHolder.chinaShowImageView.setLayoutParams(lp);
+                        myHolder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
 
-            }
-//            holder.chinaShowImageView.setImageURI(Uri.parse(datas.get(position).getMasterUrl()));
-//            holder.chinaShowImageView.setImage(Uri.parse(datas.get(position).getMasterUrl()), context, new ChinaShowImageView.ImgScaleResultListener() {
-//                @Override
-//                public void imgSize(int width, int height) {
-//                    float a = height;
-//                    Log.e(TAG, "imgSize: width==" + width + "--height==" + height);
-//                    Log.e(TAG, "imgSize:cutWidth== " + itemWidth + "--cutHeigth==" + a / width * itemWidth);
-//
-//                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(itemWidth, (int) (a / width * itemWidth));
-//                    holder.chinaShowImageView.setLayoutParams(lp);
-//                }
-//            }, holder.chinaShowImageView);
-        }
-        holder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "onItemClickListener: position==" + position);
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClickListener(position);
+                    }
                 }
-            }
-        });
+                myHolder.chinaShowImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.e(TAG, "onItemClickListener: position==" + position);
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onItemClickListener(position);
+                        }
+                    }
+                });
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return datas.size();
-//        return 11;
+        return datas == null || datas.size() <= 0 ? 1 : datas.size();
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (datas == null || datas.size() == 0) {
+            return TYPE_EMPTY;
+        } else {
+            return TYPE_NORMAL;
+        }
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
