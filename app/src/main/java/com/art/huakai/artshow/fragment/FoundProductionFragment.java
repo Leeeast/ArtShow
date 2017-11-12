@@ -102,15 +102,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     private ArrayList <String> months=new ArrayList<String>();
     private ArrayList <String>lists=new ArrayList<String>();
     private int monthPosition=-1;
-
-
-
     private ArrayList<RepertoryBean> repertorys = new ArrayList<RepertoryBean>();
 
     public FoundProductionFragment() {
         Log.e(TAG, "FoundProductionFragment: ");
-
-
         // Required empty public constructor
     }
 
@@ -625,13 +620,13 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         } else if (theatrefee == 2) {
             params.put("expenseMin", "30000");
             params.put("expenseMax", "50000");
-        } else if (theatrefee == 2) {
+        } else if (theatrefee == 3) {
             params.put("expenseMin", "50000");
             params.put("expenseMax", "80000");
-        } else if (theatrefee == 2) {
+        } else if (theatrefee == 4) {
             params.put("expenseMin", "80000");
             params.put("expenseMax", "100000");
-        } else if (theatrefee == 2) {
+        } else if (theatrefee == 5) {
             params.put("expenseMin", "100000");
         }
 

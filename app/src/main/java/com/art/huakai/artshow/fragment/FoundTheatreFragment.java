@@ -755,14 +755,17 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     page = 1;
                     getList();
                     theatres.clear();
+                    Log.d(TAG, "onPicked: mRegionId="+mRegionId);
                     if (complexRankingRule != 0) {
                         ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                         tvComplexRanking.setTextColor(0xffe93c2c);
                     }
-                    if (!TextUtils.isEmpty(mRegionId)) {
-
+                    if (!TextUtils.isEmpty(mRegionId)&&!mRegionId.equals("0")) {
                         tvCityChoose.setTextColor(0xffe93c2c);
                         ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
+                    }else {
+                        tvCityChoose.setTextColor(0xff5a4b41);
+                        ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
                     }
 
                     if (theatreSize != -1 || theatrefee != -1 || monthPosition != -1) {

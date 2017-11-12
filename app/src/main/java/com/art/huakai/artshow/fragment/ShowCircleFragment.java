@@ -184,9 +184,9 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 if (ivLoading == null) return;
                 if (isRefresh) {
 //                    Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
+                    pull.refreshFinish(PullToRefreshLayout.SUCCEED);
                     isRefresh = false;
                 }
-                pull.refreshFinish(PullToRefreshLayout.SUCCEED);
                 ivLoading.setVisibility(View.GONE);
                 pull.setVisibility(View.VISIBLE);
                 ivNoContent.setVisibility(View.GONE);
@@ -308,7 +308,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 uiHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                       try {
+                           pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                       }catch (Exception e){
+
+                       }
                     }
                 });
             }
@@ -328,7 +332,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 uiHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                        try {
+                            pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                        }catch (Exception e){
+
+                        }
                     }
                 });
             }
