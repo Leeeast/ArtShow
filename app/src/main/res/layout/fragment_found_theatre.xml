@@ -1,39 +1,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff"
-  >
+    android:background="#ffffffff">
 
 
     <ImageView
         android:id="@+id/iv_loading"
-        android:layout_centerInParent="true"
         android:layout_width="@dimen/DIMEN_100PX"
         android:layout_height="@dimen/DIMEN_100PX"
+        android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@mipmap/loading_gray"
-        android:visibility="visible"
-        />
+        android:visibility="visible" />
 
 
     <ImageView
         android:id="@+id/iv_no_content"
         android:layout_width="@dimen/DIMEN_120PX"
         android:layout_height="@dimen/DIMEN_120PX"
-        android:src="@mipmap/loading_fail"
-        android:scaleType="fitXY"
         android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
+        android:scaleType="fitXY"
+        android:src="@mipmap/loading_fail"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_marginTop="@dimen/DIMEN_5PX"
             android:background="#fff5f3f1" />
 
         <RelativeLayout
@@ -41,8 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_47PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
-            android:layout_marginRight="@dimen/DIMEN_15PX"
-            >
+            android:layout_marginRight="@dimen/DIMEN_15PX">
 
             <LinearLayout
                 android:id="@+id/ll_complex_ranking"
@@ -76,9 +72,9 @@
                 android:id="@+id/ll_city_choose"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:clickable="true"
-                android:layout_toRightOf="@+id/ll_complex_ranking"
                 android:layout_marginLeft="@dimen/DIMEN_28PX"
+                android:layout_toRightOf="@+id/ll_complex_ranking"
+                android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -86,12 +82,11 @@
                     android:id="@+id/tv_city_choose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLength="10"
                     android:text="城市筛选"
                     android:textColor="#ff5a4b41"
-                    android:textSize="@dimen/DIMEN_12PX"
-                    android:maxLength="10"
-                    android:ellipsize="end"
-                    />
+                    android:textSize="@dimen/DIMEN_12PX" />
 
                 <ImageView
                     android:id="@+id/iv_choose_number"
@@ -110,11 +105,10 @@
                 android:id="@+id/ll_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_alignParentRight="true"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_real_filter"
@@ -128,8 +122,8 @@
                     android:id="@+id/iv_real_choose"
                     android:layout_width="@dimen/DIMEN_18PX"
                     android:layout_height="@dimen/DIMEN_18PX"
-                    android:clickable="false"
                     android:layout_marginLeft="@dimen/DIMEN_1PX"
+                    android:clickable="false"
                     android:focusable="false"
                     android:src="@mipmap/filter_default" />
             </LinearLayout>
@@ -137,18 +131,17 @@
         </RelativeLayout>
 
         <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#ffb3b3b3"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#ffb3b3b3"
 
-        />
+            />
 
         <LinearLayout
             android:id="@+id/ll_content"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
             <com.art.huakai.artshow.widget.SmartRecyclerview
@@ -160,8 +153,6 @@
             </com.art.huakai.artshow.widget.SmartRecyclerview>
         </LinearLayout>
     </LinearLayout>
-
-
 
 
 </RelativeLayout>
