@@ -95,9 +95,9 @@
 
         <ImageView
             android:id="@+id/iv_no_content"
-            android:layout_width="@dimen/DIMEN_120PX"
-            android:layout_height="@dimen/DIMEN_120PX"
-            android:src="@mipmap/loading_fail"
+            android:layout_width="@dimen/DIMEN_150PX"
+            android:layout_height="@dimen/DIMEN_150PX"
+            android:src="@mipmap/loading_no_content"
             android:scaleType="fitXY"
             android:layout_centerInParent="true"
             android:visibility="gone"

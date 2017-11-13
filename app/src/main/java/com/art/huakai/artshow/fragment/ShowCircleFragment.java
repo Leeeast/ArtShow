@@ -304,17 +304,18 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 if (isRefresh) {
                     Toast.makeText(getContext(), "刷新失败", Toast.LENGTH_SHORT).show();
                     isRefresh = false;
-                }
-                uiHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                       try {
-                           pull.refreshFinish(PullToRefreshLayout.SUCCEED);
-                       }catch (Exception e){
+                    uiHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                            }catch (Exception e){
 
-                       }
-                    }
-                });
+                            }
+                        }
+                    });
+                }
+
             }
 
             @Override
@@ -328,17 +329,18 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 if (isRefresh) {
                     Toast.makeText(getContext(), "刷新失败", Toast.LENGTH_SHORT).show();
                     isRefresh = false;
-                }
-                uiHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            pull.refreshFinish(PullToRefreshLayout.SUCCEED);
-                        }catch (Exception e){
+                    uiHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                pull.refreshFinish(PullToRefreshLayout.SUCCEED);
+                            }catch (Exception e){
 
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
             }
         });
     }
