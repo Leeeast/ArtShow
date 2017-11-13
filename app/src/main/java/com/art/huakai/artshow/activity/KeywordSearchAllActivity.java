@@ -29,7 +29,12 @@ import com.art.huakai.artshow.adapter.KeywordSearchWorksAdapter;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.entity.EnrollInfo;
+import com.art.huakai.artshow.entity.NewsesBean;
 import com.art.huakai.artshow.entity.SearchAllBean;
+import com.art.huakai.artshow.entity.TalentBean;
+import com.art.huakai.artshow.entity.Theatre;
+import com.art.huakai.artshow.entity.Work;
 import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -41,6 +46,8 @@ import com.art.huakai.artshow.utils.ToastUtils;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -230,7 +237,15 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                     }
                 });
-                KeywordSearchCooperateAdapter keywordSearchCooperateAdapter = new KeywordSearchCooperateAdapter(searchAllBean.getEnrolls());
+                ArrayList<EnrollInfo>enrollInfos=new ArrayList<EnrollInfo>();
+                if(searchAllBean.getEnrolls().size()>3){
+                    enrollInfos.add(searchAllBean.getEnrolls().get(0));
+                    enrollInfos.add(searchAllBean.getEnrolls().get(1));
+                    enrollInfos.add(searchAllBean.getEnrolls().get(2));
+                }else{
+                    enrollInfos=searchAllBean.getEnrolls();
+                }
+                KeywordSearchCooperateAdapter keywordSearchCooperateAdapter = new KeywordSearchCooperateAdapter(enrollInfos);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 keywordSearchCooperateAdapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
@@ -264,7 +279,15 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
                     }
                 });
-                KeywordSearchNewsAdapter keywordSearchNewsAdapter = new KeywordSearchNewsAdapter(this, searchAllBean.getNews());
+                ArrayList<NewsesBean>newsesBeens=new ArrayList<NewsesBean>();
+                if(searchAllBean.getNews().size()>3){
+                    newsesBeens.add(searchAllBean.getNews().get(0));
+                    newsesBeens.add(searchAllBean.getNews().get(1));
+                    newsesBeens.add(searchAllBean.getNews().get(2));
+                }else{
+                    newsesBeens=searchAllBean.getNews();
+                }
+                KeywordSearchNewsAdapter keywordSearchNewsAdapter = new KeywordSearchNewsAdapter(this, newsesBeens);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 keywordSearchNewsAdapter.setOnItemClickListener(new KeywordSearchNewsAdapter.OnItemClickListener() {
                     @Override
@@ -297,7 +320,15 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                     }
                 });
-                KeywordSearchWorksAdapter keywordSearchWorksAdapter = new KeywordSearchWorksAdapter(this, searchAllBean.getRepertorys());
+                ArrayList<Work>works=new ArrayList<Work>();
+                if(searchAllBean.getRepertorys().size()>3){
+                    works.add(searchAllBean.getRepertorys().get(0));
+                    works.add(searchAllBean.getRepertorys().get(1));
+                    works.add(searchAllBean.getRepertorys().get(2));
+                }else{
+                    works=searchAllBean.getRepertorys();
+                }
+                KeywordSearchWorksAdapter keywordSearchWorksAdapter = new KeywordSearchWorksAdapter(this, works);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 keywordSearchWorksAdapter.setOnItemClickListener(new KeywordSearchWorksAdapter.OnItemClickListener() {
                     @Override
@@ -332,7 +363,15 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                     }
                 });
-                KeywordSearchProfessionalAdapter keywordSearchProfessionalAdapter = new KeywordSearchProfessionalAdapter(this, searchAllBean.getTalents());
+                ArrayList<TalentBean>talentBeens=new ArrayList<TalentBean>();
+                if(searchAllBean.getTalents().size()>3){
+                    talentBeens.add(searchAllBean.getTalents().get(0));
+                    talentBeens.add(searchAllBean.getTalents().get(1));
+                    talentBeens.add(searchAllBean.getTalents().get(2));
+                }else{
+                    talentBeens=searchAllBean.getTalents();
+                }
+                KeywordSearchProfessionalAdapter keywordSearchProfessionalAdapter = new KeywordSearchProfessionalAdapter(this, talentBeens);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 keywordSearchProfessionalAdapter.setOnItemClickListener(new KeywordSearchProfessionalAdapter.OnItemClickListener() {
                     @Override
@@ -367,7 +406,15 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
                     }
                 });
-                KeywordSearchTheatreAdapter keywordSearchTheatreAdapter = new KeywordSearchTheatreAdapter(this, searchAllBean.getTheaters());
+                ArrayList<Theatre>theatres=new ArrayList<Theatre>();
+                if(searchAllBean.getTheaters().size()>3){
+                    theatres.add(searchAllBean.getTheaters().get(0));
+                    theatres.add(searchAllBean.getTheaters().get(1));
+                    theatres.add(searchAllBean.getTheaters().get(2));
+                }else{
+                    theatres=searchAllBean.getTheaters();
+                }
+                KeywordSearchTheatreAdapter keywordSearchTheatreAdapter = new KeywordSearchTheatreAdapter(this, theatres);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 keywordSearchTheatreAdapter.setOnItemClickListener(new KeywordSearchTheatreAdapter.OnItemClickListener() {
                     @Override

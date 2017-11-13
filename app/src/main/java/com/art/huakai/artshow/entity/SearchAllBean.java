@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,49 +8,49 @@ import java.util.List;
  */
 public class SearchAllBean {
 
-    private List<NewsesBean> news;
-    private List<Theatre> theaters;
-    private List<EnrollInfo> enrolls;
-    private List<Work> repertorys;
-    private List<TalentBean> talents;
+    private ArrayList<NewsesBean> news;
+    private ArrayList<Theatre> theaters;
+    private ArrayList<EnrollInfo> enrolls;
+    private ArrayList<Work> repertorys;
+    private ArrayList<TalentBean> talents;
 
-    public List<TalentBean> getTalents() {
+    public ArrayList<TalentBean> getTalents() {
         return talents;
     }
 
-    public void setTalents(List<TalentBean> talents) {
+    public void setTalents(ArrayList<TalentBean> talents) {
         this.talents = talents;
     }
 
-    public List<NewsesBean> getNews() {
+    public ArrayList<NewsesBean> getNews() {
         return news;
     }
 
-    public void setNews(List<NewsesBean> news) {
+    public void setNews(ArrayList<NewsesBean> news) {
         this.news = news;
     }
 
-    public List<Theatre> getTheaters() {
+    public ArrayList<Theatre> getTheaters() {
         return theaters;
     }
 
-    public void setTheaters(List<Theatre> theaters) {
+    public void setTheaters(ArrayList<Theatre> theaters) {
         this.theaters = theaters;
     }
 
-    public List<EnrollInfo> getEnrolls() {
+    public ArrayList<EnrollInfo> getEnrolls() {
         return enrolls;
     }
 
-    public void setEnrolls(List<EnrollInfo> enrolls) {
+    public void setEnrolls(ArrayList<EnrollInfo> enrolls) {
         this.enrolls = enrolls;
     }
 
-    public List<Work> getRepertorys() {
+    public ArrayList<Work> getRepertorys() {
         return repertorys;
     }
 
-    public void setRepertorys(List<Work> repertorys) {
+    public void setRepertorys(ArrayList<Work> repertorys) {
         this.repertorys = repertorys;
     }
 

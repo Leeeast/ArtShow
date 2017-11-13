@@ -27,12 +27,15 @@
         android:src="@mipmap/loading_no_content"
         android:visibility="gone" />
 
-
+    <include layout="@layout/layout_title_btn" />
     <RelativeLayout
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/DIMEN_50PX"
+        >
+
 
         <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
             android:id="@+id/scrollableLayout"
@@ -46,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/layout_title_btn" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

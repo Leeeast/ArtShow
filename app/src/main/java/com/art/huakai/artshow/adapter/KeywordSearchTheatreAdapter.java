@@ -68,10 +68,13 @@ public class KeywordSearchTheatreAdapter extends  RecyclerView.Adapter{
                     typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_144PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_163PX)/2);
                 }
                 typeOneViewHolder.tv_thratre_name.setText(theatre.getName());
-                typeOneViewHolder.tv_seat_number.setText(theatre.getSeating()+"");
+//                typeOneViewHolder.tv_seat_number.setText(theatre.getSeating()+"");
+                typeOneViewHolder.tv_seat_number.setText(theatre.getSeatingDescpt());
                 typeOneViewHolder.tv_thratre_location.setText(theatre.getRegionName());
-                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpense()+"");
+//                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpense()+"");
+                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpenseUnit()+theatre.getExpenseUnit());
             }
+
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

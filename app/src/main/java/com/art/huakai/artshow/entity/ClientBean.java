@@ -21,7 +21,7 @@ public class ClientBean implements Serializable {
 //}
     public ClientVersion clientVersion;
 
-    public class ClientVersion {
+    public class ClientVersion implements Serializable{
         public String id;
         public int versionCode;
         public String versionName;

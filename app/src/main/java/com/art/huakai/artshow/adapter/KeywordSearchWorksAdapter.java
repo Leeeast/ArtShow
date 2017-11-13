@@ -76,7 +76,8 @@ public class KeywordSearchWorksAdapter extends  RecyclerView.Adapter{
                 }catch (Exception e){
 
                 }
-                typeOneViewHolder.tv_works_fee.setText(work.getExpense()+"");
+//                typeOneViewHolder.tv_works_fee.setText(work.getExpense()+"");
+                typeOneViewHolder.tv_works_fee.setText(work.getExpenseDescpt()+work.getExpenseUnit());
                 typeOneViewHolder.tv_works_name.setText(work.getTitle());
             }
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
