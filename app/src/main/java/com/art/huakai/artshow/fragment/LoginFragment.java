@@ -16,7 +16,6 @@ import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.RegUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.GsonTools;
@@ -194,6 +193,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                     if (chkPwdRecord.isChecked()) {
                         SharePreUtil.getInstance().setUserMobile(phoneNum);
                         SharePreUtil.getInstance().setUserPwd(edtPassword.getText().toString());
+                    } else {
+                        SharePreUtil.getInstance().setUserMobile("");
+                        SharePreUtil.getInstance().setUserPwd("");
                     }
                     try {
                         LoginUtil.initLocalUserInfo(obj);
