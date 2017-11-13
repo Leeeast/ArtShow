@@ -12,6 +12,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ConfirmDialog;
 import com.art.huakai.artshow.utils.FrescoHelper;
+import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SmartToast;
@@ -140,6 +141,7 @@ public class SetActivity extends BaseActivity {
         //TODO 用一个集合保存左右activity，退出关闭所有activity
         SharePreUtil.getInstance().clearUserInfo();
         SharePreUtil.getInstance().initUserInfo();
+        LoginUtil.clearLocalUserInfo();
         setResult(JumpCode.FLAG_RES_LOGIN_OUT);
         finish();
     }

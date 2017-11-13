@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -81,5 +80,29 @@ public class LoginUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 用户信息单例恢复出事哈状态
+     */
+    public static void clearLocalUserInfo() {
+        LocalUserInfo localUserInfo = LocalUserInfo.getInstance();
+        localUserInfo.setExpire(0);
+        localUserInfo.setUserType(0);
+        localUserInfo.setStatus(0);
+        localUserInfo.setCreateTime(0);
+        localUserInfo.setAccessToken("");
+        localUserInfo.setId("");
+        localUserInfo.setName("");
+        localUserInfo.setMobile("");
+        localUserInfo.setEmail("");
+        localUserInfo.setWechatOpenid("");
+        localUserInfo.setDp("");
+        localUserInfo.setPassword("");
+        localUserInfo.setWechatUnionid("");
+        localUserInfo.setAuthenStatus(0);
+        localUserInfo.setTheterCount(0);
+        localUserInfo.setTalentCount(0);
+        localUserInfo.setRepertoryCount(0);
     }
 }
