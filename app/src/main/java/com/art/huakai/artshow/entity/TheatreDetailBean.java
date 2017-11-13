@@ -102,6 +102,34 @@ public class TheatreDetailBean implements Serializable {
     private ArrayList<PicturesBean> pictures;
     private List<DisabledDatesBean> disabledDates;
 
+    private String expenseDescpt;
+    private String expenseUnit;
+    private String seatingDescpt;
+
+    public String getSeatingDescpt() {
+        return seatingDescpt;
+    }
+
+    public void setSeatingDescpt(String seatingDescpt) {
+        this.seatingDescpt = seatingDescpt;
+    }
+
+    public String getExpenseDescpt() {
+        return expenseDescpt;
+    }
+
+    public void setExpenseDescpt(String expenseDescpt) {
+        this.expenseDescpt = expenseDescpt;
+    }
+
+    public String getExpenseUnit() {
+        return expenseUnit;
+    }
+
+    public void setExpenseUnit(String expenseUnit) {
+        this.expenseUnit = expenseUnit;
+    }
+
     private String shareLink;
 
     public String getShareLink() {

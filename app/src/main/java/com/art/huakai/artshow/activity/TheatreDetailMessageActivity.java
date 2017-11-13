@@ -212,8 +212,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         }
         tvTheatreName.setText(theatreDetailBean.getName());
 
-        tvFee.setText(theatreDetailBean.getExpense() + "");
-        tvSeatCount.setText(theatreDetailBean.getSeating() + "");
+        tvFee.setText(theatreDetailBean.getExpenseDescpt()+theatreDetailBean.getExpenseUnit());
+        tvSeatCount.setText(theatreDetailBean.getSeatingDescpt());
 //        tvWeight.setText(talentDetailBean.getWeight());
 //        tvHeight.setText(talentDetailBean.getHeight());
 //        tvUniversity.setText(talentDetailBean.getSchool());

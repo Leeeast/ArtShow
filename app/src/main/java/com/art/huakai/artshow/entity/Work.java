@@ -33,7 +33,6 @@ public class Work {
     private long createTime;
     private String expenseDescpt;
     private String expenseUnit;
-    private String seatingDescpt;
 
     public String getExpenseDescpt() {
         return expenseDescpt;
@@ -51,13 +50,6 @@ public class Work {
         this.expenseUnit = expenseUnit;
     }
 
-    public String getSeatingDescpt() {
-        return seatingDescpt;
-    }
-
-    public void setSeatingDescpt(String seatingDescpt) {
-        this.seatingDescpt = seatingDescpt;
-    }
 
     public String getId() {
         return id;

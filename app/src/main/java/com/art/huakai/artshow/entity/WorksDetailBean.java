@@ -80,6 +80,24 @@ public class WorksDetailBean implements Serializable {
     private ArrayList<PicturesBean> pictures;
     private List<Staff> staffs;
     private String shareLink;
+    private String expenseDescpt;
+    private String expenseUnit;
+
+    public String getExpenseDescpt() {
+        return expenseDescpt;
+    }
+
+    public void setExpenseDescpt(String expenseDescpt) {
+        this.expenseDescpt = expenseDescpt;
+    }
+
+    public String getExpenseUnit() {
+        return expenseUnit;
+    }
+
+    public void setExpenseUnit(String expenseUnit) {
+        this.expenseUnit = expenseUnit;
+    }
 
     public String getShareLink() {
         return shareLink;

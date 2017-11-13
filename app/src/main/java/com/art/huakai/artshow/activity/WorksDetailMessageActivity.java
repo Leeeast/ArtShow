@@ -187,7 +187,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
         }
         tvTheatreName.setText(worksDetailBean.getTitle());
-        tvFee.setText(worksDetailBean.getExpense() + "");
+        tvFee.setText(worksDetailBean.getExpenseDescpt()+worksDetailBean.getExpenseUnit());
         tvProducers.setText(worksDetailBean.getLinkman());
         tvActorNumber.setText(worksDetailBean.getPeopleNum() + "人");
         tvCity.setText(worksDetailBean.getRegionName());

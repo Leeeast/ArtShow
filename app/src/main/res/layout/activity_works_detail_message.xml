@@ -126,6 +126,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_marginLeft="@dimen/DIMEN_4PX"
                                 android:text="场"
+                                android:visibility="gone"
                                 android:textColor="#ff9b9b9b"
                                 android:textSize="@dimen/DIMEN_14PX" />
 
