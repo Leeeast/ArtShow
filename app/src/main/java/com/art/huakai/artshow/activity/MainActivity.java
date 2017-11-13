@@ -18,8 +18,6 @@ import com.art.huakai.artshow.dialog.UpgradeDialog;
 import com.art.huakai.artshow.entity.ClientBean;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
-import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
-import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.fragment.CooperateFragment;
 import com.art.huakai.artshow.fragment.DiscoverFragment;
 import com.art.huakai.artshow.fragment.MeFragment;
@@ -33,9 +31,6 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
-
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -66,6 +61,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private int wholeItemPosition = 1000;
     private boolean isValid = true;
     private RadioGroup radioGroup;
+    private int mStatusBarType;
 
     public int getWholeItemPosition() {
         if (isValid) {
@@ -83,7 +79,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void immerseStatusBar() {
-        ImmerseStatusBar.myStatusBar(this);
+        mStatusBarType = ImmerseStatusBar.StatusBarLightMode(this);
+        ImmerseStatusBar.StatusBarDarkMode(this, mStatusBarType);
         ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
     }
 
@@ -120,7 +117,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                             if (currentVersion.compareTo(targetVersion) < 0) {
                                 //有更新
                                 UpgradeDialog upgradeDialog = UpgradeDialog.getInstance(clientBean);
-                                upgradeDialog.show(getSupportFragmentManager(),"UPGRADEDIALOG");
+                                upgradeDialog.show(getSupportFragmentManager(), "UPGRADEDIALOG");
                             }
                         }
                     } catch (Exception e) {
@@ -214,15 +211,23 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         switch (checkedId) {
             case R.id.rdobtn_show_circle:
+                ImmerseStatusBar.StatusBarDarkMode(this, mStatusBarType);
+                ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
                 showFragment(ShowCircleFragment.TAG_FRAGMENT);
                 break;
             case R.id.rdobtn_discover:
+                ImmerseStatusBar.myStatusBar(this);
+                ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
                 showFragment(DiscoverFragment.TAG_FRAGMENT);
                 break;
             case R.id.rdobtn_collaborate:
+                ImmerseStatusBar.myStatusBar(this);
+                ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
                 showFragment(CooperateFragment.TAG_FRAGMENT);
                 break;
             case R.id.rdobtn_me:
+                ImmerseStatusBar.myStatusBar(this);
+                ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
                 showFragment(MeFragment.TAG_FRAGMENT);
                 break;
         }
