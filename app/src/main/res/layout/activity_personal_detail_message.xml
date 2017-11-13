@@ -104,6 +104,7 @@
                                 android:src="@mipmap/authentication" />
 
                             <TextView
+                                android:id="@+id/tv_authentication"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"

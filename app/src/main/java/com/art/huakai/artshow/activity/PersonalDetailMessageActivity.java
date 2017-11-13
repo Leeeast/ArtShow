@@ -27,7 +27,6 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TalentDetailBean;
 import com.art.huakai.artshow.entity.TalentDetailInfo;
 import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
-import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailAwarsFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailworksFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
@@ -54,6 +53,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
@@ -103,6 +103,8 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     ImageView ivNoContent;
     @BindView(R.id.rl_content)
     RelativeLayout rlContent;
+    @BindView(R.id.tv_authentication)
+    TextView tvAuthentication;
 
 
     private String[] mTabArray;
@@ -133,6 +135,13 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
     private void setData() {
 
+        if(talentDetailBean.getAuthentication()==0){
+            tvAuthentication.setVisibility(View.INVISIBLE);
+            ivAuthentication.setVisibility(View.INVISIBLE);
+        }else{
+            tvAuthentication.setVisibility(View.VISIBLE);
+            ivAuthentication.setVisibility(View.VISIBLE);
+        }
         mTabArray = getResources().getStringArray(R.array.talent_detail_tab);
         mFragments = new ArrayList<>();
         PersonalDetailworksFragment personalDetailworksFragment = PersonalDetailworksFragment.newInstance(talentDetailBean);
@@ -409,5 +418,12 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
