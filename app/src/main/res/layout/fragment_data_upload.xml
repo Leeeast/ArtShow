@@ -91,9 +91,10 @@
                     android:layout_marginLeft="@dimen/DIMEN_130PX"
                     android:layout_toLeftOf="@+id/chk_pwd_see"
                     android:background="@null"
+                    android:digits="01234567489abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:hint="@string/tip_identifyid_input_personal"
                     android:imeOptions="actionNext"
-                    android:maxLines="1"
+                    android:maxLength="18"
                     android:textColor="@color/enroll_sub_title"
                     android:textColorHint="@color/login_light"
                     android:textSize="17sp" />

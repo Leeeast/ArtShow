@@ -23,6 +23,7 @@ import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
+import com.art.huakai.artshow.utils.PhoneUtils;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
@@ -213,6 +214,11 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
         //TODO 有时间做个身份证校验正则
         String identifyID = edtIdentityNumber.getText().toString().trim();
         if (TextUtils.isEmpty(identifyID)) {
+            if (mUserType == LocalUserInfo.USER_TYPE_PERSONAL) {
+                //身份证校验
+            } else {
+
+            }
             String tipIdentifyIDInput = mUserType == LocalUserInfo.USER_TYPE_PERSONAL ? getString(R.string.tip_identifyid_input_personal) :
                     getString(R.string.tip_identifyid_input_institution);
             Toast.makeText(getContext(), tipIdentifyIDInput, Toast.LENGTH_SHORT).show();
@@ -222,17 +228,20 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
         String connectPhone = edtIdentityConnectPhone.getText().toString().trim();
         if (!(mUserType == LocalUserInfo.USER_TYPE_PERSONAL)) {
             if (TextUtils.isEmpty(connectName)) {
-                Toast.makeText(getContext(), getString(R.string.tip_connect_name_input), Toast.LENGTH_SHORT).show();
+                showToast(getString(R.string.tip_connect_name_input));
                 return;
             }
             if (TextUtils.isEmpty(connectPhone)) {
-                Toast.makeText(getContext(), getString(R.string.tip_connect_phone_input), Toast.LENGTH_SHORT).show();
+                showToast(getString(R.string.tip_connect_phone_input));
                 return;
+            }
+            if (!PhoneUtils.isMobileNumber(connectPhone)) {
+                showToast(getString(R.string.please_input_correct_phone));
             }
         }
         String urlJson = "";
         if (TextUtils.isEmpty(mAvatarUrl)) {
-            Toast.makeText(getContext(), getString(R.string.tip_auth_data_update), Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.tip_auth_data_update));
             return;
         } else {
             JSONArray jsonArray = new JSONArray();
