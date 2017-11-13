@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -133,7 +132,6 @@ public class NewsDetailActivity extends BaseActivity implements PageLoadingListe
 
     @Override
     public void immerseStatusBar() {
-        ImmerseStatusBar.myStatusBar(this);
         ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
     }
 
