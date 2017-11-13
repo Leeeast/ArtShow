@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff">
+    android:background="#fff5fafc">
 
 
     <ImageView
@@ -36,6 +36,7 @@
         <RelativeLayout
 
             android:layout_width="match_parent"
+            android:background="#ffffffff"
             android:layout_height="@dimen/DIMEN_47PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
             android:layout_marginRight="@dimen/DIMEN_15PX">
