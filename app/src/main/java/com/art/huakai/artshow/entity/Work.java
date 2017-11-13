@@ -31,6 +31,33 @@ public class Work {
     private int rounds;
     private int status;
     private long createTime;
+    private String expenseDescpt;
+    private String expenseUnit;
+    private String seatingDescpt;
+
+    public String getExpenseDescpt() {
+        return expenseDescpt;
+    }
+
+    public void setExpenseDescpt(String expenseDescpt) {
+        this.expenseDescpt = expenseDescpt;
+    }
+
+    public String getExpenseUnit() {
+        return expenseUnit;
+    }
+
+    public void setExpenseUnit(String expenseUnit) {
+        this.expenseUnit = expenseUnit;
+    }
+
+    public String getSeatingDescpt() {
+        return seatingDescpt;
+    }
+
+    public void setSeatingDescpt(String seatingDescpt) {
+        this.seatingDescpt = seatingDescpt;
+    }
 
     public String getId() {
         return id;

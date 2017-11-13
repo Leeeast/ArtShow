@@ -156,6 +156,7 @@
                     android:text="元/天"
                     android:clickable="false"
                     android:focusable="false"
+                    android:visibility="gone"
                     android:textColor="#ff1a1a1c"
                     android:textSize="@dimen/DIMEN_10PX" />
 

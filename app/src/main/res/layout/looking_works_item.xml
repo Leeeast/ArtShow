@@ -155,6 +155,7 @@
                     android:focusable="false"
                     android:maxLines="1"
                     android:text="元/场"
+                    android:visibility="gone"
                     android:textColor="#ff797c87"
                     android:textSize="@dimen/DIMEN_10PX" />
 
