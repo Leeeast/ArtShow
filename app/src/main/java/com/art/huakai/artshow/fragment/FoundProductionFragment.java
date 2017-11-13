@@ -301,7 +301,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
         if (type == 1) {
-            View content = mLayoutInflater.inflate(R.layout.found_theatre_whole_ranking_popuwindow_item, null);
+            View content = mLayoutInflater.inflate(R.layout.found_product_whole_ranking_popuwindow_item, null);
             if (complexRankingRule == 1) {
                 content.findViewById(R.id.iv_one).setVisibility(View.VISIBLE);
                 TextView view = (TextView) content.findViewById(R.id.tv_one);
