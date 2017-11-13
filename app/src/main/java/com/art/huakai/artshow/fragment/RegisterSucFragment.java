@@ -11,6 +11,7 @@ import com.art.huakai.artshow.activity.DataUploadActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ConfirmDialog;
+import com.art.huakai.artshow.entity.LocalUserInfo;
 
 /**
  * 账户类型选择Fragment
@@ -61,6 +62,7 @@ public class RegisterSucFragment extends BaseFragment implements View.OnClickLis
                 getActivity().finish();
                 break;
             case R.id.btn_commit_data:
+                LocalUserInfo.getInstance().setAuthenStatus(0);
                 Bundle bundle = new Bundle();
                 bundle.putString(DataUploadActivity.PARAMS_FROM, DataUploadFragment.FROM_LOGIN);
                 invokActivity(getContext(), DataUploadActivity.class, bundle, JumpCode.FLAG_REQ_DATA_UPLOAD);
