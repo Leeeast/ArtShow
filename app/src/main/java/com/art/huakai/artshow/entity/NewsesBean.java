@@ -22,6 +22,15 @@ public class NewsesBean implements Serializable {
     private String description;
     private String authName;
     private long createTime;
+    private String timeDescpt;
+
+    public String getTimeDescpt() {
+        return timeDescpt;
+    }
+
+    public void setTimeDescpt(String timeDescpt) {
+        this.timeDescpt = timeDescpt;
+    }
 
     public String getId() {
         return id;

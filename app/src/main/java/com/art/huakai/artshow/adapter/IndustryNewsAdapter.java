@@ -134,7 +134,8 @@ public class IndustryNewsAdapter extends RecyclerView.Adapter {
             }
             try {
                 if(0!=list.get(position).getCreateTime()){
-                    typeTwoViewHolder.tv_update_time.setText(DateUtil.transTime(list.get(position ).getCreateTime()+"","yyyy年MM月dd"));
+//                    typeTwoViewHolder.tv_update_time.setText(DateUtil.transTime(list.get(position ).getCreateTime()+"","yyyy年MM月dd"));
+                    typeTwoViewHolder.tv_update_time.setText(list.get(position).getTimeDescpt());
                 }
             }catch (Exception e){
 
