@@ -93,6 +93,7 @@ public class CooperateFragment extends BaseFragment implements SmartRecyclerview
         params.put("size", String.valueOf(Constant.COUNT_PER_PAGE));
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
+        LogUtil.i(TAG, "params=" + params);
         RequestUtil.request(true, Constant.URL_ENROLL_PAGE, params, 30, new RequestUtil.RequestListener() {
 
             @Override

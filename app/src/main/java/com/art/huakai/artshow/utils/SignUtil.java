@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -19,8 +20,13 @@ public class SignUtil {
                 String value = params.get(next);
                 sign += "&" + next + "=" + value;
             }
-            sign = sign + "Yowj10w%";
-            return MD5.getMD5(sign.getBytes());
+            try {
+                sign = sign + "Yowj1Ow%";
+                return MD5.getMD5(sign.getBytes());
+                //return MD5.md5(sign);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

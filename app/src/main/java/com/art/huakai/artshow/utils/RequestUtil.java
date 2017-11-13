@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Map;
+import java.util.TreeMap;
 
 import okhttp3.Call;
 
@@ -54,6 +55,17 @@ public class RequestUtil {
      * @param listener  请求回调
      */
     public static RequestCall request(boolean isPost, String url, Map<String, String> params, int requestId, RequestListener listener) {
+        if (params != null) {
+            String sign = params.get("sign");
+            if (TextUtils.isEmpty(sign)) {
+                String signNew = SignUtil.getSign(params);
+                params.put("sign", signNew);
+            }
+        } else {
+            params = new TreeMap<>();
+            String sign = SignUtil.getSign(params);
+            params.put("sign", sign);
+        }
         if (isPost) {
             return postRequest(url, params, requestId, listener);
         } else {
@@ -63,7 +75,6 @@ public class RequestUtil {
 
     /**
      * 请求统一封装
-     *
      *
      * @param url       请求连接
      * @param params    参数
@@ -93,7 +104,7 @@ public class RequestUtil {
                         int code = jsonObject.optInt("code");
                         String msg = jsonObject.optString("msg");
                         String data = jsonObject.optString("data");
-                        int  totalCount=jsonObject.optInt("totalCount");
+                        int totalCount = jsonObject.optInt("totalCount");
                         if (ResponseCodeCheck.checkResponseCode(code)) {
                             listener.onSuccess(true, data, code, totalCount);
                         } else {
@@ -204,8 +215,6 @@ public class RequestUtil {
     }
 
 
-
-
     /**
      * 请求统一封装
      *
@@ -216,6 +225,17 @@ public class RequestUtil {
      * @param listener  请求回调
      */
     public static RequestCall requestList(boolean isPost, String url, Map<String, String> params, int requestId, RequestListListener listener) {
+        if (params != null) {
+            String sign = params.get("sign");
+            if (TextUtils.isEmpty(sign)) {
+                String signNew = SignUtil.getSign(params);
+                params.put("sign", signNew);
+            }
+        } else {
+            params = new TreeMap<>();
+            String sign = SignUtil.getSign(params);
+            params.put("sign", sign);
+        }
         if (isPost) {
             return postRequestList(url, params, requestId, listener);
         } else {

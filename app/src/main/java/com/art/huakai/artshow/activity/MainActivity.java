@@ -104,6 +104,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         params.put("system", "android");
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
+        LogUtil.i(TAG, "params=" + params);
         RequestUtil.request(true, Constant.URL_CLIENT_UPGRADE, params, 100, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
