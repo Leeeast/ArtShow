@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -8,12 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.dialog.StaffIntroduceDialog_ViewBinding;
 import com.art.huakai.artshow.entity.TalentBean;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
@@ -81,6 +84,13 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
                 typeOneViewHolder.tv_professional_name.setText(talent.getName());
                 typeOneViewHolder.tv_majors.setText(str);
                 typeOneViewHolder.tv_subside_organ.setText(talent.getAgency());
+                if(talent.getAuthentication()==0){
+                    typeOneViewHolder.tv_auth.setVisibility(View.INVISIBLE);
+                    typeOneViewHolder.iv_auth.setVisibility(View.INVISIBLE);
+                }else{
+                    typeOneViewHolder.tv_auth.setVisibility(View.VISIBLE);
+                    typeOneViewHolder.iv_auth.setVisibility(View.VISIBLE);
+                }
             }
 
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +120,8 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
         private LinearLayout ll_whole;
         private TextView tv_majors;
         private TextView tv_subside_organ;
+        private TextView tv_auth;
+        private ImageView  iv_auth;
         public TypeOneViewHolder(View itemView) {
             super(itemView);
             tv_professional_name= (TextView) itemView.findViewById(R.id.tv_professional_name);
@@ -117,6 +129,8 @@ public class LookingProfessionalAdapter extends  RecyclerView.Adapter{
             ll_whole= (LinearLayout) itemView.findViewById(R.id.ll_whole);
             tv_majors= (TextView) itemView.findViewById(R.id.tv_majors);
             tv_subside_organ= (TextView) itemView.findViewById(R.id.tv_subside_organ);
+            iv_auth= (ImageView) itemView.findViewById(R.id.iv_auth);
+            tv_auth= (TextView) itemView.findViewById(R.id.tv_auth);
 
         }
     }
