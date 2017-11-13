@@ -319,8 +319,15 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_one).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    complexRankingRule = 1;
-                    tvComplexRanking.setText("费用由高到低");
+                    if(complexRankingRule ==1){
+                        complexRankingRule=0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 1;
+                        tvComplexRanking.setText("费用由高到低");
+                    }
+
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -332,8 +339,15 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    complexRankingRule = 2;
-                    tvComplexRanking.setText("费用由低到高");
+                    if(complexRankingRule ==2){
+                        complexRankingRule=0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 2;
+                        tvComplexRanking.setText("费用由低到高");
+                    }
+
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -345,8 +359,15 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    complexRankingRule = 3;
-                    tvComplexRanking.setText("座位数由高到低");
+                    if(complexRankingRule ==3){
+                        complexRankingRule=0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 3;
+                        tvComplexRanking.setText("座位数由高到低");
+                    }
+
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -358,8 +379,14 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    complexRankingRule = 4;
-                    tvComplexRanking.setText("座位数由低到高");
+                    if(complexRankingRule ==4){
+                        complexRankingRule=0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 4;
+                        tvComplexRanking.setText("座位数由低到高");
+                    }
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }

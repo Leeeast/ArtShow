@@ -327,8 +327,15 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_one).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tvComplexRanking.setText("费用由高到低");
-                    complexRankingRule = 1;
+                    if(complexRankingRule==1){
+                        complexRankingRule = 0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 1;
+                        tvComplexRanking.setText("费用由高到低");
+                    }
+
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -340,8 +347,15 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tvComplexRanking.setText("费用由低到高");
-                    complexRankingRule = 2;
+                    if(complexRankingRule==2){
+                        complexRankingRule = 0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 2;
+                        tvComplexRanking.setText("费用由低到高");
+                    }
+
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -353,8 +367,15 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tvComplexRanking.setText("人数由高到低");
-                    complexRankingRule = 3;
+                    if(complexRankingRule==3){
+                        complexRankingRule = 0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 3;
+                        tvComplexRanking.setText("人数由高到低");
+                    }
+
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -366,8 +387,13 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tvComplexRanking.setText("人数由低到高");
-                    complexRankingRule = 4;
+                    if(complexRankingRule==4){
+                        complexRankingRule = 0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 4;
+                        tvComplexRanking.setText("人数由低到高");
+                    }
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
