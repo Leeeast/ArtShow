@@ -21,6 +21,7 @@ import com.art.huakai.artshow.dialog.TakePhotoDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.UserInfo;
 import com.art.huakai.artshow.utils.GsonTools;
+import com.art.huakai.artshow.utils.IdNumberUtil;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
 import com.art.huakai.artshow.utils.PhoneUtils;
@@ -214,15 +215,19 @@ public class DataUploadFragment extends BaseFragment implements View.OnClickList
         //TODO 有时间做个身份证校验正则
         String identifyID = edtIdentityNumber.getText().toString().trim();
         if (TextUtils.isEmpty(identifyID)) {
-            if (mUserType == LocalUserInfo.USER_TYPE_PERSONAL) {
-                //身份证校验
-            } else {
-
-            }
             String tipIdentifyIDInput = mUserType == LocalUserInfo.USER_TYPE_PERSONAL ? getString(R.string.tip_identifyid_input_personal) :
                     getString(R.string.tip_identifyid_input_institution);
             Toast.makeText(getContext(), tipIdentifyIDInput, Toast.LENGTH_SHORT).show();
             return;
+        }
+        if (mUserType == LocalUserInfo.USER_TYPE_PERSONAL) {
+            //身份证校验
+            if (!IdNumberUtil.strongVerifyIdNumber(identifyID)) {
+                showToast(getString(R.string.tip_error_id));
+                return;
+            }
+        } else {
+
         }
         String connectName = edtIdentityConnectName.getText().toString().trim();
         String connectPhone = edtIdentityConnectPhone.getText().toString().trim();

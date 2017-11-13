@@ -105,6 +105,7 @@
     <string name="tip_identifyid_input_institution">请输入代码</string>
     <string name="tip_connect_name_input">请输入姓名</string>
     <string name="tip_connect_phone_input">请输入电话号码</string>
+    <string name="tip_error_id">身份证号格式错误，请确认</string>
 
     <string name="cancel">取消</string>
     <string name="true_choose">确认选择</string>

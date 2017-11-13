@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 showFragment(CooperateFragment.TAG_FRAGMENT);
                 break;
             case R.id.rdobtn_me:
-                ImmerseStatusBar.myStatusBar(this);
+                ImmerseStatusBar.StatusBarDarkMode(this, mStatusBarType);
                 ImmerseStatusBar.setImmerseStatusBar(this, R.color.transparent);
                 showFragment(MeFragment.TAG_FRAGMENT);
                 break;
