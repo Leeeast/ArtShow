@@ -42,8 +42,8 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="2017青戏节最全排期"
-                android:textColor="#ff555555"
-                android:textSize="@dimen/DIMEN_14PX" />
+                android:textColor="#ff333333"
+                android:textSize="@dimen/DIMEN_16PX" />
 
             <TextView
                 android:id="@+id/tv_subtitle"
@@ -67,7 +67,7 @@
                 android:maxLines="1"
                 android:text="刚刚"
                 android:textColor="#ff999999"
-                android:textSize="@dimen/DIMEN_13PX" />
+                android:textSize="@dimen/DIMEN_12PX" />
 
         </LinearLayout>
     </LinearLayout>
