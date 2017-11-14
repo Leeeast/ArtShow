@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -642,7 +641,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
 
         if (theatrefee == 1) {
-            params.put("expenseMin", "30000");
+            params.put("expenseMax", "30000");
         } else if (theatrefee == 2) {
             params.put("expenseMin", "30000");
             params.put("expenseMax", "50000");
