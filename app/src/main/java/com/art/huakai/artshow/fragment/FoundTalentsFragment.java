@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.fragment;
 
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -578,7 +577,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         } else if (yearPosition == 6) {
             params.put("ageMin", "60");
         }
-        if (!TextUtils.isEmpty(collegeName) && collegeName.equals("不限")) {
+        if (!TextUtils.isEmpty(collegeName) && !collegeName.equals("不限")) {
             params.put("school", collegeName);
         }
         if (complexRankingRule == 1) {
