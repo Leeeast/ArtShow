@@ -404,7 +404,7 @@
     <string name="project_start_time_tip">请选择时间</string>
     <string name="project_member_add">+&#160;&#160;添加新成员</string>
     <string name="project_member_info">成员信息</string>
-    <string name="project_member_title">头衔</string>
+    <string name="project_member_title">职位/角色</string>
     <string name="project_member_intro">成员介绍</string>
     <string name="tip_project_cover_suc">项目封面上传成功</string>
     <string name="tip_project_cover_fail">项目封面上传失败</string>
