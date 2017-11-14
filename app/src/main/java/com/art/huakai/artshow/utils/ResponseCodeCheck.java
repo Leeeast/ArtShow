@@ -90,7 +90,9 @@ public class ResponseCodeCheck {
                 showToast(ShowApplication.getAppContext().getString(R.string.response_code_4000));
                 break;
             case CODE_4001:
-                showToast(ShowApplication.getAppContext().getString(R.string.response_code_4001));
+                Toast.makeText(ShowApplication.getAppContext(),
+                        ShowApplication.getAppContext().getString(R.string.response_code_4001),
+                        Toast.LENGTH_LONG).show();
                 LocalUserInfo.getInstance().setAccessToken(null);
                 Intent intentService = new Intent(ShowApplication.getAppContext(), ReLoginService.class);
                 ShowApplication.getAppContext().startService(intentService);
