@@ -552,13 +552,13 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         } else if (theatrefee == 2) {
             params.put("expenseMin", "30000");
             params.put("expenseMax", "50000");
-        } else if (theatrefee == 2) {
+        } else if (theatrefee == 3) {
             params.put("expenseMin", "50000");
             params.put("expenseMax", "80000");
-        } else if (theatrefee == 2) {
+        } else if (theatrefee == 4) {
             params.put("expenseMin", "80000");
             params.put("expenseMax", "100000");
-        } else if (theatrefee == 2) {
+        } else if (theatrefee == 5) {
             params.put("expenseMin", "100000");
         }
         if (!(monthPosition == 0 || monthPosition == -1)) {
