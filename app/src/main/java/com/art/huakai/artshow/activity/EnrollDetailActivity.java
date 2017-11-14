@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -385,6 +384,7 @@ public class EnrollDetailActivity extends BaseActivity implements PageLoadingLis
         params.put("id", mEnrollId);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
+        LogUtil.i(TAG, "params=" + params);
         if (!pageLoading.isShowing() && !this.isFinishing()) {
             pageLoading.show();
         }
