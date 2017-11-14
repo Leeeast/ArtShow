@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseDialogFragment;
+import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.entity.InfoBaseResp;
 import com.art.huakai.artshow.utils.Util;
@@ -30,12 +31,16 @@ import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.share.WbShareHandler;
 import com.sina.weibo.sdk.utils.Utility;
+import com.tencent.connect.share.QQShare;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 import java.net.URL;
 
@@ -54,6 +59,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
     private IWXAPI wxapi;
     private ShowProgressDialog showProgressDialog;
     private WbShareHandler mShareHandler;
+    private Tencent mTencent;
 
     public static ShareDialog newInstence(String title, String url) {
         ShareDialog typeConfirmDialog = new ShareDialog();
@@ -249,8 +255,68 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
 
     @OnClick(R.id.fly_share_qq)
     public void shareQQ() {
-        showToast("攻城狮正在努力开发中");
+        QQshare(getContext(), mUrl);
+//        Bundle bundle = new Bundle();
+//        //这条分享消息被好友点击后的跳转URL。
+//        bundle.putString(mUrl, "http://connect.qq.com/");
+//        //分享的标题。注：PARAM_TITLE、PARAM_IMAGE_URL、PARAM_SUMMARY不能全为空，最少必须有一个是有值的。
+//        bundle.putString(Constants.PARAM_TITLE, "我在测试");
+//        //分享的图片URL
+//        bundle.putString(Constants.PARAM_IMAGE_URL, "http://img3.cache.netease.com/photo/0005/2013-03-07/8PBKS8G400BV0005.jpg");
+//        //分享的消息摘要，最长50个字
+//        bundle.putString(QQShare.SHARE_TO_QQ_SUMMARY, "测试");
+//        //手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
+//        bundle.putString(Constants.PARAM_APPNAME, "??我在测试");
+//        //标识该消息的来源应用，值为应用名称+AppId。
+//        bundle.putString(Constants.PARAM_APP_SOURCE, "星期几" + AppId);
+//        mTencent.shareToQQ(this, bundle, listener);
     }
+
+    public void QQshare(Context context, String shareUrl) {
+        if (mTencent == null) {
+            mTencent = Tencent.createInstance(Constant.QQ_APPID, ShowApplication.getAppContext());
+        }
+        Bundle bundle = new Bundle();
+        //这条分享消息被好友点击后的跳转URL。
+        bundle.putString(QQShare.SHARE_TO_QQ_TARGET_URL, shareUrl);
+        //分享的标题。注：PARAM_TITLE、PARAM_IMAGE_URL、PARAM_ SUMMARY不能全为空，最少必须有一个是有值的。
+        bundle.putString(QQShare.SHARE_TO_QQ_TITLE, mTitle);
+        //分享的图片URL
+//        if (bitmapForShare != null) {
+//            bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, ImageUrl);
+//        } else {
+//            bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_URL,
+//                    "http://show.sina.com.cn/images/SinaShow.ico");
+//        }
+        //bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, "file:///android_asset/icon_share_img.png");
+        //分享的消息摘要，最长50个字
+        bundle.putString(QQShare.SHARE_TO_QQ_SUMMARY, getContext().getString(R.string.tip_share_url_des));
+        //手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
+        bundle.putString(QQShare.SHARE_TO_QQ_APP_NAME, getString(R.string.app_name));
+        //标识该消息的来源应用，值为应用名称+AppId。
+        //bundle.putString(QQShare.SHARE_TO_QQ_APP_SOURCE, "星期几" + AppId);
+        //bundle.putInt(QQShare.SHARE_TO_QQ_IMAGE_URL, "http://sina.show.com");
+        bundle.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+
+        mTencent.shareToQQ((Activity) context, bundle, new IUiListener() {
+            @Override
+            public void onComplete(Object var1) {
+                showToast(getString(R.string.share_success));
+            }
+
+            @Override
+            public void onError(UiError var1) {
+                showToast(getString(R.string.share_fail));
+            }
+
+            @Override
+            public void onCancel() {
+                showToast(getString(R.string.share_cancel));
+            }
+        });
+
+    }
+
 
     @OnClick(R.id.fly_share_sina_weibo)
     public void shareSinaWeibo() {
@@ -328,6 +394,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
+        mTencent.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

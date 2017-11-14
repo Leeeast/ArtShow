@@ -5,6 +5,8 @@ package com.art.huakai.artshow.constant;
  */
 
 public class Constant {
+    //QQ app_id
+    public static final String QQ_APPID = "101440642";
     //微信appid
     public static final String WEIXIN_APPID = "wxcb35ca4b49a33ec0";
     //主页再次按返回按钮，退出程序，时间间隔
