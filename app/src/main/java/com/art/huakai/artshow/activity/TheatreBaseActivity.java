@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +16,6 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreInfoChangeEvent;
 import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
-import com.art.huakai.artshow.utils.CitySelectUtil;
 import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.PhoneUtils;
@@ -206,11 +204,7 @@ public class TheatreBaseActivity extends BaseActivity {
             showToast(getString(R.string.tip_theatre_input_price));
             return;
         }
-        if (mPoiItem == null) {
-            if (!TextUtils.isEmpty(tvLiveCity.getText().toString())) {
-                showToast(getString(R.string.tip_theatre_address_reselect));
-                return;
-            }
+        if (mPoiItem == null || TextUtils.isEmpty(theatreInstance.getRegionId())) {
             showToast(getString(R.string.tip_resume_region_city));
             return;
         }
@@ -244,9 +238,13 @@ public class TheatreBaseActivity extends BaseActivity {
         params.put("seating", theatreSeatCount);
         params.put("coordinate", mAddressLongitude + "," + mAddressLatitude);
         params.put("address", theatreDetailAddress);
-        params.put("pcode", mPoiItem.getProvinceCode());
-        params.put("citycode", mPoiItem.getCityCode());
-        params.put("adcode", mPoiItem.getAdCode());
+        if (mPoiItem == null) {
+            params.put("regionId", theatreInstance.getRegionId());
+        } else {
+            params.put("pcode", mPoiItem.getProvinceCode());
+            params.put("citycode", mPoiItem.getCityCode());
+            params.put("adcode", mPoiItem.getAdCode());
+        }
         params.put("expense", theatreColoPrice);
         params.put("linkman", theatreConnectName);
         params.put("linkTel", theatreConnectPhone);
