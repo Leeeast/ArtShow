@@ -230,7 +230,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
         String url = Constant.URL_KEYWORD_SEARCH_NEWS;
         Log.e(TAG, "getKeywordSearchAllMessage: url==" + url);
         Log.e(TAG, "getKeywordSearchAllMessage: params==" + params.toString());
-        RequestUtil.request( url, params, 113, new RequestUtil.RequestListener() {
+        RequestUtil.request(url, params, 113, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (ivLoading == null) return;

@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.ShowApplication;
-import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.okhttp.callback.StringCallback;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
@@ -82,6 +81,17 @@ public class RequestUtil {
      * @param listener  请求回调
      */
     public static RequestCall request(String url, Map<String, String> params, int requestId, final RequestListener listener) {
+        if (params != null) {
+            String sign = params.get("sign");
+            if (TextUtils.isEmpty(sign)) {
+                String signNew = SignUtil.getSign(params);
+                params.put("sign", signNew);
+            }
+        } else {
+            params = new TreeMap<>();
+            String sign = SignUtil.getSign(params);
+            params.put("sign", sign);
+        }
         RequestCall build = OkHttpUtils
                 .get()
                 .url(url)
