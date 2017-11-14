@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff5fafc"
-   >
+    android:background="@color/app_bg_light">
 
     <ImageView
         android:id="@+id/iv_loading"
@@ -12,7 +11,6 @@
         android:scaleType="fitXY"
         android:src="@mipmap/loading_gray"
         android:visibility="visible" />
-
 
     <ImageView
         android:id="@+id/iv_no_content"
@@ -41,8 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_47PX"
             android:layout_marginLeft="@dimen/DIMEN_15PX"
-            android:background="#ffffffff"
-            android:layout_marginRight="@dimen/DIMEN_15PX">
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:background="#ffffffff">
 
             <LinearLayout
                 android:id="@+id/ll_complex_ranking"
