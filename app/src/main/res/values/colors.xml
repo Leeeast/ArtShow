@@ -112,7 +112,7 @@
     <color name="app_subtitle">#ff4990e2</color>
     <color name="colorSeekBarDefault">#c3c3c3</color>
     <color name="app_bg_white">#ffffffff</color>
-    <color name="app_bg_light">fff5fafc</color>
+    <color name="app_bg_light">#fff5fafc</color>
 
     <color name="fab_bgtint">#ffE02422</color>
     <color name="fab_bgtint_p">#ff00ff00</color>
