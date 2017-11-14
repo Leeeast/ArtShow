@@ -492,6 +492,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             tv_no_request.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    tvSkillChoose.setText("不限");
                     others = 0;
                     tv_others.setTextColor(0xffe93c2c);
                     tv_others.setBackgroundResource(R.drawable.red_rectang);
