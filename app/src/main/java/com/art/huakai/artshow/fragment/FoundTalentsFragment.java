@@ -582,10 +582,10 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         }
         if (complexRankingRule == 1) {
             params.put("order", "age");
-            params.put("order", "desc");
+            params.put("orderType", "desc");
         } else if (complexRankingRule == 2) {
             params.put("order", "age");
-            params.put("order", "asc");
+            params.put("orderType", "asc");
         }
         params.put("page", page + "");
         String sign = SignUtil.getSign(params);
