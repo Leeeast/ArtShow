@@ -235,6 +235,10 @@ public class AccountInfoActivity extends BaseActivity {
                     break;
             }
         }
+        if (requestCode == JumpCode.FLAG_REQ_DATA_UPLOAD) {
+            String authDes = AuthStatusUtil.getAuthDes();
+            tvAuthStatus.setText(authDes);
+        }
     }
 
     /**

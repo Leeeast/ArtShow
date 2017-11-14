@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
@@ -19,8 +18,6 @@ import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
-import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.entity.RegUserInfo;
 import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.LoginUtil;
@@ -35,7 +32,8 @@ import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import okhttp3.Call;
 
@@ -142,7 +140,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                     getResources().getColor(R.color.register_new),
                     getResources().getColor(R.color.login_light));// 传入了文字颜色值
             timeCount.start();
-            HashMap<String, String> params = new HashMap<>();
+            Map<String, String> params = new TreeMap<>();
             params.put("mobile", phoneNum);
             String sign = SignUtil.getSign(params);
             params.put("sign", sign);
@@ -205,7 +203,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             return;
         }
         pwd = MD5.getMD5(pwd.getBytes());
-        HashMap<String, String> params = new HashMap<>();
+        Map<String, String> params = new TreeMap<>();
         params.put("mobile", phoneNum);
         params.put("password", pwd);
         params.put("verifyCode", verifyCode);
@@ -259,7 +257,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                     getResources().getColor(R.color.register_new),
                     getResources().getColor(R.color.login_light));// 传入了文字颜色值
             timeCount.start();
-            HashMap<String, String> params = new HashMap<>();
+            Map<String, String> params = new TreeMap<>();
             params.put("receiver", phoneNum);
             params.put("method", "sms");
             RequestUtil.request(false, Constant.URL_GET_VERIFY_CODE, params, 11, new RequestUtil.RequestListener() {

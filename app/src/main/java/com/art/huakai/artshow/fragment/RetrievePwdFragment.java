@@ -25,7 +25,8 @@ import com.art.huakai.artshow.widget.SmartToast;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import okhttp3.Call;
 
@@ -139,7 +140,7 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
                     getResources().getColor(R.color.register_new),
                     getResources().getColor(R.color.login_light));// 传入了文字颜色值
             timeCount.start();
-            HashMap<String, String> params = new HashMap<>();
+            Map<String, String> params = new TreeMap<>();
             params.put("mobile", phoneNum);
             String sign = SignUtil.getSign(params);
             params.put("sign", sign);
@@ -182,7 +183,7 @@ public class RetrievePwdFragment extends BaseFragment implements View.OnClickLis
                     getResources().getColor(R.color.register_new),
                     getResources().getColor(R.color.login_light));// 传入了文字颜色值
             timeCount.start();
-            HashMap<String, String> params = new HashMap<>();
+            Map<String, String> params = new TreeMap<>();
             params.put("receiver", phoneNum);
             params.put("method", "sms");
             RequestUtil.request(false, Constant.URL_GET_VERIFY_CODE, params, 11, new RequestUtil.RequestListener() {

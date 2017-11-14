@@ -4,14 +4,12 @@ import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
-import com.art.huakai.artshow.eventbus.LoginEvent;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.LogUtil;
@@ -141,6 +139,7 @@ public class AccountNameChangeActivity extends BaseActivity {
                         SharePreUtil.getInstance().storeUserInfo(localUserInfo);
                         EventBus.getDefault().post(new NameChangeEvent(name));
                         showToast(getString(R.string.change_name_suc));
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                         showToast(getString(R.string.tip_data_parsing_failure));

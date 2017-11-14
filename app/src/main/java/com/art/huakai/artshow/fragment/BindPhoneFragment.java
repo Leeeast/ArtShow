@@ -27,7 +27,6 @@ import com.art.huakai.artshow.utils.SignUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -213,7 +212,7 @@ public class BindPhoneFragment extends BaseFragment {
                     getResources().getColor(R.color.register_new),
                     getResources().getColor(R.color.login_light));// 传入了文字颜色值
             timeCount.start();
-            HashMap<String, String> params = new HashMap<>();
+            Map<String, String> params = new TreeMap<>();
             params.put("receiver", phoneNum);
             params.put("method", "sms");
             RequestUtil.request(false, Constant.URL_GET_VERIFY_CODE, params, 11, new RequestUtil.RequestListener() {
