@@ -134,7 +134,7 @@
     <string name="tip_set_name_org">请输机构名称</string>
     <string name="tip_data_parsing_failure">数据解析失败</string>
     <string name="tip_mobile_unregister">未发现该号码请先注册</string>
-    <string name="tip_mobile_registered">该手机号码已经被占用</string>
+    <string name="tip_mobile_registered">该手机号码已经注册</string>
     <string name="tip_data_parsing_exception">数据异常，请返回登录</string>
     <string name="tip_file_path_unexists">文件不存在，请修重新选择图片</string>
     <string name="tip_illegal_argument_exception">请传入Activity或Fragment</string>
