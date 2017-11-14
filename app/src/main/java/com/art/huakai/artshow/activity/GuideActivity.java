@@ -1,9 +1,11 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.BaseActivity;
+import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.DataProvider;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.art.huakai.artshow.widget.SimpleGuideBanner;
@@ -49,6 +51,14 @@ public class GuideActivity extends BaseActivity {
             @Override
             public void onJumpClick() {
                 startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onJumpLogin() {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(MainActivity.PARAMS_GUIDE_LOGIN, true);
+                invokActivity(GuideActivity.this, MainActivity.class, bundle, JumpCode.FLAG_REQ_MAIN_LOGIN);
                 finish();
             }
         });

@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -44,6 +45,8 @@ import okhttp3.Call;
  */
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
+    public static final String PARAMS_GUIDE_LOGIN = "PARAMS_GUIDE_LOGIN";
+
     protected FragmentManager fragmentManager;
     protected FragmentTransaction ft;
     @BindView(R.id.rdobtn_show_circle)
@@ -62,6 +65,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private boolean isValid = true;
     private RadioGroup radioGroup;
     private int mStatusBarType;
+    private boolean isJump2Login = false;
 
     public int getWholeItemPosition() {
         if (isValid) {
@@ -91,6 +95,14 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void initData() {
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            isJump2Login = extras.getBoolean(PARAMS_GUIDE_LOGIN, false);
+            if (isJump2Login) {
+                invokActivity(this, LoginActivity.class, null, JumpCode.FLAG_REQ_MAIN_LOGIN);
+            }
+        }
         fragmentManager = getSupportFragmentManager();
         updateUserInfo();
         checkUpdate();

@@ -11,23 +11,40 @@
         fresco:failureImage="@mipmap/loading_fail"
         fresco:failureImageScaleType="centerInside"
         fresco:placeholderImage="@color/pic_loading_bg"
-        fresco:placeholderImageScaleType="fitXY"/>
+        fresco:placeholderImageScaleType="fitXY" />
 
-    <TextView
-        android:id="@+id/tv_jump"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lly_jump"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:background="@drawable/btn_login_selected"
-        android:paddingBottom="8dp"
-        android:paddingLeft="38dp"
-        android:paddingRight="38dp"
-        android:paddingTop="8dp"
-        android:text="@string/btn_start"
-        android:textColor="@color/whiteff"
-        android:textSize="15sp"
-        android:visibility="gone" />
+        android:layout_marginBottom="@dimen/DIMEN_96PX"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_login"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/DIMEN_150PX"
+            android:layout_height="@dimen/DIMEN_48PX"
+            android:background="@drawable/shape_bg_red"
+            android:gravity="center"
+            android:text="@string/me_unlogin"
+            android:textColor="@color/whiteff"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/btn_jump"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/DIMEN_150PX"
+            android:layout_height="@dimen/DIMEN_48PX"
+            android:layout_marginLeft="@dimen/DIMEN_9PX"
+            android:background="@drawable/border_bg_red"
+            android:gravity="center"
+            android:text="@string/jump_auth"
+            android:textColor="@color/app_common_red"
+            android:textSize="17sp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

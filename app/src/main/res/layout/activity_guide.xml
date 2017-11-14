@@ -9,6 +9,7 @@
         android:id="@+id/sgbanner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        banner:bb_barPaddingLeft="8dp"
+        banner:bb_indicatorSelectColor="@color/app_common_red"
+        banner:bb_indicatorUnselectColor="@color/blackd7"
         banner:bb_isLoopEnable="false" />
 </FrameLayout>
