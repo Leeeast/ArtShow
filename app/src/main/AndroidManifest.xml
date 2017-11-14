@@ -266,6 +266,8 @@
             android:name="com.art.huakai.artshow.activity.AllNewsShowActivity"
             android:screenOrientation="portrait" />
 
+        <service android:name=".service.ReLoginService" />
+
     </application>
 
 </manifest>

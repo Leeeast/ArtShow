@@ -150,7 +150,7 @@
     <string name="response_code_200">success</string>
     <string name="response_code_240">账户不存在</string>
     <string name="response_code_4000">参数签名错误</string>
-    <string name="response_code_4001">令牌过期或无效</string>
+    <string name="response_code_4001">令牌过期，请重新登录</string>
     <string name="response_code_4002">系统内部错误</string>
     <string name="response_code_4003">请求参数错误</string>
     <string name="response_code_4004">验证码错误</string>

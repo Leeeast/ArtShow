@@ -1,9 +1,12 @@
 package com.art.huakai.artshow.utils;
 
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.base.ShowApplication;
+import com.art.huakai.artshow.entity.LocalUserInfo;
+import com.art.huakai.artshow.service.ReLoginService;
 
 /**
  * Created by lidongliang on 2017/10/3.
@@ -88,6 +91,9 @@ public class ResponseCodeCheck {
                 break;
             case CODE_4001:
                 showToast(ShowApplication.getAppContext().getString(R.string.response_code_4001));
+                LocalUserInfo.getInstance().setAccessToken(null);
+                Intent intentService = new Intent(ShowApplication.getAppContext(), ReLoginService.class);
+                ShowApplication.getAppContext().startService(intentService);
                 break;
             case CODE_4002:
                 showToast(ShowApplication.getAppContext().getString(R.string.response_code_4002));
