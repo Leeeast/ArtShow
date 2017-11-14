@@ -204,7 +204,7 @@ public class TheatreBaseActivity extends BaseActivity {
             showToast(getString(R.string.tip_theatre_input_price));
             return;
         }
-        if (mPoiItem == null || TextUtils.isEmpty(theatreInstance.getRegionId())) {
+        if (mPoiItem == null && TextUtils.isEmpty(theatreInstance.getRegionId())) {
             showToast(getString(R.string.tip_resume_region_city));
             return;
         }
