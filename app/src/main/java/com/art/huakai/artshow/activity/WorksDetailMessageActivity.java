@@ -33,8 +33,6 @@ import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.Staff;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
-import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
-import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailPoltFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
@@ -187,27 +185,15 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
         }
         tvTheatreName.setText(worksDetailBean.getTitle());
-        tvFee.setText(worksDetailBean.getExpenseDescpt()+worksDetailBean.getExpenseUnit());
+        tvFee.setText(worksDetailBean.getExpenseDescpt() + worksDetailBean.getExpenseUnit());
         tvProducers.setText(worksDetailBean.getLinkman());
         tvActorNumber.setText(worksDetailBean.getPeopleNum() + "人");
         tvCity.setText(worksDetailBean.getRegionName());
-        if (worksDetailBean.getSeatingRequir() <= 400) {
-            tvThratreSize.setText("小剧场");
-            tvTheatreKind.setText("小剧场");
-        } else if (400 < worksDetailBean.getSeatingRequir() && worksDetailBean.getSeatingRequir() <= 800) {
-            tvThratreSize.setText("中剧场");
-            tvTheatreKind.setText("中剧场");
-        } else if (800 < worksDetailBean.getSeatingRequir() && worksDetailBean.getSeatingRequir() <= 1500) {
-            tvThratreSize.setText("大剧场");
-            tvTheatreKind.setText("大剧场");
-        } else if (1500 < worksDetailBean.getSeatingRequir()) {
-            tvThratreSize.setText("超大剧场");
-            tvTheatreKind.setText("超大剧场");
-        }
+        tvTheatreKind.setText(worksDetailBean.getClassifyName());
         tvShowTime.setText(worksDetailBean.getShowLast() + "min");
         tvAlreadyShowTimes.setText(worksDetailBean.getViewTimes() + "场");
         try {
-            if (0 != worksDetailBean.getPremiereTime()&&0 != worksDetailBean.getPerformanceEndDate()) {
+            if (0 != worksDetailBean.getPremiereTime() && 0 != worksDetailBean.getPerformanceEndDate()) {
                 tvShowUsefulTime.setText(DateUtil.transTime(worksDetailBean.getPerformanceBeginDate() + "", "yyyy.M.d") + "～" + DateUtil.transTime(worksDetailBean.getPerformanceEndDate() + "", "yyyy.M.d"));
             }
         } catch (Exception e) {
