@@ -314,8 +314,14 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_one).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    complexRankingRule = 1;
-                    tvComplexRanking.setText("年龄由高到低");
+                    if(complexRankingRule==1){
+                        complexRankingRule = 0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 1;
+                        tvComplexRanking.setText("年龄由高到低");
+                    }
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
@@ -327,8 +333,14 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    complexRankingRule = 2;
-                    tvComplexRanking.setText("年龄由低到高");
+                    if(complexRankingRule==2){
+                        complexRankingRule = 0;
+                        tvComplexRanking.setText("综合排序");
+                    }else{
+                        complexRankingRule = 2;
+                        tvComplexRanking.setText("年龄由低到高");
+                    }
+
                     if (popupWindow != null && popupWindow.isShowing()) {
                         popupWindow.dismiss();
                     }
