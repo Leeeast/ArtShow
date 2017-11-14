@@ -548,7 +548,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             params.put("seatingMin", "1500");
         }
         if (theatrefee == 1) {
-            params.put("expenseMin", "30000");
+            params.put("expenseMax", "30000");
         } else if (theatrefee == 2) {
             params.put("expenseMin", "30000");
             params.put("expenseMax", "50000");
