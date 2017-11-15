@@ -133,6 +133,7 @@ public class KeywordSearchNewsActivity extends BaseActivity implements View.OnCl
         recyclerView.setLoadingListener(this);
         ivDelete.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
+        tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText("行业资讯-搜索");
         uiHandler.postDelayed(new Runnable() {
             @Override

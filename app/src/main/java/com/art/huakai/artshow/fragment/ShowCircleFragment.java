@@ -371,7 +371,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //              实现屏蔽recyclerview的滑动效果
             rcvIndustryNews.setNestedScrollingEnabled(false);
 //              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            LinearItemDecoration itemDecoration = new LinearItemDecoration(10);
+            LinearItemDecoration itemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
             rcvIndustryNews.addItemDecoration(itemDecoration);
             rcvIndustryNews.setLayoutManager(industryNewsLayoutManager);
             rcvIndustryNews.setAdapter(industryNewsAdapter);
@@ -400,7 +400,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //              实现屏蔽recyclerview的滑动效果
             rcvSix.setNestedScrollingEnabled(false);
 //              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            LinearItemDecoration itemDecoration = new LinearItemDecoration(10);
+            LinearItemDecoration itemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
             rcvSix.addItemDecoration(itemDecoration);
             rcvSix.setLayoutManager(industryNewsLayoutManagerTwo);
             rcvSix.setAdapter(industryNewsAdapterTwo);
@@ -416,7 +416,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             }
             rcvCooperation.setNestedScrollingEnabled(false);
             if (null == cooperationItemDecoration) {
-                cooperationItemDecoration = new LinearItemDecoration(10);
+                cooperationItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_14PX));
             }
             cooperationAdapter.setOnItemClickListener(new CooperationOpportunitiesAdapter.OnItemClickListener() {
                 @Override
@@ -445,7 +445,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             }
 //        rcvWorks.setNestedScrollingEnabled(false);
             if (null == worksItemDecorationThree) {
-                worksItemDecorationThree = new LinearItemDecoration(10);
+                worksItemDecorationThree = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
             }
             excellentWorksAdapter.setOnItemClickListener(new ExcellentWorksAdapter.OnItemClickListener() {
                 @Override
@@ -472,7 +472,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 theatreLayoutManagerFour = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
             if (null == theatreItemDecoration) {
-                theatreItemDecoration = new LinearItemDecoration(10);
+                theatreItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
             }
             recommendTheaterAdapter.setOnItemClickListener(new RecommendTheaterAdapter.OnItemClickListener() {
                 @Override
@@ -500,7 +500,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 professionalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
             if (null == professionalItemDecoration) {
-                professionalItemDecoration = new LinearItemDecoration(10);
+                professionalItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
             }
             professionalPersonAdapter.setOnItemClickListener(new ProfessionalPersonAdapter.OnItemClickListener() {
                 @Override

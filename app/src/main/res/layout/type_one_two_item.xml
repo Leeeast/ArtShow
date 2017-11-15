@@ -16,7 +16,7 @@
         <com.art.huakai.artshow.widget.ChinaShowImageView
             android:id="@+id/sdv"
             android:layout_width="0dp"
-            android:layout_height="@dimen/DIMEN_76PX"
+            android:layout_height="@dimen/DIMEN_91PX"
             fresco:actualImageScaleType="fitXY"
             fresco:placeholderImageScaleType="fitXY"
             android:clickable="false"
