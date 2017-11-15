@@ -119,6 +119,8 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     TextView tvShowUsefulTime;
     @BindView(R.id.tv_actor_detail)
     TextView tvActorDetail;
+    @BindView(R.id.tv_unit)
+    TextView tvUnit;
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
     private String mProjectId;
@@ -187,7 +189,8 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
         }
         tvTheatreName.setText(worksDetailBean.getTitle());
-        tvFee.setText(worksDetailBean.getExpenseDescpt() + worksDetailBean.getExpenseUnit());
+        tvFee.setText(worksDetailBean.getExpenseDescpt()  );
+        tvUnit.setText(worksDetailBean.getExpenseUnit());
         tvProducers.setText(worksDetailBean.getLinkman());
         tvActorNumber.setText(worksDetailBean.getPeopleNum() + "人");
         tvCity.setText(worksDetailBean.getRegionName());

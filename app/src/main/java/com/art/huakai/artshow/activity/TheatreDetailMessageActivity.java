@@ -34,7 +34,6 @@ import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.TheatreDetailBean;
 import com.art.huakai.artshow.entity.TheatreDetailInfo;
 import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
-import com.art.huakai.artshow.fragment.ErrorFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailDesFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
@@ -117,6 +116,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     LinearLayout llCheckMapArea;
     @BindView(R.id.ll_check_schedule_area)
     LinearLayout llCheckScheduleArea;
+    @BindView(R.id.tv_unit)
+    TextView tvUnit;
 
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
@@ -214,7 +215,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         }
         tvTheatreName.setText(theatreDetailBean.getName());
 
-        tvFee.setText(theatreDetailBean.getExpenseDescpt() + theatreDetailBean.getExpenseUnit());
+        tvFee.setText(theatreDetailBean.getExpenseDescpt() );
+        tvUnit.setText(theatreDetailBean.getExpenseUnit());
         tvSeatCount.setText(theatreDetailBean.getSeatingDescpt());
 //        tvWeight.setText(talentDetailBean.getWeight());
 //        tvHeight.setText(talentDetailBean.getHeight());
