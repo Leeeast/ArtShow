@@ -134,3 +134,12 @@
 
 -dontwarn com.google.android.gms.internal.zzhu
 -keep class com.google.android.gms.internal.** { *; }
+
+#---------QQ share start-------------
+-keep class com.tencent.open.TDialog$*
+-keep class com.tencent.open.TDialog$* {*;}
+-keep class com.tencent.open.PKDialog
+-keep class com.tencent.open.PKDialog {*;}
+-keep class com.tencent.open.PKDialog$*
+-keep class com.tencent.open.PKDialog$* {*;}
+#---------QQ share end-------------
