@@ -42,6 +42,8 @@ import com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.sina.weibo.sdk.share.WbShareHandler;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.Tencent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -135,10 +137,10 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
     private void setData() {
 
-        if(talentDetailBean.getAuthentication()==0){
+        if (talentDetailBean.getAuthentication() == 0) {
             tvAuthentication.setVisibility(View.INVISIBLE);
             ivAuthentication.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             tvAuthentication.setVisibility(View.VISIBLE);
             ivAuthentication.setVisibility(View.VISIBLE);
         }
@@ -425,5 +427,15 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_QQ_SHARE || requestCode == Constants.REQUEST_QZONE_SHARE) {
+            if (resultCode == Constants.ACTIVITY_OK && shareDialog != null) {
+                Tencent.handleResultData(data, shareDialog);
+            }
+        }
     }
 }

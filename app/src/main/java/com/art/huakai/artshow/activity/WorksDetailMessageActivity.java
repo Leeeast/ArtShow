@@ -49,6 +49,8 @@ import com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.sina.weibo.sdk.share.WbShareHandler;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.Tencent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -478,6 +480,16 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_QQ_SHARE || requestCode == Constants.REQUEST_QZONE_SHARE) {
+            if (resultCode == Constants.ACTIVITY_OK && shareDialog != null) {
+                Tencent.handleResultData(data, shareDialog);
+            }
         }
     }
 }

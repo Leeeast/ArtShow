@@ -42,6 +42,8 @@ import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sina.weibo.sdk.share.WbShareHandler;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.Tencent;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -418,6 +420,11 @@ public class EnrollDetailActivity extends BaseActivity implements PageLoadingLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_QQ_SHARE || requestCode == Constants.REQUEST_QZONE_SHARE) {
+            if (resultCode == Constants.ACTIVITY_OK && shareDialog != null) {
+                Tencent.handleResultData(data, shareDialog);
+            }
+        }
     }
 
     @Override

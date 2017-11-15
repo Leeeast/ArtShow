@@ -196,6 +196,7 @@ public class EnrollApplyActivity extends BaseActivity implements SmartRecyclervi
                 }
                 if (isSuccess) {
                     showToast(getString(R.string.tip_enroll_commit_suc));
+                    finish();
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
 

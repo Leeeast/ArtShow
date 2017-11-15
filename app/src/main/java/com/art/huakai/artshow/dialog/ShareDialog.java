@@ -1,6 +1,7 @@
 package com.art.huakai.artshow.dialog;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -9,13 +10,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 
 import com.art.huakai.artshow.R;
+import com.art.huakai.artshow.activity.EnrollDetailActivity;
 import com.art.huakai.artshow.base.BaseDialogFragment;
 import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.constant.Constant;
@@ -51,7 +57,7 @@ import butterknife.OnClick;
  * Created by lidongliang on 2017/10/1.
  */
 
-public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
+public class ShareDialog extends BaseDialogFragment implements WbShareCallback, IUiListener {
     public static final String PARAMS_TITLE = "PARAMS_TITLE";
     public static final String PARAMS_URL = "PARAMS_URL";
     private String mTitle;
@@ -71,7 +77,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
     }
 
     /**
-     * 主创微博相关
+     * 注册微博相关
      *
      * @param activity
      * @return
@@ -107,7 +113,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
 
     @Override
     public int getLayoutID() {
-        return R.layout.dialog_share;
+        return R.layout.dialog_share_new;
     }
 
     @Override
@@ -120,41 +126,54 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
 
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = new Dialog(getActivity(), R.style.ShareStyle);
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.getAttributes().windowAnimations = R.style.base_dialog;
+        dialogWindow.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+
+        Window window = getActivity().getWindow();
+        window.setBackgroundDrawableResource(R.color.share_bg);
+        return dialog;
+    }
+
     @OnClick(R.id.btn_cancle)
     public void btnCancel() {
         this.dismiss();
     }
 
-    @OnClick(R.id.tv_url_copy)
-    public void urlCopy() {
-        if (!TextUtils.isEmpty(mUrl)) {
-            ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-            // 创建普通字符型ClipData
-            ClipData mClipData = ClipData.newPlainText("SHARE", mUrl);
-            // 将ClipData内容放到系统剪贴板里。
-            cm.setPrimaryClip(mClipData);
-            showToast(getString(R.string.tip_share_copy_suc));
-        } else {
-            showToast(getString(R.string.tip_share_url_err));
-        }
-    }
+//    @OnClick(R.id.tv_url_copy)
+//    public void urlCopy() {
+//        if (!TextUtils.isEmpty(mUrl)) {
+//            ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//            // 创建普通字符型ClipData
+//            ClipData mClipData = ClipData.newPlainText("SHARE", mUrl);
+//            // 将ClipData内容放到系统剪贴板里。
+//            cm.setPrimaryClip(mClipData);
+//            showToast(getString(R.string.tip_share_copy_suc));
+//        } else {
+//            showToast(getString(R.string.tip_share_url_err));
+//        }
+//    }
 
-    @OnClick(R.id.tv_url_open)
-    public void urlOpenWidthBrowser() {
-        try {
-            if (!TextUtils.isEmpty(mUrl)) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(mUrl);
-                intent.setData(content_url);
-                getContext().startActivity(intent);
-            } else {
-                showToast(getString(R.string.tip_share_url_err));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @OnClick(R.id.tv_url_open)
+//    public void urlOpenWidthBrowser() {
+//        try {
+//            if (!TextUtils.isEmpty(mUrl)) {
+//                Intent intent = new Intent();
+//                intent.setAction("android.intent.action.VIEW");
+//                Uri content_url = Uri.parse(mUrl);
+//                intent.setData(content_url);
+//                getContext().startActivity(intent);
+//            } else {
+//                showToast(getString(R.string.tip_share_url_err));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @OnClick(R.id.fly_share_wechat)
     public void shareWechat() {
@@ -298,22 +317,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
         //bundle.putInt(QQShare.SHARE_TO_QQ_IMAGE_URL, "http://sina.show.com");
         bundle.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
 
-        mTencent.shareToQQ((Activity) context, bundle, new IUiListener() {
-            @Override
-            public void onComplete(Object var1) {
-                showToast(getString(R.string.share_success));
-            }
-
-            @Override
-            public void onError(UiError var1) {
-                showToast(getString(R.string.share_fail));
-            }
-
-            @Override
-            public void onCancel() {
-                showToast(getString(R.string.share_cancel));
-            }
-        });
+        mTencent.shareToQQ((Activity) context, bundle, this);
 
     }
 
@@ -389,14 +393,6 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
         }
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
-        mTencent.onActivityResult(requestCode, resultCode, data);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -437,5 +433,20 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback {
         if (showProgressDialog.isShowing()) {
             showProgressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onComplete(Object o) {
+        showToast(getString(R.string.share_success));
+    }
+
+    @Override
+    public void onError(UiError uiError) {
+        showToast(getString(R.string.share_fail));
+    }
+
+    @Override
+    public void onCancel() {
+        showToast(getString(R.string.share_cancel));
     }
 }
