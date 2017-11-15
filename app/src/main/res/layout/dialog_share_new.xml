@@ -20,7 +20,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_65PX"
+            android:layout_height="@dimen/DIMEN_62PX"
             android:orientation="horizontal">
 
             <FrameLayout
@@ -30,8 +30,8 @@
                 android:layout_weight="1.0">
 
                 <ImageView
-                    android:layout_width="@dimen/DIMEN_65PX"
-                    android:layout_height="@dimen/DIMEN_65PX"
+                    android:layout_width="@dimen/DIMEN_62PX"
+                    android:layout_height="@dimen/DIMEN_62PX"
                     android:layout_gravity="center"
                     android:background="@mipmap/share_wechat_big" />
             </FrameLayout>
@@ -43,8 +43,8 @@
                 android:layout_weight="1.0">
 
                 <ImageView
-                    android:layout_width="@dimen/DIMEN_65PX"
-                    android:layout_height="@dimen/DIMEN_65PX"
+                    android:layout_width="@dimen/DIMEN_62PX"
+                    android:layout_height="@dimen/DIMEN_62PX"
                     android:layout_gravity="center"
                     android:background="@mipmap/share_moment_big" />
             </FrameLayout>
@@ -56,8 +56,8 @@
                 android:layout_weight="1.0">
 
                 <ImageView
-                    android:layout_width="@dimen/DIMEN_65PX"
-                    android:layout_height="@dimen/DIMEN_65PX"
+                    android:layout_width="@dimen/DIMEN_62PX"
+                    android:layout_height="@dimen/DIMEN_62PX"
                     android:layout_gravity="center"
                     android:background="@mipmap/share_qq_big" />
             </FrameLayout>
@@ -69,8 +69,8 @@
                 android:layout_weight="1.0">
 
                 <ImageView
-                    android:layout_width="@dimen/DIMEN_65PX"
-                    android:layout_height="@dimen/DIMEN_65PX"
+                    android:layout_width="@dimen/DIMEN_62PX"
+                    android:layout_height="@dimen/DIMEN_62PX"
                     android:layout_gravity="center"
                     android:background="@mipmap/share_weibo_big" />
             </FrameLayout>
