@@ -148,15 +148,16 @@
                     android:focusable="false"
                     android:textSize="@dimen/DIMEN_22PX" />
                 <TextView
+                    android:id="@+id/tv_unit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:layout_marginLeft="@dimen/DIMEN_3PX"
                     android:maxLines="1"
-                    android:text="元/天"
+
                     android:clickable="false"
                     android:focusable="false"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:textColor="#ff1a1a1c"
                     android:textSize="@dimen/DIMEN_10PX" />
 

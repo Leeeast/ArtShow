@@ -77,7 +77,8 @@ public class KeywordSearchWorksAdapter extends  RecyclerView.Adapter{
 
                 }
 //                typeOneViewHolder.tv_works_fee.setText(work.getExpense()+"");
-                typeOneViewHolder.tv_works_fee.setText(work.getExpenseDescpt()+work.getExpenseUnit());
+                typeOneViewHolder.tv_works_fee.setText(work.getExpenseDescpt());
+                typeOneViewHolder.tv_unit.setText(work.getExpenseUnit());
                 typeOneViewHolder.tv_works_name.setText(work.getTitle());
             }
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +111,7 @@ public class KeywordSearchWorksAdapter extends  RecyclerView.Adapter{
         private TextView tv_actor_number;
         private TextView tv_show_time;
         private TextView tv_works_fee;
+        private TextView tv_unit;
         public TypeOneViewHolder(View itemView) {
             super(itemView);
             tv_works_name= (TextView) itemView.findViewById(R.id.tv_works_name);
@@ -118,6 +120,7 @@ public class KeywordSearchWorksAdapter extends  RecyclerView.Adapter{
             tv_actor_number= (TextView) itemView.findViewById(R.id.tv_actor_number);
             tv_show_time= (TextView) itemView.findViewById(R.id.tv_show_time);
             tv_works_fee= (TextView) itemView.findViewById(R.id.tv_works_fee);
+            tv_unit= (TextView) itemView.findViewById(R.id.tv_unit);
         }
     }
 

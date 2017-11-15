@@ -72,7 +72,8 @@ public class KeywordSearchTheatreAdapter extends  RecyclerView.Adapter{
                 typeOneViewHolder.tv_seat_number.setText(theatre.getSeatingDescpt());
                 typeOneViewHolder.tv_thratre_location.setText(theatre.getRegionName());
 //                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpense()+"");
-                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpenseUnit()+theatre.getExpenseUnit());
+                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpenseDescpt());
+                typeOneViewHolder.tv_unit.setText(theatre.getExpenseUnit());
             }
 
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +106,7 @@ public class KeywordSearchTheatreAdapter extends  RecyclerView.Adapter{
         private TextView tv_seat_number;
         private TextView tv_thratre_location;
         private TextView tv_thratre_rent;
+        private TextView tv_unit;
         public TypeOneViewHolder(View itemView) {
             super(itemView);
             tv_thratre_name= (TextView) itemView.findViewById(R.id.tv_thratre_name);
@@ -113,6 +115,7 @@ public class KeywordSearchTheatreAdapter extends  RecyclerView.Adapter{
             tv_seat_number= (TextView) itemView.findViewById(R.id.tv_seat_number);
             tv_thratre_location= (TextView) itemView.findViewById(R.id.tv_thratre_location);
             tv_thratre_rent= (TextView) itemView.findViewById(R.id.tv_thratre_rent);
+            tv_unit= (TextView) itemView.findViewById(R.id.tv_unit);
         }
     }
 

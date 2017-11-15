@@ -147,6 +147,7 @@
                     android:textSize="@dimen/DIMEN_22PX" />
 
                 <TextView
+                    android:id="@+id/tv_unit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/DIMEN_3PX"
@@ -154,8 +155,8 @@
                     android:clickable="false"
                     android:focusable="false"
                     android:maxLines="1"
-                    android:text="元/场"
-                    android:visibility="gone"
+
+                    android:visibility="visible"
                     android:textColor="#ff797c87"
                     android:textSize="@dimen/DIMEN_10PX" />
 
