@@ -315,46 +315,50 @@ public class RequestUtil {
 
 
     public static RequestCall uploadLoadFile(String url, String filePath, final RequestListener listener) {
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            Toast.makeText(ShowApplication.getAppContext(), ShowApplication.getAppContext().getString(R.string.tip_file_path_unexists), Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        RequestCall build = OkHttpUtils
-                .post()
-                .addHeader("Content_Type", "multipart/form-data")
-                .url(url)
-                .addFile("file", "Screenshot_2017-10-08-17-51-24.png", file)
-                .build();
-        build.execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                listener.onFailed(call, e, id);
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                Toast.makeText(ShowApplication.getAppContext(), ShowApplication.getAppContext().getString(R.string.tip_file_path_unexists), Toast.LENGTH_SHORT).show();
+                return null;
             }
-
-            @Override
-            public void onResponse(String response, int id) {
-                if (!TextUtils.isEmpty(response)) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        int code = jsonObject.optInt("code");
-                        String msg = jsonObject.optString("msg");
-                        String data = jsonObject.optString("data");
-                        if (ResponseCodeCheck.checkResponseCode(code)) {
-                            listener.onSuccess(true, data, code, id);
-                        } else {
-                            listener.onSuccess(false, msg, code, id);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        listener.onSuccess(false, "Json data parsing exception", 0, id);
-                    }
-                } else {
-
+            RequestCall build = OkHttpUtils
+                    .post()
+                    .addHeader("Content_Type", "multipart/form-data")
+                    .url(url)
+                    .addFile("file", "Screenshot_2017-10-08-17-51-24.png", file)
+                    .build();
+            build.execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    listener.onFailed(call, e, id);
                 }
-            }
-        });
-        return build;
+
+                @Override
+                public void onResponse(String response, int id) {
+                    if (!TextUtils.isEmpty(response)) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int code = jsonObject.optInt("code");
+                            String msg = jsonObject.optString("msg");
+                            String data = jsonObject.optString("data");
+                            if (ResponseCodeCheck.checkResponseCode(code)) {
+                                listener.onSuccess(true, data, code, id);
+                            } else {
+                                listener.onSuccess(false, msg, code, id);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            listener.onSuccess(false, "Json data parsing exception", 0, id);
+                        }
+                    } else {
+
+                    }
+                }
+            });
+            return build;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

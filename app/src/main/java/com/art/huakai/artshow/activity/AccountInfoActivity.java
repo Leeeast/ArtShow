@@ -277,6 +277,7 @@ public class AccountInfoActivity extends BaseActivity {
                 if (showProgressDialog.isShowing()) {
                     showProgressDialog.dismiss();
                 }
+                showToast(getString(R.string.tip_theatre_pic_fail));
             }
         });
     }
