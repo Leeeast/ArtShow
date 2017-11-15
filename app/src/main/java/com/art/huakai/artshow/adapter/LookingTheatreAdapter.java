@@ -126,6 +126,7 @@ public class LookingTheatreAdapter extends  RecyclerView.Adapter{
         if (this.list.addAll(theatres)) {
             notifyItemRangeInserted(lastIndex, list.size());
         }
+        Log.d(TAG, "add: ");
     }
 
     public void notifyDataSetChange(ArrayList<Theatre> theatres){

@@ -105,7 +105,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private int monthPosition = -1;
     private String address;
     private String mRegionId = "";
-
+    private boolean isLoading=false;
 
     public FoundTheatreFragment() {
         // Required empty public constructor
@@ -520,7 +520,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
 
     private void getList() {
-
+        if(isLoading){
+            return;
+        }
+        isLoading=true;
         final Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_THEATRES);
         if (complexRankingRule == 1) {
@@ -577,7 +580,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         RequestUtil.request(true, Constant.URL_GET_THEATRES, params, 105, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-
+                isLoading=false;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -598,6 +601,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<Theatre>>() {
                         }.getType());
                         if (tempTheatres != null && tempTheatres.size() > 0) {
+                            Log.e(TAG, "onSuccess1111111:theatres.size()== "+theatres.size() );
                             if (theatres.size() == 0) {
                                 if (theatres.addAll(tempTheatres)) {
                                     uiHandler.removeCallbacksAndMessages(null);
@@ -605,6 +609,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                                 }
                                 page++;
                             } else {
+                                Log.e(TAG, "onSuccess2222:theatres.size()== "+theatres.size() );
                                 if (page == 1) {
                                     recyclerView.refreshComplete();
                                     theatres.clear();
@@ -612,11 +617,15 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                                         uiHandler.sendEmptyMessage(0);
                                     }
                                 } else {
+                                    Log.e(TAG, "onSuccess333333:theatres.size()== "+theatres.size() );
                                     recyclerView.loadMoreComplete();
                                     theatres.addAll(tempTheatres);
+                                    Log.e(TAG, "onSuccess444444:theatres.size()== "+theatres.size() );
                                     if (lookingWorksAdapter != null) {
-                                        lookingWorksAdapter.add(tempTheatres);
+//                                        lookingWorksAdapter.add(tempTheatres);
+                                        lookingWorksAdapter.notifyDataSetChanged();
                                     }
+                                    Log.e(TAG, "onSuccess444444:theatres.size()== "+theatres.size() );
                                 }
                                 page++;
                             }
@@ -676,6 +685,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
+                isLoading=false;
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
                 if (theatres.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");

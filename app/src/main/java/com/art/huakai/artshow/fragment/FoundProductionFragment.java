@@ -102,6 +102,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     private ArrayList <String>lists=new ArrayList<String>();
     private int monthPosition=-1;
     private ArrayList<RepertoryBean> repertorys = new ArrayList<RepertoryBean>();
+    private boolean isLoading=false;
 
     public FoundProductionFragment() {
         Log.e(TAG, "FoundProductionFragment: ");
@@ -595,6 +596,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
     private void getList() {
 
+        if(isLoading){
+            return;
+        }
+        isLoading=true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_WORKS==" + Constant.URL_GET_WORKS);
 
@@ -674,7 +679,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-
+                isLoading=false;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -710,7 +715,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                                     recyclerView.loadMoreComplete();
                                     works.addAll(tempWorks);
                                     if (lookingWorksAdapter != null) {
-                                        lookingWorksAdapter.add(tempWorks);
+//                                        lookingWorksAdapter.add(tempWorks);
+                                        lookingWorksAdapter.notifyDataSetChanged();
                                     }
                                 }
                                 page++;
@@ -773,6 +779,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                isLoading=false;
                 if (works.size() == 0) {
                     Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onSuccess: 首次加载数据失败");

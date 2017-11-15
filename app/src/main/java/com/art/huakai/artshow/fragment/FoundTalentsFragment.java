@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.PersonalDetailMessageActivity;
 import com.art.huakai.artshow.adapter.LookingProfessionalAdapter;
+import com.art.huakai.artshow.adapter.LookingWorksAdapter;
 import com.art.huakai.artshow.adapter.SkillChooseAdapter;
 import com.art.huakai.artshow.adapter.TalentFilterAdapter;
 import com.art.huakai.artshow.base.BaseFragment;
@@ -105,6 +106,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     private int page = 1;
 
     private List<SkillBean> skillBeanList = new ArrayList<SkillBean>();
+    private boolean isLoading=false;
 
     public FoundTalentsFragment() {
         // Required empty public constructor
@@ -567,7 +569,10 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
 
     private void getList() {
-
+        if(isLoading){
+            return;
+        }
+        isLoading=true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_TALENTS);
         if (!TextUtils.isEmpty(skillChildId)) {
@@ -609,6 +614,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         RequestUtil.request(true, Constant.URL_GET_TALENTS, params, 110, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                isLoading=false;
                 LogUtil.i(TAG, obj);
                 uiHandler.postDelayed(new Runnable() {
                     @Override
@@ -646,7 +652,8 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                                     recyclerView.loadMoreComplete();
                                     talentLists.addAll(tempTheatres);
                                     if (lookingWorksAdapter != null) {
-                                        lookingWorksAdapter.add(tempTheatres);
+//                                        lookingWorksAdapter.add(tempTheatres);
+                                        lookingWorksAdapter.notifyDataSetChanged();
                                     }
                                 }
                                 page++;
@@ -712,6 +719,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
+                isLoading=false;
                 if (talentLists.size() == 0) {
                     Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
