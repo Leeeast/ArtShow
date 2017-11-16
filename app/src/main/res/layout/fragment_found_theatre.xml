@@ -133,8 +133,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#ffb3b3b3"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:background="#fff5f3f1"
 
             />
 

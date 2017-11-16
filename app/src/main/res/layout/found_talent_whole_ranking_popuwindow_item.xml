@@ -8,6 +8,11 @@
     android:paddingLeft="@dimen/DIMEN_14PX"
     android:paddingRight="@dimen/DIMEN_14PX">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_1PX"
+        android:background="#fff5f3f1" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
