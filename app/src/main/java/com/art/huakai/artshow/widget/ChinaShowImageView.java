@@ -109,7 +109,7 @@ public class ChinaShowImageView extends SimpleDraweeView {
                         .setResizeOptions(new ResizeOptions(width/2,height/2))
                         .build();
                 setController(mPipelineDraweeControllerBuilder.setImageRequest(request).build());
-                setController(mPipelineDraweeControllerBuilder.setUri(uri).build());
+//                setController(mPipelineDraweeControllerBuilder.setUri(uri).build());
         } else {
             super.setImageURI(uri);
         }
