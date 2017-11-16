@@ -195,12 +195,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
             }
         });
-
-        scrollableLayout.setCurrentScrollableContainer(mFragments.get(0));
-
-
         viewpager.setCurrentItem(0);
-
         if (!TextUtils.isEmpty(theatreDetailBean.getLogo())) {
             sdv.setImageURI(Uri.parse(theatreDetailBean.getLogo()));
         }

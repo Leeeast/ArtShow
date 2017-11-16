@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
@@ -40,7 +39,6 @@ import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.listener.PageLoadingListener;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
-import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -175,8 +173,6 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
             }
         });
-
-        scrollableLayout.setCurrentScrollableContainer(mFragments.get(0));
         viewpager.setCurrentItem(0);
 
 

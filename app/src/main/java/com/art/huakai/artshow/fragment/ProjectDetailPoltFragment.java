@@ -20,7 +20,6 @@ import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.WorksDetailBean;
 import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
-import com.art.huakai.artshow.utils.DateUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -60,6 +59,7 @@ public class ProjectDetailPoltFragment extends HeaderViewPagerFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ProjectDetailPoltFragment projectDetailPoltFragment = this;
         scrollView = inflater.inflate(R.layout.fragment_project_detail_polt, container, false);
         return scrollView;
     }
@@ -155,6 +155,7 @@ public class ProjectDetailPoltFragment extends HeaderViewPagerFragment {
 
     @Override
     public View getScrollableView() {
+        ProjectDetailPoltFragment projectDetailPoltFragment = this;
         return scrollView;
     }
 

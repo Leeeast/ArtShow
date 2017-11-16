@@ -163,10 +163,6 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
             }
         });
-
-        scrollableLayout.setCurrentScrollableContainer(mFragments.get(0));
-
-
         viewpager.setCurrentItem(0);
 
         if (!TextUtils.isEmpty(talentDetailBean.getLogo())) {

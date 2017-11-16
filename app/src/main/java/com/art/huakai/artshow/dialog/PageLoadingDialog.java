@@ -11,8 +11,6 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -147,9 +145,6 @@ public class PageLoadingDialog extends ProgressDialog implements DialogInterface
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            if (mListener != null) {
-                mListener.onRetry();
-            }
             rotationAnim.start();
         } else {
             rotationAnim.cancel();
