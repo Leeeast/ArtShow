@@ -9,7 +9,8 @@
         android:id="@+id/csiv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_10PX"
-        fresco:actualImageScaleType="fitXY"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/pic_loading_bg"
         fresco:placeholderImageScaleType="fitXY"
         fresco:roundedCornerRadius="@dimen/DIMEN_4PX"
         android:clickable="true" />

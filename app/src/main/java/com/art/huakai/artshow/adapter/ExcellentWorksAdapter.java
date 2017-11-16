@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.RepertorysBean;
@@ -21,14 +19,13 @@ import java.util.List;
 /**
  * Created by lining on 17-9-7.
  */
-public class ExcellentWorksAdapter extends  RecyclerView.Adapter{
+public class ExcellentWorksAdapter extends RecyclerView.Adapter {
 
-    private static final String TAG="IndustryNewsAdapter";
+    private static final String TAG = "IndustryNewsAdapter";
 
-    private List<RepertorysBean> list ;
+    private List<RepertorysBean> list;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
-
 
 
     public ExcellentWorksAdapter(Context context, List<RepertorysBean> list) {
@@ -37,31 +34,31 @@ public class ExcellentWorksAdapter extends  RecyclerView.Adapter{
 
     }
 
-    public  void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener=onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.e(TAG, "onCreateViewHolder: 111111" );
-            View view = LayoutInflater.from(mContext).inflate(R.layout.type_three_one_item, parent, false);
-            TypeOneViewHolder typeOneViewHolder = new TypeOneViewHolder(view);
-            return typeOneViewHolder;
+        Log.e(TAG, "onCreateViewHolder: 111111");
+        View view = LayoutInflater.from(mContext).inflate(R.layout.type_three_one_item, parent, false);
+        TypeOneViewHolder typeOneViewHolder = new TypeOneViewHolder(view);
+        return typeOneViewHolder;
 
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        Log.e(TAG, "onBindViewHolder: position=="+position );
-        if (holder instanceof TypeOneViewHolder){
-            TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
+        Log.e(TAG, "onBindViewHolder: position==" + position);
+        if (holder instanceof TypeOneViewHolder) {
+            TypeOneViewHolder typeOneViewHolder = (TypeOneViewHolder) holder;
 //            typeOneViewHolder.chinaShowImageView.setImageResource(R.mipmap.test);
 
-            if(list.get(position)!=null){
-                if(!TextUtils.isEmpty(list.get(position).getLogo())){
+            if (list.get(position) != null) {
+                if (!TextUtils.isEmpty(list.get(position).getLogo())) {
 //                    typeOneViewHolder.chinaShowImageView.setImageURI(Uri.parse(list.get(position).getLogo()));
-                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX)/2,mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_190PX)/2);
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(), mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_132PX) / 2, mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_190PX) / 2);
                 }
                 typeOneViewHolder.tv_name.setText(list.get(position).getTitle());
             }
@@ -70,8 +67,8 @@ public class ExcellentWorksAdapter extends  RecyclerView.Adapter{
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(onItemClickListener!=null){
-                        Log.e(TAG, "onClick: 2222" );
+                    if (onItemClickListener != null) {
+                        Log.e(TAG, "onClick: 2222");
                         onItemClickListener.onItemClickListener(position);
                     }
                 }
@@ -81,10 +78,10 @@ public class ExcellentWorksAdapter extends  RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        if(list!=null&&list.size()>0){
-            if(list.size()>6){
-                 return 6;
-             } else{
+        if (list != null && list.size() > 0) {
+            if (list.size() > 6) {
+                return 6;
+            } else {
                 return list.size();
             }
         }
@@ -97,18 +94,17 @@ public class ExcellentWorksAdapter extends  RecyclerView.Adapter{
         private TextView tv_name;
         private ChinaShowImageView chinaShowImageView;
         private LinearLayout ll_whole;
+
         public TypeOneViewHolder(View itemView) {
             super(itemView);
-            tv_name= (TextView) itemView.findViewById(R.id.tv_name);
-            chinaShowImageView= (ChinaShowImageView) itemView.findViewById(R.id.sdv);
-            ll_whole= (LinearLayout) itemView.findViewById(R.id.ll_whole);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            chinaShowImageView = (ChinaShowImageView) itemView.findViewById(R.id.sdv);
+            ll_whole = (LinearLayout) itemView.findViewById(R.id.ll_whole);
         }
     }
 
 
-
-
-    public interface  OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClickListener(int position);
     }
 

@@ -14,7 +14,7 @@
         android:layout_height="@dimen/DIMEN_72PX"
         android:layout_marginBottom="@dimen/DIMEN_15PX"
         android:layout_marginTop="@dimen/DIMEN_15PX"
-        fresco:actualImageScaleType="centerInside"
+        fresco:actualImageScaleType="centerCrop"
         fresco:placeholderImage="@mipmap/upload_member_avatar"
         fresco:placeholderImageScaleType="centerInside" />
 

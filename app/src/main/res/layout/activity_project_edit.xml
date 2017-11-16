@@ -32,7 +32,7 @@
                 android:layout_width="@dimen/DIMEN_96PX"
                 android:layout_height="@dimen/DIMEN_96PX"
                 fresco:failureImage="@mipmap/loading_fail"
-                fresco:failureImageScaleType="centerInside"
+                fresco:failureImageScaleType="centerCrop"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/DIMEN_20PX"
                 fresco:actualImageScaleType="focusCrop"

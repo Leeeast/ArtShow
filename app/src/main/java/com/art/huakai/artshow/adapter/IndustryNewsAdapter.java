@@ -1,7 +1,6 @@
 package com.art.huakai.artshow.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.NewsesBean;
-import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.List;

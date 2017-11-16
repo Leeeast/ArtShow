@@ -4,26 +4,23 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/ll_whole_one"
         android:layout_width="@dimen/DIMEN_160PX"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        >
+        android:orientation="vertical">
 
         <com.art.huakai.artshow.widget.ChinaShowImageView
             android:id="@+id/sdv_one"
             android:layout_width="@dimen/DIMEN_160PX"
             android:layout_height="@dimen/DIMEN_91PX"
-            fresco:actualImageScaleType="fitXY"
-            android:clickable="false"
-            android:focusable="false"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@color/pic_loading_bg"
             fresco:placeholderImageScaleType="fitXY" />
 
         <TextView
@@ -31,12 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:clickable="false"
             android:ellipsize="end"
+            android:focusable="false"
             android:maxLines="1"
             android:text="20171青戏节正式上线啦"
             android:textColor="#ff333333"
-            android:clickable="false"
-            android:focusable="false"
             android:textSize="@dimen/DIMEN_16PX" />
 
         <TextView
@@ -44,10 +41,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/DIMEN_5PX"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:clickable="false"
+            android:ellipsize="end"
             android:focusable="false"
+            android:maxLines="1"
             android:text="刚刚"
             android:textColor="#ff999999"
             android:textSize="@dimen/DIMEN_12PX" />

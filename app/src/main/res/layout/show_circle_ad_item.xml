@@ -4,8 +4,8 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_155PX"
@@ -18,12 +18,12 @@
             android:id="@+id/csiv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_155PX"
-            fresco:actualImageScaleType="fitXY"
-            fresco:placeholderImageScaleType="fitXY"
-            fresco:roundedCornerRadius="@dimen/DIMEN_4PX"
             android:clickable="true"
             android:focusable="true"
-            />
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@color/pic_loading_bg"
+            fresco:placeholderImageScaleType="fitXY"
+            fresco:roundedCornerRadius="@dimen/DIMEN_4PX" />
 
 
     </RelativeLayout>

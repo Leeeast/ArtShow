@@ -10,11 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.entity.TheatersBean;
-import com.art.huakai.artshow.okhttp.request.CountingRequestBody;
 import com.art.huakai.artshow.widget.ChinaShowImageView;
 
 import java.util.List;

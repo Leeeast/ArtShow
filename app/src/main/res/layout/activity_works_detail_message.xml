@@ -42,7 +42,8 @@
                         android:layout_width="@dimen/DIMEN_120PX"
                         android:layout_height="@dimen/DIMEN_120PX"
                         android:layout_marginLeft="@dimen/DIMEN_14PX"
-                        fresco:actualImageScaleType="fitXY"
+                        fresco:actualImageScaleType="centerCrop"
+                        fresco:placeholderImage="@color/pic_loading_bg"
                         fresco:placeholderImageScaleType="fitXY"
                         fresco:roundedCornerRadius="@dimen/DIMEN_12PX" />
 

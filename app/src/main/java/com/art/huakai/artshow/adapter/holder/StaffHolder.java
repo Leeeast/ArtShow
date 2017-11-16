@@ -2,12 +2,10 @@ package com.art.huakai.artshow.adapter.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.widget.ChinaShowImageView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**

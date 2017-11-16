@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.art.huakai.artshow.widget.ChinaShowImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        fresco:actualImageScaleType="fitXY"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/pic_loading_bg"
         fresco:placeholderImageScaleType="fitXY" />
 
 
@@ -18,28 +19,27 @@
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/ll_mine"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <TextView
+            android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="文本测试"
-            android:id="@+id/text"/>
+            android:text="文本测试" />
 
         <Button
+            android:id="@+id/btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="按钮"
-            android:id="@+id/btn"/>
+            android:text="按钮" />
 
     </LinearLayout>
 
@@ -55,7 +55,6 @@
         android:lines="1"
         android:padding="8dp"
         android:textColor="#FFF"
-        tools:text="123"
         android:visibility="gone"
-        />
+        tools:text="123" />
 </FrameLayout>

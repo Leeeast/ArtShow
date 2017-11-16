@@ -16,6 +16,7 @@
         android:layout_width="@dimen/DIMEN_130PX"
         android:layout_height="match_parent"
         fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/pic_loading_bg"
         fresco:placeholderImageScaleType="fitXY"
         fresco:roundBottomLeft="true"
         fresco:roundBottomRight="false"
