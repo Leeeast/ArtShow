@@ -147,7 +147,7 @@
     <!--我的相关-->
     <color name="me_personal_line">#fff5f3f1</color>
     <color name="me_personal_des">#ff9b9b9b</color>
-    <color name="line_theatre">#ffb3b3b3</color>
+    <color name="line_theatre">#ffdddddd</color>
     <color name="theatre_title">#ff1a1a1c</color>
     <color name="theatre_content">#ff797c87</color>
     <color name="theatre_send_suc">#ff7ed321</color>

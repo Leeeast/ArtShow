@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_whole"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_cooperate_item"
-    android:padding="@dimen/DIMEN_12PX"
-    android:clickable="true"
-    android:focusable="true"
-    android:id="@+id/rl_whole"
-    >
+    android:paddingBottom="@dimen/DIMEN_12PX"
+    android:paddingLeft="@dimen/DIMEN_15PX"
+    android:paddingRight="@dimen/DIMEN_15PX"
+    android:paddingTop="@dimen/DIMEN_12PX">
 
     <LinearLayout
         android:id="@+id/ll_whole"
         android:layout_width="@dimen/DIMEN_230PX"
         android:layout_height="wrap_content"
-
-        android:orientation="vertical"
-
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_5PX"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="南山戏剧节节目招聘"
@@ -59,28 +54,24 @@
         android:id="@+id/ll"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/DIMEN_28PX"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/DIMEN_9PX"
-        android:orientation="horizontal"
+        android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ff4990e2"
-            android:textSize="@dimen/DIMEN_13PX"
             android:text="报名中"
-            />
+            android:textColor="#ff4990e2"
+            android:textSize="@dimen/DIMEN_13PX" />
 
         <View
             android:layout_width="@dimen/DIMEN_10PX"
             android:layout_height="@dimen/DIMEN_18PX"
-            android:background="@mipmap/arrow_right"
             android:layout_marginLeft="@dimen/DIMEN_3PX"
-            />
+            android:background="@mipmap/arrow_right" />
 
     </LinearLayout>
 

@@ -77,7 +77,14 @@ public class EnrollJoinAdapter extends RecyclerView.Adapter {
                     RecyclerView.LayoutParams layoutParams =
                             (RecyclerView.LayoutParams) evrollJoinHolder.rLyRootTheatre.getLayoutParams();
                     layoutParams.topMargin = evrollJoinHolder.rLyRootTheatre.
-                            getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_11PX);
+                    evrollJoinHolder.rLyRootTheatre.setLayoutParams(layoutParams);
+                } else {
+                    RecyclerView.LayoutParams layoutParams =
+                            (RecyclerView.LayoutParams) evrollJoinHolder.rLyRootTheatre.getLayoutParams();
+                    layoutParams.topMargin = evrollJoinHolder.rLyRootTheatre.
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_7PX);
+                    evrollJoinHolder.rLyRootTheatre.setLayoutParams(layoutParams);
                 }
                 evrollJoinHolder.sdvEnrollJoin.setImageURI(repertorysBean.getLogo());
                 evrollJoinHolder.tvProjectTitle.setText(repertorysBean.getTitle());

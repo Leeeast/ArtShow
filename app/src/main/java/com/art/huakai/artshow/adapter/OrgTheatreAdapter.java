@@ -69,7 +69,14 @@ public class OrgTheatreAdapter extends RecyclerView.Adapter {
                     RecyclerView.LayoutParams layoutParams =
                             (RecyclerView.LayoutParams) theatreHolder.rLyRootTheatre.getLayoutParams();
                     layoutParams.topMargin = theatreHolder.rLyRootTheatre.
-                            getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_11PX);
+                    theatreHolder.rLyRootTheatre.setLayoutParams(layoutParams);
+                } else {
+                    RecyclerView.LayoutParams layoutParams =
+                            (RecyclerView.LayoutParams) theatreHolder.rLyRootTheatre.getLayoutParams();
+                    layoutParams.topMargin = theatreHolder.rLyRootTheatre.
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_7PX);
+                    theatreHolder.rLyRootTheatre.setLayoutParams(layoutParams);
                 }
                 Theatre theatre = mlist.get(position);
                 theatreHolder.sdvTheatre.setImageURI(theatre.getLogo());

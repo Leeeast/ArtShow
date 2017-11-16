@@ -17,11 +17,11 @@
         android:id="@+id/tv_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="南山戏剧节项目招募"
-        android:textColor="@color/cooperate_item_title"
-        android:maxLines="1"
         android:layout_marginRight="@dimen/DIMEN_91PX"
         android:ellipsize="end"
+        android:maxLines="1"
+        android:text="南山戏剧节项目招募"
+        android:textColor="@color/cooperate_item_title"
         android:textSize="18sp" />
 
     <TextView
@@ -31,10 +31,10 @@
         android:layout_below="@id/tv_item_title"
         android:layout_marginRight="@dimen/DIMEN_91PX"
         android:layout_marginTop="@dimen/DIMEN_6PX"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="演出项目要求时长在60分钟以上，项目内容必须高大上，人数在5到10人之间"
         android:textColor="@color/cooperate_item_title"
-        android:maxLines="2"
-        android:ellipsize="end"
         android:textSize="14sp" />
 
     <TextView

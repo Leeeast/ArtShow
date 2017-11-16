@@ -3,12 +3,11 @@
     android:id="@+id/rly_root_theatre"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/DIMEN_15PX"
-    android:layout_marginRight="@dimen/DIMEN_15PX"
-    android:layout_marginTop="@dimen/DIMEN_15PX"
+    android:layout_marginLeft="@dimen/DIMEN_11PX"
+    android:layout_marginRight="@dimen/DIMEN_11PX"
+    android:layout_marginTop="@dimen/DIMEN_7PX"
     android:background="@drawable/shape_theatre_item"
-    android:padding="@dimen/DIMEN_15PX">
-
+    android:padding="@dimen/DIMEN_19PX">
 
     <TextView
         android:id="@+id/tv_project_title"

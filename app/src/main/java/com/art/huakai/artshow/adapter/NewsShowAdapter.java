@@ -56,14 +56,18 @@ public class NewsShowAdapter extends RecyclerView.Adapter {
         if (holder instanceof TypeOneViewHolder) {
             TypeOneViewHolder typeOneViewHolder = (TypeOneViewHolder) holder;
             if (position == 0) {
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
-                layoutParams.setMargins((int) mContext.getResources().getDimension(R.dimen.DIMEN_15PX), (int) mContext.getResources().getDimension(R.dimen.DIMEN_15PX), (int) mContext.getResources().getDimension(R.dimen.DIMEN_15PX), (int) mContext.getResources().getDimension(R.dimen.DIMEN_15PX));
+                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
+                layoutParams.topMargin = typeOneViewHolder.itemView.getResources().getDimensionPixelSize(R.dimen.DIMEN_11PX);
+                typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
+            } else {
+                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
+                layoutParams.topMargin = 0;
                 typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
             }
             if (list.get(position) != null) {
                 NewsesBean newsesBean = list.get(position);
                 if (!TextUtils.isEmpty(newsesBean.getLogo())) {
-                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX),mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_175PX));
+                    typeOneViewHolder.chinaShowImageView.setSpecificSizeImageUrl(list.get(position).getLogo(), mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_360PX), mContext.getResources().getDimensionPixelSize(R.dimen.DIMEN_175PX));
                 }
                 typeOneViewHolder.tv_news_title.setText(newsesBean.getTitle());
                 typeOneViewHolder.tv_news_time.setText(newsesBean.getCreateTime() + "");

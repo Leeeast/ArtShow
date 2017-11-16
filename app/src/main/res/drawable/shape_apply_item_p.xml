@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- bottom shadow -->
+    <!--&lt;!&ndash; bottom shadow &ndash;&gt;
     <item>
         <shape android:shape="rectangle">
-            <!-- from top to bottom -->
-            <!--<gradient-->
-            <!--android:angle="90"-->
-            <!--android:centerColor="#bbbbbb"-->
-            <!--android:endColor="#d5d5d5"-->
-            <!--android:startColor="#a9a09d" />-->
+            &lt;!&ndash; from top to bottom &ndash;&gt;
+            &lt;!&ndash;<gradient&ndash;&gt;
+            &lt;!&ndash;android:angle="90"&ndash;&gt;
+            &lt;!&ndash;android:centerColor="#bbbbbb"&ndash;&gt;
+            &lt;!&ndash;android:endColor="#d5d5d5"&ndash;&gt;
+            &lt;!&ndash;android:startColor="#a9a09d" />&ndash;&gt;
             <solid android:color="@color/black26" />
             <corners android:radius="@dimen/DIMEN_5PX" />
         </shape>
     </item>
 
-    <!-- content -->
+    &lt;!&ndash; content &ndash;&gt;
     <item android:bottom="1.5dp">
         <shape android:shape="rectangle">
             <stroke
@@ -23,6 +23,6 @@
             <solid android:color="@color/enroll_apply_item_bg" />
             <corners android:radius="@dimen/DIMEN_5PX" />
         </shape>
-    </item>
-
+    </item>-->
+    <item android:drawable="@drawable/shadows_grey" />
 </layer-list>

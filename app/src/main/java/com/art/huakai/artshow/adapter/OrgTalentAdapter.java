@@ -76,7 +76,14 @@ public class OrgTalentAdapter extends RecyclerView.Adapter {
                     RecyclerView.LayoutParams layoutParams =
                             (RecyclerView.LayoutParams) talentHolder.rLyRootTheatre.getLayoutParams();
                     layoutParams.topMargin = talentHolder.rLyRootTheatre.
-                            getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_11PX);
+                    talentHolder.rLyRootTheatre.setLayoutParams(layoutParams);
+                } else {
+                    RecyclerView.LayoutParams layoutParams =
+                            (RecyclerView.LayoutParams) talentHolder.rLyRootTheatre.getLayoutParams();
+                    layoutParams.topMargin = talentHolder.rLyRootTheatre.
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_7PX);
+                    talentHolder.rLyRootTheatre.setLayoutParams(layoutParams);
                 }
                 TalentBean talentBean = mlist.get(position);
                 talentHolder.sdvTalent.setImageURI(talentBean.getLogo());

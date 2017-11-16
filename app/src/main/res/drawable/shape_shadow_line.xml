@@ -4,7 +4,7 @@
     <gradient
         android:angle="90"
         android:endColor="#FFFFFF"
-        android:startColor="#cccccc" /><!-- 90阴影冲上，－90，阴影冲下-->
+        android:startColor="#dddddd" /><!-- 90阴影冲上，－90，阴影冲下-->
     <padding
         android:bottom="0dp"
         android:left="0dp"
@@ -13,5 +13,5 @@
 
     <stroke
         android:width="4dp"
-        android:color="@android:color/black" />
+        android:color="@color/black1f" />
 </shape>

@@ -76,7 +76,14 @@ public class OrgProjectAdapter extends RecyclerView.Adapter {
                     RecyclerView.LayoutParams layoutParams =
                             (RecyclerView.LayoutParams) projectHolder.rLyRootTheatre.getLayoutParams();
                     layoutParams.topMargin = projectHolder.rLyRootTheatre.
-                            getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX);
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_11PX);
+                    projectHolder.rLyRootTheatre.setLayoutParams(layoutParams);
+                } else {
+                    RecyclerView.LayoutParams layoutParams =
+                            (RecyclerView.LayoutParams) projectHolder.rLyRootTheatre.getLayoutParams();
+                    layoutParams.topMargin = projectHolder.rLyRootTheatre.
+                            getResources().getDimensionPixelSize(R.dimen.DIMEN_7PX);
+                    projectHolder.rLyRootTheatre.setLayoutParams(layoutParams);
                 }
                 RepertorysBean repertorysBean = mlist.get(position);
                 projectHolder.sdvProject.setImageURI(repertorysBean.getLogo());

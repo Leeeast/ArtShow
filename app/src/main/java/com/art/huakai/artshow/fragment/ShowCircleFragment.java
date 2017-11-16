@@ -311,7 +311,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                         public void run() {
                             try {
                                 pull.refreshFinish(PullToRefreshLayout.SUCCEED);
-                            }catch (Exception e){
+                            } catch (Exception e) {
 
                             }
                         }
@@ -336,7 +336,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                         public void run() {
                             try {
                                 pull.refreshFinish(PullToRefreshLayout.SUCCEED);
-                            }catch (Exception e){
+                            } catch (Exception e) {
 
                             }
                         }
@@ -373,8 +373,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //              实现屏蔽recyclerview的滑动效果
             rcvIndustryNews.setNestedScrollingEnabled(false);
 //              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            if(itemDecorationlines==null){
-                itemDecorationlines= new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
+            if (itemDecorationlines == null) {
+                itemDecorationlines = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
             }
             rcvIndustryNews.removeItemDecoration(itemDecorationlines);
             rcvIndustryNews.addItemDecoration(itemDecorationlines);
@@ -386,8 +386,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             newsDivider.setVisibility(View.GONE);
         }
 
-        Log.e(TAG, "setData:getNewsesColumn== "+homePageDetails.getNewsesColumn().size() );
-        if(homePageDetails.getNewsesColumn() != null && homePageDetails.getNewsesColumn().size() > 0){
+        Log.e(TAG, "setData:getNewsesColumn== " + homePageDetails.getNewsesColumn().size());
+        if (homePageDetails.getNewsesColumn() != null && homePageDetails.getNewsesColumn().size() > 0) {
             if (null == industryNewsAdapterTwo) {
                 industryNewsAdapterTwo = new IndustryNewsAdapter(getContext(), homePageDetails.getNewsesColumn());
             }
@@ -405,14 +405,14 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //              实现屏蔽recyclerview的滑动效果
             rcvSix.setNestedScrollingEnabled(false);
 //              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            if(itemDecorationcolumns==null){
-                itemDecorationcolumns= new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
+            if (itemDecorationcolumns == null) {
+                itemDecorationcolumns = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
             }
             rcvSix.removeItemDecoration(itemDecorationcolumns);
             rcvSix.addItemDecoration(itemDecorationcolumns);
             rcvSix.setLayoutManager(industryNewsLayoutManagerTwo);
             rcvSix.setAdapter(industryNewsAdapterTwo);
-        }else{
+        } else {
             rcvSix.setVisibility(View.GONE);
         }
 
@@ -424,7 +424,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             }
             rcvCooperation.setNestedScrollingEnabled(false);
             if (null == cooperationItemDecoration) {
-                cooperationItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_14PX));
+                cooperationItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_10PX));
             }
             cooperationAdapter.setOnItemClickListener(new CooperationOpportunitiesAdapter.OnItemClickListener() {
                 @Override

@@ -185,8 +185,8 @@
                     android:id="@+id/rcv_two"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/DIMEN_14PX"
-                    android:layout_marginRight="@dimen/DIMEN_14PX">
+                    android:layout_marginLeft="@dimen/DIMEN_11PX"
+                    android:layout_marginRight="@dimen/DIMEN_11PX">
 
                 </android.support.v7.widget.RecyclerView>
 

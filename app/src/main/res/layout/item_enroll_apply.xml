@@ -4,11 +4,12 @@
     android:id="@+id/rly_root_theatre"
     android:layout_width="match_parent"
     android:layout_height="@dimen/DIMEN_107PX"
-    android:layout_marginLeft="@dimen/DIMEN_15PX"
-    android:layout_marginRight="@dimen/DIMEN_15PX"
-    android:layout_marginTop="@dimen/DIMEN_15PX"
+    android:layout_marginLeft="@dimen/DIMEN_11PX"
+    android:layout_marginRight="@dimen/DIMEN_11PX"
+    android:layout_marginTop="@dimen/DIMEN_7PX"
     android:background="@drawable/enroll_apply_selector"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/DIMEN_4PX">
 
     <com.art.huakai.artshow.widget.ChinaShowImageView
         android:id="@+id/sdv_theatre"

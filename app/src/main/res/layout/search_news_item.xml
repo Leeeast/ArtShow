@@ -1,62 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_whole"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/DIMEN_7PX"
+    android:layout_marginLeft="@dimen/DIMEN_11PX"
+    android:layout_marginRight="@dimen/DIMEN_11PX"
+    android:background="@drawable/shape_theatre_item"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="@dimen/DIMEN_4PX">
 
-    <LinearLayout
-        android:id="@+id/ll_whole"
+    <com.art.huakai.artshow.widget.ChinaShowImageView
+        android:id="@+id/sdv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DIMEN_175PX"
+        android:clickable="false"
+        android:focusable="false"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImageScaleType="fitXY" />
+
+
+    <TextView
+        android:id="@+id/tv_news_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/DIMEN_15PX"
-        android:layout_marginLeft="@dimen/DIMEN_15PX"
-        android:layout_marginRight="@dimen/DIMEN_15PX"
-        android:background="@drawable/shape_theatre_item"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical">
+        android:layout_marginLeft="@dimen/DIMEN_10PX"
+        android:layout_marginRight="@dimen/DIMEN_10PX"
+        android:layout_marginTop="@dimen/DIMEN_14PX"
+        android:clickable="false"
+        android:ellipsize="end"
+        android:focusable="false"
+        android:maxLines="1"
+        android:text="2017青戏节正式上线啦"
+        android:textColor="#ff1a1a1c"
+        android:textSize="@dimen/DIMEN_13PX" />
 
-        <com.art.huakai.artshow.widget.ChinaShowImageView
-            android:id="@+id/sdv"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_175PX"
-            android:clickable="false"
-            android:focusable="false"
-            fresco:actualImageScaleType="fitXY"
-            fresco:placeholderImageScaleType="fitXY" />
+    <TextView
+        android:id="@+id/tv_news_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/DIMEN_12PX"
+        android:layout_marginLeft="@dimen/DIMEN_10PX"
+        android:layout_marginRight="@dimen/DIMEN_10PX"
+        android:layout_marginTop="@dimen/DIMEN_8PX"
+        android:clickable="false"
+        android:ellipsize="end"
+        android:focusable="false"
+        android:maxLines="1"
+        android:text="刚刚"
+        android:textColor="#ff797c87"
+        android:textSize="@dimen/DIMEN_11PX" />
 
-
-        <TextView
-            android:id="@+id/tv_news_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/DIMEN_10PX"
-            android:layout_marginLeft="@dimen/DIMEN_10PX"
-            android:layout_marginTop="@dimen/DIMEN_14PX"
-            android:clickable="false"
-            android:ellipsize="end"
-            android:focusable="false"
-            android:maxLines="1"
-            android:text="2017青戏节正式上线啦"
-            android:textColor="#ff1a1a1c"
-            android:textSize="@dimen/DIMEN_13PX" />
-
-        <TextView
-            android:id="@+id/tv_news_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/DIMEN_10PX"
-            android:layout_marginLeft="@dimen/DIMEN_10PX"
-            android:layout_marginTop="@dimen/DIMEN_8PX"
-            android:layout_marginBottom="@dimen/DIMEN_12PX"
-            android:clickable="false"
-            android:ellipsize="end"
-            android:focusable="false"
-            android:maxLines="1"
-            android:text="刚刚"
-            android:textColor="#ff797c87"
-            android:textSize="@dimen/DIMEN_11PX" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
