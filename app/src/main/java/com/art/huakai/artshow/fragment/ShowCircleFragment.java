@@ -176,6 +176,8 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
     final List<BannerEntity> entities = new ArrayList<>();
     private boolean isRefresh = false;
     private boolean isLoadingData = false;
+    LinearItemDecoration itemDecorationlines;
+    LinearItemDecoration itemDecorationcolumns;
 
     private Handler uiHandler = new Handler() {
         @Override
@@ -371,8 +373,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //              实现屏蔽recyclerview的滑动效果
             rcvIndustryNews.setNestedScrollingEnabled(false);
 //              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            LinearItemDecoration itemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
-            rcvIndustryNews.addItemDecoration(itemDecoration);
+            if(itemDecorationlines==null){
+                itemDecorationlines= new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
+            }
+            rcvIndustryNews.removeItemDecoration(itemDecorationlines);
+            rcvIndustryNews.addItemDecoration(itemDecorationlines);
             rcvIndustryNews.setLayoutManager(industryNewsLayoutManager);
             rcvIndustryNews.setAdapter(industryNewsAdapter);
         } else {
@@ -400,8 +405,11 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
 //              实现屏蔽recyclerview的滑动效果
             rcvSix.setNestedScrollingEnabled(false);
 //              gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            LinearItemDecoration itemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
-            rcvSix.addItemDecoration(itemDecoration);
+            if(itemDecorationcolumns==null){
+                itemDecorationcolumns= new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
+            }
+            rcvSix.removeItemDecoration(itemDecorationcolumns);
+            rcvSix.addItemDecoration(itemDecorationcolumns);
             rcvSix.setLayoutManager(industryNewsLayoutManagerTwo);
             rcvSix.setAdapter(industryNewsAdapterTwo);
         }else{
@@ -429,6 +437,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     }
                 }
             });
+            rcvCooperation.removeItemDecoration(cooperationItemDecoration);
             rcvCooperation.addItemDecoration(cooperationItemDecoration);
             rcvCooperation.setLayoutManager(cooperationLayoutManager);
             rcvCooperation.setAdapter(cooperationAdapter);
@@ -445,7 +454,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
             }
 //        rcvWorks.setNestedScrollingEnabled(false);
             if (null == worksItemDecorationThree) {
-                worksItemDecorationThree = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
+                worksItemDecorationThree = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
             }
             excellentWorksAdapter.setOnItemClickListener(new ExcellentWorksAdapter.OnItemClickListener() {
                 @Override
@@ -456,6 +465,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     invokActivity(getContext(), WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
                 }
             });
+            rcvWorks.removeItemDecoration(worksItemDecorationThree);
             rcvWorks.addItemDecoration(worksItemDecorationThree);
             rcvWorks.setLayoutManager(worksLayoutManager);
             rcvWorks.setAdapter(excellentWorksAdapter);
@@ -472,7 +482,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 theatreLayoutManagerFour = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
             if (null == theatreItemDecoration) {
-                theatreItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
+                theatreItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
             }
             recommendTheaterAdapter.setOnItemClickListener(new RecommendTheaterAdapter.OnItemClickListener() {
                 @Override
@@ -484,6 +494,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     invokActivity(getContext(), TheatreDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_THEATRE);
                 }
             });
+            rcvTheatre.removeItemDecoration(theatreItemDecoration);
             rcvTheatre.addItemDecoration(theatreItemDecoration);
             rcvTheatre.setLayoutManager(theatreLayoutManagerFour);
             rcvTheatre.setAdapter(recommendTheaterAdapter);
@@ -500,7 +511,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                 professionalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             }
             if (null == professionalItemDecoration) {
-                professionalItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_9PX));
+                professionalItemDecoration = new LinearItemDecoration(getResources().getDimensionPixelSize(R.dimen.DIMEN_8PX));
             }
             professionalPersonAdapter.setOnItemClickListener(new ProfessionalPersonAdapter.OnItemClickListener() {
                 @Override
@@ -511,6 +522,7 @@ public class ShowCircleFragment extends BaseFragment implements View.OnClickList
                     invokActivity(getContext(), PersonalDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PERSONAL);
                 }
             });
+            rcvProfesional.removeItemDecoration(professionalItemDecoration);
             rcvProfesional.addItemDecoration(professionalItemDecoration);
             rcvProfesional.setLayoutManager(professionalLayoutManager);
             rcvProfesional.setAdapter(professionalPersonAdapter);
