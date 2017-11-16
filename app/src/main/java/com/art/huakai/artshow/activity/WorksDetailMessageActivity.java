@@ -1,5 +1,6 @@
 package com.art.huakai.artshow.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.decoration.LinearItemDecoration;
+import com.art.huakai.artshow.dialog.PageLoadingDialog;
 import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.StaffIntroduceDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
@@ -36,6 +38,7 @@ import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
 import com.art.huakai.artshow.fragment.ProjectDetailPoltFragment;
 import com.art.huakai.artshow.fragment.ProjectDetailRequireFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
+import com.art.huakai.artshow.listener.PageLoadingListener;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.DateUtil;
@@ -66,7 +69,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class WorksDetailMessageActivity extends BaseActivity implements View.OnClickListener {
+public class WorksDetailMessageActivity extends BaseActivity implements View.OnClickListener, PageLoadingListener {
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
     @BindView(R.id.btn_edit)
@@ -109,12 +112,6 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     HeaderViewPager scrollableLayout;
     @BindView(R.id.ll_make_telephone)
     LinearLayout llMakeTelephone;
-    @BindView(R.id.iv_loading)
-    ImageView ivLoading;
-    @BindView(R.id.iv_no_content)
-    ImageView ivNoContent;
-    @BindView(R.id.rl_content)
-    RelativeLayout rlContent;
     @BindView(R.id.tv_show_useful_time)
     TextView tvShowUsefulTime;
     @BindView(R.id.tv_actor_detail)
@@ -129,14 +126,11 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     private String URL_TALENT_DETAL;
 
 
+    @SuppressLint("HandlerLeak")
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if (ivLoading == null) return;
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.VISIBLE);
-                ivNoContent.setVisibility(View.GONE);
                 setData();
             }
         }
@@ -146,6 +140,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     private WbShareHandler mShareHandler;
     private RequestCall requestCall;
     private List<Staff> mStaffs;
+    private PageLoadingDialog pageLoadingDialog;
 
 
     private void setData() {
@@ -189,7 +184,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
         }
         tvTheatreName.setText(worksDetailBean.getTitle());
-        tvFee.setText(worksDetailBean.getExpenseDescpt()  );
+        tvFee.setText(worksDetailBean.getExpenseDescpt());
         tvUnit.setText(worksDetailBean.getExpenseUnit());
         tvProducers.setText(worksDetailBean.getLinkman());
         tvActorNumber.setText(worksDetailBean.getPeopleNum() + "人");
@@ -274,6 +269,8 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
     @Override
     public void initData() {
+        pageLoadingDialog = new PageLoadingDialog(this);
+        pageLoadingDialog.setPageLoadingListener(this);
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -291,10 +288,6 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
     @Override
     public void initView() {
-
-        AnimUtils.rotate(ivLoading);
-        ivNoContent.setVisibility(View.GONE);
-        rlContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -327,11 +320,16 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.i(TAG, "getRepertoryClassify: " + params.toString());
+        if (!pageLoadingDialog.isShowing() && !this.isFinishing()) {
+            pageLoadingDialog.show();
+        }
         requestCall = RequestUtil.request(true, URL_TALENT_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if (ivLoading == null) return;
                 if (isSuccess) {
+                    if (pageLoadingDialog.isShowing()) {
+                        pageLoadingDialog.dismiss();
+                    }
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "onSuccess: obj=" + obj);
                         Gson gson = new Gson();
@@ -349,19 +347,14 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
+                    pageLoadingDialog.showErrorLoading();
                 }
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.GONE);
-                ivNoContent.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if (ivLoading == null) return;
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.GONE);
-                ivNoContent.setVisibility(View.VISIBLE);
+                pageLoadingDialog.showErrorLoading();
             }
         });
     }
@@ -494,5 +487,15 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
                 Tencent.handleResultData(data, shareDialog);
             }
         }
+    }
+
+    @Override
+    public void onClose() {
+        finish();
+    }
+
+    @Override
+    public void onRetry() {
+        getWorkDetail();
     }
 }

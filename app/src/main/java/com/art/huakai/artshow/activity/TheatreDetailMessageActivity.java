@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +26,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.PageLoadingDialog;
 import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.DisabledDatesBean;
@@ -37,8 +37,8 @@ import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
 import com.art.huakai.artshow.fragment.StaggerFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailDesFragment;
 import com.art.huakai.artshow.fragment.TheatreDetailParamsFragment;
+import com.art.huakai.artshow.listener.PageLoadingListener;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
-import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
@@ -70,7 +70,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
+public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener, PageLoadingListener {
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
     @BindView(R.id.tv_title)
@@ -102,12 +102,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     ImageView ivRightImg;
     @BindView(R.id.btn_edit)
     Button btnEdit;
-    @BindView(R.id.iv_loading)
-    ImageView ivLoading;
-    @BindView(R.id.iv_no_content)
-    ImageView ivNoContent;
-    @BindView(R.id.rl_content)
-    RelativeLayout rlContent;
     @BindView(R.id.lly_back)
     LinearLayout llyBack;
     @BindView(R.id.tv_location)
@@ -140,16 +134,13 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if (ivLoading == null) return;
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.VISIBLE);
-                ivNoContent.setVisibility(View.GONE);
                 setData();
 
             }
         }
     };
     private RequestCall requestCall;
+    private PageLoadingDialog pageLoading;
 
     private void initPosition() {
         mlocationClient = new AMapLocationClient(this);
@@ -215,7 +206,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         }
         tvTheatreName.setText(theatreDetailBean.getName());
 
-        tvFee.setText(theatreDetailBean.getExpenseDescpt() );
+        tvFee.setText(theatreDetailBean.getExpenseDescpt());
         tvUnit.setText(theatreDetailBean.getExpenseUnit());
         tvSeatCount.setText(theatreDetailBean.getSeatingDescpt());
 //        tvWeight.setText(talentDetailBean.getWeight());
@@ -240,6 +231,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
     @Override
     public void initData() {
+        pageLoading = new PageLoadingDialog(this);
+        pageLoading.setPageLoadingListener(this);
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
         if (intent != null) {
@@ -266,9 +259,6 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             btnEdit.setVisibility(View.GONE);
             llMakeTelephone.setVisibility(View.VISIBLE);
         }
-        AnimUtils.rotate(ivLoading);
-        ivNoContent.setVisibility(View.GONE);
-        rlContent.setVisibility(View.GONE);
         llCheckMapArea.setOnClickListener(this);
         llCheckScheduleArea.setOnClickListener(this);
     }
@@ -338,11 +328,16 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.i(TAG, "getRepertoryClassify: " + params.toString());
+        if (!pageLoading.isShowing() && !this.isFinishing()) {
+            pageLoading.show();
+        }
         requestCall = RequestUtil.request(true, URL_THEATRE_DETAL, params, 130, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if (ivLoading == null) return;
                 if (isSuccess) {
+                    if (pageLoading.isShowing()) {
+                        pageLoading.dismiss();
+                    }
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "onSuccess: obj=" + obj);
                         Gson gson = new Gson();
@@ -360,19 +355,15 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
+                    pageLoading.showErrorLoading();
                 }
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.GONE);
-                ivNoContent.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if (ivLoading == null) return;
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.GONE);
-                ivNoContent.setVisibility(View.VISIBLE);
+                pageLoading.showErrorLoading();
             }
         });
     }
@@ -535,5 +526,15 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                 Tencent.handleResultData(data, shareDialog);
             }
         }
+    }
+
+    @Override
+    public void onClose() {
+        finish();
+    }
+
+    @Override
+    public void onRetry() {
+        getTheatreDetail();
     }
 }

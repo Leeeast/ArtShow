@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
@@ -21,6 +20,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.base.HeaderViewPagerFragment;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
+import com.art.huakai.artshow.dialog.PageLoadingDialog;
 import com.art.huakai.artshow.dialog.ShareDialog;
 import com.art.huakai.artshow.dialog.TakePhoneDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
@@ -30,8 +30,8 @@ import com.art.huakai.artshow.eventbus.TalentNotifyEvent;
 import com.art.huakai.artshow.fragment.PersonalDetailAwarsFragment;
 import com.art.huakai.artshow.fragment.PersonalDetailworksFragment;
 import com.art.huakai.artshow.fragment.StaggerFragment;
+import com.art.huakai.artshow.listener.PageLoadingListener;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
-import com.art.huakai.artshow.utils.AnimUtils;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
@@ -59,7 +59,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class PersonalDetailMessageActivity extends BaseActivity implements View.OnClickListener {
+public class PersonalDetailMessageActivity extends BaseActivity implements View.OnClickListener, PageLoadingListener {
 
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
@@ -99,12 +99,6 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     HeaderViewPager scrollableLayout;
     @BindView(R.id.ll_make_telephone)
     LinearLayout llMakeTelephone;
-    @BindView(R.id.iv_loading)
-    ImageView ivLoading;
-    @BindView(R.id.iv_no_content)
-    ImageView ivNoContent;
-    @BindView(R.id.rl_content)
-    RelativeLayout rlContent;
     @BindView(R.id.tv_authentication)
     TextView tvAuthentication;
 
@@ -123,17 +117,13 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if (ivLoading == null) return;
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.VISIBLE);
-                ivNoContent.setVisibility(View.GONE);
                 setData();
-
             }
         }
     };
     private TakePhoneDialog takePhoneDialog;
     private RequestCall requestCall;
+    private PageLoadingDialog pageLoading;
 
     private void setData() {
 
@@ -218,6 +208,8 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
     @Override
     public void initData() {
+        pageLoading = new PageLoadingDialog(this);
+        pageLoading.setPageLoadingListener(this);
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
         if (intent != null) {
@@ -244,9 +236,6 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             btnEdit.setVisibility(View.GONE);
             llMakeTelephone.setVisibility(View.VISIBLE);
         }
-        AnimUtils.rotate(ivLoading);
-        ivNoContent.setVisibility(View.GONE);
-        rlContent.setVisibility(View.GONE);
 
 //        AnimUtils.rotate(ivLoading);
 //        ivNoContent.setVisibility(View.GONE);
@@ -279,11 +268,16 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         Log.i(TAG, "getRepertoryClassify: " + params.toString());
+        if (!pageLoading.isShowing() && !this.isFinishing()) {
+            pageLoading.show();
+        }
         requestCall = RequestUtil.request(true, URL_TALENT_DETAL, params, 120, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                if (ivLoading == null) return;
                 if (isSuccess) {
+                    if (pageLoading.isShowing()) {
+                        pageLoading.dismiss();
+                    }
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "objj=" + obj);
                         Gson gson = new Gson();
@@ -301,19 +295,15 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
                     }
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
+                    pageLoading.showErrorLoading();
                 }
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.GONE);
-                ivNoContent.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if (ivLoading == null) return;
-                ivLoading.setVisibility(View.GONE);
-                rlContent.setVisibility(View.GONE);
-                ivNoContent.setVisibility(View.VISIBLE);
+                pageLoading.showErrorLoading();
             }
         });
     }
@@ -437,5 +427,15 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
                 Tencent.handleResultData(data, shareDialog);
             }
         }
+    }
+
+    @Override
+    public void onClose() {
+        finish();
+    }
+
+    @Override
+    public void onRetry() {
+        getTalentDetail();
     }
 }

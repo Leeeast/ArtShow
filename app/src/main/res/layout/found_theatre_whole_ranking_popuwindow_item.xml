@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_whole"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/whiteff"
     android:orientation="vertical"
     android:paddingLeft="@dimen/DIMEN_14PX"
-    android:paddingRight="@dimen/DIMEN_14PX"
-    android:background="#ffffffff"
-    >
+    android:paddingRight="@dimen/DIMEN_14PX">
 
 
     <RelativeLayout
@@ -19,28 +15,25 @@
         android:layout_height="wrap_content">
 
 
-        
         <TextView
             android:id="@+id/tv_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_12PX"
-            android:textColor="#ff5a4b41"
-            android:text="费用由高到低"
             android:layout_marginTop="@dimen/DIMEN_15PX"
             android:clickable="true"
-            />
+            android:text="费用由高到低"
+            android:textColor="#ff5a4b41"
+            android:textSize="@dimen/DIMEN_12PX" />
 
 
         <ImageView
             android:id="@+id/iv_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/right_icon"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:visibility="gone"
-            />
+            android:src="@mipmap/right_icon"
+            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -48,8 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
         android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:background="#fff5f3f1"
-        />
+        android:background="#fff5f3f1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -59,25 +51,22 @@
             android:id="@+id/tv_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_12PX"
-            android:textColor="#ff5a4b41"
-            android:text="费用由低到高"
             android:layout_marginTop="@dimen/DIMEN_15PX"
             android:clickable="true"
-            />
+            android:text="费用由低到高"
+            android:textColor="#ff5a4b41"
+            android:textSize="@dimen/DIMEN_12PX" />
 
 
         <ImageView
             android:id="@+id/iv_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/right_icon"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:visibility="gone"
-            />
+            android:src="@mipmap/right_icon"
+            android:visibility="gone" />
     </RelativeLayout>
-
 
 
     <View
@@ -85,76 +74,65 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
         android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:background="#fff5f3f1"
-        />
+        android:background="#fff5f3f1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
 
         <TextView
             android:id="@+id/tv_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_12PX"
-            android:textColor="#ff5a4b41"
-            android:text="座位数由高到低"
             android:layout_marginTop="@dimen/DIMEN_15PX"
             android:clickable="true"
-            />
+            android:text="座位数由高到低"
+            android:textColor="#ff5a4b41"
+            android:textSize="@dimen/DIMEN_12PX" />
 
 
         <ImageView
             android:id="@+id/iv_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/right_icon"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:visibility="gone"
-            />
+            android:src="@mipmap/right_icon"
+            android:visibility="gone" />
     </RelativeLayout>
-
-
 
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
         android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:background="#fff5f3f1"
-        />
+        android:background="#fff5f3f1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-
         <TextView
             android:id="@+id/tv_four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/DIMEN_12PX"
-            android:textColor="#ff5a4b41"
-            android:text="座位数由低到高"
             android:layout_marginTop="@dimen/DIMEN_15PX"
             android:clickable="true"
-            />
-
+            android:text="座位数由低到高"
+            android:textColor="#ff5a4b41"
+            android:textSize="@dimen/DIMEN_12PX" />
 
 
         <ImageView
             android:id="@+id/iv_four"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/right_icon"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:visibility="gone"
-            />
+            android:src="@mipmap/right_icon"
+            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -162,8 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/DIMEN_1PX"
         android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:background="#ffffffff"
-        />
+        android:background="#ffffffff" />
 
 </LinearLayout>
 

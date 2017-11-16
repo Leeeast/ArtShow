@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#fff5fafc"
-        >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg_light"
+    android:orientation="vertical">
+
     <include
         android:id="@+id/include_title"
         layout="@layout/layout_title_img" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/iv_loading"
-            android:layout_centerInParent="true"
             android:layout_width="@dimen/DIMEN_100PX"
             android:layout_height="@dimen/DIMEN_100PX"
+            android:layout_centerInParent="true"
             android:scaleType="fitXY"
             android:src="@mipmap/loading_gray"
-            android:visibility="visible"
-            />
+            android:visibility="visible" />
+
         <ImageView
             android:id="@+id/iv_no_content"
             android:layout_width="@dimen/DIMEN_150PX"
             android:layout_height="@dimen/DIMEN_150PX"
-            android:src="@mipmap/loading_no_content"
-            android:scaleType="fitXY"
             android:layout_centerInParent="true"
-            android:visibility="gone"
-            />
-            <com.art.huakai.artshow.widget.SmartRecyclerview
-                android:id="@+id/rcv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/DIMEN_5PX">
-            </com.art.huakai.artshow.widget.SmartRecyclerview>
-  </RelativeLayout>
+            android:scaleType="fitXY"
+            android:src="@mipmap/loading_no_content"
+            android:visibility="gone" />
+
+        <com.art.huakai.artshow.widget.SmartRecyclerview
+            android:id="@+id/rcv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/DIMEN_5PX"></com.art.huakai.artshow.widget.SmartRecyclerview>
+    </RelativeLayout>
 
 </LinearLayout>
