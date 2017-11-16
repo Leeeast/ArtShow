@@ -4,7 +4,6 @@ package com.art.huakai.artshow.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -12,15 +11,18 @@ import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.LoginActivity;
-import com.art.huakai.artshow.activity.MainActivity;
 import com.art.huakai.artshow.activity.SetActivity;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.JumpCode;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.eventbus.ActionTypeEvent;
 import com.art.huakai.artshow.eventbus.NameChangeEvent;
+import com.art.huakai.artshow.eventbus.PullToRefreshEvent;
+import com.art.huakai.artshow.eventbus.RefreshResultEvent;
 import com.art.huakai.artshow.utils.DeviceUtils;
 import com.art.huakai.artshow.utils.LoginUtil;
+import com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout;
+import com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,7 +35,7 @@ import butterknife.BindView;
  * 我Fragment
  * Created by lidongliang on 2017/9/27.
  */
-public class MeFragment extends BaseFragment implements View.OnClickListener {
+public class MeFragment extends BaseFragment implements View.OnClickListener, PullToRefreshLayout.OnPullListener {
     //Frament添加TAG
     public static final String TAG_FRAGMENT = MeFragment.class.getSimpleName();
     public final int CODE_STATUS_UNLOGIN = 0;
@@ -42,7 +44,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private TextView tvNmae, tvType;
     private SimpleDraweeView sdvAvatar;
     @BindView(R.id.nestedscrollview)
-    NestedScrollView nestedScrollView;
+    PullableScrollView nestedScrollView;
+    @BindView(R.id.pullrefreshlayout)
+    PullToRefreshLayout pullToRefreshLayout;
 
     private int scrollDistance;
     private boolean disableScroll = false;
@@ -79,6 +83,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         rootView.findViewById(R.id.iv_setting).setOnClickListener(this);
         tvNmae.setOnClickListener(this);
         sdvAvatar.setOnClickListener(this);
+
+        pullToRefreshLayout.setPullDownEnable(true);
+        pullToRefreshLayout.setPullUpEnable(false);
+        pullToRefreshLayout.setOnPullListener(this);
     }
 
     /**
@@ -92,7 +100,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void setView() {
-        //LocalUserInfo.getInstance().setUserType(1);
         try {
             if (LoginUtil.checkUserLogin(getContext(), false)) {
                 tvNmae.setText(LocalUserInfo.getInstance().getName());
@@ -109,6 +116,25 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }
             } else {
                 switchFragment(CODE_STATUS_UNLOGIN);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateInfo() {
+        try {
+            tvNmae.setText(LocalUserInfo.getInstance().getName());
+            sdvAvatar.setImageURI(LocalUserInfo.getInstance().getDp());
+            switch (LocalUserInfo.getInstance().getUserType()) {
+                case LocalUserInfo.USER_TYPE_PERSONAL:
+                    tvType.setText(getString(R.string.account_type_personal));
+                    switchFragment(CODE_STATUS_PERSONAL);
+                    break;
+                case LocalUserInfo.USER_TYPE_INSTITUTION:
+                    tvType.setText(getString(R.string.account_type_institution));
+                    switchFragment(CODE_STATUS_INSTITUTION);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,4 +233,32 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             sdvAvatar.setImageURI("");
         }
     }
+
+    @Override
+    public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+        EventBus.getDefault().post(new PullToRefreshEvent(PullToRefreshEvent.TYPE_PULL_REFRESH));
+    }
+
+    @Override
+    public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(RefreshResultEvent event) {
+        if (event == null) {
+            return;
+        }
+        switch (event.getType()) {
+            case RefreshResultEvent.RESULT_PULL_REFRESH:
+                if (pullToRefreshLayout != null) {
+                    pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                    updateInfo();
+                }
+                break;
+            case RefreshResultEvent.RESULT_TYPE_LOADING_MORE:
+                break;
+        }
+    }
+
 }

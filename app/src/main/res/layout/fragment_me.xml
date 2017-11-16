@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nestedscrollview"
+<com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pullrefreshlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/app_bg_white"
-    android:fitsSystemWindows="false"
-    android:overScrollMode="never"
-    android:scrollbars="none">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/nestedscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/app_bg_white"
+        android:fitsSystemWindows="false"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <include layout="@layout/layout_me_head" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <include layout="@layout/layout_content_me" />
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+            <include layout="@layout/layout_me_head" />
+
+            <include layout="@layout/layout_content_me" />
+        </LinearLayout>
+    </com.art.huakai.artshow.widget.PullToRefreshScroll.PullableScrollView>
+</com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout>

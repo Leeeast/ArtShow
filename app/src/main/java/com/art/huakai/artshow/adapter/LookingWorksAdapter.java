@@ -59,11 +59,11 @@ public class LookingWorksAdapter extends  RecyclerView.Adapter{
 
         if (holder instanceof TypeOneViewHolder){
             TypeOneViewHolder typeOneViewHolder= (TypeOneViewHolder) holder;
-            if(position==0){
-                RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
-                layoutParams.setMargins((int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX));
-                typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
-            }
+//            if(position==0){
+//                RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) typeOneViewHolder.ll_whole.getLayoutParams();
+//                layoutParams.setMargins((int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX),(int)mContext.getResources().getDimension(R.dimen.DIMEN_15PX));
+//                typeOneViewHolder.ll_whole.setLayoutParams(layoutParams);
+//            }
             if(list.get(position)!=null){
                 Work work=list.get(position);
                 if(!TextUtils.isEmpty(work.getLogo())){

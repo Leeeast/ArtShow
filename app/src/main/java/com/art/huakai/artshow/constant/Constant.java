@@ -40,7 +40,7 @@ public class Constant {
     /**
      * ==========================================================
      */
-    private static boolean isTestEnv = false;
+    private static boolean isTestEnv = true;
     public static final String TEST_HOST = "http://139.224.47.213:8080";
     public static final String PRODUCE_HOST = "https://new.api.showonline.com.cn";
     public static final String HOST = isTestEnv ? TEST_HOST : PRODUCE_HOST;

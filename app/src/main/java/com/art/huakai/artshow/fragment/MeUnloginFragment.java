@@ -10,6 +10,8 @@ import android.view.View;
 import com.art.huakai.artshow.R;
 import com.art.huakai.artshow.activity.WorksDetailMessageActivity;
 import com.art.huakai.artshow.adapter.MeUnloginAdapter;
+import com.art.huakai.artshow.eventbus.PullToRefreshEvent;
+import com.art.huakai.artshow.eventbus.RefreshResultEvent;
 import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.base.BaseFragment;
 import com.art.huakai.artshow.constant.Constant;
@@ -21,8 +23,11 @@ import com.art.huakai.artshow.utils.GsonTools;
 import com.art.huakai.artshow.utils.LogUtil;
 import com.art.huakai.artshow.utils.RequestUtil;
 import com.art.huakai.artshow.utils.ResponseCodeCheck;
+import com.art.huakai.artshow.widget.PullToRefreshScroll.PullToRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +58,7 @@ public class MeUnloginFragment extends BaseFragment {
 
     @Override
     public void initData(@Nullable Bundle bundle) {
+        EventBus.getDefault().register(this);
         mRepertorysBeen = new ArrayList<>();
         mRepertorysBeen.add(null);
     }
@@ -64,9 +70,11 @@ public class MeUnloginFragment extends BaseFragment {
         requestCall = RequestUtil.request(false, Constant.URL_INDEX_REPERTORY, null, 10, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
+                EventBus.getDefault().post(new RefreshResultEvent(RefreshResultEvent.RESULT_PULL_REFRESH));
                 LogUtil.i(TAG, obj);
                 if (isSuccess) {
                     try {
+                        mRepertorysBeen.clear();
                         List<RepertorysBean> repertorysBeen = GsonTools.parseDatas(obj, RepertorysBean.class);
                         mRepertorysBeen.addAll(repertorysBeen);
                         meUnloginAdapter.notifyDataSetChanged();
@@ -81,6 +89,7 @@ public class MeUnloginFragment extends BaseFragment {
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
+                EventBus.getDefault().post(new RefreshResultEvent(RefreshResultEvent.RESULT_PULL_REFRESH));
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
             }
         });
@@ -121,8 +130,23 @@ public class MeUnloginFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (requestCall != null) {
             requestCall.cancel();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventLogin(PullToRefreshEvent event) {
+        if (event == null) {
+            return;
+        }
+        switch (event.getType()) {
+            case RefreshResultEvent.RESULT_PULL_REFRESH:
+                getRecommendRepertory();
+                break;
+            case RefreshResultEvent.RESULT_TYPE_LOADING_MORE:
+                break;
         }
     }
 }

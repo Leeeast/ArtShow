@@ -36,8 +36,10 @@
         android:layout_below="@id/sdv_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:hint="@string/me_unlogin"
         android:text="@string/me_unlogin"
         android:textColor="@color/black00"
+        android:textColorHint="@color/black00"
         android:textSize="25sp" />
 
     <TextView
