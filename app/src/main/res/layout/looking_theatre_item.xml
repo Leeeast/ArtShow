@@ -1,173 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_whole"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/DIMEN_163PX"
+    android:layout_marginBottom="@dimen/DIMEN_7PX"
+    android:layout_marginLeft="@dimen/DIMEN_11PX"
+    android:layout_marginRight="@dimen/DIMEN_11PX"
+    android:background="@drawable/shape_theatre_item"
+    android:orientation="horizontal"
+    android:padding="@dimen/DIMEN_4PX">
 
-    >
+    <com.art.huakai.artshow.widget.ChinaShowImageView
+        android:id="@+id/sdv"
+        android:layout_width="@dimen/DIMEN_130PX"
+        android:layout_height="match_parent"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:roundBottomLeft="true"
+        fresco:roundBottomRight="false"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="false"
+        fresco:roundedCornerRadius="@dimen/DIMEN_5PX" />
 
     <LinearLayout
-        android:id="@+id/ll_whole"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_163PX"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="@dimen/DIMEN_15PX"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
-        android:layout_marginRight="@dimen/DIMEN_15PX"
-        android:background="@drawable/shape_theatre_item"
-        android:orientation="horizontal"
-        >
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <com.art.huakai.artshow.widget.ChinaShowImageView
-            android:id="@+id/sdv"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            fresco:roundedCornerRadius="@dimen/DIMEN_5PX"
-            android:layout_height="match_parent"
-            fresco:actualImageScaleType="fitXY"
-            fresco:placeholderImageScaleType="fitXY"
-            fresco:roundTopLeft="true"
-            fresco:roundTopRight="false"
-            fresco:roundBottomLeft="true"
-            fresco:roundBottomRight="false"
+        <TextView
+            android:id="@+id/tv_thratre_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
             android:clickable="false"
+            android:ellipsize="end"
             android:focusable="false"
-            />
+            android:maxLines="1"
+            android:text="保利剧院"
+            android:textColor="#ff1a1a1c"
+            android:textSize="@dimen/DIMEN_19PX" />
 
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/DIMEN_15PX"
-            >
+            android:layout_marginTop="@dimen/DIMEN_18PX"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_thratre_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="保利剧院"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:textColor="#ff1a1a1c"
                 android:clickable="false"
+                android:ellipsize="end"
                 android:focusable="false"
-                android:textSize="@dimen/DIMEN_19PX" />
+                android:maxLines="1"
+                android:text="座位数"
+                android:textColor="#ff797c87"
+                android:textSize="@dimen/DIMEN_13PX" />
 
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/DIMEN_18PX"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="座位数"
-                    android:textColor="#ff797c87"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:textSize="@dimen/DIMEN_13PX" />
-                <TextView
-                    android:id="@+id/tv_seat_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:layout_marginLeft="@dimen/DIMEN_18PX"
-                    android:maxLines="1"
-                    android:text="20"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:textColor="#ff1a1a1c"
-                    android:layout_marginRight="@dimen/DIMEN_30PX"
-                    android:textSize="@dimen/DIMEN_13PX" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/DIMEN_5PX"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:text="位置"
-                    android:textColor="#ff797c87"
-                    android:textSize="@dimen/DIMEN_13PX" />
-                <TextView
-                    android:id="@+id/tv_thratre_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:layout_marginLeft="@dimen/DIMEN_30PX"
-                    android:maxLines="1"
-                    android:text="北京西城区"
-                    android:layout_marginRight="@dimen/DIMEN_30PX"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:textColor="#ff1a1a1c"
-                    android:textSize="@dimen/DIMEN_13PX" />
-
-            </LinearLayout>
-
-            <View
+            <TextView
+                android:id="@+id/tv_seat_number"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_1PX"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_12PX"
-                android:background="#ffdddddd" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/DIMEN_10PX"
-                >
-                <TextView
-                    android:id="@+id/tv_thratre_rent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="￥6000"
-                    android:textColor="#ff1a1a1c"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:textSize="@dimen/DIMEN_22PX" />
-                <TextView
-                    android:id="@+id/tv_unit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:layout_marginLeft="@dimen/DIMEN_3PX"
-                    android:maxLines="1"
-
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:visibility="visible"
-                    android:textColor="#ff797c87"
-                    android:textSize="@dimen/DIMEN_10PX" />
-
-            </LinearLayout>
-
+                android:layout_marginLeft="@dimen/DIMEN_18PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="20"
+                android:textColor="#ff1a1a1c"
+                android:textSize="@dimen/DIMEN_13PX" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="位置"
+                android:textColor="#ff797c87"
+                android:textSize="@dimen/DIMEN_13PX" />
 
+            <TextView
+                android:id="@+id/tv_thratre_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="北京西城区"
+                android:textColor="#ff1a1a1c"
+                android:textSize="@dimen/DIMEN_13PX" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/DIMEN_1PX"
+            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginTop="@dimen/DIMEN_12PX"
+            android:background="#ffdddddd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_thratre_rent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="￥6000"
+                android:textColor="#ff1a1a1c"
+                android:textSize="@dimen/DIMEN_22PX" />
+
+            <TextView
+                android:id="@+id/tv_unit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/DIMEN_3PX"
+                android:clickable="false"
+                android:ellipsize="end"
+
+                android:focusable="false"
+                android:maxLines="1"
+                android:textColor="#ff797c87"
+                android:textSize="@dimen/DIMEN_10PX"
+                android:visibility="visible" />
+        </LinearLayout>
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
