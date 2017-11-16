@@ -106,7 +106,7 @@ public class ChinaShowImageView extends SimpleDraweeView {
         if (mPipelineDraweeControllerBuilder != null) {
             Log.d(TAG, "setSpecificSizeImageUrl: ");
                 ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                        .setResizeOptions(new ResizeOptions(width/2,height/2))
+                        .setResizeOptions(new ResizeOptions(width,height))
                         .build();
                 setController(mPipelineDraweeControllerBuilder.setImageRequest(request).build());
 //                setController(mPipelineDraweeControllerBuilder.setUri(uri).build());
