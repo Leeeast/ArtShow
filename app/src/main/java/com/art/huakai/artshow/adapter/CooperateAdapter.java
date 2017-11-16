@@ -92,16 +92,15 @@ public class CooperateAdapter extends RecyclerView.Adapter {
                         ShowApplication.getAppContext().getString(R.string.cooperate_end_time),
                         formatTime);
                 collHolder.tvItemTime.setText(endTime);
-                if(mlist.get(position).enrollReceiving){
+                if (mlist.get(position).enrollReceiving) {
                     collHolder.tvItemStatus.setText("报名中");
                     collHolder.tvItemStatus.setTextColor(0xffe93c2c);
-                }else{
+                } else {
                     collHolder.tvItemStatus.setText("已结束");
                     collHolder.tvItemStatus.setTextColor(0xff333333);
                 }
                 //状态
                 //collHolder.tvItemStatus
-
                 break;
         }
     }

@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/DIMEN_10PX"
-    android:layout_marginLeft="@dimen/DIMEN_15PX"
-    android:layout_marginRight="@dimen/DIMEN_15PX"
-    android:layout_marginTop="@dimen/DIMEN_10PX"
+    android:layout_marginBottom="@dimen/DIMEN_7PX"
+    android:layout_marginLeft="@dimen/DIMEN_12PX"
+    android:layout_marginRight="@dimen/DIMEN_12PX"
+    android:layout_marginTop="@dimen/DIMEN_7PX"
     android:background="@drawable/shape_cooperate_item"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/DIMEN_15PX"
-    android:paddingLeft="@dimen/DIMEN_10PX"
-    android:paddingRight="@dimen/DIMEN_10PX"
-    android:paddingTop="@dimen/DIMEN_15PX">
+    android:paddingBottom="@dimen/DIMEN_18PX"
+    android:paddingLeft="@dimen/DIMEN_13PX"
+    android:paddingRight="@dimen/DIMEN_13PX"
+    android:paddingTop="@dimen/DIMEN_18PX">
 
     <TextView
         android:id="@+id/tv_item_title"
