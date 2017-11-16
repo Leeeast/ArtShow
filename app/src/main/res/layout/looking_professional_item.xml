@@ -101,7 +101,7 @@
    <View
        android:layout_width="match_parent"
        android:layout_height="@dimen/DIMEN_1PX"
-       android:background="#ffb3b3b3"
+       android:background="#ffdddddd"
        android:layout_marginRight="@dimen/DIMEN_30PX"
        android:layout_marginTop="@dimen/DIMEN_10PX"
        />
