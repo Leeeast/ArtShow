@@ -5,7 +5,7 @@
     <solid android:color="@color/whiteff" />
     <stroke
         android:width="0.5dp"
-        android:color="@color/permission_request_des" />
+        android:color="@color/data_commit_border" />
     <corners android:radius="@dimen/DIMEN_4PX" />
 </shape>
 

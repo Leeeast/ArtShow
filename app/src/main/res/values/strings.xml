@@ -35,7 +35,7 @@
     <string name="share_fail">分享失败</string>
     <string name="share_main_url">https://www.showonline.com.cn</string>
     <!--登录注册-->
-    <string name="login_app_introduce">中国最大的演出资料信息\n共享平台</string>
+    <string name="login_app_introduce">中国演出行业的互联网\n服务平台</string>
     <string name="login_weixin">微&#160;&#160;信&#160;&#160;登&#160;&#160;录</string>
     <string name="app_register">注&#160;&#160;册</string>
     <string name="app_login">登&#160;&#160;录</string>

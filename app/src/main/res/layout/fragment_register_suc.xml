@@ -12,11 +12,11 @@
 
         <ImageView
             android:id="@+id/iv_logo"
-            android:layout_width="@dimen/DIMEN_132PX"
-            android:layout_height="@dimen/DIMEN_132PX"
+            android:layout_width="@dimen/DIMEN_120PX"
+            android:layout_height="@dimen/DIMEN_120PX"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/DIMEN_53PX"
+            android:layout_marginTop="@dimen/DIMEN_15PX"
             android:background="@mipmap/app_logo" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:layout_marginTop="@dimen/DIMEN_30PX"
             android:text="@string/register_success"
             android:textColor="@color/login_light"
             android:textSize="18sp" />
@@ -51,7 +51,7 @@
             android:layout_marginBottom="@dimen/DIMEN_30PX"
             android:layout_marginLeft="@dimen/DIMEN_30PX"
             android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_43PX"
+            android:layout_marginTop="@dimen/DIMEN_58PX"
             android:background="@color/me_personal_line" />
 
         <Button

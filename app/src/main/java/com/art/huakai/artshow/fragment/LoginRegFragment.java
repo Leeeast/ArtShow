@@ -44,14 +44,14 @@ public class LoginRegFragment extends BaseFragment implements View.OnClickListen
     public void initView(View rootView) {
         //设置Login Button DrawableLeft
         Button btnLoginWechat = (Button) rootView.findViewById(R.id.btn_login_wechat);
-        Drawable drawableLeft = getResources().getDrawable(R.mipmap.icon_wechat);
-        drawableLeft.setBounds(
-                getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX),
-                0,
-                getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX)
-                        + getResources().getDimensionPixelSize(R.dimen.DIMEN_20PX),
-                getResources().getDimensionPixelSize(R.dimen.DIMEN_20PX));
-        btnLoginWechat.setCompoundDrawables(drawableLeft, null, null, null);
+//        Drawable drawableLeft = getResources().getDrawable(R.mipmap.icon_wechat);
+//        drawableLeft.setBounds(
+//                getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX),
+//                0,
+//                getResources().getDimensionPixelSize(R.dimen.DIMEN_15PX)
+//                        + getResources().getDimensionPixelSize(R.dimen.DIMEN_20PX),
+//                getResources().getDimensionPixelSize(R.dimen.DIMEN_20PX));
+//        btnLoginWechat.setCompoundDrawables(drawableLeft, null, null, null);
 
 
         rootView.findViewById(R.id.fly_close_login).setOnClickListener(this);

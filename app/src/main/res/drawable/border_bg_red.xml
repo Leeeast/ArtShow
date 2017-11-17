@@ -4,7 +4,7 @@
 
     <solid android:color="@color/whiteff" />
     <stroke
-        android:width="0.5dp"
+        android:width="1dp"
         android:color="@color/theatre_send_fail" />
     <corners android:radius="@dimen/DIMEN_4PX" />
 </shape>
