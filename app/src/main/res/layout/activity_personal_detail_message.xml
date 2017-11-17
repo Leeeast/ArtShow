@@ -17,7 +17,6 @@
         android:layout_marginTop="@dimen/DIMEN_50PX"
         android:visibility="visible">
 
-
         <com.art.huakai.artshow.widget.headerviewpager.HeaderViewPager
             android:id="@+id/scrollableLayout"
             android:layout_width="match_parent"
@@ -50,7 +49,6 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/DIMEN_13PX"
                         android:layout_marginRight="@dimen/DIMEN_14PX"
                         android:orientation="vertical">
@@ -62,29 +60,30 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="谢昱缇"
-                            android:textColor="#ff5a4b41"
-                            android:textSize="@dimen/DIMEN_23PX" />
+                            android:textColor="@color/app_title"
+                            android:textSize="24sp" />
 
                         <TextView
                             android:id="@+id/tv_major"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/DIMEN_12PX"
+                            android:layout_marginTop="@dimen/DIMEN_7PX"
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="舞台监督 / 话剧演员 / 导演"
-                            android:textColor="#ffaaa6a2"
-                            android:textSize="@dimen/DIMEN_13PX" />
+                            android:textColor="@color/login_light"
+                            android:textSize="14sp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/DIMEN_20PX">
+                            android:layout_marginTop="@dimen/DIMEN_7PX">
 
                             <ImageView
                                 android:id="@+id/iv_authentication"
-                                android:layout_width="@dimen/DIMEN_25PX"
-                                android:layout_height="@dimen/DIMEN_25PX"
+                                android:layout_width="@dimen/DIMEN_24PX"
+                                android:layout_height="@dimen/DIMEN_24PX"
+                                android:layout_gravity="center_vertical"
                                 android:src="@mipmap/authentication" />
 
                             <TextView
@@ -96,7 +95,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="专业认证"
-                                android:textColor="#ff5a4b41"
+                                android:textColor="@color/app_title"
                                 android:textSize="@dimen/DIMEN_18PX" />
 
                         </LinearLayout>

@@ -3,7 +3,6 @@ package com.art.huakai.artshow.service;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.art.huakai.artshow.activity.LoginActivity;
 import com.art.huakai.artshow.utils.LoginUtil;
@@ -21,12 +20,6 @@ public class ReLoginService extends IntentService {
 
     public ReLoginService(String name) {
         super(name);
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Toast.makeText(this, "00000", Toast.LENGTH_SHORT).show();
     }
 
     @Override
