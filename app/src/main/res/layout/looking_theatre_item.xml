@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/tv_thratre_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/DIMEN_15PX"
             android:clickable="false"
@@ -53,10 +53,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
                 android:text="@string/found_theatre_seat"
@@ -65,12 +63,9 @@
 
             <TextView
                 android:id="@+id/tv_seat_number"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/DIMEN_10PX"
-                android:layout_marginRight="@dimen/DIMEN_10PX"
-                android:clickable="false"
-                android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
                 android:text="20"
@@ -86,10 +81,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
                 android:text="@string/found_theatre_address"
@@ -98,10 +91,9 @@
 
             <TextView
                 android:id="@+id/tv_thratre_location"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/DIMEN_10PX"
-                android:layout_marginRight="@dimen/DIMEN_10PX"
                 android:clickable="false"
                 android:ellipsize="end"
                 android:focusable="false"
@@ -127,7 +119,7 @@
 
             <TextView
                 android:id="@+id/tv_thratre_rent"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:ellipsize="end"
@@ -139,9 +131,9 @@
 
             <TextView
                 android:id="@+id/tv_unit"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/DIMEN_3PX"
+                android:layout_marginLeft="@dimen/DIMEN_5PX"
                 android:clickable="false"
                 android:ellipsize="end"
                 android:focusable="false"

@@ -35,9 +35,8 @@
 
         <TextView
             android:id="@+id/tv_professional_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="谢昱缇"
@@ -47,9 +46,8 @@
 
         <TextView
             android:id="@+id/tv_majors"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
             android:layout_marginTop="@dimen/DIMEN_7PX"
             android:ellipsize="end"
             android:maxLines="1"
@@ -65,7 +63,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -75,10 +73,9 @@
 
             <TextView
                 android:id="@+id/tv_subside_organ"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/DIMEN_14PX"
-                android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="国家院团"
@@ -110,7 +107,7 @@
 
             <TextView
                 android:id="@+id/tv_auth"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/DIMEN_3PX"

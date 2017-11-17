@@ -70,7 +70,11 @@ public class LookingTheatreAdapter extends RecyclerView.Adapter {
                 typeOneViewHolder.tv_thratre_name.setText(theatre.getName());
                 typeOneViewHolder.tv_seat_number.setText(theatre.getSeatingDescpt());
                 typeOneViewHolder.tv_thratre_location.setText(theatre.getRegionName());
-                typeOneViewHolder.tv_thratre_rent.setText(theatre.getExpenseDescpt());
+
+                String price = TextUtils.isEmpty(theatre.getExpenseUnit()) ?
+                        theatre.getExpenseDescpt() :
+                        String.format(typeOneViewHolder.itemView.getResources().getString(R.string.found_price), theatre.getExpenseDescpt());
+                typeOneViewHolder.tv_thratre_rent.setText(price);
                 typeOneViewHolder.tv_unit.setText(theatre.getExpenseUnit());
             }
             typeOneViewHolder.ll_whole.setOnClickListener(new View.OnClickListener() {

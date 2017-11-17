@@ -482,5 +482,6 @@
     <string name="found_project_people">演员人数</string>
     <string name="found_project_firstshow">首演时间</string>
     <string name="found_talent_org">所属机构</string>
+    <string name="found_price">￥%1$s</string>
 
 </resources>

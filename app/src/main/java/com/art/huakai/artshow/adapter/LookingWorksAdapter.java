@@ -77,7 +77,10 @@ public class LookingWorksAdapter extends RecyclerView.Adapter {
                 }
 //                typeOneViewHolder.tv_show_time.setText(work.getPremiereTime()+"");
 
-                typeOneViewHolder.tv_works_fee.setText(work.getExpenseDescpt());
+                String price = TextUtils.isEmpty(work.getExpenseUnit()) ?
+                        work.getExpenseDescpt() :
+                        String.format(typeOneViewHolder.itemView.getResources().getString(R.string.found_price), work.getExpenseDescpt());
+                typeOneViewHolder.tv_works_fee.setText(price);
                 typeOneViewHolder.tv_unit.setText(work.getExpenseUnit());
                 typeOneViewHolder.tv_works_name.setText(work.getTitle());
             }
