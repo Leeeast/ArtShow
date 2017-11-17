@@ -9,13 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
-import com.art.huakai.artshow.entity.TheatreDetailInfo;
-import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
-import com.art.huakai.artshow.eventbus.TheatreNotifyEvent;
-import com.art.huakai.artshow.listener.OnHolderCallBack;
-import com.art.huakai.artshow.listener.OnItemClickListener;
 import com.art.huakai.artshow.adapter.OrgProjectAdapter;
+import com.art.huakai.artshow.adapter.holder.OrgProjectHolder;
 import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.constant.JumpCode;
@@ -23,6 +18,8 @@ import com.art.huakai.artshow.dialog.ShowProgressDialog;
 import com.art.huakai.artshow.entity.LocalUserInfo;
 import com.art.huakai.artshow.entity.ProjectDetailInfo;
 import com.art.huakai.artshow.entity.RepertorysBean;
+import com.art.huakai.artshow.eventbus.ProjectNotifyEvent;
+import com.art.huakai.artshow.listener.OnHolderCallBack;
 import com.art.huakai.artshow.okhttp.request.RequestCall;
 import com.art.huakai.artshow.utils.DateUtil;
 import com.art.huakai.artshow.utils.GsonTools;
@@ -37,7 +34,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -296,9 +292,9 @@ public class ProjectActivity extends BaseActivity implements SmartRecyclerview.L
                 r.setStatus(p.getStatus());
                 r.setCreateTime(p.getCreateTime());
 
-                mRepertorys.add(r);
-                mOrgProjectAdapter.notifyDataSetChanged();
-                recyclerViewProject.scrollToPosition(mRepertorys.size());
+                mRepertorys.add(0, r);
+                mOrgProjectAdapter.notifyItemChanged(0);
+                recyclerViewProject.scrollToPosition(0);
 
             } catch (Exception e) {
                 e.printStackTrace();

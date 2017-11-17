@@ -32,7 +32,6 @@ import com.art.huakai.artshow.widget.SmartRecyclerview;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -283,9 +282,10 @@ public class TheatreActivity extends BaseActivity implements SmartRecyclerview.L
                 theatre.setLinkTel(t.getLinkTel());
                 theatre.setStatus(t.getStatus());
                 theatre.setCreateTime(t.getCreateTime());
-                mTheatres.add(theatre);
+                mTheatres.add(0, theatre);
                 mOrgTheatreAdapter.notifyDataSetChanged();
-                recyclerViewTheatre.scrollToPosition(mTheatres.size());
+                mOrgTheatreAdapter.notifyItemChanged(0);
+                recyclerViewTheatre.scrollToPosition(0);
             } catch (Exception e) {
                 e.printStackTrace();
             }

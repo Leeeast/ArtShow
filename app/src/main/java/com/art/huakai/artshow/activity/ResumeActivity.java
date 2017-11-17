@@ -294,9 +294,9 @@ public class ResumeActivity extends BaseActivity implements SmartRecyclerview.Lo
                 ));
                 talentBean.setAgency(t.getAgency());
                 talentBean.setLinkTel(t.getLinkTel());
-                mTalentBeans.add(talentBean);
-                mOrgTalentAdapter.notifyDataSetChanged();
-                recyclerViewResume.scrollToPosition(mTalentBeans.size());
+                mTalentBeans.add(0, talentBean);
+                mOrgTalentAdapter.notifyItemChanged(0);
+                recyclerViewResume.scrollToPosition(0);
             } catch (Exception e) {
                 e.printStackTrace();
             }
