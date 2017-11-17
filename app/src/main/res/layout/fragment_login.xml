@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/whiteff"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/DIMEN_15PX">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -157,7 +158,7 @@
                 android:layout_height="@dimen/DIMEN_40PX"
                 android:layout_marginLeft="@dimen/DIMEN_30PX"
                 android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_40PX"
+                android:layout_marginTop="@dimen/DIMEN_43PX"
                 android:background="@drawable/shape_bg_red"
                 lbtn:loading_drawablePadding="@dimen/DIMEN_15PX"
                 lbtn:loading_drawableRight="@mipmap/loading_white"
@@ -165,51 +166,59 @@
                 lbtn:loading_textColor="@color/whiteff"
                 lbtn:loading_textSize="15sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_1PX"
-                android:layout_marginLeft="@dimen/DIMEN_30PX"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_30PX"
-                android:background="@color/me_personal_line" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/DIMEN_15PX"
-                android:layout_marginLeft="@dimen/DIMEN_30PX"
-                android:layout_marginTop="@dimen/DIMEN_15PX"
-                android:text="@string/app_login_other"
-                android:textColor="@color/login_light"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/btn_login_wechat"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/DIMEN_40PX"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/DIMEN_30PX"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
-                android:background="@drawable/shape_bg_green"
-                android:drawablePadding="-20dp"
-                android:gravity="center"
-                android:text="@string/login_weixin"
-                android:textColor="@color/whiteff"
-                android:textSize="15sp" />
-
-
             <TextView
                 android:id="@+id/tv_regiser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/DIMEN_20PX"
-                android:layout_marginTop="@dimen/DIMEN_100PX"
+                android:layout_marginTop="@dimen/DIMEN_19PX"
                 android:text="@string/app_register_new"
                 android:textColor="@color/register_new"
                 android:textSize="15sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DIMEN_1PX"
+                android:layout_marginLeft="@dimen/DIMEN_30PX"
+                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginTop="@dimen/DIMEN_28PX"
+                android:background="@color/me_personal_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/DIMEN_15PX"
+                android:layout_marginTop="@dimen/DIMEN_15PX"
+                android:text="@string/app_login_other"
+                android:textColor="@color/login_light"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/DIMEN_19PX"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_login_wechat"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="@dimen/DIMEN_62PX"
+                    android:layout_height="@dimen/DIMEN_62PX"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@mipmap/share_wechat_big" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/DIMEN_5PX"
+                    android:gravity="center_horizontal"
+                    android:text="微信"
+                    android:textColor="@color/black66"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
