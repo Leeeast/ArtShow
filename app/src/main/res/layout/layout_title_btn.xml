@@ -40,33 +40,40 @@
         android:textSize="15sp"
         android:visibility="gone" />
 
-    <FrameLayout
-        android:id="@+id/fly_right_img"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical|right"
-        android:layout_marginRight="@dimen/DIMEN_15PX"
-        android:visibility="visible">
+        android:layout_gravity="right"
+        android:paddingRight="@dimen/DIMEN_7PX">
 
-        <ImageView
-            android:id="@+id/iv_right_img"
+        <Button
+            android:id="@+id/btn_edit"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/DIMEN_72PX"
+            android:layout_height="@dimen/DIMEN_30PX"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/DIMEN_8PX"
+            android:background="@drawable/shape_bg_red"
+            android:gravity="center"
+            android:text="@string/app_edit_data"
+            android:textColor="@color/whiteff"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/fly_right_img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_more_horiz" />
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/DIMEN_8PX"
+            android:visibility="visible">
 
-    <Button
-        android:id="@+id/btn_edit"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="@dimen/DIMEN_72PX"
-        android:layout_height="@dimen/DIMEN_30PX"
-        android:layout_gravity="center_vertical|right"
-        android:layout_marginRight="@dimen/DIMEN_50PX"
-        android:background="@drawable/shape_bg_red"
-        android:gravity="center"
-        android:text="@string/app_edit_data"
-        android:textColor="@color/whiteff"
-        android:textSize="12sp"
-        android:visibility="gone" />
+            <ImageView
+                android:id="@+id/iv_right_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_more_horiz" />
+        </FrameLayout>
+    </LinearLayout>
 </FrameLayout>

@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,6 +77,8 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     TextView tvTitle;
     @BindView(R.id.iv_right_img)
     ImageView ivRightImg;
+    @BindView(R.id.fly_right_img)
+    FrameLayout fLyRightImg;
     @BindView(R.id.sdv)
     ChinaShowImageView sdv;
     @BindView(R.id.tv_theatre_name)
@@ -178,6 +181,11 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
         if (!TextUtils.isEmpty(worksDetailBean.getLogo())) {
             sdv.setImageURI(Uri.parse(worksDetailBean.getLogo()));
+        }
+        if (worksDetailBean.getStatus() == 1) {
+            fLyRightImg.setVisibility(View.VISIBLE);
+        } else {
+            fLyRightImg.setVisibility(View.GONE);
         }
         tvTheatreName.setText(worksDetailBean.getTitle());
         tvFee.setText(worksDetailBean.getExpenseDescpt());
@@ -301,9 +309,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
 
-        }
     }
 
     private void getWorkDetail() {
@@ -358,8 +364,8 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     @OnClick(R.id.fly_right_img)
     public void shareProject() {
         if (shareDialog == null) {
-            String title = worksDetailBean == null ? getString(R.string.app_name) : worksDetailBean.getTitle();
-            String shareLink = worksDetailBean == null ? getString(R.string.share_main_url) : worksDetailBean.getShareLink();
+            String title = worksDetailBean == null || TextUtils.isEmpty(worksDetailBean.getTitle()) ? getString(R.string.app_name) : worksDetailBean.getTitle();
+            String shareLink = worksDetailBean == null || TextUtils.isEmpty(worksDetailBean.getShareLink()) ? getString(R.string.share_main_url) : worksDetailBean.getShareLink();
             shareDialog = ShareDialog.newInstence(title, shareLink);
             shareDialog.setShareHandler(mShareHandler);
         }

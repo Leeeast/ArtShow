@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -112,6 +113,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     LinearLayout llCheckScheduleArea;
     @BindView(R.id.tv_unit)
     TextView tvUnit;
+    @BindView(R.id.fly_right_img)
+    FrameLayout fLyRightImg;
 
     private String[] mTabArray;
     private ArrayList<HeaderViewPagerFragment> mFragments;
@@ -163,6 +166,11 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             llCheckTicketArea.setVisibility(View.INVISIBLE);
         } else {
             llCheckTicketArea.setVisibility(View.VISIBLE);
+        }
+        if (theatreDetailBean.getStatus() == 1) {
+            fLyRightImg.setVisibility(View.VISIBLE);
+        } else {
+            fLyRightImg.setVisibility(View.GONE);
         }
         mTabArray = getResources().getStringArray(R.array.theatre_detail_tab);
         mFragments = new ArrayList<HeaderViewPagerFragment>();
@@ -366,8 +374,8 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     @OnClick(R.id.fly_right_img)
     public void shareProject() {
         if (shareDialog == null) {
-            String title = theatreDetailBean == null ? getString(R.string.app_name) : theatreDetailBean.getName();
-            String shareLink = theatreDetailBean == null ? getString(R.string.share_main_url) : theatreDetailBean.getShareLink();
+            String title = theatreDetailBean == null || TextUtils.isEmpty(theatreDetailBean.getName()) ? getString(R.string.app_name) : theatreDetailBean.getName();
+            String shareLink = theatreDetailBean == null || TextUtils.isEmpty(theatreDetailBean.getShareLink()) ? getString(R.string.share_main_url) : theatreDetailBean.getShareLink();
             shareDialog = ShareDialog.newInstence(title, shareLink);
             shareDialog.setShareHandler(mShareHandler);
         }
