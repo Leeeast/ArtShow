@@ -3,7 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_whole"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/DIMEN_163PX"
+    android:layout_height="@dimen/DIMEN_144PX"
     android:layout_marginBottom="@dimen/DIMEN_7PX"
     android:layout_marginLeft="@dimen/DIMEN_11PX"
     android:layout_marginRight="@dimen/DIMEN_11PX"
@@ -12,8 +12,8 @@
 
     <com.art.huakai.artshow.widget.ChinaShowImageView
         android:id="@+id/sdv"
-        android:layout_width="@dimen/DIMEN_125PX"
-        android:layout_height="@dimen/DIMEN_125PX"
+        android:layout_width="@dimen/DIMEN_115PX"
+        android:layout_height="@dimen/DIMEN_115PX"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
         fresco:actualImageScaleType="centerCrop"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/DIMEN_15PX"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -41,8 +41,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="谢昱缇"
-            android:textColor="#ff1a1a1c"
-            android:textSize="@dimen/DIMEN_19PX" />
+            android:textColor="@color/theatre_title"
+            android:textSize="20sp" />
 
 
         <TextView
@@ -50,18 +50,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_2PX"
+            android:layout_marginTop="@dimen/DIMEN_7PX"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="舞台监督/话剧演员/导演"
-            android:textColor="#ff797c87"
-            android:textSize="@dimen/DIMEN_13PX" />
+            android:textColor="@color/theatre_content"
+            android:textSize="12sp" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:layout_marginTop="@dimen/DIMEN_7PX"
             android:orientation="horizontal">
 
             <TextView
@@ -69,35 +69,35 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="所属机构"
-                android:textColor="#ff797c87"
-                android:textSize="@dimen/DIMEN_13PX" />
+                android:text="@string/found_talent_org"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_subside_organ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/DIMEN_12PX"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginLeft="@dimen/DIMEN_14PX"
+                android:layout_marginRight="@dimen/DIMEN_15PX"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="国家院团"
-                android:textColor="#ff1a1a1c"
+                android:textColor="@color/theatre_title"
                 android:textSize="@dimen/DIMEN_13PX" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_height="0.5dp"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
             android:layout_marginTop="@dimen/DIMEN_10PX"
-            android:background="#ffdddddd" />
+            android:background="@color/line_theatre" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_12PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -105,19 +105,20 @@
                 android:id="@+id/iv_auth"
                 android:layout_width="@dimen/DIMEN_24PX"
                 android:layout_height="@dimen/DIMEN_24PX"
-                android:scaleType="fitXY"
-                android:src="@mipmap/authentication" />
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/authentication" />
 
             <TextView
                 android:id="@+id/tv_auth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/DIMEN_3PX"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="专业认证"
-                android:textColor="#ff797c87"
-                android:textSize="@dimen/DIMEN_17PX" />
+                android:textColor="@color/enroll_sub_title"
+                android:textSize="17sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

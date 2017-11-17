@@ -3,7 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_whole"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/DIMEN_163PX"
+    android:layout_height="@dimen/DIMEN_144PX"
     android:layout_marginBottom="@dimen/DIMEN_7PX"
     android:layout_marginLeft="@dimen/DIMEN_11PX"
     android:layout_marginRight="@dimen/DIMEN_11PX"
@@ -36,20 +36,20 @@
             android:id="@+id/tv_thratre_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
             android:clickable="false"
             android:ellipsize="end"
             android:focusable="false"
             android:maxLines="1"
             android:text="保利剧院"
-            android:textColor="#ff1a1a1c"
-            android:textSize="@dimen/DIMEN_19PX" />
+            android:textColor="@color/theatre_title"
+            android:textSize="20sp" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_18PX"
+            android:layout_marginTop="@dimen/DIMEN_7PX"
             android:orientation="horizontal">
 
             <TextView
@@ -59,30 +59,30 @@
                 android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
-                android:text="座位数"
-                android:textColor="#ff797c87"
-                android:textSize="@dimen/DIMEN_13PX" />
+                android:text="@string/found_theatre_seat"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_seat_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/DIMEN_18PX"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginLeft="@dimen/DIMEN_10PX"
+                android:layout_marginRight="@dimen/DIMEN_10PX"
                 android:clickable="false"
                 android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
                 android:text="20"
-                android:textColor="#ff1a1a1c"
-                android:textSize="@dimen/DIMEN_13PX" />
+                android:textColor="@color/theatre_title"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_5PX"
+            android:layout_marginTop="@dimen/DIMEN_7PX"
             android:orientation="horizontal">
 
             <TextView
@@ -92,32 +92,32 @@
                 android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
-                android:text="位置"
-                android:textColor="#ff797c87"
-                android:textSize="@dimen/DIMEN_13PX" />
+                android:text="@string/found_theatre_address"
+                android:textColor="@color/theatre_content"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_thratre_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/DIMEN_30PX"
-                android:layout_marginRight="@dimen/DIMEN_30PX"
+                android:layout_marginLeft="@dimen/DIMEN_10PX"
+                android:layout_marginRight="@dimen/DIMEN_10PX"
                 android:clickable="false"
                 android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
                 android:text="北京西城区"
-                android:textColor="#ff1a1a1c"
-                android:textSize="@dimen/DIMEN_13PX" />
+                android:textColor="@color/theatre_title"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:layout_marginRight="@dimen/DIMEN_30PX"
-            android:layout_marginTop="@dimen/DIMEN_12PX"
-            android:background="#ffdddddd" />
+            android:layout_height="0.5dp"
+            android:layout_marginRight="@dimen/DIMEN_15PX"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:background="@color/line_theatre" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -134,8 +134,8 @@
                 android:focusable="false"
                 android:maxLines="1"
                 android:text="￥6000"
-                android:textColor="#ff1a1a1c"
-                android:textSize="@dimen/DIMEN_22PX" />
+                android:textColor="@color/theatre_title"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_unit"
@@ -144,11 +144,10 @@
                 android:layout_marginLeft="@dimen/DIMEN_3PX"
                 android:clickable="false"
                 android:ellipsize="end"
-
                 android:focusable="false"
                 android:maxLines="1"
-                android:textColor="#ff797c87"
-                android:textSize="@dimen/DIMEN_10PX"
+                android:textColor="@color/theatre_content"
+                android:textSize="11sp"
                 android:visibility="visible" />
         </LinearLayout>
     </LinearLayout>

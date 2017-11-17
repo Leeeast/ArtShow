@@ -476,5 +476,11 @@
     <string name="upgrade_download">下载安装</string>
     <string name="upgrade_exit">退出</string>
     <string name="upgrade_exit_tip">只有下载安装最新版%1s，才能正常使用</string>
+    <!--发现相关-->
+    <string name="found_theatre_seat">座位数</string>
+    <string name="found_theatre_address">位置&#160;&#160;&#160;&#160;</string>
+    <string name="found_project_people">演员人数</string>
+    <string name="found_project_firstshow">首演时间</string>
+    <string name="found_talent_org">所属机构</string>
 
 </resources>
