@@ -31,8 +31,16 @@ import java.util.List;
 
 public class TakePhotoDialog extends BaseDialogFragment implements View.OnClickListener {
     private CallBack mCallBack;
+    private static int aspect_ratio_x = 0, aspect_ratio_y = 0;
 
     public static TakePhotoDialog newInstence() {
+        TakePhotoDialog typeConfirmDialog = new TakePhotoDialog();
+        return typeConfirmDialog;
+    }
+
+    public static TakePhotoDialog newInstence(int corp_ratio_x, int corp_ratio_y) {
+        aspect_ratio_x = corp_ratio_x;
+        aspect_ratio_y = corp_ratio_y;
         TakePhotoDialog typeConfirmDialog = new TakePhotoDialog();
         return typeConfirmDialog;
     }
@@ -123,12 +131,13 @@ public class TakePhotoDialog extends BaseDialogFragment implements View.OnClickL
                 .compress(true)
                 .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)
                 .glideOverride(160, 160)
-                .withAspectRatio(0, 0)
+                .withAspectRatio(aspect_ratio_x, aspect_ratio_y)
                 .hideBottomControls(true)
                 .isGif(false)//是否现实Gif图片
-                .freeStyleCropEnabled(true)
+                .freeStyleCropEnabled(aspect_ratio_x != 1)
                 .circleDimmedLayer(false)
                 .showCropFrame(true)
+                .cropWH(160, 160)
                 .showCropGrid(true)
                 .openClickSound(PhotoConfig.VOICE)
                 .selectionMedia(selectList)
@@ -167,10 +176,10 @@ public class TakePhotoDialog extends BaseDialogFragment implements View.OnClickL
                 .compress(true)
                 .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)
                 .glideOverride(160, 160)
-                .withAspectRatio(0, 0)
+                .withAspectRatio(aspect_ratio_x, aspect_ratio_x)
                 .hideBottomControls(true)
                 .isGif(false)//是否现实Gif图片
-                .freeStyleCropEnabled(true)
+                .freeStyleCropEnabled(aspect_ratio_x != 1)
                 .circleDimmedLayer(false)
                 .showCropFrame(true)
                 .showCropGrid(true)
@@ -211,10 +220,10 @@ public class TakePhotoDialog extends BaseDialogFragment implements View.OnClickL
                 .compress(true)
                 .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)
                 .glideOverride(160, 160)
-                .withAspectRatio(0, 0)
+                .withAspectRatio(aspect_ratio_x, aspect_ratio_y)
                 .hideBottomControls(true)
                 .isGif(false)//是否现实Gif图片
-                .freeStyleCropEnabled(true)
+                .freeStyleCropEnabled(aspect_ratio_x != 1)
                 .circleDimmedLayer(false)
                 .showCropFrame(true)
                 .showCropGrid(true)

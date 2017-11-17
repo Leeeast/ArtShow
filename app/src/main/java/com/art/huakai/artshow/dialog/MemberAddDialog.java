@@ -161,7 +161,7 @@ public class MemberAddDialog extends BaseDialogFragment {
     @OnClick(R.id.sdv_member)
     public void selectPicture() {
         if (takePhotoDialog == null) {
-            takePhotoDialog = TakePhotoDialog.newInstence();
+            takePhotoDialog = TakePhotoDialog.newInstence(1, 1);
             takePhotoDialog.setOnCallBack(new TakePhotoDialog.CallBack() {
                 @Override
                 public void onTakePhoto(DialogFragment dialogFragment) {
