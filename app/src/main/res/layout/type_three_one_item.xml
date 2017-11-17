@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_whole"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_whole"
-        android:layout_width="wrap_content"
+    <com.art.huakai.artshow.widget.ChinaShowImageView
+        android:id="@+id/sdv"
+        android:layout_width="@dimen/DIMEN_148PX"
+        android:layout_height="@dimen/DIMEN_192PX"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/pic_loading_bg"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:roundedCornerRadius="@dimen/DIMEN_2PX" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/DIMEN_8PX"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="那些年我们一起"
+        android:textColor="@color/black333"
+        android:textSize="16sp" />
 
-        <com.art.huakai.artshow.widget.ChinaShowImageView
-            android:id="@+id/sdv"
-            android:layout_width="@dimen/DIMEN_132PX"
-            android:layout_height="@dimen/DIMEN_190PX"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@color/pic_loading_bg"
-            fresco:placeholderImageScaleType="fitXY"
-            fresco:roundedCornerRadius="@dimen/DIMEN_2PX" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_5PX"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="那些年我们一起"
-            android:textColor="#ff555555"
-            android:textSize="@dimen/DIMEN_14PX" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

@@ -1,72 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_whole"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.art.huakai.artshow.widget.ChinaShowImageView
+        android:id="@+id/sdv"
+        android:layout_width="@dimen/DIMEN_158PX"
+        android:layout_height="@dimen/DIMEN_90PX"
+        android:clickable="false"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="@mipmap/loading_fail"
+        fresco:failureImageScaleType="centerInside"
+        fresco:placeholderImage="@color/pic_loading_bg"
+        fresco:placeholderImageScaleType="fitCenter" />
 
     <LinearLayout
-        android:id="@+id/ll_whole"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal">
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/DIMEN_15PX"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <com.art.huakai.artshow.widget.ChinaShowImageView
-            android:id="@+id/sdv"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/DIMEN_91PX"
-            android:layout_weight="1"
-            android:clickable="false"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@color/pic_loading_bg"
-            fresco:placeholderImageScaleType="fitXY" />
-
-        <View
-            android:layout_width="@dimen/DIMEN_10PX"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="2017青戏节最全排期"
+            android:textColor="@color/account_type_name"
+            android:textSize="17sp" />
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DIMEN_2PX"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="2017青戏节最全排期"
-                android:textColor="#ff333333"
-                android:textSize="@dimen/DIMEN_16PX" />
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_4PX"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="快来支持你想看的项目"
+            android:textColor="#ff333333"
+            android:textSize="@dimen/DIMEN_14PX"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DIMEN_4PX"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="快来支持你想看的项目"
-                android:textColor="#ff555555"
-                android:textSize="@dimen/DIMEN_14PX"
-                android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_update_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_10PX"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="刚刚"
+            android:textColor="#ff999999"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tv_update_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DIMEN_16PX"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="刚刚"
-                android:textColor="#ff999999"
-                android:textSize="@dimen/DIMEN_12PX" />
-
-        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
