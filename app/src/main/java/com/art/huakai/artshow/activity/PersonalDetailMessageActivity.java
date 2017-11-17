@@ -50,6 +50,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class PersonalDetailMessageActivity extends BaseActivity implements View.OnClickListener, PageLoadingListener {
-
+    public static final int ACTION_DIALOG_DISMISS = 30;
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
     @BindView(R.id.tv_title)
@@ -115,17 +116,42 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
     private ShareDialog shareDialog;
     private String URL_TALENT_DETAL;
     private WbShareHandler mShareHandler;
+    private MyHandler myHandler;
 
-    private Handler uiHandler = new Handler() {
+    private static class MyHandler extends Handler {
+
+        private WeakReference<PersonalDetailMessageActivity> reference;
+
+        public MyHandler(PersonalDetailMessageActivity activity) {
+            reference = new WeakReference<>(activity);
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 0) {
-                setData();
+            super.handleMessage(msg);
+            PersonalDetailMessageActivity activity = reference.get();
+            switch (msg.what) {
+                case 0:
+                    if (activity != null) {
+                        activity.setData();
+                    }
+                    break;
+                case ACTION_DIALOG_DISMISS:
+                    if (activity != null && activity.getPageLoading() != null && activity.getPageLoading().isShowing()) {
+                        activity.getPageLoading().dismiss();
+                    }
+                    break;
             }
         }
-    };
+    }
+
     private TakePhoneDialog takePhoneDialog;
     private RequestCall requestCall;
+
+    public PageLoadingDialog getPageLoading() {
+        return pageLoading;
+    }
+
     private PageLoadingDialog pageLoading;
 
     private void setData() {
@@ -213,6 +239,7 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
 
     @Override
     public void initData() {
+        myHandler = new MyHandler(this);
         pageLoading = new PageLoadingDialog(this);
         pageLoading.setPageLoadingListener(this);
         EventBus.getDefault().register(this);
@@ -280,16 +307,14 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
-                    if (pageLoading.isShowing()) {
-                        pageLoading.dismiss();
-                    }
+                    myHandler.sendEmptyMessageDelayed(ACTION_DIALOG_DISMISS, 100);
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "objj=" + obj);
                         Gson gson = new Gson();
                         try {
                             talentDetailBean = gson.fromJson(obj, TalentDetailBean.class);
                             if (talentDetailBean != null) {
-                                uiHandler.sendEmptyMessage(0);
+                                myHandler.sendEmptyMessage(0);
                                 return;
                             }
                         } catch (Exception e) {

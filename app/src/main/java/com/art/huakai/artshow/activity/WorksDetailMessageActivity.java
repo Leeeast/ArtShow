@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,6 +57,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +71,9 @@ import okhttp3.Call;
 public class WorksDetailMessageActivity extends BaseActivity implements View.OnClickListener, PageLoadingListener {
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
+
+    public static final int ACTION_DIALOG_DISMISS = 10;
+
     @BindView(R.id.btn_edit)
     Button btnEdit;
     @BindView(R.id.tv_title)
@@ -125,24 +128,49 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     private WorksDetailBean worksDetailBean;
     private boolean mIsFromOrgan;
     private String URL_TALENT_DETAL;
+    private MyHandler myHandler;
 
 
-    @SuppressLint("HandlerLeak")
-    private Handler uiHandler = new Handler() {
+    private static class MyHandler extends Handler {
+
+        private WeakReference<WorksDetailMessageActivity> weakReference;
+
+        public MyHandler(WorksDetailMessageActivity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 0) {
-                setData();
+            super.handleMessage(msg);
+            WorksDetailMessageActivity worksDetailMessageActivity = weakReference.get();
+            switch (msg.what) {
+                case 0:
+                    if (worksDetailMessageActivity != null) {
+                        worksDetailMessageActivity.setData();
+                    }
+                    break;
+                case ACTION_DIALOG_DISMISS:
+                    if (worksDetailMessageActivity != null &&
+                            worksDetailMessageActivity.getPageLoadingDialog() != null &&
+                            worksDetailMessageActivity.getPageLoadingDialog().isShowing()) {
+                        worksDetailMessageActivity.getPageLoadingDialog().dismiss();
+                    }
+                    break;
             }
         }
-    };
+    }
+
     private ShareDialog shareDialog;
     private TakePhoneDialog takePhoneDialog;
     private WbShareHandler mShareHandler;
     private RequestCall requestCall;
     private List<Staff> mStaffs;
+
     private PageLoadingDialog pageLoadingDialog;
 
+    public PageLoadingDialog getPageLoadingDialog() {
+        return pageLoadingDialog;
+    }
 
     private void setData() {
 
@@ -275,6 +303,7 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
     public void initData() {
         pageLoadingDialog = new PageLoadingDialog(this);
         pageLoadingDialog.setPageLoadingListener(this);
+        myHandler = new MyHandler(this);
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -329,16 +358,14 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
-                    if (pageLoadingDialog.isShowing()) {
-                        pageLoadingDialog.dismiss();
-                    }
+                    myHandler.sendEmptyMessageDelayed(ACTION_DIALOG_DISMISS, 100);
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "onSuccess: obj=" + obj);
                         Gson gson = new Gson();
                         try {
                             worksDetailBean = gson.fromJson(obj, WorksDetailBean.class);
                             if (worksDetailBean != null) {
-                                uiHandler.sendEmptyMessage(0);
+                                myHandler.sendEmptyMessage(0);
                                 return;
                             }
                         } catch (Exception e) {

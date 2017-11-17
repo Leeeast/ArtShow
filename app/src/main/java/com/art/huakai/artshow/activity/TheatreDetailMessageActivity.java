@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -59,6 +58,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,6 +72,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class TheatreDetailMessageActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener, PageLoadingListener {
+    public static final int ACTION_DIALOG_DISMISS = 20;
     public static final String PARAMS_ID = "PARAMS_ID";
     public static final String PARAMS_ORG = "PARAMS_ORG";
     @BindView(R.id.tv_title)
@@ -130,19 +131,41 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
     public AMapLocationClient mlocationClient;
     //声明mLocationOption对象
     public AMapLocationClientOption mLocationOption = null;
+    private MyHandler myHandler;
 
+    private static class MyHandler extends Handler {
 
-    @SuppressLint("HandlerLeak")
-    private Handler uiHandler = new Handler() {
+        private WeakReference<TheatreDetailMessageActivity> reference;
+
+        public MyHandler(TheatreDetailMessageActivity activity) {
+            reference = new WeakReference<>(activity);
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 0) {
-                setData();
-
+            super.handleMessage(msg);
+            TheatreDetailMessageActivity activity = reference.get();
+            switch (msg.what) {
+                case 0:
+                    if (activity != null) {
+                        activity.setData();
+                    }
+                    break;
+                case ACTION_DIALOG_DISMISS:
+                    if (activity != null && activity.getPageLoading() != null && activity.getPageLoading().isShowing()) {
+                        activity.getPageLoading().dismiss();
+                    }
+                    break;
             }
         }
-    };
+    }
+
     private RequestCall requestCall;
+
+    public PageLoadingDialog getPageLoading() {
+        return pageLoading;
+    }
+
     private PageLoadingDialog pageLoading;
 
     private void initPosition() {
@@ -234,6 +257,7 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 
     @Override
     public void initData() {
+        myHandler = new MyHandler(this);
         pageLoading = new PageLoadingDialog(this);
         pageLoading.setPageLoadingListener(this);
         EventBus.getDefault().register(this);
@@ -338,16 +362,14 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 if (isSuccess) {
-                    if (pageLoading.isShowing()) {
-                        pageLoading.dismiss();
-                    }
+                    myHandler.sendEmptyMessageDelayed(ACTION_DIALOG_DISMISS, 100);
                     if (!TextUtils.isEmpty(obj)) {
                         Log.i(TAG, "onSuccess: obj=" + obj);
                         Gson gson = new Gson();
                         try {
                             theatreDetailBean = gson.fromJson(obj, TheatreDetailBean.class);
                             if (theatreDetailBean != null) {
-                                uiHandler.sendEmptyMessage(0);
+                                myHandler.sendEmptyMessage(0);
                                 return;
                             }
                         } catch (Exception e) {
