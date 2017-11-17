@@ -114,6 +114,8 @@ public class EnrollDetailActivity extends BaseActivity implements PageLoadingLis
         @Override
         public void handleMessage(Message msg) {
             EnrollDetailActivity activity = mActivty.get();
+            if (activity == null)
+                return;
             super.handleMessage(msg);
             if (activity != null) {
                 //执行业务逻辑

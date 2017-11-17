@@ -97,6 +97,8 @@ public class NewsDetailActivity extends BaseActivity implements PageLoadingListe
         @Override
         public void handleMessage(Message msg) {
             NewsDetailActivity activity = mActivty.get();
+            if (activity == null)
+                return;
             super.handleMessage(msg);
             if (activity != null) {
                 //执行业务逻辑

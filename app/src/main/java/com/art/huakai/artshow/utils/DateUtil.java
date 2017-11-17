@@ -28,7 +28,7 @@ public class DateUtil {
     //转成yyyy-MM-dd这种日期格式
     public static String transTime(String time, String yyMMdd) {
         try {
-            if (TextUtils.isEmpty(time) || time.equals("-28800000"))
+            if (TextUtils.isEmpty(time))
                 return "";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(yyMMdd);
             Date date = new Date();
