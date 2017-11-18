@@ -87,7 +87,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
     private String keyword = "*";
     private SearchAllBean searchAllBean;
-    private boolean loadingData=false;
+    private boolean loadingData = false;
     private int totalSize;
     private View view1;
     private View view2;
@@ -95,7 +95,6 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     private View view4;
     private View view5;
     private String validKeyword;
-
 
 
     @Override
@@ -124,7 +123,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 edtSearch.requestFocus();
                 SoftInputUtil.toggleInput(KeywordSearchAllActivity.this);
             }
-        },300);
+        }, 300);
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,9 +138,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(edtSearch.getText().toString().trim())){
+                if (TextUtils.isEmpty(edtSearch.getText().toString().trim())) {
                     ivDelete.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     ivDelete.setVisibility(View.VISIBLE);
                 }
 
@@ -163,7 +162,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.GONE);
                 scrollView.setVisibility(View.VISIBLE);
@@ -203,27 +202,27 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
     }
 
     private void setData() {
-        totalSize=0;
-        if(view1!=null){
+        totalSize = 0;
+        if (view1 != null) {
             llWhole.removeView(view1);
         }
-        if(view2!=null){
+        if (view2 != null) {
             llWhole.removeView(view2);
         }
-        if(view3!=null){
+        if (view3 != null) {
             llWhole.removeView(view3);
         }
-        if(view4!=null){
+        if (view4 != null) {
             llWhole.removeView(view4);
         }
-        if(view5!=null){
+        if (view5 != null) {
             llWhole.removeView(view5);
         }
         if (searchAllBean != null) {
             if (searchAllBean.getEnrolls() != null && searchAllBean.getEnrolls().size() > 0) {
-                totalSize=searchAllBean.getEnrolls().size();
+                totalSize = searchAllBean.getEnrolls().size();
                 Log.e(TAG, "setData: 1111111");
-                view1= LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                view1 = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
                 TextView tv_name = (TextView) view1.findViewById(R.id.tv_name);
                 RecyclerView recyclerView = (RecyclerView) view1.findViewById(R.id.rcv);
                 tv_name.setText("合作机会");
@@ -237,13 +236,13 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                     }
                 });
-                ArrayList<EnrollInfo>enrollInfos=new ArrayList<EnrollInfo>();
-                if(searchAllBean.getEnrolls().size()>3){
+                ArrayList<EnrollInfo> enrollInfos = new ArrayList<EnrollInfo>();
+                if (searchAllBean.getEnrolls().size() > 3) {
                     enrollInfos.add(searchAllBean.getEnrolls().get(0));
                     enrollInfos.add(searchAllBean.getEnrolls().get(1));
                     enrollInfos.add(searchAllBean.getEnrolls().get(2));
-                }else{
-                    enrollInfos=searchAllBean.getEnrolls();
+                } else {
+                    enrollInfos = searchAllBean.getEnrolls();
                 }
                 KeywordSearchCooperateAdapter keywordSearchCooperateAdapter = new KeywordSearchCooperateAdapter(enrollInfos);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -262,7 +261,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 llWhole.addView(view1);
             }
             if (searchAllBean.getNews() != null && searchAllBean.getNews().size() > 0) {
-                totalSize=totalSize+searchAllBean.getNews().size();
+                totalSize = totalSize + searchAllBean.getNews().size();
                 Log.e(TAG, "setData: 222222");
                 view2 = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
                 TextView tv_name = (TextView) view2.findViewById(R.id.tv_name);
@@ -279,13 +278,13 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
                     }
                 });
-                ArrayList<NewsesBean>newsesBeens=new ArrayList<NewsesBean>();
-                if(searchAllBean.getNews().size()>3){
+                ArrayList<NewsesBean> newsesBeens = new ArrayList<NewsesBean>();
+                if (searchAllBean.getNews().size() > 3) {
                     newsesBeens.add(searchAllBean.getNews().get(0));
                     newsesBeens.add(searchAllBean.getNews().get(1));
                     newsesBeens.add(searchAllBean.getNews().get(2));
-                }else{
-                    newsesBeens=searchAllBean.getNews();
+                } else {
+                    newsesBeens = searchAllBean.getNews();
                 }
                 KeywordSearchNewsAdapter keywordSearchNewsAdapter = new KeywordSearchNewsAdapter(this, newsesBeens);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -304,9 +303,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 llWhole.addView(view2);
             }
             if (searchAllBean.getRepertorys() != null && searchAllBean.getRepertorys().size() > 0) {
-                totalSize=totalSize+searchAllBean.getRepertorys().size();
+                totalSize = totalSize + searchAllBean.getRepertorys().size();
                 Log.e(TAG, "setData: 333333");
-                view3= LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                view3 = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
                 TextView tv_name = (TextView) view3.findViewById(R.id.tv_name);
                 RecyclerView recyclerView = (RecyclerView) view3.findViewById(R.id.rcv);
                 tv_name.setText("项目");
@@ -320,13 +319,13 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                     }
                 });
-                ArrayList<Work>works=new ArrayList<Work>();
-                if(searchAllBean.getRepertorys().size()>3){
+                ArrayList<Work> works = new ArrayList<Work>();
+                if (searchAllBean.getRepertorys().size() > 3) {
                     works.add(searchAllBean.getRepertorys().get(0));
                     works.add(searchAllBean.getRepertorys().get(1));
                     works.add(searchAllBean.getRepertorys().get(2));
-                }else{
-                    works=searchAllBean.getRepertorys();
+                } else {
+                    works = searchAllBean.getRepertorys();
                 }
                 KeywordSearchWorksAdapter keywordSearchWorksAdapter = new KeywordSearchWorksAdapter(this, works);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -346,9 +345,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
             }
             if (searchAllBean.getTalents() != null && searchAllBean.getTalents().size() > 0) {
-                totalSize=totalSize+searchAllBean.getTalents().size();
+                totalSize = totalSize + searchAllBean.getTalents().size();
                 Log.e(TAG, "setData: 4444444");
-                view4= LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
+                view4 = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
                 TextView tv_name = (TextView) view4.findViewById(R.id.tv_name);
                 RecyclerView recyclerView = (RecyclerView) view4.findViewById(R.id.rcv);
                 tv_name.setText("人才");
@@ -363,13 +362,13 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                     }
                 });
-                ArrayList<TalentBean>talentBeens=new ArrayList<TalentBean>();
-                if(searchAllBean.getTalents().size()>3){
+                ArrayList<TalentBean> talentBeens = new ArrayList<TalentBean>();
+                if (searchAllBean.getTalents().size() > 3) {
                     talentBeens.add(searchAllBean.getTalents().get(0));
                     talentBeens.add(searchAllBean.getTalents().get(1));
                     talentBeens.add(searchAllBean.getTalents().get(2));
-                }else{
-                    talentBeens=searchAllBean.getTalents();
+                } else {
+                    talentBeens = searchAllBean.getTalents();
                 }
                 KeywordSearchProfessionalAdapter keywordSearchProfessionalAdapter = new KeywordSearchProfessionalAdapter(this, talentBeens);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -389,7 +388,7 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
             }
             if (searchAllBean.getTheaters() != null && searchAllBean.getTheaters().size() > 0) {
-                totalSize=totalSize+searchAllBean.getTheaters().size();
+                totalSize = totalSize + searchAllBean.getTheaters().size();
                 Log.e(TAG, "setData: 5555555");
                 view5 = LayoutInflater.from(this).inflate(R.layout.keyword_search_all_item, null);
                 TextView tv_name = (TextView) view5.findViewById(R.id.tv_name);
@@ -406,13 +405,13 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
 
                     }
                 });
-                ArrayList<Theatre>theatres=new ArrayList<Theatre>();
-                if(searchAllBean.getTheaters().size()>3){
+                ArrayList<Theatre> theatres = new ArrayList<Theatre>();
+                if (searchAllBean.getTheaters().size() > 3) {
                     theatres.add(searchAllBean.getTheaters().get(0));
                     theatres.add(searchAllBean.getTheaters().get(1));
                     theatres.add(searchAllBean.getTheaters().get(2));
-                }else{
-                    theatres=searchAllBean.getTheaters();
+                } else {
+                    theatres = searchAllBean.getTheaters();
                 }
                 KeywordSearchTheatreAdapter keywordSearchTheatreAdapter = new KeywordSearchTheatreAdapter(this, theatres);
                 LinearLayoutManager industryNewsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -434,13 +433,13 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
             }
         }
 
-        tvAccount.setText("共发现"+totalSize+"条相关数据");
+        tvAccount.setText("共发现" + totalSize + "条相关数据");
     }
 
 
     private void getKeywordSearchAllMessage() {
-        if(loadingData)return;
-        loadingData=true;
+        if (loadingData) return;
+        loadingData = true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_KEYWORD_SEARCH==" + Constant.URL_KEYWORD_SEARCH);
         params.put("keyword", keyword);
@@ -451,9 +450,9 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
         RequestUtil.request(true, Constant.URL_KEYWORD_SEARCH, params, 111, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                loadingData=false;
+                loadingData = false;
                 if (isSuccess) {
-                    validKeyword=keyword;
+                    validKeyword = keyword;
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: 1111111111111obj222=" + obj);
                         Gson gson = new Gson();
@@ -473,16 +472,17 @@ public class KeywordSearchAllActivity extends BaseActivity implements View.OnCli
                 } else {
                     ResponseCodeCheck.showErrorMsg(code);
                 }
-                if(ivLoading==null)return;
+                if (ivLoading == null) return;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.GONE);
             }
+
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                if(ivLoading==null)return;
-                loadingData=false;
+                if (ivLoading == null) return;
+                loadingData = false;
                 ivLoading.setVisibility(View.GONE);
                 ivNoContent.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.GONE);
