@@ -406,6 +406,7 @@
     <string name="project_member_info">成员信息</string>
     <string name="project_member_title">职位/角色</string>
     <string name="project_member_intro">成员介绍</string>
+    <string name="project_member_name">姓名&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     <string name="tip_project_cover_suc">项目封面上传成功</string>
     <string name="tip_project_cover_fail">项目封面上传失败</string>
     <string name="project_unit">元/场</string>
