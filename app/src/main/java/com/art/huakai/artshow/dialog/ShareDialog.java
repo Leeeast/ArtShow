@@ -391,6 +391,9 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback, 
         if (showProgressDialog != null && showProgressDialog.isShowing()) {
             showProgressDialog.dismiss();
         }
+        if (isVisible()) {
+            dismiss();
+        }
     }
 
     @Override
