@@ -214,7 +214,12 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
                 }
             }
         }
-        tvMajor.setText(major);
+        if (TextUtils.isEmpty(major)) {
+            tvMajor.setVisibility(View.GONE);
+        } else {
+            tvMajor.setVisibility(View.VISIBLE);
+            tvMajor.setText(major);
+        }
         tvAge.setText(talentDetailBean.getAge() + "");
         tvWeight.setText(talentDetailBean.getWeight());
         tvHeight.setText(talentDetailBean.getHeight());
@@ -425,7 +430,12 @@ public class PersonalDetailMessageActivity extends BaseActivity implements View.
                             s += classifyNames.get(i);
                         }
                     }
-                    tvMajor.setText(s);
+                    if (TextUtils.isEmpty(s)) {
+                        tvMajor.setVisibility(View.GONE);
+                    } else {
+                        tvMajor.setVisibility(View.VISIBLE);
+                        tvMajor.setText(s);
+                    }
                     tvAge.setText(String.valueOf(t.getAge()));
                     tvWeight.setText(String.valueOf(t.getWeight()));
                     tvHeight.setText(String.valueOf(t.getHeight()));

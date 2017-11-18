@@ -221,7 +221,12 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
         tvProducers.setText(worksDetailBean.getLinkman());
         tvActorNumber.setText(worksDetailBean.getPeopleNum() + "人");
         tvCity.setText(worksDetailBean.getRegionName());
-        tvTheatreKind.setText(worksDetailBean.getClassifyName());
+        if (TextUtils.isEmpty(worksDetailBean.getClassifyName())) {
+            tvTheatreKind.setVisibility(View.GONE);
+        } else {
+            tvTheatreKind.setVisibility(View.VISIBLE);
+            tvTheatreKind.setText(worksDetailBean.getClassifyName());
+        }
         tvShowTime.setText(worksDetailBean.getShowLast() + "min");
         tvAlreadyShowTimes.setText(worksDetailBean.getViewTimes() + "场");
         try {
@@ -491,6 +496,12 @@ public class WorksDetailMessageActivity extends BaseActivity implements View.OnC
                     tvShowUsefulTime.setText(
                             DateUtil.transTime(p.getPerformanceBeginDate() + "", "yyyy.M.d") + "～" +
                                     DateUtil.transTime(p.getPerformanceEndDate() + "", "yyyy.M.d"));
+                    if (TextUtils.isEmpty(p.getClassifyName())) {
+                        tvTheatreKind.setVisibility(View.GONE);
+                    } else {
+                        tvTheatreKind.setVisibility(View.VISIBLE);
+                        tvTheatreKind.setText(p.getClassifyName());
+                    }
 
                     break;
                 case ProjectNotifyEvent.NOTIFY_INTRODUCE:

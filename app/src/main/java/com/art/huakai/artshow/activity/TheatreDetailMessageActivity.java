@@ -241,7 +241,13 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
 //        tvOrganize.setText(talentDetailBean.getAgency());
         tvIntroduce.setText(theatreDetailBean.getDescription());
         tvLocation.setText(theatreDetailBean.getAddress());
-        tvTheatreKind.setText(theatreDetailBean.getRoomName());
+        if (TextUtils.isEmpty(theatreDetailBean.getRoomName())) {
+            tvTheatreKind.setVisibility(View.GONE);
+        } else {
+            tvTheatreKind.setVisibility(View.VISIBLE);
+            tvTheatreKind.setText(theatreDetailBean.getRoomName());
+        }
+
 
     }
 
@@ -523,6 +529,12 @@ public class TheatreDetailMessageActivity extends BaseActivity implements View.O
                     tvSeatCount.setText(t.getSeating() + "");
                     tvLocation.setText(t.getAddress());
                     tvIntroduce.setText(t.getDescription());
+                    if (TextUtils.isEmpty(t.getRoomName())) {
+                        tvTheatreKind.setVisibility(View.GONE);
+                    } else {
+                        tvTheatreKind.setVisibility(View.VISIBLE);
+                        tvTheatreKind.setText(t.getRoomName());
+                    }
                     break;
                 case TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE:
                     tvIntroduce.setText(t.getDescription());

@@ -260,6 +260,7 @@ public class ProjectBaseActivity extends BaseActivity {
                         projectDetailInfo.setLinkTel(linkTel);
                         projectDetailInfo.setPerformanceBeginDate(mStartTime);
                         projectDetailInfo.setPerformanceEndDate(mEndTime);
+                        projectDetailInfo.setClassifyName(tvProjectType.getText().toString());
                         EventBus.getDefault().post(new ProjectInfoChangeEvent());
                         EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_BASE_INFO));
                         finish();
