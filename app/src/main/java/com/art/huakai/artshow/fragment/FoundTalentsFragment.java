@@ -106,7 +106,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
     private int page = 1;
 
     private List<SkillBean> skillBeanList = new ArrayList<SkillBean>();
-    private boolean isLoading=false;
+    private boolean isLoading = false;
 
     public FoundTalentsFragment() {
         // Required empty public constructor
@@ -162,7 +162,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onItemClickListener(int position) {
 
-                if(talentLists.get(position)!=null&&!TextUtils.isEmpty(talentLists.get(position).getId())){
+                if (talentLists.get(position) != null && !TextUtils.isEmpty(talentLists.get(position).getId())) {
                     Bundle bundle = new Bundle();
                     bundle.putString(PersonalDetailMessageActivity.PARAMS_ID, talentLists.get(position).getId());
                     invokActivity(getContext(), PersonalDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PERSONAL);
@@ -270,7 +270,7 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                     tvComplexRanking.setTextColor(0xffe93c2c);
-                }else{
+                } else {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                     tvComplexRanking.setTextColor(0xff5a4b41);
                 }
@@ -278,15 +278,15 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                 if (!TextUtils.isEmpty(skillChildId)) {
                     ivChooseSkill.setImageResource(R.mipmap.arrow_down_active);
                     tvSkillChoose.setTextColor(0xffe93c2c);
-                }else{
+                } else {
                     ivChooseSkill.setImageResource(R.mipmap.arrow_down_icon);
                     tvSkillChoose.setTextColor(0xff5a4b41);
                 }
 
-                if(yearPosition !=-1||!TextUtils.isEmpty(collegeName )||certificationPosition !=-1){
+                if (yearPosition != -1 || !TextUtils.isEmpty(collegeName) || certificationPosition != -1) {
                     tvFilter.setTextColor(0xffe93c2c);
                     ivFilter.setImageResource(R.mipmap.filter_active);
-                }else{
+                } else {
                     tvFilter.setTextColor(0xff5a4b41);
                     ivFilter.setImageResource(R.mipmap.filter_default);
                 }
@@ -316,10 +316,10 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_one).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule==1){
+                    if (complexRankingRule == 1) {
                         complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 1;
                         tvComplexRanking.setText("年龄由高到低");
                     }
@@ -335,10 +335,10 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule==2){
+                    if (complexRankingRule == 2) {
                         complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 2;
                         tvComplexRanking.setText("年龄由低到高");
                     }
@@ -555,24 +555,28 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             popupWindow.setContentView(content);
         }
         if (popupWindow != null && !popupWindow.isShowing()) {
-            if(Build.VERSION.SDK_INT<24){
-                popupWindow.showAsDropDown(llComplexRanking, 0, 0);
-            }else{
-                int [] Location =new int [2];
+            if (Build.VERSION.SDK_INT < 24) {
+                popupWindow.showAsDropDown(llComplexRanking, 0, getResources().getDimensionPixelSize(R.dimen.DIMEN_1PX));
+            } else {
+                int[] Location = new int[2];
                 llComplexRanking.getLocationInWindow(Location);
-                int x=Location[0];
-                int y=Location[1];
-                popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY,0,y+llComplexRanking.getHeight());
+                int x = Location[0];
+                int y = Location[1];
+                popupWindow.showAtLocation(
+                        llComplexRanking,
+                        Gravity.NO_GRAVITY,
+                        0,
+                        y + llComplexRanking.getHeight() + getResources().getDimensionPixelSize(R.dimen.DIMEN_1PX));
             }
         }
     }
 
 
     private void getList() {
-        if(isLoading){
+        if (isLoading) {
             return;
         }
-        isLoading=true;
+        isLoading = true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_TALENTS);
         if (!TextUtils.isEmpty(skillChildId)) {
@@ -614,18 +618,18 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
         RequestUtil.request(true, Constant.URL_GET_TALENTS, params, 110, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                isLoading=false;
+                isLoading = false;
                 LogUtil.i(TAG, obj);
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(page==1&&talentLists.size() == 0){
+                        if (page == 1 && talentLists.size() == 0) {
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
                             ivNoContent.setVisibility(View.VISIBLE);
                         }
                     }
-                },500);
+                }, 500);
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: obj==" + obj);
@@ -660,17 +664,17 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                             }
                         } else {
                             if (talentLists.size() == 0) {
-                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
 
                                 if (page == 1) {
-                                    Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
                                     recyclerView.refreshComplete();
                                 } else {
                                     recyclerView.loadMoreComplete();
-                                    Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
                             }
@@ -678,24 +682,24 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
                         Log.e(TAG, "onSuccess: theatres.size==" + talentLists.size());
                     } else {
                         if (talentLists.size() == 0) {
-                            Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 首次加载数据失败");
                         } else {
 
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 刷新数据失败");
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 加载更多数据失败");
                             }
                         }
                     }
                 } else {
                     if (talentLists.size() == 0) {
-                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 首次加载数据失败");
                         ivLoading.setVisibility(View.GONE);
                         llContent.setVisibility(View.GONE);
@@ -704,11 +708,11 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 刷新数据失败");
                         } else {
                             recyclerView.loadMoreComplete();
-                            Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
                     }
@@ -719,9 +723,9 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                isLoading=false;
+                isLoading = false;
                 if (talentLists.size() == 0) {
-                    Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);
                     llContent.setVisibility(View.GONE);
@@ -730,11 +734,11 @@ public class FoundTalentsFragment extends BaseFragment implements View.OnClickLi
 
                     if (page == 1) {
                         recyclerView.refreshComplete();
-                        Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 刷新数据失败");
                     } else {
                         recyclerView.loadMoreComplete();
-                        Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }

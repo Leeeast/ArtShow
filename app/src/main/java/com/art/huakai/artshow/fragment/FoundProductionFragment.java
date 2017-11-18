@@ -98,11 +98,11 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
     private int repertoryPosition = -1;
     private int page = 1;
     private String time;
-    private ArrayList <String> months=new ArrayList<String>();
-    private ArrayList <String>lists=new ArrayList<String>();
-    private int monthPosition=-1;
+    private ArrayList<String> months = new ArrayList<String>();
+    private ArrayList<String> lists = new ArrayList<String>();
+    private int monthPosition = -1;
     private ArrayList<RepertoryBean> repertorys = new ArrayList<RepertoryBean>();
-    private boolean isLoading=false;
+    private boolean isLoading = false;
 
     public FoundProductionFragment() {
         Log.e(TAG, "FoundProductionFragment: ");
@@ -143,11 +143,11 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             @Override
             public void onItemClickListener(int position) {
 
-                if((works.get(position)!=null)&&!TextUtils.isEmpty(works.get(position).getId())){
+                if ((works.get(position) != null) && !TextUtils.isEmpty(works.get(position).getId())) {
                     Bundle bundle = new Bundle();
                     bundle.putString(WorksDetailMessageActivity.PARAMS_ID, works.get(position).getId());
-                invokActivity(getContext(), WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
-            }
+                    invokActivity(getContext(), WorksDetailMessageActivity.class, bundle, JumpCode.FLAG_REQ_DETAIL_PROJECT);
+                }
 
 //                Toast.makeText(getContext(), "itemclick", Toast.LENGTH_SHORT).show();
 
@@ -273,22 +273,22 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                 if (complexRankingRule != 0) {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                     tvComplexRanking.setTextColor(0xffe93c2c);
-                }else{
+                } else {
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                     tvComplexRanking.setTextColor(0xff5a4b41);
                 }
-                if (repertorykind != -1&&repertorykind!=0) {
+                if (repertorykind != -1 && repertorykind != 0) {
                     ivChooseProject.setImageResource(R.mipmap.arrow_down_active);
                     tvChooseProject.setTextColor(0xffe93c2c);
-                }else{
+                } else {
                     ivChooseProject.setImageResource(R.mipmap.arrow_down_icon);
                     tvChooseProject.setTextColor(0xff5a4b41);
                 }
 
-                if(theatreSize!=-1||showActorAccount!=-1||theatrefee!=-1||monthPosition!=-1){
+                if (theatreSize != -1 || showActorAccount != -1 || theatrefee != -1 || monthPosition != -1) {
                     tvFilter.setTextColor(0xffe93c2c);
                     ivFilter.setImageResource(R.mipmap.filter_active);
-                }else{
+                } else {
                     tvFilter.setTextColor(0xff5a4b41);
                     ivFilter.setImageResource(R.mipmap.filter_default);
                 }
@@ -327,10 +327,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_one).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule==1){
+                    if (complexRankingRule == 1) {
                         complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 1;
                         tvComplexRanking.setText("费用由高到低");
                     }
@@ -347,10 +347,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule==2){
+                    if (complexRankingRule == 2) {
                         complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 2;
                         tvComplexRanking.setText("费用由低到高");
                     }
@@ -367,10 +367,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule==3){
+                    if (complexRankingRule == 3) {
                         complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 3;
                         tvComplexRanking.setText("人数由高到低");
                     }
@@ -387,10 +387,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule==4){
+                    if (complexRankingRule == 4) {
                         complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 4;
                         tvComplexRanking.setText("人数由低到高");
                     }
@@ -478,7 +478,7 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             recyclerViewthree.setNestedScrollingEnabled(false);
 
 
-            RecyclerView recyclerViewfour= (RecyclerView) content.findViewById(R.id.rcv_four);
+            RecyclerView recyclerViewfour = (RecyclerView) content.findViewById(R.id.rcv_four);
             final TheatreFilterAdapter singleChooseAdapterfour = new TheatreFilterAdapter(getContext(), months, monthPosition);
             singleChooseAdapterfour.setOnItemClickListener(new TheatreFilterAdapter.OnItemClickListener() {
                 @Override
@@ -514,8 +514,8 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         singleChooseAdapterthree.resetData();
                     }
 
-                    if(singleChooseAdapterfour!=null){
-                        monthPosition=-1;
+                    if (singleChooseAdapterfour != null) {
+                        monthPosition = -1;
                         singleChooseAdapterfour.resetData();
                     }
 
@@ -581,14 +581,17 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             popupWindow.setContentView(content);
         }
         if (popupWindow != null && !popupWindow.isShowing()) {
-            if(Build.VERSION.SDK_INT<24){
-                popupWindow.showAsDropDown(llComplexRanking, 0, 0);
-            }else{
-                int [] Location =new int [2];
+            if (Build.VERSION.SDK_INT < 24) {
+                popupWindow.showAsDropDown(llComplexRanking, 0, getResources().getDimensionPixelSize(R.dimen.DIMEN_1PX));
+            } else {
+                int[] Location = new int[2];
                 llComplexRanking.getLocationInWindow(Location);
-                int x=Location[0];
-                int y=Location[1];
-                popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY,0,y+llComplexRanking.getHeight());
+                int x = Location[0];
+                int y = Location[1];
+                popupWindow.showAtLocation(llComplexRanking,
+                        Gravity.NO_GRAVITY,
+                        0,
+                        y + llComplexRanking.getHeight() + getResources().getDimensionPixelSize(R.dimen.DIMEN_1PX));
             }
         }
 
@@ -596,10 +599,10 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
 
     private void getList() {
 
-        if(isLoading){
+        if (isLoading) {
             return;
         }
-        isLoading=true;
+        isLoading = true;
         Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_WORKS==" + Constant.URL_GET_WORKS);
 
@@ -665,9 +668,9 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             params.put("classifyId", repertorykind + "");
         }
 
-        if(!(monthPosition==0||monthPosition==-1)){
-            String month=months.get(monthPosition);
-            params.put("enabledMonth",month.substring(0,4)+"-"+lists.get(monthPosition));
+        if (!(monthPosition == 0 || monthPosition == -1)) {
+            String month = months.get(monthPosition);
+            params.put("enabledMonth", month.substring(0, 4) + "-" + lists.get(monthPosition));
         }
 
         String sign = SignUtil.getSign(params);
@@ -679,17 +682,17 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
                 LogUtil.i(TAG, obj);
-                isLoading=false;
+                isLoading = false;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(page==1&&works.size() == 0){
+                        if (page == 1 && works.size() == 0) {
                             ivLoading.setVisibility(View.GONE);
                             llContent.setVisibility(View.GONE);
                             ivNoContent.setVisibility(View.VISIBLE);
                         }
                     }
-                },500);
+                }, 500);
                 if (isSuccess) {
                     if (!TextUtils.isEmpty(obj)) {
                         Log.e(TAG, "onSuccess: obj==" + obj);
@@ -723,16 +726,16 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                             }
                         } else {
                             if (works.size() == 0) {
-                                Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 首次加载数据失败");
                             } else {
 
                                 if (page == 1) {
-                                    Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "onSuccess: 刷新数据失败");
                                     recyclerView.refreshComplete();
                                 } else {
-                                    Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                                     recyclerView.loadMoreComplete();
                                     Log.e(TAG, "onSuccess: 加载更多数据失败");
                                 }
@@ -741,33 +744,33 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                         Log.e(TAG, "onSuccess: works.size==" + works.size());
                     } else {
                         if (works.size() == 0) {
-                            Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 首次加载数据失败");
                         } else {
 
                             if (page == 1) {
                                 recyclerView.refreshComplete();
-                                Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 刷新数据失败");
                             } else {
                                 recyclerView.loadMoreComplete();
-                                Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onSuccess: 加载更多数据失败");
                             }
                         }
                     }
                 } else {
                     if (works.size() == 0) {
-                        Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 首次加载数据失败");
                     } else {
 
                         if (page == 1) {
                             recyclerView.refreshComplete();
-                            Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onSuccess: 刷新数据失败");
                         } else {
-                            Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                             recyclerView.loadMoreComplete();
                             Log.e(TAG, "onSuccess: 加载更多数据失败");
                         }
@@ -779,9 +782,9 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
             @Override
             public void onFailed(Call call, Exception e, int id) {
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
-                isLoading=false;
+                isLoading = false;
                 if (works.size() == 0) {
-                    Toast.makeText(getContext(),"未查询到您筛选的数据",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "未查询到您筛选的数据", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
                     ivLoading.setVisibility(View.GONE);
                     llContent.setVisibility(View.GONE);
@@ -789,12 +792,12 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
                 } else {
 
                     if (page == 1) {
-                        Toast.makeText(getContext(),"刷新数据失败",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "刷新数据失败", Toast.LENGTH_SHORT).show();
                         recyclerView.refreshComplete();
                         Log.e(TAG, "onSuccess: 刷新数据失败");
                     } else {
                         recyclerView.loadMoreComplete();
-                        Toast.makeText(getContext(),"已无更多数据",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "已无更多数据", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess: 加载更多数据失败");
                     }
                 }
@@ -848,29 +851,29 @@ public class FoundProductionFragment extends BaseFragment implements View.OnClic
         months.add("不限");
         lists.add("0");
         Calendar c = Calendar.getInstance();//
-        Log.e(TAG, "_GetDate: mYear=="+c.get(Calendar.YEAR)+"--mMonth=="+(c.get(Calendar.MONTH) + 1) );
-        int year=c.get(Calendar.YEAR);
-        int month=(c.get(Calendar.MONTH) + 1);
-        if(month<10){
-            months.add(year+"年"+"0"+month+"月");
-        }else{
-            months.add(year+"年"+month+"月");
+        Log.e(TAG, "_GetDate: mYear==" + c.get(Calendar.YEAR) + "--mMonth==" + (c.get(Calendar.MONTH) + 1));
+        int year = c.get(Calendar.YEAR);
+        int month = (c.get(Calendar.MONTH) + 1);
+        if (month < 10) {
+            months.add(year + "年" + "0" + month + "月");
+        } else {
+            months.add(year + "年" + month + "月");
         }
-        lists.add(""+month);
-        for(int i=1;i<=11;i++){
-            if((month+1)>12){
-                month=month+1-12;
-                year=year+1;
-            }else{
-                month=month+1;
-                year=year;
+        lists.add("" + month);
+        for (int i = 1; i <= 11; i++) {
+            if ((month + 1) > 12) {
+                month = month + 1 - 12;
+                year = year + 1;
+            } else {
+                month = month + 1;
+                year = year;
             }
-            if(month<10){
-                months.add(year+"年"+"0"+month+"月");
-            }else{
-                months.add(year+"年"+month+"月");
+            if (month < 10) {
+                months.add(year + "年" + "0" + month + "月");
+            } else {
+                months.add(year + "年" + month + "月");
             }
-            lists.add(""+month);
+            lists.add("" + month);
         }
     }
 

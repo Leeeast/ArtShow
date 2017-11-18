@@ -7,21 +7,15 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/DIMEN_14PX"
     android:paddingRight="@dimen/DIMEN_14PX">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_1PX"
-        android:background="#fff5f3f1" />
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/DIMEN_47PX">
 
         <TextView
             android:id="@+id/tv_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:layout_centerVertical="true"
             android:clickable="true"
             android:text="年龄由高到低"
             android:textColor="#ff5a4b41"
@@ -35,24 +29,24 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/right_icon"
             android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ffdddddd" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_1PX"
-
-        android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:background="#fff5f3f1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/DIMEN_47PX">
 
         <TextView
             android:id="@+id/tv_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/DIMEN_15PX"
+            android:layout_centerVertical="true"
             android:clickable="true"
             android:text="年龄由低到高"
             android:textColor="#ff5a4b41"
@@ -67,16 +61,13 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/right_icon"
             android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ffdddddd" />
     </RelativeLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/DIMEN_1PX"
-
-        android:layout_marginTop="@dimen/DIMEN_15PX"
-        android:background="#fff5f3f1" />
-
 
 </LinearLayout>
 

@@ -30,11 +30,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:background="#fff5f3f1" />
+            android:layout_height="1dp"
+            android:background="#ffdddddd" />
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="@dimen/DIMEN_47PX"
             android:background="@color/whiteff"
@@ -133,10 +132,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:background="#fff5f3f1"
-
-            />
+            android:layout_height="1dp"
+            android:background="#ffdddddd" />
 
         <LinearLayout
             android:id="@+id/ll_content"

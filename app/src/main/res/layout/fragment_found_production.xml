@@ -12,7 +12,6 @@
         android:src="@mipmap/loading_gray"
         android:visibility="visible" />
 
-
     <ImageView
         android:id="@+id/iv_no_content"
         android:layout_width="@dimen/DIMEN_150PX"
@@ -31,8 +30,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:background="#fff5f3f1" />
+            android:layout_height="1dp"
+            android:background="#ffdddddd" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -131,10 +130,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/DIMEN_1PX"
-            android:background="#fff5f3f1"
-
-            />
+            android:layout_height="1dp"
+            android:background="#ffdddddd" />
 
         <LinearLayout
             android:id="@+id/ll_content"

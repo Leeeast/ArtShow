@@ -105,7 +105,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
     private int monthPosition = -1;
     private String address;
     private String mRegionId = "";
-    private boolean isLoading=false;
+    private boolean isLoading = false;
 
     public FoundTheatreFragment() {
         // Required empty public constructor
@@ -276,7 +276,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     ivComplexRanking.setImageResource(R.mipmap.arrow_down_icon);
                     tvComplexRanking.setTextColor(0xff5a4b41);
                 }
-                if (!TextUtils.isEmpty(mRegionId)&&!mRegionId.equals("0")) {
+                if (!TextUtils.isEmpty(mRegionId) && !mRegionId.equals("0")) {
                     tvCityChoose.setTextColor(0xffe93c2c);
                     ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
                 } else {
@@ -319,10 +319,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_one).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule ==1){
-                        complexRankingRule=0;
+                    if (complexRankingRule == 1) {
+                        complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 1;
                         tvComplexRanking.setText("费用由高到低");
                     }
@@ -339,10 +339,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_two).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule ==2){
-                        complexRankingRule=0;
+                    if (complexRankingRule == 2) {
+                        complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 2;
                         tvComplexRanking.setText("费用由低到高");
                     }
@@ -359,10 +359,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_three).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule ==3){
-                        complexRankingRule=0;
+                    if (complexRankingRule == 3) {
+                        complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 3;
                         tvComplexRanking.setText("座位数由高到低");
                     }
@@ -379,10 +379,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
             content.findViewById(R.id.tv_four).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(complexRankingRule ==4){
-                        complexRankingRule=0;
+                    if (complexRankingRule == 4) {
+                        complexRankingRule = 0;
                         tvComplexRanking.setText("综合排序");
-                    }else{
+                    } else {
                         complexRankingRule = 4;
                         tvComplexRanking.setText("座位数由低到高");
                     }
@@ -506,13 +506,14 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         }
         if (popupWindow != null && !popupWindow.isShowing()) {
             if (Build.VERSION.SDK_INT < 24) {
-                popupWindow.showAsDropDown(llComplexRanking, 0, 0);
+                popupWindow.showAsDropDown(llComplexRanking, 0, getResources().getDimensionPixelSize(R.dimen.DIMEN_1PX));
             } else {
                 int[] Location = new int[2];
                 llComplexRanking.getLocationInWindow(Location);
                 int x = Location[0];
                 int y = Location[1];
-                popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY, 0, y + llComplexRanking.getHeight());
+                popupWindow.showAtLocation(llComplexRanking, Gravity.NO_GRAVITY, 0,
+                        y + llComplexRanking.getHeight() + getResources().getDimensionPixelSize(R.dimen.DIMEN_1PX));
             }
         }
 
@@ -520,10 +521,10 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
 
     private void getList() {
-        if(isLoading){
+        if (isLoading) {
             return;
         }
-        isLoading=true;
+        isLoading = true;
         final Map<String, String> params = new TreeMap<>();
         Log.e(TAG, "getMessage: Constant.URL_GET_CLASSFY_LIST==" + Constant.URL_GET_THEATRES);
         if (complexRankingRule == 1) {
@@ -580,7 +581,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
         RequestUtil.request(true, Constant.URL_GET_THEATRES, params, 105, new RequestUtil.RequestListener() {
             @Override
             public void onSuccess(boolean isSuccess, String obj, int code, int id) {
-                isLoading=false;
+                isLoading = false;
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -601,7 +602,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                         tempTheatres = gson.fromJson(obj, new TypeToken<List<Theatre>>() {
                         }.getType());
                         if (tempTheatres != null && tempTheatres.size() > 0) {
-                            Log.e(TAG, "onSuccess1111111:theatres.size()== "+theatres.size() );
+                            Log.e(TAG, "onSuccess1111111:theatres.size()== " + theatres.size());
                             if (theatres.size() == 0) {
                                 if (theatres.addAll(tempTheatres)) {
                                     uiHandler.removeCallbacksAndMessages(null);
@@ -609,7 +610,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                                 }
                                 page++;
                             } else {
-                                Log.e(TAG, "onSuccess2222:theatres.size()== "+theatres.size() );
+                                Log.e(TAG, "onSuccess2222:theatres.size()== " + theatres.size());
                                 if (page == 1) {
                                     recyclerView.refreshComplete();
                                     theatres.clear();
@@ -617,15 +618,15 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                                         uiHandler.sendEmptyMessage(0);
                                     }
                                 } else {
-                                    Log.e(TAG, "onSuccess333333:theatres.size()== "+theatres.size() );
+                                    Log.e(TAG, "onSuccess333333:theatres.size()== " + theatres.size());
                                     recyclerView.loadMoreComplete();
                                     theatres.addAll(tempTheatres);
-                                    Log.e(TAG, "onSuccess444444:theatres.size()== "+theatres.size() );
+                                    Log.e(TAG, "onSuccess444444:theatres.size()== " + theatres.size());
                                     if (lookingWorksAdapter != null) {
 //                                        lookingWorksAdapter.add(tempTheatres);
                                         lookingWorksAdapter.notifyDataSetChanged();
                                     }
-                                    Log.e(TAG, "onSuccess444444:theatres.size()== "+theatres.size() );
+                                    Log.e(TAG, "onSuccess444444:theatres.size()== " + theatres.size());
                                 }
                                 page++;
                             }
@@ -685,7 +686,7 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
 
             @Override
             public void onFailed(Call call, Exception e, int id) {
-                isLoading=false;
+                isLoading = false;
                 LogUtil.e(TAG, e.getMessage() + "- id = " + id);
                 if (theatres.size() == 0) {
                     Log.e(TAG, "onSuccess: 首次加载数据失败");
@@ -792,15 +793,15 @@ public class FoundTheatreFragment extends BaseFragment implements View.OnClickLi
                     page = 1;
                     getList();
                     theatres.clear();
-                    Log.d(TAG, "onPicked: mRegionId="+mRegionId);
+                    Log.d(TAG, "onPicked: mRegionId=" + mRegionId);
                     if (complexRankingRule != 0) {
                         ivComplexRanking.setImageResource(R.mipmap.arrow_down_active);
                         tvComplexRanking.setTextColor(0xffe93c2c);
                     }
-                    if (!TextUtils.isEmpty(mRegionId)&&!mRegionId.equals("0")) {
+                    if (!TextUtils.isEmpty(mRegionId) && !mRegionId.equals("0")) {
                         tvCityChoose.setTextColor(0xffe93c2c);
                         ivChooseCity.setImageResource(R.mipmap.arrow_down_active);
-                    }else {
+                    } else {
                         tvCityChoose.setTextColor(0xff5a4b41);
                         ivChooseCity.setImageResource(R.mipmap.arrow_down_icon);
                     }
