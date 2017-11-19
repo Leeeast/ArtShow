@@ -259,7 +259,7 @@ public class ProjectBaseActivity extends BaseActivity {
                         projectDetailInfo.setLinkman(linkMan);
                         projectDetailInfo.setLinkTel(linkTel);
                         projectDetailInfo.setPerformanceBeginDate(mStartTime);
-                        projectDetailInfo.setPerformanceEndDate(mEndTime);
+                        projectDetailInfo.setPerformanceEndDate(TextUtils.isEmpty(mEndTime) ? "" : mEndTime);
                         projectDetailInfo.setClassifyName(tvProjectType.getText().toString());
                         EventBus.getDefault().post(new ProjectInfoChangeEvent());
                         EventBus.getDefault().post(new ProjectNotifyEvent(ProjectNotifyEvent.NOTIFY_BASE_INFO));
@@ -509,6 +509,8 @@ public class ProjectBaseActivity extends BaseActivity {
                 DateUtil.transTime(projectDetailInfo.getPerformanceBeginDate()) + "~" +
                         DateUtil.transTime(projectDetailInfo.getPerformanceEndDate());
         tvAbleShowTime.setText(enableShowTime);
+        mStartTime = projectDetailInfo.getPerformanceBeginDate();
+        mEndTime = projectDetailInfo.getPerformanceEndDate();
 
         if (!TextUtils.isEmpty(projectDetailInfo.getRegionId())) {
             mRegionId = projectDetailInfo.getRegionId();

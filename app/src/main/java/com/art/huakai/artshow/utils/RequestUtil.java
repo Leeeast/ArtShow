@@ -140,42 +140,48 @@ public class RequestUtil {
      * @param listener  请求回调
      */
     public static RequestCall postRequest(String url, Map<String, String> params, int requestId, final RequestListener listener) {
-        RequestCall build = OkHttpUtils
-                .post()
-                .url(url)
-                .params(params)
-                .id(requestId)
-                .build();
-        build.execute(new StringCallback() {
+        try {
+            RequestCall build = OkHttpUtils
+                    .post()
+                    .url(url)
+                    .params(params)
+                    .id(requestId)
+                    .build();
+            build.execute(new StringCallback() {
 
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                listener.onFailed(call, e, id);
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                if (!TextUtils.isEmpty(response)) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        int code = jsonObject.optInt("code");
-                        String msg = jsonObject.optString("msg");
-                        String data = jsonObject.optString("data");
-                        if (ResponseCodeCheck.checkResponseCode(code)) {
-                            listener.onSuccess(true, data, code, id);
-                        } else {
-                            listener.onSuccess(false, msg, code, id);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        listener.onSuccess(false, "Json data parsing exception", 0, id);
-                    }
-                } else {
-
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    listener.onFailed(call, e, id);
                 }
-            }
-        });
-        return build;
+
+                @Override
+                public void onResponse(String response, int id) {
+                    if (!TextUtils.isEmpty(response)) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int code = jsonObject.optInt("code");
+                            String msg = jsonObject.optString("msg");
+                            String data = jsonObject.optString("data");
+                            if (ResponseCodeCheck.checkResponseCode(code)) {
+                                listener.onSuccess(true, data, code, id);
+                            } else {
+                                listener.onSuccess(false, msg, code, id);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            listener.onSuccess(false, "Json data parsing exception", 0, id);
+                        }
+                    } else {
+
+                    }
+                }
+            });
+            return build;
+        } catch (Exception e) {
+            e.printStackTrace();
+            listener.onFailed(null, e, 10000);
+        }
+        return null;
     }
 
     /**
@@ -187,41 +193,47 @@ public class RequestUtil {
      * @param listener  请求回调
      */
     public static RequestCall getRequest(String url, Map<String, String> params, final int requestId, final RequestListener listener) {
-        RequestCall build = OkHttpUtils
-                .get()
-                .url(url)
-                .params(params)
-                .id(requestId)
-                .build();
-        build.execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                LogUtil.e(TAG, e.getMessage() + "-" + id);
-                listener.onFailed(call, e, id);
-            }
+        try {
+            RequestCall build = OkHttpUtils
+                    .get()
+                    .url(url)
+                    .params(params)
+                    .id(requestId)
+                    .build();
+            build.execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    LogUtil.e(TAG, e.getMessage() + "-" + id);
+                    listener.onFailed(call, e, id);
+                }
 
-            @Override
-            public void onResponse(String response, int id) {
-                LogUtil.i(TAG, response + ":id = " + id);
-                if (!TextUtils.isEmpty(response)) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        int code = jsonObject.optInt("code");
-                        String msg = jsonObject.optString("msg");
-                        String data = jsonObject.optString("data");
-                        if (ResponseCodeCheck.checkResponseCode(code)) {
-                            listener.onSuccess(true, data, code, id);
-                        } else {
-                            listener.onSuccess(false, msg, code, id);
+                @Override
+                public void onResponse(String response, int id) {
+                    LogUtil.i(TAG, response + ":id = " + id);
+                    if (!TextUtils.isEmpty(response)) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int code = jsonObject.optInt("code");
+                            String msg = jsonObject.optString("msg");
+                            String data = jsonObject.optString("data");
+                            if (ResponseCodeCheck.checkResponseCode(code)) {
+                                listener.onSuccess(true, data, code, id);
+                            } else {
+                                listener.onSuccess(false, msg, code, id);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            listener.onSuccess(false, "Json data parsing exception", 0, id);
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        listener.onSuccess(false, "Json data parsing exception", 0, id);
                     }
                 }
-            }
-        });
-        return build;
+            });
+            return build;
+        } catch (Exception e) {
+            e.printStackTrace();
+            listener.onFailed(null, e, 1000);
+        }
+        return null;
     }
 
 
@@ -358,6 +370,7 @@ public class RequestUtil {
             return build;
         } catch (Exception e) {
             e.printStackTrace();
+            listener.onFailed(null, e, 10000);
         }
         return null;
     }

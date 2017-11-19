@@ -188,7 +188,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/DIMEN_15PX"
                 android:layout_marginTop="@dimen/DIMEN_15PX"
                 android:text="@string/app_login_other"
                 android:textColor="@color/login_light"
