@@ -40,7 +40,7 @@ public class Constant {
     /**
      * ==========================================================
      */
-    private static boolean isTestEnv = true;
+    private static boolean isTestEnv = false;
     public static final String TEST_HOST = "http://139.224.47.213:8080";
     public static final String PRODUCE_HOST = "https://new.api.showonline.com.cn";
     public static final String HOST = isTestEnv ? TEST_HOST : PRODUCE_HOST;
@@ -191,9 +191,11 @@ public class Constant {
     public static final String URL_CLIENT_UPGRADE = BASE_URL + "/client/upgrade";
 
 
-//    获取地区借口
+    //    获取地区借口
 //    http://139.224.47.213:8080/showonline_api/region/list
 //
-
+    //H5 剧场详情介绍富文本编辑页，getContent()获取富文本内容
+    public static final String URL_THEATER_DETAILEDINTRODUCE_WYSIWYG =
+            BASE_URL + "/theater/detailedIntroduce/wysiwyg?id=%s&userId=%s&accessToken=%s&sign=%s";
 
 }
