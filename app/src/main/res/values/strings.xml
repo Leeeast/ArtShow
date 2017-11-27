@@ -485,4 +485,7 @@
     <string name="found_talent_org">所属机构</string>
     <string name="found_price">￥%1$s</string>
 
+    <string name="upload_pic_fail">上传图片失败</string>
+    <string name="open_pic_fail">打开相册失败</string>
+
 </resources>

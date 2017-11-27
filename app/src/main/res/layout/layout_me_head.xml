@@ -36,6 +36,7 @@
         android:layout_below="@id/sdv_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/DIMEN_15PX"
+        android:gravity="center"
         android:hint="@string/me_unlogin"
         android:text="@string/me_unlogin"
         android:textColor="@color/black00"
