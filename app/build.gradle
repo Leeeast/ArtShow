@@ -78,4 +78,5 @@ dependencies {
     compile 'com.amap.api:location:latest.integration'
     compile 'org.jsoup:jsoup:1.11.1'
     compile files('libs/open_sdk_r5886_lite.jar')
+    compile files('libs/commons-lang3-3.7.jar')
 }

@@ -197,5 +197,22 @@ public class Constant {
     //H5 剧场详情介绍富文本编辑页，getContent()获取富文本内容
     public static final String URL_THEATER_DETAILEDINTRODUCE_WYSIWYG =
             BASE_URL + "/theater/detailedIntroduce/wysiwyg?id=%s&userId=%s&accessToken=%s&sign=%s";
+    //H5 个人作品富文本编辑页，getContent()获取富文本内容
+    public static final String URL_TALENT_WORKSDESCPT_WYSIWYG =
+            BASE_URL + "/talent/worksDescpt/wysiwyg?id=%s&userId=%s&accessToken=%s&sign=%s";
+    //H5 获奖经历富文本编辑页，getContent()获取富文本内容
+    public static final String URL_TALENT_AWARDSDESCPT_WYSIWYG =
+            BASE_URL + "/talent/awardsDescpt/wysiwyg?id=%s&userId=%s&accessToken=%s&sign=%s";
+    //H5 获奖介绍富文本编辑页，getContent()获取富文本内容
+    public static final String URL_REPERTORY_AWARDSDESCPT_WYSIWYG =
+            BASE_URL + "/repertory/awardsDescpt/wysiwyg?id=%s&userId=%s&accessToken=%s&sign=%s";
+
+    //H5 演出介绍编辑页，getContent()获取富文本内容
+    public static final String URL_REPERTORY_PLOT_WYSIWYG =
+            BASE_URL + "/repertory/plot/wysiwyg?id=%s&userId=%s&accessToken=%s&sign=%s";
+    //H5 舞台技术要求富文本编辑页，getContent()获取富文本内容
+    public static final String URL_REPERTORY_REQUIREMENTS_WYSIWYG =
+            BASE_URL + "/repertory/requirements/wysiwyg?id=%s&userId=%s&accessToken=%s&sign=%s";
+
 
 }

@@ -39,6 +39,7 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.SoftInputUtil;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
@@ -156,8 +157,15 @@ public class TheatreDetailIntroFragment extends BaseFragment {
         webView.evaluateJavascript("javascript:getContent()", new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
+                String unescapeJava = StringEscapeUtils.unescapeJava(value);
+                String scapeRichText = "";
+                if (unescapeJava.startsWith("\"") && unescapeJava.startsWith("\"")) {
+                    scapeRichText = unescapeJava.substring(1, unescapeJava.length() - 1);
+                } else {
+                    scapeRichText = unescapeJava;
+                }
                 Message msg = myHandler.obtainMessage(CODE_COMMIT);
-                msg.obj = value;
+                msg.obj = scapeRichText;
                 myHandler.sendMessage(msg);
             }
         });
