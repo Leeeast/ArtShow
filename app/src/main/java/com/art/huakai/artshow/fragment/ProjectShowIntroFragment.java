@@ -156,7 +156,12 @@ public class ProjectShowIntroFragment extends BaseFragment {
                 String unescapeJava = StringEscapeUtils.unescapeJava(value);
                 String scapeRichText = "";
                 if (unescapeJava.startsWith("\"") && unescapeJava.startsWith("\"")) {
-                    scapeRichText = unescapeJava.substring(1, unescapeJava.length() - 1);
+                    try {
+                        scapeRichText = unescapeJava.substring(1, unescapeJava.length() - 1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        scapeRichText = unescapeJava;
+                    }
                 } else {
                     scapeRichText = unescapeJava;
                 }

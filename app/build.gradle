@@ -7,8 +7,8 @@ android {
         applicationId "com.art.huakai.artshow"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 200
-        versionName "2.0.0"
+        versionCode 201
+        versionName "2.0.1"
         multiDexEnabled true
     }
     //配置keystore签名
