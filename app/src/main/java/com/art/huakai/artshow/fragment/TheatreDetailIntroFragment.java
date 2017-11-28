@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +21,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import com.art.huakai.artshow.utils.SoftInputUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -52,6 +54,9 @@ import okhttp3.Call;
 
 public class TheatreDetailIntroFragment extends BaseFragment {
     private static final String PARAMS_INFO = "PARAMS_INFO";
+
+    private static final int CODE_COMMIT = 10;
+
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_subtitle)
@@ -61,7 +66,6 @@ public class TheatreDetailIntroFragment extends BaseFragment {
 
     private Unbinder unbinder;
     private ShowProgressDialog showProgressDialog;
-    private String mDescription;
 
     //变量表示  是否启用图片加载
     private boolean isLoadImage = false;
@@ -70,6 +74,7 @@ public class TheatreDetailIntroFragment extends BaseFragment {
     public static final int REQUEST_SELECT_FILE = 100;
     private final static int FILECHOOSER_RESULTCODE = 2;
     private String urlH5;
+    private MyHandler myHandler;
 
     public TheatreDetailIntroFragment() {
     }
@@ -79,11 +84,32 @@ public class TheatreDetailIntroFragment extends BaseFragment {
         return fragment;
     }
 
+    public static class MyHandler extends Handler {
+
+        private WeakReference<TheatreDetailIntroFragment> reference;
+
+        public MyHandler(TheatreDetailIntroFragment fragment) {
+            reference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            TheatreDetailIntroFragment fragment = reference.get();
+            if (fragment == null) return;
+            switch (msg.what) {
+                case CODE_COMMIT:
+                    String richText = (String) msg.obj;
+                    fragment.changeResumeDescription(richText);
+                    break;
+            }
+        }
+    }
+
     @Override
     public void initData(@Nullable Bundle bundle) {
         showProgressDialog = new ShowProgressDialog(getActivity());
-        mDescription = TheatreDetailInfo.getInstance().getDetailedIntroduce();
-
+        myHandler = new MyHandler(this);
         Map<String, String> params = new TreeMap<>();
         String id = TextUtils.isEmpty(TheatreDetailInfo.getInstance().getId()) ? "" : TheatreDetailInfo.getInstance().getId();
         params.put("id", id);
@@ -127,13 +153,20 @@ public class TheatreDetailIntroFragment extends BaseFragment {
      */
     @OnClick(R.id.tv_subtitle)
     public void confirmInfo() {
-        changeResumeDescription();
+        webView.evaluateJavascript("javascript:getContent()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                Message msg = myHandler.obtainMessage(CODE_COMMIT);
+                msg.obj = value;
+                myHandler.sendMessage(msg);
+            }
+        });
     }
 
     /**
      * 修改简历个人介绍
      */
-    public void changeResumeDescription() {
+    public void changeResumeDescription(final String description) {
         //判断是否登录
         if (!LoginUtil.checkUserLogin(getActivity(), true)) {
             return;
@@ -143,9 +176,8 @@ public class TheatreDetailIntroFragment extends BaseFragment {
             Toast.makeText(getActivity(), getString(R.string.tip_data_error), Toast.LENGTH_SHORT).show();
             return;
         }
-        //TODO 待处理
-        webView.loadUrl("javascript:getContent()");
-        if (TextUtils.isEmpty(mDescription)) {
+
+        if (TextUtils.isEmpty(description)) {
             Toast.makeText(getActivity(), getString(R.string.tip_theatre_detail_input), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -155,7 +187,7 @@ public class TheatreDetailIntroFragment extends BaseFragment {
         }
         params.put("userId", LocalUserInfo.getInstance().getId());
         params.put("accessToken", LocalUserInfo.getInstance().getAccessToken());
-        params.put("detailedIntroduce", mDescription);
+        params.put("detailedIntroduce", description);
         String sign = SignUtil.getSign(params);
         params.put("sign", sign);
         LogUtil.i(TAG, "params = " + params);
@@ -174,7 +206,7 @@ public class TheatreDetailIntroFragment extends BaseFragment {
                         JSONObject jsonObject = new JSONObject(obj);
                         String theatreId = jsonObject.getString("id");
                         TheatreDetailInfo.getInstance().setId(theatreId);
-                        TheatreDetailInfo.getInstance().setDetailedIntroduce(mDescription);
+                        TheatreDetailInfo.getInstance().setDetailedIntroduce(description);
                         EventBus.getDefault().post(new TheatreInfoChangeEvent());
                         EventBus.getDefault().post(new TheatreNotifyEvent(TheatreNotifyEvent.NOTIFY_THEATRE_INTRODUCE_DETAIL));
                         SoftInputUtil.hideInput(getActivity());
