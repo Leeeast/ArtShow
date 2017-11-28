@@ -3,15 +3,11 @@ package com.art.huakai.artshow.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,7 +17,6 @@ import android.view.View;
 import android.view.Window;
 
 import com.art.huakai.artshow.R;
-import com.art.huakai.artshow.activity.EnrollDetailActivity;
 import com.art.huakai.artshow.base.BaseDialogFragment;
 import com.art.huakai.artshow.base.ShowApplication;
 import com.art.huakai.artshow.constant.Constant;
@@ -47,8 +42,6 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
-
-import java.net.URL;
 
 import butterknife.OnClick;
 
@@ -342,14 +335,15 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback, 
      */
     private TextObject getTextObj() {
         TextObject textObject = new TextObject();
-        textObject.text = mTitle + "#" + mUrl;
-        textObject.title = mTitle;
+        //textObject.title = mTitle;
+        textObject.text = mTitle;
+        //textObject.description = getContext().getString(R.string.tip_share_url_des);
         textObject.actionUrl = mUrl;
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
+        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
         // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
 //        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
 //        bitmap.recycle();
-        textObject.setThumbImage(bitmap);
+        //textObject.setThumbImage(bitmap);
         return textObject;
     }
 
@@ -373,7 +367,7 @@ public class ShareDialog extends BaseDialogFragment implements WbShareCallback, 
     private WebpageObject getWebpageObj() {
         WebpageObject mediaObject = new WebpageObject();
         mediaObject.identify = Utility.generateGUID();
-        mediaObject.title = mTitle;
+        //mediaObject.title = mTitle;
         mediaObject.description = getContext().getString(R.string.tip_share_url_des);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_share_img);
         // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
