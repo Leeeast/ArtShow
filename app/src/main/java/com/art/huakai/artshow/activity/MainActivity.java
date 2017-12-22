@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         String appLimit = StatConfig.getCustomProperty("APP_LIMIT", "ON");
         if (appLimit.equalsIgnoreCase("OFF")) {
             finish();
-            showToast("程序权限受限，请联系工作人员");
+            showToast("请重新授权才能使用程序");
         }
     }
 

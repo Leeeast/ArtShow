@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
 
     <application
@@ -272,7 +273,12 @@
         <meta-data
             android:name="InstallChannel"
             android:value="${CHANNEL_VALUE}" />
-
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="577ca87c67e58effd7000140" />
+        <meta-data
+            android:name="${CHANNEL_VALUE}"
+            android:value="Channel ID" />
     </application>
 
 </manifest>

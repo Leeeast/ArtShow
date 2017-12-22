@@ -31,6 +31,9 @@ public class Constant {
     public static final String WB_APP_KEY = "35068881";
     public static final String WB_REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
 
+    //友盟Key
+    public static final String UM_APP_KEY = "577ca87c67e58effd7000140";
+
     public static final String AD_TYPE_THEATER = "theater";
     public static final String AD_TYPE_TALENT = "talent";
     public static final String AD_TYPE_REPERTORY = "repertory";

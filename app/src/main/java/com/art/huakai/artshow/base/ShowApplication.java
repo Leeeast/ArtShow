@@ -4,10 +4,12 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.utils.FrescoHelper;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.tencent.stat.StatService;
+import com.umeng.commonsdk.UMConfigure;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +56,8 @@ public class ShowApplication extends MultiDexApplication {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //友盟在线参数
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, Constant.UM_APP_KEY);
     }
 
     @Override
