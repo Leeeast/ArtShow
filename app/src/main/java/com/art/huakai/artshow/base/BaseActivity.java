@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.tencent.stat.StatService;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import com.art.huakai.artshow.activity.AccountInfoActivity;
 
 /**
  * Activity基类，定义了一些基础的方法，注意方法顺序,根据需求部分步骤可以省略
@@ -32,6 +31,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
         initView();
         setView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatService.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatService.onPause(this);
     }
 
     /**
