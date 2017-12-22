@@ -1,6 +1,5 @@
 package com.art.huakai.artshow.base;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -8,6 +7,7 @@ import android.support.multidex.MultiDexApplication;
 import com.art.huakai.artshow.okhttp.OkHttpUtils;
 import com.art.huakai.artshow.utils.FrescoHelper;
 import com.art.huakai.artshow.utils.SharePreUtil;
+import com.tencent.stat.StatService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,13 +49,18 @@ public class ShowApplication extends MultiDexApplication {
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 .build();
         OkHttpUtils.initClient(okHttpClient);
+        try {
+            StatService.startStatService(this, null, com.tencent.stat.common.StatConstants.VERSION);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
 
 
 }

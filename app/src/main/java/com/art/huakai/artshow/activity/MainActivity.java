@@ -32,6 +32,7 @@ import com.art.huakai.artshow.utils.ResponseCodeCheck;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.SignUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.tencent.stat.StatConfig;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -106,6 +107,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         fragmentManager = getSupportFragmentManager();
         updateUserInfo();
         checkUpdate();
+        String appLimit = StatConfig.getCustomProperty("APP_LIMIT", "ON");
+        if (appLimit.equalsIgnoreCase("OFF")) {
+            finish();
+            showToast("程序权限受限，请联系工作人员");
+        }
     }
 
     /**

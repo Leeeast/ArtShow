@@ -143,3 +143,6 @@
 -keep class com.tencent.open.PKDialog$*
 -keep class com.tencent.open.PKDialog$* {*;}
 #---------QQ share end-------------
+
+-keep class com.tencent.stat.* { ;}
+-keep class com.tencent.mid.* { ;}

@@ -9,6 +9,7 @@ import com.art.huakai.artshow.base.BaseActivity;
 import com.art.huakai.artshow.constant.Constant;
 import com.art.huakai.artshow.utils.SharePreUtil;
 import com.art.huakai.artshow.utils.statusBar.ImmerseStatusBar;
+import com.tencent.stat.StatService;
 
 import java.lang.ref.WeakReference;
 

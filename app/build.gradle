@@ -34,6 +34,11 @@ android {
     }
     productFlavors {
         artshow {}
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [
+                    CHANNEL_VALUE: name
+            ]
+        }
     }
     //这个是解决lint报错的代码
     lintOptions {
@@ -77,4 +82,6 @@ dependencies {
     compile 'org.jsoup:jsoup:1.11.1'
     compile files('libs/open_sdk_r5886_lite.jar')
     compile files('libs/commons-lang3-3.7.jar')
+    compile files('libs/mid-sdk-3.73.jar')
+    compile files('libs/mta-android-sdk-3.3.1.jar')
 }
