@@ -32,6 +32,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        artshow {}
+    }
     //这个是解决lint报错的代码
     lintOptions {
         abortOnError false
@@ -68,11 +71,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    compile files('libs/umeng_social_api.jar')
-    compile files('libs/umeng_social_net.jar')
-    compile files('libs/umeng_social_tool.jar')
-    compile files('libs/SocialSDK_Sina_Full.jar')
-    compile files('libs/weiboSDKCore.jar')
     compile 'com.amap.api:map2d:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile 'com.amap.api:location:latest.integration'
