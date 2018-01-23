@@ -84,9 +84,9 @@
     </style>
 
     <style name="base_dialog" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/dialog_animation_enter</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_animation_enter</item>
         <!-- 进入时的动画 -->
-        <item name="@android:windowExitAnimation">@anim/dialog_animation_exit</item>
+        <item name="android:windowExitAnimation">@anim/dialog_animation_exit</item>
         <!-- 退出时的动画 -->
     </style>
 
