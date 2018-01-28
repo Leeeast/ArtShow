@@ -107,11 +107,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         fragmentManager = getSupportFragmentManager();
         updateUserInfo();
         checkUpdate();
-        String appLimit = StatConfig.getCustomProperty("APP_LIMIT", "ON");
-        if ("OFF".equalsIgnoreCase(appLimit)) {
-            finish();
-            showToast("请重新授权才能使用程序");
-        }
     }
 
     /**
